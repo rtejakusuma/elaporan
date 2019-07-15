@@ -28,8 +28,8 @@ class Auth extends CI_Controller
         echo form_open('auth/register');
         echo form_input('username', 'Username');
         echo form_input('password', 'Password');
-        echo form_input('nama', 'Nama');
-        $options = array('admin' => 'bapak', 'user' => 'bro');
+        echo form_input('opd', 'Opd');
+        $options = array('admin' => 'admin', 'opd' => 'opd');
         echo form_dropdown('role', $options);
         echo form_submit('submit', 'Add');
         echo form_close();
@@ -39,8 +39,8 @@ class Auth extends CI_Controller
     {
         $data = [
             'username' => htmlspecialchars($this->input->post('username', true)),
-            'password' => password_hash($this->input->post('password', true), PASSWORD_DEFAULT),
-            'nama' => htmlspecialchars($this->input->post('nama'), true),
+            'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
+            'opd' => htmlspecialchars($this->input->post('opd'), true),
             'role' => $this->input->post('role', true)
         ];
 
@@ -55,10 +55,12 @@ class Auth extends CI_Controller
         $data = [
             'id' => '',
             'username' => '',
-            'nama' => ''
+            'opd' => ''
         ];
 
-        $this->session->unset_userdata($data);
+        // $this->session->unset_tempdata($data);
+        $this->session->sess_destroy();
+        redirect('auth');
     }
 
     private function _login()
@@ -75,8 +77,8 @@ class Auth extends CI_Controller
                 $this->_sessionbuilder($user);
                 if ($user['role'] == 'admin') {
 
-                    redirect('admin', 'refresh');
-                } elseif ($user['role'] == 'user') {
+                    redirect('home', 'refresh');
+                } elseif ($user['role'] == 'opd') {
 
                     redirect('user', 'refresh');
                 }
@@ -93,9 +95,9 @@ class Auth extends CI_Controller
         $data = [
             'id' => $user['id'],
             'username' => $user['username'],
-            'nama' => $user['nama']
+            'opd' => $user['opd']
         ];
 
-        $this->session->set_userdata($data);
+        $this->session->set_tempdata($data, NULL, 7200);
     }
 }
