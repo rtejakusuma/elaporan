@@ -114,7 +114,7 @@ class Auth extends CI_Controller
     {
         if ($role == 'admin') {
 
-            redirect('home', 'refresh');
+            redirect('admin', 'refresh');
         } elseif ($role == 'opd') {
 
             redirect('opd', 'refresh');

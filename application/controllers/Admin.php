@@ -13,7 +13,8 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $this->load->view('admin/dashboard');
+        $data['contents'] = 'admin/dashboard';
+        $this->load->view('template/index_admin', $data);
     }
 
     private function sess_ver()
