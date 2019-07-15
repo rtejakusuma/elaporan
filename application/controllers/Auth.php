@@ -9,9 +9,10 @@ class Auth extends CI_Controller
     //         redirect('home');
     //     }
     // }
-    private function isAuth(){
-        if($this->session->tempdata() != NULL){
-            redirect('home');
+    private function isAuth()
+    {
+        if ($this->session->tempdata() != NULL) {
+            $this->_roledirect($this->session->tempdata('role'));
         }
     }
     public function index()
@@ -88,13 +89,7 @@ class Auth extends CI_Controller
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $this->_sessionbuilder($user);
-                if ($user['role'] == 'admin') {
-
-                    redirect('home', 'refresh');
-                } elseif ($user['role'] == 'opd') {
-
-                    redirect('user', 'refresh');
-                }
+                $this->_roledirect($user['role']);
             } else {
                 echo 'password salah';
             }
@@ -108,9 +103,21 @@ class Auth extends CI_Controller
         $data = [
             'id' => $user['id'],
             'username' => $user['username'],
-            'opd' => $user['opd']
+            'opd' => $user['opd'],
+            'role' => $user['role']
         ];
 
         $this->session->set_tempdata($data, NULL, 7200);
+    }
+
+    private function _roledirect($role)
+    {
+        if ($role == 'admin') {
+
+            redirect('home', 'refresh');
+        } elseif ($role == 'opd') {
+
+            redirect('user', 'refresh');
+        }
     }
 }
