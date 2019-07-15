@@ -3,8 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Reportform extends CI_Controller {
     private function isAuth(){
-        if($this->session->tempdata('credential') == NULL){
-			redirect('login');
+        if($this->session->tempdata() == NULL){
+			redirect('auth');
 		}
     }
 
