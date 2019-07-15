@@ -17,6 +17,12 @@ class Admin extends CI_Controller
         $this->load->view('template/index_admin', $data);
     }
 
+    public function f($formname)
+    {
+        $data['contents'] = file_get_contents(APPPATH . "libraries/formtemplate/$formname.php");
+        $this->load->view('template/index_admin', $data);
+    }
+
     private function sess_ver()
     {
         if ($this->session->tempdata() == NULL) {

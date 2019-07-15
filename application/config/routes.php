@@ -53,12 +53,12 @@ $route['default_controller'] = 'auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// $route['login'] = 'login/index';
-// $route['login/auth'] = 'login/auth';
-// $route['logout'] = 'login/logout';
 $route['auth/logout'] = 'auth/logout';
 
 $route['home'] = 'home/index';
 
 $route['reportform/(:any)'] = 'reportform/form/$1';
-$route['reportform'] = 'reportform/index';
+$route['report'] = 'reportform/index';
+
+$route['admin/f/(:any)'] = 'admin/f/$1';
+$route['admin'] = 'admin/index';
