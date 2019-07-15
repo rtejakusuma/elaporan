@@ -3,8 +3,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
+    // public function __construct(){
+    //     parent::__construct();
+    //     if($this->session->tempdata() != NULL){
+    //         redirect('home');
+    //     }
+    // }
+    private function isAuth(){
+        if($this->session->tempdata() != NULL){
+            redirect('home');
+        }
+    }
     public function index()
     {
+        $this->isAuth();
         $this->form_validation->set_rules('username', 'Username', 'trim|required');
         $this->form_validation->set_rules('password', 'Password', 'trim|required');
 
@@ -25,6 +37,7 @@ class Auth extends CI_Controller
 
     public function showregis()
     {
+        $this->isAuth();
         echo form_open('auth/register');
         echo form_input('username', 'Username');
         echo form_input('password', 'Password');

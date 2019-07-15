@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <ul>
             <?php
                 require_once(APPPATH . "libraries/reporttypelist.php");
-                $opd = $this->session->tempdata('credential');
+                $opd = $this->session->tempdata('opd');
                 foreach($reporttype[$opd] as $type){
                     echo "<li><a href='" . base_url() . "reportform/f/$type'>" . $type . "</a></li>";
                 }
@@ -32,6 +32,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             }
         ?>
     <br/>
-    <a href="<?php echo base_url() . "logout" ?>">Logout</a>
+    <a href="<?php echo base_url('auth/logout')?>">Logout</a>
 </body>
 </html>

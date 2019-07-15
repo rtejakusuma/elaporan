@@ -2,9 +2,13 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class User_model extends CI_Model{
-    public $user_name;
-    public $user_password;
-    public $user_opd;
+    public $username;
+    public $password;
+    public $opd;
+    public $id;
+    public $create_at;
+    public $last_login;
+    public $role;
 
     public function getUser($username, $pass){
         $res = $this->db->get_where('user',

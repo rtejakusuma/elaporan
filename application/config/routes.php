@@ -56,6 +56,7 @@ $route['translate_uri_dashes'] = FALSE;
 // $route['login'] = 'login/index';
 // $route['login/auth'] = 'login/auth';
 // $route['logout'] = 'login/logout';
+$route['auth/logout'] = 'auth/logout';
 
 $route['home'] = 'home/index';
 
