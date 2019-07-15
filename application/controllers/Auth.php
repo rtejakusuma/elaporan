@@ -117,7 +117,7 @@ class Auth extends CI_Controller
             redirect('home', 'refresh');
         } elseif ($role == 'opd') {
 
-            redirect('user', 'refresh');
+            redirect('opd', 'refresh');
         }
     }
 }
