@@ -19,7 +19,7 @@ class Admin extends CI_Controller
 
     public function f($formname)
     {
-        $data['contents'] = file_get_contents(APPPATH . "libraries/formtemplate/$formname.php");
+        $data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->load->view('template/index_admin', $data);
     }
 
