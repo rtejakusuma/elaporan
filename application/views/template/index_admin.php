@@ -29,7 +29,7 @@
           <?php $this->load->view('template/sidebar_admin') ?>
           <!-- /sidebar menu -->
 
-          
+
         </div>
       </div>
 
@@ -56,7 +56,7 @@
                     </a>
                   </li>
                   <li><a href="javascript:;">Help</a></li>
-                  <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                  <li><a href="<?= base_url('auth/logout') ?>"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                 </ul>
               </li>
 
