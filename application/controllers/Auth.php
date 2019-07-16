@@ -28,11 +28,11 @@ class Auth extends CI_Controller
             // Jika Validasi salah
             $data['title'] = 'Login';
 
-            $this->load->view('template/header_login', $data);
+            $this->load->view('template/header_admin', $data);
 
             $this->load->view('auth/login_view');
 
-            $this->load->view('template/footer_login');
+            $this->load->view('template/footer_admin');
         }
     }
 
