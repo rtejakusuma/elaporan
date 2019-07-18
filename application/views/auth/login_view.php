@@ -33,7 +33,7 @@
         <section class="login_content">
           <div class="w3-panel w3-card-4 w3-white w3-round-large">
             <form class="user" method="post" action="<?= base_url('auth') ?>">
-              <h1>Login Elaporan</h1>
+              <h1>Login</h1>
               <div>
                 <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Username" autofocus>
                 <?= form_error('username', '<small class="text-danger">', '</small>') ?>
