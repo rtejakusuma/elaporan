@@ -42,8 +42,7 @@ class Auth extends CI_Controller
         echo form_open('auth/register');
         echo form_input('username', 'Username');
         echo form_input('password', 'Password');
-        echo form_input('opd', 'Opd');
-        $options = array('admin' => 'admin', 'opd' => 'opd');
+        $options = array(0 => 'admin', 2 => 'adbang', 3 => 'diskominfo');
         echo form_dropdown('role', $options);
         echo form_submit('submit', 'Add');
         echo form_close();
@@ -54,8 +53,7 @@ class Auth extends CI_Controller
         $data = [
             'username' => htmlspecialchars($this->input->post('username', true)),
             'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
-            'opd' => htmlspecialchars($this->input->post('opd'), true),
-            'role' => $this->input->post('role', true)
+            'id_opd' => $this->input->post('role', true)
         ];
 
         $this->load->model('user_model');
@@ -87,9 +85,10 @@ class Auth extends CI_Controller
         $user = $this->user_model->get_login($username);
 
         if ($user) {
-            if (password_verify($password, $user['password'])) {
+            if (password_verify($password, $user['PASSWORD'])) {
                 $this->_sessionbuilder($user);
-                $this->_roledirect($user['role']);
+                $this->user_model->last_login($this->session->tempdata('id'));
+                $this->_roledirect($user['ID_OPD']);
             } else {
                 echo 'password salah';
             }
@@ -101,10 +100,9 @@ class Auth extends CI_Controller
     private function _sessionbuilder($user)
     {
         $data = [
-            'id' => $user['id'],
-            'username' => $user['username'],
-            'opd' => $user['opd'],
-            'role' => $user['role']
+            'id' => $user['ID'],
+            'username' => $user['USERNAME'],
+            'id_opd' => $user['ID_OPD']
         ];
 
         $this->session->set_tempdata($data, NULL, 7200);
@@ -112,10 +110,10 @@ class Auth extends CI_Controller
 
     private function _roledirect($role)
     {
-        if ($role == 'admin') {
+        if ($role == 0) {
 
             redirect('admin', 'refresh');
-        } elseif ($role == 'opd') {
+        } elseif ($role != 0) {
 
             redirect('opd', 'refresh');
         }
