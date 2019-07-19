@@ -18,7 +18,10 @@ class Reportform extends CI_Controller
 
     public function f($formname)
     {
-        $this->load->view('reportform', array('formname' => $formname));
+        $this->load->model('surat_model');
+        $data['fielddata'] = $this->surat_model->get_fielddata($formname);
+        $data['formname'] = $formname;
+        $this->load->view('reportform', array('data' => $data));
     }
 
     private function sess_ver()
