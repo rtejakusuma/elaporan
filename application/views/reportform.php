@@ -28,9 +28,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
     </div>
     <div id='reportform'></div>
-    <?php
-    if ($formname != NULL) {
-        echo file_get_contents(APPPATH . "libraries/formtemplate/$formname.php");
+    <?php // edit form here
+    if ($data['fielddata'] != NULL && $data['formname'] != NULL) {
+        // manual form edit -> uncomment yang file_get_content, comment yang bawahnya
+        echo file_get_contents(APPPATH . "libraries/formtemplate/".$data['formname'].".php");
+        // echo form_open('reportform/submit', '', array('formname' => $data['formname']));
+        // foreach($data['fielddata'] as $f){
+        //     echo "$f->name $f->type $f->max_length<br/>";
+        // }
+        // echo form_close();
+        
     }
     ?>
     <br />

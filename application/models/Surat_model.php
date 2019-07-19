@@ -27,6 +27,10 @@ class Surat_model extends CI_Model
         return $this->_get_nama_surat($res);
     }
 
+    public function get_fielddata($name){
+        return $this->db->field_data($name);
+    }
+
     private function _get_nama_surat($id) // get Nama Surat berdasarkan tipe surat
     {
         $temp = $this->db->get_where('tipe_surat', array('id_tipe' => $id))->result();
