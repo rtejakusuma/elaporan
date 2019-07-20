@@ -8,9 +8,16 @@ class Tipesuratopd_model extends CI_Model
         return $this->db->select('tipesurat_per_opd')->result();
     }
 
-    public function get_tipesurat_per_opd($id_opd)
+    public function get_idtipe_per_opd($id_opd)
     {
-        return $this->db->get_where('tipesurat_per_opd', array('id_opd' => $id_opd))->result();
+        $temp = $this->db->get_where('tipesurat_per_opd', array('id_opd' => $id_opd))->result();
+        $idtipe = array();
+        foreach($temp as $row){
+            array_push($idtipe, $row->id_tipe);
+        }
+        if(sizeof($idtipe) > 0)
+            return $idtipe;
+        else return NULL;
     }
 
     public function update_tipesurat_per_opd($id_opd, $data)

@@ -4,11 +4,13 @@
       <li><a><i class="fa fa-home"></i> Buat Laporan <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <?php
-          require_once(APPPATH . "libraries/reporttypelist.php");
-          $opd = $this->session->tempdata('opd');
-          foreach ($reporttype[$opd] as $type) {
-            echo "<li><a href='" . base_url() . "admin/f/$type'>" . $type . "</a></li>";
-          }
+            if($this->session->tempdata('id_opd') != 0){ // non-admin
+              foreach ($data['sidebar']->nama_surat as $type) {
+                echo "<li><a href='" . base_url() . "opd/f/$type'>" . $type . "</a></li>";
+              }
+            } else {
+
+            }
           ?>
         </ul>
       </li>
