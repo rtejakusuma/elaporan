@@ -16,6 +16,12 @@ class Opd extends CI_Controller
         $this->load->view('opd/dashboard');
     }
 
+    public function f($formname)
+    {
+        $data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
+        $this->load->view('template/index_admin', $data);
+    }
+
     private function sess_ver()
     {
         if ($this->session->tempdata() == NULL) {

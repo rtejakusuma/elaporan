@@ -40,20 +40,23 @@ class Surat_model extends CI_Model
         return $this->db->get_where($tipe, array('id_surat' => $id))->result[0];
     }
 
-    private function _get_nama_surat($id) // get Nama Surat berdasarkan tipe surat
+    private function _get_nama_surat($id)
     {
         $temp = $this->db->get_where('tipe_surat', array('id_tipe' => $id))->result();
         return $temp[0]->nama_surat;
     }
 
-    public function add_data($data)
+    public function add_data($namasurat, $data)
     {
-        
+        $this->db->insert($namasurat, $data);
+        // redirect('opd','refresh');
     }
 
     public function update_data($id, $data)
     {
-
+        $namasurat = $this->_get_nama_surat($id);
+        $this->db->update($namasurat, $data, array('id_surat' => $id));
+        // redirect('opd', 'refresh');
     }
 
 }
