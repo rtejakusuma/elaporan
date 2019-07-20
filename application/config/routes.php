@@ -59,5 +59,5 @@ $route['login'] = 'auth';
 $route['reportform/(:any)'] = 'reportform/form/$1';
 $route['report'] = 'reportform/index';
 
-$route['admin/f/(:any)'] = 'admin/f/$1';
+$route['opd/formlist/(:any)'] = 'opd/formlist/$1';
 $route['admin'] = 'admin/index';
