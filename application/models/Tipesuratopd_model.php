@@ -13,5 +13,10 @@ class Tipesuratopd_model extends CI_Model
         return $this->db->get_where('tipesurat_per_opd', array('id_opd' => $id_opd))->result();
     }
 
+    public function update_tipesurat_per_opd($id_opd, $data)
+    {
+        $this->db->update('tipesurat_per_opd', $data, array('id_opd' => $id_opd));
+    }
+
 }
 

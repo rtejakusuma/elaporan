@@ -42,7 +42,12 @@ class Auth extends CI_Controller
         echo form_open('auth/register');
         echo form_input('username', 'Username');
         echo form_input('password', 'Password');
-        $options = array(0 => 'admin', 2 => 'adbang', 3 => 'diskominfo');
+        $options = array();
+        $this->load->model('opd_model', 'opd');
+        $data = $this->opd->gets();
+        foreach($data as $row){
+            $options[$row->id_opd] = $row->nama_opd;
+        }
         echo form_dropdown('role', $options);
         echo form_submit('submit', 'Add');
         echo form_close();

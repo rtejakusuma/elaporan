@@ -23,6 +23,18 @@ class Admin extends CI_Controller
         $this->load->view('template/index_admin', $data);
     }
 
+    public function add_user($data)
+    {
+        $this->load->model('user_model', 'user');
+        $this->user->insert($data);
+    }
+
+    public function update_tipesurat_per_opd($id_opd, $data)
+    {
+        $this->load->model('tipesuratperopd_model', 'tipesurat');
+        $this->tipesurat->update_tipesurat_per_opd($id_opd, $data);
+    }
+
     private function sess_ver()
     {
         if ($this->session->tempdata() == NULL) {
