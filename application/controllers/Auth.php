@@ -104,10 +104,12 @@ class Auth extends CI_Controller
 
     private function _sessionbuilder($user)
     {
+        $this->load->model('opd_model', 'opd');
         $data = [
             'id' => $user['id'],
             'username' => $user['username'],
-            'id_opd' => $user['id_opd']
+            'id_opd' => $user['id_opd'],
+            'nama_opd' => $this->opd->get_namaopd($user['id_opd'])
         ];
 
         $this->session->set_tempdata($data, NULL, 7200);
@@ -115,9 +117,9 @@ class Auth extends CI_Controller
 
     private function _roledirect($id_opd)
     {
-        if ($id_opd == '0') {
+        if ($id_opd == 0) {
             redirect('admin', 'refresh');
-        } elseif ($id_opd != '0') {
+        } elseif ($id_opd != 0) {
             redirect('opd', 'refresh');
         }
     }
