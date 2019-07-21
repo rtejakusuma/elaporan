@@ -45,7 +45,7 @@ class Auth extends CI_Controller
         $options = array();
         $this->load->model('opd_model', 'opd');
         $data = $this->opd->gets();
-        foreach($data as $row){
+        foreach ($data as $row) {
             $options[$row->id_opd] = $row->nama_opd;
         }
         echo form_dropdown('role', $options);

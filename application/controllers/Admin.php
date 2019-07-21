@@ -35,6 +35,12 @@ class Admin extends CI_Controller
         $this->tipesurat->update_tipesurat_per_opd($id_opd, $data);
     }
 
+    public function reset_password($id)
+    {
+        $this->load->model('user_model');
+        $this->user_model->reset_password($id);
+    }
+
     private function sess_ver()
     {
         if ($this->session->tempdata() == NULL) {

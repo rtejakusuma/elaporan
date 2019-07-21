@@ -37,14 +37,14 @@ class Reportform extends CI_Controller
         $data = $this->input->post();
         // metadata needed:
         // - nama tipe surat
-        if($id == NULL){ // new data
+        if ($id == NULL) { // new data
             $this->surat->add_data($data);
         } else { // editted data
             $this->surat->update_data($id, $data);
         }
-        
+
         // redirect('opd','refresh');
-        
+
     }
 
     private function sess_ver()

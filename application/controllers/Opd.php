@@ -24,7 +24,7 @@ class Opd extends CI_Controller
         $this->load->model('tipesuratopd_model', 'tso');
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
-        foreach($idtipe as $id){
+        foreach ($idtipe as $id) {
             // var_dump($this->ts->get_namasurat($id)[0]); echo "<br/>";
             array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
         }

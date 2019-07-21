@@ -12,7 +12,7 @@ class Surat_model extends CI_Model
     {
         $table = $this->get_tipe_surat($id);
         $temp = $this->db->get($table)->row_array();
-        if($temp == NULL){
+        if ($temp == NULL) {
             return -1; // error code
         }
         return $temp;
@@ -63,7 +63,6 @@ class Surat_model extends CI_Model
         $this->db->update($namasurat, $data, array('id_surat' => $id));
         // redirect('opd', 'refresh');
     }
-
 }
 
 /* End of file Surat_model.php */

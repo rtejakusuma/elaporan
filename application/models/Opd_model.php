@@ -17,4 +17,3 @@ class Opd_model extends CI_Model
     }
 
 }
-
