@@ -8,7 +8,7 @@ class Surat_model extends CI_Model
         return $this->db->select('surat')->result();
     }
 
-    public function get_surat($id) // get Surat berdasarkan ID
+    public function get_surat($id) // get Surat berdasarkan ID Surat
     {
         $table = $this->get_tipe_surat($id);
         $temp = $this->db->get($table)->row_array();
@@ -21,6 +21,11 @@ class Surat_model extends CI_Model
     public function get_by_id($id)
     {
         return $this->db->get_where('surat', array('id_surat' => $id))->result()[0]->id_tipe;
+    }
+
+    public function get_listsurat_by_idopd($id_opd)
+    {
+        
     }
 
     public function get_tipe_surat($id)

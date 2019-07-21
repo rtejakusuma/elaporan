@@ -59,6 +59,13 @@ class Opd extends CI_Controller
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
+    public function get_riwayat_laporan()
+    {
+        $id_opd = $this->session->tempdata('id_opd');
+        $this->load->model('surat_model', 'surat');
+        
+    }
+
     private function sess_ver()
     {
         if ($this->session->tempdata() == NULL) {
