@@ -7,6 +7,4 @@ class Opd_model extends CI_Model
     {
         return $this->db->get('opd')->result();
     }
-
 }
-
