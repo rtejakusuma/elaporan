@@ -5,8 +5,8 @@
         <ul class="nav child_menu">
           <?php
             if($this->session->tempdata('id_opd') != 0){ // non-admin
-              foreach ($data['sidebar']->nama_surat as $type) {
-                echo "<li><a href='" . base_url() . "opd/f/$type'>" . $type . "</a></li>";
+              foreach ($data['sidebar'] as $type) {
+                echo "<li><a href='" . base_url() . "opd/f/". str_replace(' ', '', $type->nama_surat)."'>" . $type->nama_surat . "</a></li>";
               }
             } else {
 

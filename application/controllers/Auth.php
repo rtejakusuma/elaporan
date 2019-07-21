@@ -90,10 +90,10 @@ class Auth extends CI_Controller
         $user = $this->user_model->get_login($username);
 
         if ($user) {
-            if (password_verify($password, $user['PASSWORD'])) {
+            if (password_verify($password, $user['password'])) {
                 $this->_sessionbuilder($user);
                 $this->user_model->last_login($this->session->tempdata('id'));
-                $this->_roledirect($user['ID_OPD']);
+                $this->_roledirect($user['id_opd']);
             } else {
                 echo 'password salah';
             }
@@ -105,21 +105,19 @@ class Auth extends CI_Controller
     private function _sessionbuilder($user)
     {
         $data = [
-            'id' => $user['ID'],
-            'username' => $user['USERNAME'],
-            'id_opd' => $user['ID_OPD']
+            'id' => $user['id'],
+            'username' => $user['username'],
+            'id_opd' => $user['id_opd']
         ];
 
         $this->session->set_tempdata($data, NULL, 7200);
     }
 
-    private function _roledirect($role)
+    private function _roledirect($id_opd)
     {
-        if ($role == 0) {
-
+        if ($id_opd == '0') {
             redirect('admin', 'refresh');
-        } elseif ($role != 0) {
-
+        } elseif ($id_opd != '0') {
             redirect('opd', 'refresh');
         }
     }

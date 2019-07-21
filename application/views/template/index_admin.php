@@ -134,7 +134,7 @@
       <div class="right_col" role="main">
         <!-- <?php //$this->load->view($contents) 
               ?> -->
-        <?php echo $contents; ?>
+        <?php echo $data['contents']; ?>
 
       </div>
       <!-- /page content -->
