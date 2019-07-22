@@ -3,16 +3,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Auth extends CI_Controller
 {
-    // public function __construct(){
-    //     parent::__construct();
-    //     if($this->session->tempdata() != NULL){
-    //         redirect('home');
-    //     }
-    // }
     private function isAuth()
     {
         if ($this->session->tempdata() != NULL) {
-            $this->_roledirect($this->session->tempdata('role'));
+            $this->_roledirect($this->session->tempdata('id_opd'));
         }
     }
     public function index()
@@ -69,13 +63,6 @@ class Auth extends CI_Controller
 
     public function logout()
     {
-        $data = [
-            'id' => '',
-            'username' => '',
-            'opd' => ''
-        ];
-
-        // $this->session->unset_tempdata($data);
         $this->session->sess_destroy();
         redirect('auth');
     }
@@ -117,9 +104,9 @@ class Auth extends CI_Controller
 
     private function _roledirect($id_opd)
     {
-        if ($id_opd == 0) {
+        if ($id_opd == '1') {
             redirect('admin', 'refresh');
-        } elseif ($id_opd != 0) {
+        } elseif ($id_opd != '1') {
             redirect('opd', 'refresh');
         }
     }

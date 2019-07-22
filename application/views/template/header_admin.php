@@ -29,4 +29,7 @@
 
   <!-- Custom Theme Style -->
   <link href="<?= base_url('assets/') ?>build/css/custom.min.css" rel="stylesheet">
+
+  <!-- Custom DataTables -->
+  <link rel="stylesheet" href="http://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 </head>

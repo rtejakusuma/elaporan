@@ -3,24 +3,30 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Admin extends CI_Controller
 {
+    public $data;
 
     public function __construct()
     {
         parent::__construct();
         $this->sess_ver();
-    }
 
+        $this->data['user'] = array(
+            'id_opd' => $this->session->tempdata('id_opd'),
+            'nama_opd' => $this->session->tempdata('nama_opd')
+        );
+        $this->data['title'] = "E-Laporan " . strtoupper($this->session->tempdata('nama_opd'));
+    }
 
     public function index()
     {
-        $data['contents'] = 'admin/dashboard';
-        $this->load->view('template/index_admin', $data);
+        $this->data['contents'] = 'admin/dashboard';
+        $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
     public function f($formname)
     {
-        $data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
-        $this->load->view('template/index_admin', $data);
+        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
+        $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
     public function add_user($data)
@@ -46,6 +52,12 @@ class Admin extends CI_Controller
         if ($this->session->tempdata() == NULL) {
             redirect('auth/login');
         }
+    }
+
+    public function table()
+    {
+        $this->data['contents'] = file_get_contents(APPPATH . "views/admin/test_table.php");
+        $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 }
 

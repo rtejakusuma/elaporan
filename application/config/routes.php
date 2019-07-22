@@ -54,6 +54,7 @@ $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
 $route['auth/logout'] = 'auth/logout';
+$route['home'] = 'auth';
 $route['login'] = 'auth';
 
 $route['reportform/(:any)'] = 'reportform/form/$1';
