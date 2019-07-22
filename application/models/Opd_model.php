@@ -16,4 +16,12 @@ class Opd_model extends CI_Model
         else return NULL;
     }
 
+    public function get_idopd_by_name($name)
+    {
+        $ret = $this->db->get_where('opd', array('nama_opd' => $name))->result();
+        if($ret != NULL)
+            return $ret[0]->nama_opd;
+        else return NULL;
+    }
+
 }

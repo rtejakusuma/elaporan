@@ -42,7 +42,7 @@ class Auth extends CI_Controller
         foreach ($data as $row) {
             $options[$row->id_opd] = $row->nama_opd;
         }
-        echo form_dropdown('role', $options);
+        echo form_dropdown('opd', $options);
         echo form_submit('submit', 'Add');
         echo form_close();
     }
@@ -52,7 +52,7 @@ class Auth extends CI_Controller
         $data = [
             'username' => htmlspecialchars($this->input->post('username', true)),
             'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
-            'id_opd' => $this->input->post('role', true)
+            'id_opd' => $this->input->post('opd', true)
         ];
 
         $this->load->model('user_model');

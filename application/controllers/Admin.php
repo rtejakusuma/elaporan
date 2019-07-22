@@ -19,24 +19,50 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $this->data['contents'] = 'admin/dashboard';
+        $this->data['formfilename'] = '../admin/dashboard';
         $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
-    public function f($formname)
+    public function f($formfilename=NULL)
     {
-        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
-        $this->load->view('template/index_admin', ['data' => $this->data]);
+        if($formfilename == NULL || !file_exists(APPPATH . "views/formtemplate/$formfilename.php"))
+        {
+            redirect('admin','refresh');
+            return;
+        }
+        $this->data['formfilename'] = $formfilename;
+
+        // data to send to view for option
+        if($formfilename == 'registrationform'){
+            $this->data['opsi_opd'] = null;
+        } elseif ($formfilename == 'resetpasswordform') {
+            $this->data['opsi_user'] = null;
+        } elseif ($formfilename == 'tipesuratopd'){
+            $this->data['opsi_tipesurat'] = null;
+        }
+
+        $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
-    public function add_user($data)
+    public function add_user()
     {
-        $this->load->model('user_model', 'user');
-        $this->user->insert($data);
+        $this->load->model('opd_model', 'opd');
+        $data = [
+            'username' => htmlspecialchars($this->input->post('username', true)),
+            'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
+            'id_opd' => $this->opd->get_idopd_by_name( $this->input->post('opd', true) )
+        ];
+
+        $this->load->model('user_model');
+        $this->user_model->insert($data);
+
+        redirect('auth', 'refresh');
     }
 
-    public function update_tipesurat_per_opd($id_opd, $data)
+    public function update_tipesurat_per_opd()
     {
+        $id_opd = $this->session->tempdata('id_opd');
+        $data = $this->input->post(); // data from chekbox in form
         $this->load->model('tipesuratperopd_model', 'tipesurat');
         $this->tipesurat->update_tipesurat_per_opd($id_opd, $data);
     }
