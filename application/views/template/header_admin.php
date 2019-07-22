@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" href="<?= base_url('assets/') ?>production/images/tasks.png" type="image/png" />
 
-  <title><?= $title ?></title>
+  <title><?= $data['title'] ?></title>
 
   <!-- Bootstrap -->
   <link href="<?= base_url('assets/') ?>vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
