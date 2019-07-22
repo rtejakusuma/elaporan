@@ -61,20 +61,36 @@ class Opd extends CI_Controller
         $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['formname'] = $formname;
+        $this->data['id_surat'] = $id;
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
     //sementara
-    public function riwayatsurat()
+    public function riwayatsurat($page_number=1)
     {
-        return $this->get_riwayat_laporan();
+        return $this->get_riwayat_laporan($page_number);
     }
 
-    public function get_riwayat_laporan()
+    public function get_riwayat_laporan($page_number)
     {
         $id_opd = $this->session->tempdata('id_opd');
         $this->load->model('surat_model', 'surat');
-        $this->data['list_surat'] = $this->surat->get_listsurat_by_idopd($id_opd);
+        $this->data['list_surat'] = $this->surat->get_listsurat_by_idopd($id_opd, $page_number);
+    }
+
+    public function submit()
+    {
+        $id_surat = NULL;
+        if($this->input->post('id_surat') != NULL){
+            $id_surat = $this->input->post('id_surat');
+        }
+        $data = $this->input->post();
+        if ($id_surat == NULL) { // new data
+            $this->surat->add_data($data);
+        } else { // editted data
+            $this->surat->update_data($id, $data);
+        }
+
     }
 
     private function sess_ver()

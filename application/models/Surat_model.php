@@ -23,7 +23,7 @@ class Surat_model extends CI_Model
         return $this->db->get_where('surat', array('id_surat' => $id))->result()[0]->id_tipe;
     }
 
-    public function get_listsurat_by_idopd($id_opd)
+    public function get_listsurat_by_idopd($id_opd, $page_number)
     {   
         $list_idsurat = $this->db->get_where('surat', array('id_opd' => $id_opd))->result();
         $namasurat = array();
