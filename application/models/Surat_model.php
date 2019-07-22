@@ -54,6 +54,7 @@ class Surat_model extends CI_Model
 
     public function add_data($namasurat, $data)
     {
+        var_dump($namasurat, $data); die();
         $this->db->insert($namasurat, $data);
         // redirect('opd','refresh');
     }
