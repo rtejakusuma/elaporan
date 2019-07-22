@@ -14,7 +14,7 @@
           ?>
         </ul>
       </li>
-      <li><a><i class="fa fa-edit"></i> Riwayat Laporan </a>
+      <li><a href="<?php echo base_url('opd/riwayatsurat') ?>"><i class="fa fa-edit"></i> Riwayat Surat </a>
       </li>
     </ul>
   </div>

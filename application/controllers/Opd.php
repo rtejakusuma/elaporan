@@ -38,15 +38,18 @@ class Opd extends CI_Controller
 
     public function index()
     {
+        // sementara
+        return $this->get_riwayat_laporan();
         $this->data['contents'] = 'opd/dashboard';
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
     public function f($formname)
     {
-        $formname = str_replace(' ', '', strtolower($formname));
-        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
+        $formfilename = str_replace(' ', '', strtolower($formname));
+        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formfilename.php");
         $this->data['sidebar'] = $this->tipesurat;
+        $this->data['formname'] = strtolower($formname);
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
@@ -57,7 +60,14 @@ class Opd extends CI_Controller
         $formname = $this->surat->get_tipe_surat($id);
         $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->data['sidebar'] = $this->tipesurat;
+        $this->data['formname'] = $formname;
         $this->load->view('template/index_admin', array('data' => $this->data));
+    }
+
+    //sementara
+    public function riwayatsurat()
+    {
+        return $this->get_riwayat_laporan();
     }
 
     public function get_riwayat_laporan()
