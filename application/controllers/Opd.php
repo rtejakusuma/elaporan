@@ -16,6 +16,7 @@ class Opd extends CI_Controller
                                 'id_opd' => $this->session->tempdata('id_opd'),
                                 'nama_opd' => $this->session->tempdata('nama_opd')
                                 );
+        $this->data['title'] = "E-Laporan " . $this->session->tempdata('nama_opd');
     }
 
     public function get_tipesurat($id_opd)
@@ -24,7 +25,7 @@ class Opd extends CI_Controller
         $this->load->model('tipesuratopd_model', 'tso');
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
-        foreach ($idtipe as $id) {
+        foreach($idtipe as $id){
             // var_dump($this->ts->get_namasurat($id)[0]); echo "<br/>";
             array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
         }
@@ -37,15 +38,18 @@ class Opd extends CI_Controller
 
     public function index()
     {
+        // sementara
+        return $this->get_riwayat_laporan();
         $this->data['contents'] = 'opd/dashboard';
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
     public function f($formname)
     {
-        $formname = str_replace(' ', '', strtolower($formname));
-        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
+        $formfilename = str_replace(' ', '', strtolower($formname));
+        $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formfilename.php");
         $this->data['sidebar'] = $this->tipesurat;
+        $this->data['formname'] = strtolower($formname);
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
@@ -56,14 +60,21 @@ class Opd extends CI_Controller
         $formname = $this->surat->get_tipe_surat($id);
         $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->data['sidebar'] = $this->tipesurat;
+        $this->data['formname'] = $formname;
         $this->load->view('template/index_admin', array('data' => $this->data));
+    }
+
+    //sementara
+    public function riwayatsurat()
+    {
+        return $this->get_riwayat_laporan();
     }
 
     public function get_riwayat_laporan()
     {
         $id_opd = $this->session->tempdata('id_opd');
         $this->load->model('surat_model', 'surat');
-        
+        $this->data['list_surat'] = $this->surat->get_listsurat_by_idopd($id_opd);
     }
 
     private function sess_ver()
