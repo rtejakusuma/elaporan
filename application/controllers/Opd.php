@@ -13,10 +13,10 @@ class Opd extends CI_Controller
         $this->get_tipesurat($this->session->tempdata('id_opd'));
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['user'] = array(
-                                'id_opd' => $this->session->tempdata('id_opd'),
-                                'nama_opd' => $this->session->tempdata('nama_opd')
-                                );
-        $this->data['title'] = "E-Laporan " . $this->session->tempdata('nama_opd');
+            'id_opd' => $this->session->tempdata('id_opd'),
+            'nama_opd' => $this->session->tempdata('nama_opd')
+        );
+        $this->data['title'] = "E-Laporan " . strtoupper($this->session->tempdata('nama_opd'));
     }
 
     public function get_tipesurat($id_opd)
@@ -25,7 +25,7 @@ class Opd extends CI_Controller
         $this->load->model('tipesuratopd_model', 'tso');
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
-        foreach($idtipe as $id){
+        foreach ($idtipe as $id) {
             // var_dump($this->ts->get_namasurat($id)[0]); echo "<br/>";
             array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
         }
@@ -66,7 +66,7 @@ class Opd extends CI_Controller
     }
 
     //sementara
-    public function riwayatsurat($page_number=1)
+    public function riwayatsurat($page_number = 1)
     {
         return $this->get_riwayat_laporan($page_number);
     }
@@ -81,7 +81,7 @@ class Opd extends CI_Controller
     public function submit()
     {
         $id_surat = NULL;
-        if($this->input->post('id_surat') != NULL){
+        if ($this->input->post('id_surat') != NULL) {
             $id_surat = $this->input->post('id_surat');
         }
         $data = $this->input->post();
@@ -90,7 +90,6 @@ class Opd extends CI_Controller
         } else { // editted data
             $this->surat->update_data($id, $data);
         }
-
     }
 
     private function sess_ver()
