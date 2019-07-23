@@ -46,7 +46,6 @@ class Opd extends CI_Controller
     public function f($formname)
     {
         $formfilename = str_replace(' ', '', strtolower($formname));
-        // $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formfilename.php");
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['formfilename'] = $formfilename;
         $this->load->view('template/index_admin', array('data' => $this->data));

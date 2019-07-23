@@ -3,7 +3,7 @@
 <div class="">
   <div class="page-title">
     <div class="title_left">
-      <h3>Reset Password</h3>
+      <!-- <h3>Reset Password</h3> -->
     </div>
 
   </div>
@@ -12,13 +12,8 @@
     <div class="col-md-12 col-sm-12 col-xs-12">
       <div class="x_panel">
         <div class="x_title">
-          <h2>Reset Password <small>different form elements</small></h2>
-          <ul class="nav navbar-right panel_toolbox">
-            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-            </li>
-            <li><a class="close-link"><i class="fa fa-close"></i></a>
-            </li>
-          </ul>
+          <h2>Tambah User Baru</h2>
+       
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -35,6 +30,18 @@
               <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
                 <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">OPD</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <select id="opd" name="selected_opd" >
+                  <?php
+                    foreach($data['opsi_opd'] as $opd){
+                      echo "<option value=\'" . $opd->id_opd . "\'>" . strtoupper($opd->nama_opd) . "</option>";
+                    }
+                  ?>
+                </select>
               </div>
             </div>
             <div class="ln_solid"></div>

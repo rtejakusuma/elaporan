@@ -34,7 +34,14 @@ class Admin extends CI_Controller
 
         // data to send to view for option
         if($formfilename == 'registrationform'){
-            $this->data['opsi_opd'] = null;
+            $this->load->model('opd_model', 'opd');
+            $data = $this->opd->gets();
+            $this->data['opsi_opd'] = array();
+            foreach ($data as $row) {
+                if($row->id_opd == '1') // id_opd admin
+                    continue;
+                array_push($this->data['opsi_opd'],  $row);
+            }
             $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
             $this->data['opsi_user'] = null;
@@ -42,6 +49,9 @@ class Admin extends CI_Controller
         } elseif ($formfilename == 'tipesuratopdform'){
             $this->data['opsi_tipesurat'] = null;
             $this->data['tipe_opsi'] = 'tipesurat';
+        } else {
+            redirect('admin', 'refresh');
+            return;
         }
 
         $this->load->view('template/index_admin', array('data' => $this->data));
