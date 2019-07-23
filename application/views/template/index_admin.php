@@ -134,7 +134,7 @@
       <div class="right_col" role="main">
         <!-- <?php //$this->load->view($contents) 
               ?> -->
-        <?php require $data['contents']; ?>
+        <?php require(APPPATH . "views/formtemplate/$data[formfilename].php"); ?>
 
       </div>
       <!-- /page content -->
