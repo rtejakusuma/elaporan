@@ -6,7 +6,7 @@
       <div class="col-md-3 left_col">
         <div class="left_col scroll-view">
           <div class="navbar nav_title" style="border: 0;">
-            <a href="index.html" class="site_title"></i> <span>E-Laporan</span></a>
+            <a href="<?= base_url('home') ?>" class="site_title"></i><img src="<?= base_url('assets/production/images/icon.png') ?>" style="width:35px;"><span> E-Laporan</span></a>
           </div>
 
           <div class="clearfix"></div>
@@ -18,7 +18,7 @@
             </div> -->
             <div class="profile_info">
               <!-- <span>Welcome,</span> -->
-              <h2><?php echo strtoupper( $data['user']['nama_opd'] ); ?></h2>
+              <h2><?= strtoupper($data['user']['nama_opd']); ?></h2>
             </div>
           </div>
           <!-- /menu profile quick info -->
@@ -44,7 +44,7 @@
             <ul class="nav navbar-nav navbar-right">
               <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                  <img src="<?= base_url('assets/') ?>production/images/img.jpg" alt="">John Doe
+                  <img src="<?= base_url('assets/') ?>production/images/img.jpg" alt=""><?= strtoupper($data['user']['nama_opd']); ?>
                   <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -132,10 +132,13 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        <!-- <?php //$this->load->view($contents) 
-              ?> -->
-        <?php echo $data['contents']; ?>
+        <div class="col-md-12 col-sm-12 col-xs-12">
+          <?= $this->session->flashdata('pesan'); ?>
+        </div>
 
+        <?php if (isset($data['contents'])) {
+          require $data['contents'];
+        } ?>
       </div>
       <!-- /page content -->
 

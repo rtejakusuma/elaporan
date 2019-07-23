@@ -14,7 +14,12 @@
       </li>
       <li><a href="<?php echo base_url('opd/riwayatsurat') ?>"><i class="fa fa-edit"></i> Riwayat Surat </a>
       </li>
-      <li><a href="<?= base_url('admin/table') ?>"><i class="fa fa-edit"></i> contoh table </a>
+      <li><a><i class="fa fa-envelope-square"></i>Disposisi<span class="fa fa-chevron-down"></span></a>
+        <ul class="nav child_menu">
+          <li><a href="<?= base_url('opd/show_disposisi') ?>"><i class="fa fa-plus"></i>Input</a></li>
+          <li><a href="<?= base_url('opd/rekap_disposisi') ?>"><i class="fa fa-navicon"></i>Rekap Disposisi</a></li>
+          <li><a href="<?= base_url('opd/show_lampiran_disposisi') ?>"><i class="fa fa-image"></i>Lampiran Disposisi</a></li>
+        </ul>
       </li>
     </ul>
   </div>

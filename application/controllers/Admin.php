@@ -29,7 +29,7 @@ class Admin extends CI_Controller
             redirect('admin', 'refresh');
             return;
         }
-        
+
         $this->data['formfilename'] = $formfilename;
 
         // data to send to view for option
@@ -95,11 +95,11 @@ class Admin extends CI_Controller
         $flag_option = $this->input->post('tipe_opsi'); // tipe_opsi from form hidden attribute
         if ($flag_option == 'register') {
             $this->add_user();
-            redirect('admin/f/registrationform','refresh');
-        } elseif ($flag_option == 'reset'){
+            redirect('admin/f/registrationform', 'refresh');
+        } elseif ($flag_option == 'reset') {
             $this->reset_password();
-            redirect('admin/f/resetpasswordform','refresh');
-        } elseif ($flag_option == 'tipesurat'){
+            redirect('admin/f/resetpasswordform', 'refresh');
+        } elseif ($flag_option == 'tipesurat') {
             $this->update_tipesurat_per_opd();
             redirect('admin/f/tipesuratopdform', 'refresh');
         }
@@ -107,51 +107,9 @@ class Admin extends CI_Controller
 
     private function sess_ver()
     {
-        if ($this->session->tempdata() == NULL) {
+        if ($this->session->tempdata() == NULL or $this->session->tempdata('id_opd') != '1') {
             redirect('auth');
         }
-    }
-
-    public function rekap_disposisi()
-    {
-        $this->load->model('disposisi_model');
-        $this->data['rawdata'] = $this->disposisi_model->get();
-        // var_dump($this->data['rawdata']);
-
-        $this->data['title'] = 'Rekap Disposisi';
-        $this->data['contents'] = APPPATH . "views/admin/rekap_disposisi.php";
-        $this->load->view('template/index_admin', ['data' => $this->data]);
-    }
-
-    public function show_disposisi()
-    {
-        $this->data['title'] = 'Form Input Disposisi';
-        $this->data['contents'] = APPPATH . "views/admin/form_disposisi.php";
-
-        $this->load->model('Opd_model', 'opd');
-        $this->data['raw_data'] = $this->opd->gets();
-
-        $this->load->view('template/index_admin', ['data' => $this->data]);
-    }
-
-    public function input_disposisi()
-    {
-        $data = [
-            'id_opd' => $this->session->tempdata('id_opd'),
-            'surat_dari' => htmlspecialchars($this->input->post('surat_dari', TRUE)),
-            'tgl_surat' => date('Y-m-d', strtotime($this->input->post('tgl_surat', TRUE))),
-            'tgl_masuk' => date('Y-m-d', strtotime($this->input->post('tgl_masuk', TRUE))),
-            'no_surat' => htmlspecialchars($this->input->post('no_surat', TRUE)),
-            'no_agenda' => htmlspecialchars($this->input->post('no_agenda', TRUE)),
-            'perihal' => htmlspecialchars($this->input->post('perihal', TRUE)),
-            'diteruskan' => htmlspecialchars($this->input->post('diteruskan', TRUE)),
-            'isi' => htmlspecialchars($this->input->post('isi', TRUE))
-        ];
-
-        $this->load->model('disposisi_model');
-        $this->disposisi_model->insert($data);
-
-        redirect('admin/rekap_disposisi', 'refresh');
     }
 }
 

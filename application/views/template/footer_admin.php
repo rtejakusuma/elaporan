@@ -57,5 +57,25 @@
         <script src="<?= base_url('assets/') ?>vendors/pdfmake/build/pdfmake.min.js"></script>
         <script src="<?= base_url('assets/') ?>vendors/pdfmake/build/vfs_fonts.js"></script>
 
+        <!-- PNotify -->
+        <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.js"></script>
+        <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.buttons.js"></script>
+        <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.nonblock.js"></script>
+
         <!-- Custom Theme Scripts -->
         <script src="<?= base_url('assets/') ?>build/js/custom.min.js"></script>
+        <script>
+                $(document).ready(function() {
+                        $('.ui-pnotify').remove();
+                });
+                $('#rekapdisposisitable').dataTable({
+                        "columnDefs": [{
+                                "orderable": false,
+                                "targets": 8
+                        }]
+                });
+                $('.collapsed')
+                        .css('height', 'auto')
+                        .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()
+                        .find('.x_content').css('display', 'none');
+        </script>

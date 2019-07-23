@@ -5,7 +5,7 @@ class Opd_model extends CI_Model
 {
     public function gets()
     {
-        return $this->db->get('opd')->result();
+        return $this->db->get('opd')->result_array();
     }
 
     public function get_namaopd($id)

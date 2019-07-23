@@ -3,25 +3,23 @@
         <div class="x_title">
             <h2><?= $data['title'] ?></h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li><a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
+                <a href="<?= base_url('opd/show_disposisi') ?>" class="btn btn-success"><i class="fa fa-plus"></i> Tambah Disposisi</a>
             </ul>
             <div class="clearfix"></div>
         </div>
         <div class="x_content">
-            <table id="datatable" class="table table-striped table-bordered">
+            <table id="rekapdisposisitable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>No</th>
                         <th>No. Surat</th>
+                        <th>Dari</th>
                         <th>Tgl. Masuk</th>
                         <th>No. Agenda</th>
                         <th>Perihal</th>
                         <th>Kepada</th>
                         <th>Isi</th>
-                        <th>Keterangan</th>
+                        <th></th>
                     </tr>
                 </thead>
 
@@ -35,12 +33,16 @@
                         <tr>
                             <td><?= $no ?></td>
                             <td><?= $row['no_surat'] ?></td>
+                            <td><?= ucwords($row['nama_opd']) ?></td>
                             <td><?= $row['tgl_masuk'] ?></td>
                             <td><?= $row['no_agenda'] ?></td>
                             <td><?= $row['perihal'] ?></td>
                             <td><?= $row['diteruskan'] ?></td>
                             <td><?= $row['isi'] ?></td>
-                            <td></td>
+                            <td>
+                                <a href="#" class="btn btn-info btn-xs"><i class="fa fa-image"></i> Lampiran</a>
+                                <a href="<?= base_url('opd/deldis/') . $row['id_disposisi']; ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus</a>
+                            </td>
                         </tr>
                     <?php } ?>
                 </tbody>
