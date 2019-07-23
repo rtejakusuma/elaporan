@@ -1,6 +1,7 @@
 <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
   <div class="menu_section">
     <ul class="nav side-menu">
+<<<<<<< HEAD
       <!-- <li><a><i class="fa fa-home"></i> Buat Laporan <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <?php
@@ -14,6 +15,8 @@
       </li> -->
       <li><a href="<?php echo base_url('opd/riwayatsurat') ?>"><i class="fa fa-edit"></i> Riwayat Surat </a>
       </li>
+=======
+>>>>>>> 138f8a99625eb2ca538831dce4f79151d805dc3b
       <li><a><i class="fa fa-envelope-square"></i>Disposisi<span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <li><a href="<?= base_url('admin/show_disposisi') ?>"><i class="fa fa-plus"></i>Input</a>

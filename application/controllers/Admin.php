@@ -29,6 +29,7 @@ class Admin extends CI_Controller
             redirect('admin', 'refresh');
             return;
         }
+        
         $this->data['formfilename'] = $formfilename;
 
         // data to send to view for option
@@ -63,17 +64,16 @@ class Admin extends CI_Controller
 
     public function add_user()
     {
-        $this->load->model('opd_model', 'opd');
         $data = [
             'username' => htmlspecialchars($this->input->post('username', true)),
             'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
-            'id_opd' => $this->opd->get_idopd_by_name($this->input->post('opd', true))
+            'id_opd' => $this->input->post('id_opd', true)
         ];
 
         $this->load->model('user_model');
         $this->user_model->insert($data);
 
-        redirect('auth', 'refresh');
+        redirect('admin/f/registrationform', 'refresh');
     }
 
     public function update_tipesurat_per_opd()
@@ -84,10 +84,10 @@ class Admin extends CI_Controller
         $this->tipesurat->update_tipesurat_per_opd($id_opd, $data);
     }
 
-    public function reset_password($id)
+    public function reset_password()
     {
         $this->load->model('user_model');
-        $this->user_model->reset_password($id);
+        $this->user_model->reset_password($this->input->post('id'), $this->input->post('password'));
     }
 
     public function submit()
@@ -95,11 +95,11 @@ class Admin extends CI_Controller
         $flag_option = $this->input->post('tipe_opsi'); // tipe_opsi from form hidden attribute
         if ($flag_option == 'register') {
             $this->add_user();
-            redirect('admin/f/registrationform', 'refresh');
-        } elseif ($flag_option == 'reset') {
-            $this->reset_password(1); // diskusi dulu, data post langsung diambil dari input ato passing parameter?
-            redirect('admin/f/resetpasswordform', 'refresh');
-        } elseif ($flag_option == 'tipesurat') {
+            redirect('admin/f/registrationform','refresh');
+        } elseif ($flag_option == 'reset'){
+            $this->reset_password();
+            redirect('admin/f/resetpasswordform','refresh');
+        } elseif ($flag_option == 'tipesurat'){
             $this->update_tipesurat_per_opd();
             redirect('admin/f/tipesuratopdform', 'refresh');
         }
