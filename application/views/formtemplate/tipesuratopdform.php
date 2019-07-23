@@ -12,11 +12,11 @@
                   <div class="clearfix"></div>
                 </div>
                 <div class="col-md-6 col-sm-6 col-xs-12">
-        <select id="opd" name="selected_opd" >
+        <select id="opd" name="id_opd" >
             <?php
-                foreach($data['opsi_opd'] as $opd){
+              foreach($data['opsi_opd'] as $opd){
                 echo "<option value=\'" . $opd->id_opd . "\'>" . strtoupper($opd->nama_opd) . "</option>";
-            }
+              }
             ?>
         </select>
     </div>
@@ -24,30 +24,12 @@
 
                   <div class="">
                     <ul class="to_do">
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat" id=""> Schedule meeting with new client </p>
-                      </li>
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat"  id=""> Create email address for new intern</p>
-                      </li>
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat"  id=""> Have IT fix the network printer</p>
-                      </li>
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat"  id=""> Copy backups to offsite location</p>
-                      </li>
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat"  id=""> Food truck fixie locavors mcsweeney</p>
-                      </li>
-                      <li>
-                        <p>
-                          <input type="checkbox" class="flat"  id=""> Food truck fixie locavors mcsweeney</p>
-                      </li>
+                      <?php
+                        foreach($data['opsi_tipesurat'] as $opsi_tipe){
+                          echo "<li><p><input type='checkbox'  class='flat'> $opsi_tipe->nama_surat</p></li>";
+                        }
+                      ?>
+                      
                     </ul>
                   </div>
                   <div class="form-group">

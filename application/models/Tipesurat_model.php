@@ -5,7 +5,7 @@ class Tipesurat_model extends CI_Model
 {
     public function gets()
     {
-        return $this->db->select('tipe_surat')->result();
+        return $this->db->get('tipe_surat')->result();
     }
 
     public function get_namasurat($id_tipe)

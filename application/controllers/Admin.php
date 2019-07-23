@@ -52,7 +52,21 @@ class Admin extends CI_Controller
             }
             $this->data['tipe_opsi'] = 'reset';
         } elseif ($formfilename == 'tipesuratopdform') {
-            $this->data['opsi_tipesurat'] = null;
+            // load list OPD
+            $this->load->model('opd_model', 'opd');
+            $data = $this->opd->gets();
+            $this->data['opsi_opd'] = array();
+            foreach ($data as $row) {
+                array_push($this->data['opsi_opd'],  $row);
+            }
+            // load seluruh tipesurat
+            $this->load->model('tipesurat_model', 'tipesurat');
+            $data = $this->tipesurat->gets();
+            $this->data['opsi_tipesurat'] = array();
+            foreach ($data as $row) {
+                array_push($this->data['opsi_tipesurat'],  $row);
+            }
+            
             $this->data['tipe_opsi'] = 'tipesurat';
         } else {
             redirect('admin', 'refresh');
