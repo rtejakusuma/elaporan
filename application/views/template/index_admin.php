@@ -132,12 +132,12 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-        <!-- <?php //$this->load->view($contents) 
-              ?> -->
-        <?php require $data['contents']; ?>
-
+        <?php if (isset($data['contents'])) {
+          require $data['contents'];
+        } ?>
       </div>
       <!-- /page content -->
+
       <?php $this->load->view('template/footer_admin') ?>
 
 </body>

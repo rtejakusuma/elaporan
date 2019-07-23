@@ -112,8 +112,12 @@ class Admin extends CI_Controller
         }
     }
 
-    public function table()
+    public function rekap_disposisi()
     {
+        $this->load->model('disposisi_model');
+        $this->data['rawdata'] = $this->disposisi_model->get();
+        // var_dump($this->data['rawdata']);
+
         $this->data['title'] = 'Rekap Disposisi';
         $this->data['contents'] = APPPATH . "views/admin/rekap_disposisi.php";
         $this->load->view('template/index_admin', ['data' => $this->data]);
@@ -147,7 +151,7 @@ class Admin extends CI_Controller
         $this->load->model('disposisi_model');
         $this->disposisi_model->insert($data);
 
-        redirect('home', 'refresh');
+        redirect('admin/rekap_disposisi', 'refresh');
     }
 }
 

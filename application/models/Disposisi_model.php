@@ -5,7 +5,10 @@ class Disposisi_model extends CI_Model
 {
     public function get()
     {
-        return $this->db->get('disposisi')->result();
+        $this->db->select('*');
+        $this->db->from('disposisi');
+        $this->db->join('opd', 'opd.id_opd = disposisi.surat_dari');
+        return $this->db->get()->result_array();
     }
 
     public function insert($data)
