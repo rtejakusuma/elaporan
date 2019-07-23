@@ -132,16 +132,10 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
-<<<<<<< HEAD
-        <?php if (isset($data['contents'])) {
-          require $data['contents'];
-        } ?>
-=======
         <!-- <?php //$this->load->view($contents) 
               ?> -->
         <?php require(APPPATH . "views/formtemplate/$data[formfilename].php"); ?>
 
->>>>>>> 138f8a99625eb2ca538831dce4f79151d805dc3b
       </div>
       <!-- /page content -->
 
