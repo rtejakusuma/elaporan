@@ -35,10 +35,13 @@ class Admin extends CI_Controller
         // data to send to view for option
         if($formfilename == 'registrationform'){
             $this->data['opsi_opd'] = null;
+            $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
             $this->data['opsi_user'] = null;
-        } elseif ($formfilename == 'tipesuratopd'){
+            $this->data['tipe_opsi'] = 'reset';
+        } elseif ($formfilename == 'tipesuratopdform'){
             $this->data['opsi_tipesurat'] = null;
+            $this->data['tipe_opsi'] = 'tipesurat';
         }
 
         $this->load->view('template/index_admin', array('data' => $this->data));
@@ -71,6 +74,22 @@ class Admin extends CI_Controller
     {
         $this->load->model('user_model');
         $this->user_model->reset_password($id);
+    }
+
+    public function submit()
+    {
+        $flag_option = $this->input->post('tipe_opsi'); // tipe_opsi from form hidden attribute
+        if($flag_option == 'register'){
+            $this->add_user();
+            redirect('admin/f/registrationform','refresh');
+        } elseif ($flag_option == 'reset'){
+            $this->reset_password(1); // diskusi dulu, data post langsung diambil dari input ato passing parameter?
+            redirect('admin/f/resetpasswordform','refresh');
+        } elseif ($flag_option == 'tipesurat'){
+            $this->update_tipesurat_per_opd();
+            redirect('admin/f/tipesuratopdform','refresh');
+        }
+
     }
 
     private function sess_ver()
