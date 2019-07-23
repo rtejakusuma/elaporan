@@ -19,7 +19,7 @@
         <div class="x_content">
           <br />
           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
-
+            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
             <div class="form-group">
               <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -35,10 +35,10 @@
             <div class="form-group">
               <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">OPD</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="opd" name="selected_opd" >
+                <select id="opd" name="id_opd" >
                   <?php
                     foreach($data['opsi_opd'] as $opd){
-                      echo "<option value=\'" . $opd->id_opd . "\'>" . strtoupper($opd->nama_opd) . "</option>";
+                      echo "<option value='" . $opd->id_opd . "'>" . strtoupper($opd->nama_opd) . "</option>";
                     }
                   ?>
                 </select>

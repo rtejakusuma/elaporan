@@ -48,8 +48,8 @@ class User_model extends CI_Model
         return $this->db->update('user', ['last_login' => date('Y-m-d H:i:s', now())], ['id' => $id]);
     }
 
-    public function reset_password($id)
+    public function reset_password($id, $newpassword)
     {
-        return $this->db->update('user', password_hash('00000', PASSWORD_BCRYPT), ['id' => $id]);
+        return $this->db->update('user', ['password' => password_hash($newpassword, PASSWORD_BCRYPT)], ['id' => $id]);
     }
 }
