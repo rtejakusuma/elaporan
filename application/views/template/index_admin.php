@@ -134,11 +134,10 @@
       <div class="right_col" role="main">
         <!-- <?php //$this->load->view($contents) 
               ?> -->
-        <?php require(APPPATH . "views/formtemplate/$data[formfilename].php"); ?>
+        <?php require $data['contents']; ?>
 
       </div>
       <!-- /page content -->
-
       <?php $this->load->view('template/footer_admin') ?>
 
 </body>
