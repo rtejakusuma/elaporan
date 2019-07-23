@@ -1,0 +1,4 @@
+$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq => password 'pecel'
+
+versi query:
+INSERT INTO `testing`.`user` (`id_opd`, `username`, `password`, `created_at`, `last_login`) VALUES ('1', 'admin', '$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq', current_timestamp(), current_timestamp());
