@@ -32,20 +32,15 @@ class Admin extends CI_Controller
         $this->data['formfilename'] = $formfilename;
 
         // data to send to view for option
-<<<<<<< HEAD
         if ($formfilename == 'registrationform') {
-            $this->data['opsi_opd'] = null;
-=======
-        if($formfilename == 'registrationform'){
             $this->load->model('opd_model', 'opd');
             $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
             foreach ($data as $row) {
-                if($row->id_opd == '1') // id_opd admin
+                if ($row->id_opd == '1') // id_opd admin
                     continue;
                 array_push($this->data['opsi_opd'],  $row);
             }
->>>>>>> a4781a9dc70723f65312bda7a71b58bf8c1aefef
             $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
             $this->load->model('user_model', 'user');
