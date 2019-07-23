@@ -74,7 +74,7 @@ class Admin extends CI_Controller
         $this->load->model('user_model');
         $this->user_model->insert($data);
 
-        redirect('auth', 'refresh');
+        redirect('admin/f/registrationform', 'refresh');
     }
 
     public function update_tipesurat_per_opd()

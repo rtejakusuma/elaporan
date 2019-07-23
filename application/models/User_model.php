@@ -37,6 +37,9 @@ class User_model extends CI_Model
 
     public function insert($data)
     {
+        $tmp = new DateTime();
+        $data['created_at'] = $tmp->format('Y-m-d H:i:s');
+        $data['last_login'] = $tmp->format('Y-m-d H:i:s');
         return $this->db->insert('user', $data);
     }
 
