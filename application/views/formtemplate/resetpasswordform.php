@@ -18,12 +18,18 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url() . "submitform" ?>' method="post">
+          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
 
             <div class="form-group">
               <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="username" class="form-control col-md-7 col-xs-12" type="text" name="username" required="required">
+                <select id="user" name="selected_user" >
+                  <?php
+                    foreach($data['opsi_user'] as $user){
+                      echo "<option value=\'" . $user->id . "\'>" . strtoupper($user->username) . "</option>";
+                    }
+                  ?>
+                </select>
               </div>
             </div>
             <div class="form-group">

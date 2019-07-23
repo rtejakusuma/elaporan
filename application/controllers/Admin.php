@@ -44,7 +44,12 @@ class Admin extends CI_Controller
             }
             $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
-            $this->data['opsi_user'] = null;
+            $this->load->model('user_model', 'user');
+            $data = $this->user->gets();
+            $this->data['opsi_user'] = array();
+            foreach ($data as $row) {
+                array_push($this->data['opsi_user'],  $row);
+            }
             $this->data['tipe_opsi'] = 'reset';
         } elseif ($formfilename == 'tipesuratopdform'){
             $this->data['opsi_tipesurat'] = null;
