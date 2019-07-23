@@ -26,7 +26,7 @@
           <br />
 
           <!-- sidebar menu -->
-          <?php $this->load->view('template/sidebar_admin') ?>
+          <?php $this->load->view('template/sidebar_opd') ?>
           <!-- /sidebar menu -->
 
 

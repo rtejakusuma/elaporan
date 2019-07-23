@@ -33,18 +33,24 @@ class Auth extends CI_Controller
     public function showregis()
     {
         $this->isAuth();
-        echo form_open('auth/register');
-        echo form_input('username', 'Username');
-        echo form_input('password', 'Password');
-        $options = array();
-        $this->load->model('opd_model', 'opd');
-        $data = $this->opd->gets();
-        foreach ($data as $row) {
-            $options[$row->id_opd] = $row->nama_opd;
-        }
-        echo form_dropdown('opd', $options);
-        echo form_submit('submit', 'Add');
-        echo form_close();
+        $data['title'] = 'Register';
+        $this->load->view('template/header_admin', array('data' => $data));
+
+        $this->load->view('auth/register');
+
+        $this->load->view('template/footer_admin');
+        // echo form_open('auth/register');
+        // echo form_input('username', 'Username');
+        // echo form_input('password', 'Password');
+        // $options = array();
+        // $this->load->model('opd_model', 'opd');
+        // $data = $this->opd->gets();
+        // foreach ($data as $row) {
+        //     $options[$row->id_opd] = $row->nama_opd;
+        // }
+        // echo form_dropdown('opd', $options);
+        // echo form_submit('submit', 'Add');
+        // echo form_close();
     }
 
     public function register()

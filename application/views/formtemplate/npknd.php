@@ -33,7 +33,7 @@
         <div class="x_content">
           <br />
           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action="<?= 'hahaha'?>" method="post">
-            <input type="hidden" name="formname" value="<?php echo $data['formname']; ?>">
+            <input type="hidden" name="formfilename" value="<?php echo $data['formfilename']; ?>">
             <div class="form-group">
               <label class="control-label col-md-3 col-sm-3 col-xs-12" for="no_surat">Nama Surat <span class="required">*</span>
               </label>
