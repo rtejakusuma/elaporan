@@ -8,6 +8,19 @@ class Surat_model extends CI_Model
         return $this->db->select('surat')->result();
     }
 
+    public function get_allsurat($page, $limit=20)
+    {
+        return $this->db->get('surat', $limit, ($page-1) * $limit)->result();
+    }
+
+    public function get_idtipe_by_idsurat($id)
+    {
+        $ret = $this->db->get_where('surat', array('id_surat' => $id))->result();
+        if($ret != NULL)
+            return $ret[0]->id_tipe;
+        return NULL;
+    }
+
     public function get_surat($id) // get Surat berdasarkan ID Surat
     {
         $table = $this->get_tipe_surat($id);
@@ -23,10 +36,9 @@ class Surat_model extends CI_Model
         return $this->db->get_where('surat', array('id_surat' => $id))->result()[0]->id_tipe;
     }
 
-    public function get_listsurat_by_idopd($id_opd, $page_number)
+    public function get_listsurat_by_idopd($id_opd, $page_number, $limit=20)
     {   
-        $list_idsurat = $this->db->get_where('surat', array('id_opd' => $id_opd))->result();
-        $namasurat = array();
+        return $this->db->get_where('surat', array('id_opd' => $id_opd), $limit, ($page_number - 1) * $limit)->result();        
     }
 
     public function get_tipe_surat($id)

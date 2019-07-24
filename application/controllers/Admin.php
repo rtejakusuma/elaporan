@@ -19,8 +19,9 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $this->data['contents'] = APPPATH . "views/admin/dashboard.php";
-        $this->load->view('template/index_admin', ['data' => $this->data]);
+        redirect('admin/riwayatsurat','refresh');   
+        // $this->data['contents'] = APPPATH . "views/admin/dashboard.php";
+        // $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
     public function f($formfilename = NULL)
@@ -35,7 +36,7 @@ class Admin extends CI_Controller
         // data to send to view for option
         if ($formfilename == 'registrationform') {
             $this->load->model('opd_model', 'opd');
-            $data = $this->opd->gets();
+            $data = $this->opd->gets_as_object();
             $this->data['opsi_opd'] = array();
             // var_dump($data); die();
             foreach ($data as $row) {
@@ -46,7 +47,7 @@ class Admin extends CI_Controller
             $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
             $this->load->model('user_model', 'user');
-            $data = $this->user->gets();
+            $data = $this->user->gets_as_object();
             $this->data['opsi_user'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_user'],  $row);
@@ -55,14 +56,14 @@ class Admin extends CI_Controller
         } elseif ($formfilename == 'tipesuratopdform') {
             // load list OPD
             $this->load->model('opd_model', 'opd');
-            $data = $this->opd->gets();
+            $data = $this->opd->gets_as_object();
             $this->data['opsi_opd'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_opd'],  $row);
             }
             // load seluruh tipesurat
             $this->load->model('tipesurat_model', 'tipesurat');
-            $data = $this->tipesurat->gets();
+            $data = $this->tipesurat->gets_as_object();
             $this->data['opsi_tipesurat'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_tipesurat'],  $row);
@@ -74,6 +75,31 @@ class Admin extends CI_Controller
             return;
         }
 
+        $this->load->view('template/index_admin', array('data' => $this->data));
+    }
+
+    public function riwayatsurat($page_number = 1)
+    {
+        $this->load->model('surat_model', 'surat');
+        $datasurat = $this->surat->get_allsurat($page_number);
+        $this->data['list_surat'] = NULL;
+        if($datasurat != NULL && sizeof($datasurat) > 0){
+            $this->load->model('tipesurat_model', 'ts');
+            $this->load->model('opd_model', 'opd');
+            $opdmap = $this->opd->gets_as_map();
+            $tsmap = $this->ts->gets_as_map();
+            $this->data['page_number'] = $page_number;
+            $this->data['list_surat'] = array();
+            foreach($datasurat as $row){
+                array_push($this->data['list_surat'], array(
+                    'id_surat' => $row->id_surat,
+                    'opd' => $opdmap[$row->id_opd],
+                    'nama_surat' => $tsmap[$row->id_tipe],
+                    'created_at' => date('d M Y H:i:s',strtotime($row->created_at))
+                ));
+            }
+        }
+        $this->data['contents'] = APPPATH . "views/admin/riwayatsurat.php";
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
