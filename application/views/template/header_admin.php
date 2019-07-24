@@ -29,6 +29,8 @@
   <link href="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.css" rel="stylesheet">
   <link href="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
   <link href="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+  <!-- Dropzone.js -->
+  <link href="<?= base_url('assets/') ?>vendors/dropzone/dist/min/dropzone.min.css" rel="stylesheet">
 
   <!-- bootstrap-progressbar -->
   <link href="<?= base_url('assets/') ?>vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css" rel="stylesheet">

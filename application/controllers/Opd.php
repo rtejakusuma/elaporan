@@ -26,7 +26,7 @@ class Opd extends CI_Controller
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
         // GARAI INVITE LOOP ASUUUUWWW
-        if($idtipe == NULL)
+        if ($idtipe == NULL)
             return;
         foreach ($idtipe as $id) {
             array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
@@ -94,6 +94,8 @@ class Opd extends CI_Controller
         }
     }
 
+    // INI BAGIAN DISPOSISI
+
     public function rekap_disposisi()
     {
         $this->load->model('disposisi_model');
@@ -124,6 +126,28 @@ class Opd extends CI_Controller
         $this->data['rawdata'] = $this->disposisi_model->get('rekap');
 
         $this->load->view('template/index_opd', ['data' => $this->data]);
+    }
+
+    public function upload_lampiran($id)
+    {
+        if (!empty($_FILES)) {
+            $config['upload_path'] = FCPATH . 'upload/disposisi';
+            $config['allowed_types'] = 'jpg|jpeg|png|pdf';
+            $config['max_size'] = '1000';
+            $config['file_name'] = $this->session->tempdata('username') . '_' . date("mdHis") . mt_rand(0, 99);
+
+            $this->load->library('upload', $config);
+
+            if (!$this->upload->do_upload('file')) {
+                $error = array('error' => $this->upload->display_errors());
+                echo "gagal";
+            } else {
+                $data = array('upload_data' => $this->upload->data());
+
+                $this->load->model('surat_masuk_model');
+                $this->surat_masuk_model->insert(['id_disposisi' => $id, 'nama_file' => $this->upload->data('file_name')]);
+            }
+        }
     }
 
     public function input_disposisi()
@@ -169,6 +193,8 @@ class Opd extends CI_Controller
 
         redirect('opd/rekap_disposisi', 'refresh');
     }
+
+    // DISPOSISI SELESAI
 
     private function sess_ver()
     {

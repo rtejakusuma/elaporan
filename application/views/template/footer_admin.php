@@ -62,6 +62,9 @@
         <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.buttons.js"></script>
         <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.nonblock.js"></script>
 
+        <!-- Dropzone.js -->
+        <script src="<?= base_url('assets/') ?>vendors/dropzone/dist/min/dropzone.min.js"></script>
+
         <!-- Custom Theme Scripts -->
         <script src="<?= base_url('assets/') ?>build/js/custom.min.js"></script>
         <script>
@@ -78,4 +81,15 @@
                         .css('height', 'auto')
                         .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()
                         .find('.x_content').css('display', 'none');
+                Dropzone.options.uploadlamdis = {
+                        maxFilesize: 1, // MB
+                        acceptedFiles: "application/pdf,application/force-download,application/x-download,binary/octet-stream,image/jpeg,image/pjpeg,image/png,image/x-png",
+                        dictFileTooBig: "Ukuran file terlalu besar ({{filesize}}MiB). Batas ukuran file: {{maxFilesize}}MiB.",
+                        dictDefaultMessage: "Drag file disini atau klik disini.",
+                        dictFallbackMessage: "Browser anda tidak support, silahkan coba browser yang lain.",
+                        dictInvalidFileType: "Tipe file tidak dapat untuk diupload.",
+                        dictCancelUpload: "Cancel upload",
+                        dictCancelUploadConfirmation: "Batalkan upload file?",
+                        dictMaxFilesExceeded: "Tidak bisa menambahkan lagi, silahkan refresh dahulu."
+                };
         </script>

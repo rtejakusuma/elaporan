@@ -12,7 +12,7 @@
                 <div class="x_title">
                     <h2><?= ucwords($row['nama_opd']) . ' Nomor Surat ' . $row['no_surat'] ?></h2>
                     <ul class="nav navbar-right panel_toolbox">
-                        <a href="#" class="btn btn-success"><i class="fa fa-camera"></i> Tambah Lampiran</a>
+                        <a class="btn btn-success" data-toggle="modal" data-target=".bs-example-modal-lg<?= $row['id_disposisi'] ?>"><i class="fa fa-camera"></i> Tambah Lampiran</a>
                         <a href="#" class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         <a href="#" class="close-link"><i class="fa fa-close"></i></a>
                     </ul>
@@ -89,6 +89,25 @@
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade bs-example-modal-lg<?= $row['id_disposisi'] ?>" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel"><?= ucwords($row['nama_opd']) . ' Nomor Surat ' . $row['no_surat'] ?></h4>
+                </div>
+                <div class="modal-body">
+                    <p>Drag atau klik kotak dibawah ini untuk menambahkan lampiran. File yang diupload hanya image ( <strong>jpg / jpeg / png</strong> ) atau file <strong>PDF</strong>.</p>
+                    <form action="<?= base_url('opd/upload_lampiran/') . $row['id_disposisi'] ?>" class="dropzone" id="uploadlamdis">
+                        <br />
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
