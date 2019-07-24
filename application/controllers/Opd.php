@@ -48,7 +48,9 @@ class Opd extends CI_Controller
 
     public function f($formname)
     {
+        $this->load->model('tipesurat_model', 'ts');
         $formfilename = str_replace(' ', '', strtolower($formname));
+        $this->data['id_tipe'] = $this->ts->get_idtipe_by_kodetipe($formfilename);
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
@@ -59,11 +61,11 @@ class Opd extends CI_Controller
         $this->load->model('surat_model', 'surat');
         $this->data['value'] = $this->surat->get_surat_data($id);
         $formname = $this->surat->get_tipe_surat($id);
-        // $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . ".php";
         $this->data['id_surat'] = $id;
+        $this->data['id_tipe'] = $this->surat->get_idtipe_by_idsurat($id);
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
