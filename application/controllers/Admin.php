@@ -19,7 +19,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        $this->data['formfilename'] = '../admin/dashboard';
+        $this->data['contents'] = APPPATH . "views/admin/dashboard.php";
         $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
@@ -30,13 +30,14 @@ class Admin extends CI_Controller
             return;
         }
 
-        $this->data['formfilename'] = $formfilename;
+        $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
 
         // data to send to view for option
         if ($formfilename == 'registrationform') {
             $this->load->model('opd_model', 'opd');
             $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
+            // var_dump($data); die();
             foreach ($data as $row) {
                 if ($row->id_opd == '1') // id_opd admin
                     continue;
