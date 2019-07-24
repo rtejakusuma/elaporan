@@ -26,6 +26,8 @@ class Opd extends CI_Controller
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
         // GARAI INVITE LOOP ASUUUUWWW
+        if($idtipe == NULL)
+            return;
         foreach ($idtipe as $id) {
             array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
         }
