@@ -16,10 +16,6 @@
             <!-- <div class="profile_pic">
               <img src="<?= base_url('assets/') ?>production/images/img.jpg" alt="..." class="img-circle profile_img">
             </div> -->
-            <div class="profile_info">
-              <!-- <span>Welcome,</span> -->
-              <h2><?= strtoupper($data['user']['nama_opd']); ?></h2>
-            </div>
           </div>
           <!-- /menu profile quick info -->
 
