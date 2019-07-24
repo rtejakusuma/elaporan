@@ -51,7 +51,7 @@ class Opd extends CI_Controller
         $formfilename = str_replace(' ', '', strtolower($formname));
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
-        $this->load->view('template/index_admin', array('data' => $this->data));
+        $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function e($id)
@@ -64,7 +64,7 @@ class Opd extends CI_Controller
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . ".php";
         $this->data['id_surat'] = $id;
-        $this->load->view('template/index_admin', array('data' => $this->data));
+        $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     //sementara
