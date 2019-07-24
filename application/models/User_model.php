@@ -27,6 +27,11 @@ class User_model extends CI_Model
 
     public function gets()
     {
+        return $this->db->get('user')->result_array();
+    }
+
+    public function gets_as_object()
+    {
         return $this->db->get('user')->result();
     }
 

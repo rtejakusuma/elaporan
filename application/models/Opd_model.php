@@ -5,7 +5,24 @@ class Opd_model extends CI_Model
 {
     public function gets()
     {
+        return $this->db->get('opd')->result_array();
+    }
+
+    public function gets_as_object()
+    {
         return $this->db->get('opd')->result();
+    }
+
+    public function gets_as_map()
+    {
+        $fet = $this->db->get('opd')->result();
+        if($fet == NULL)
+            return NULL;
+        $ret = array();
+        foreach($fet as $row){
+            $ret[$row->id_opd] = $row->nama_opd;
+        }
+        return $ret;
     }
 
     public function get_namaopd($id)

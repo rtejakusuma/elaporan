@@ -5,7 +5,24 @@ class Tipesurat_model extends CI_Model
 {
     public function gets()
     {
+        return $this->db->get('tipe_surat')->result_array();
+    }
+
+    public function gets_as_object()
+    {
         return $this->db->get('tipe_surat')->result();
+    }
+
+    public function gets_as_map()
+    {
+        $fet = $this->db->get('tipe_surat')->result();
+        if($fet == NULL)
+            return NULL;
+        $ret = array();
+        foreach($fet as $row){
+            $ret[$row->id_tipe] = $row->nama_surat;
+        }
+        return $ret;
     }
 
     public function get_namasurat($id_tipe)

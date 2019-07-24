@@ -40,10 +40,9 @@ class Opd extends CI_Controller
 
     public function index()
     {
-        // sementara
-        // return $this->get_riwayat_laporan();
-        $this->data['contents'] = APPPATH . 'views/opd/dashboard.php';
-        $this->load->view('template/index_opd', array('data' => $this->data));
+        redirect('opd/riwayatsurat','refresh');   
+        // $this->data['contents'] = APPPATH . 'views/opd/dashboard.php';
+        // $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function f($formname)
@@ -69,17 +68,30 @@ class Opd extends CI_Controller
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    //sementara
     public function riwayatsurat($page_number = 1)
-    {
-        return $this->get_riwayat_laporan($page_number);
-    }
-
-    public function get_riwayat_laporan($page_number)
     {
         $id_opd = $this->session->tempdata('id_opd');
         $this->load->model('surat_model', 'surat');
-        $this->data['list_surat'] = $this->surat->get_listsurat_by_idopd($id_opd, $page_number);
+        $datasurat = $this->surat->get_listsurat_by_idopd($id_opd, $page_number);
+        $this->data['list_surat'] = NULL;
+        if($datasurat != NULL && sizeof($datasurat) > 0){
+            $this->load->model('tipesurat_model', 'ts');
+            $this->load->model('opd_model', 'opd');
+            $opdmap = $this->opd->gets_as_map();
+            $tsmap = $this->ts->gets_as_map();
+            $this->data['page_number'] = $page_number;
+            $this->data['list_surat'] = array();
+            foreach($datasurat as $row){
+                array_push($this->data['list_surat'], array(
+                    'id_surat' => $row->id_surat,
+                    // 'opd' => $opdmap[$row->id_opd],
+                    'nama_surat' => $tsmap[$row->id_tipe],
+                    'created_at' => date('d M Y H:i:s',strtotime($row->created_at))
+                ));
+            }
+        }
+        $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
+        $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function submit()
