@@ -26,9 +26,9 @@ class Opd extends CI_Controller
         $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
         $this->tipesurat = array();
         // GARAI INVITE LOOP ASUUUUWWW
-        // foreach ($idtipe as $id) {
-        //     array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
-        // }
+        foreach ($idtipe as $id) {
+            array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
+        }
     }
 
     public function get_list_tipesurat()
@@ -48,7 +48,7 @@ class Opd extends CI_Controller
     {
         $formfilename = str_replace(' ', '', strtolower($formname));
         $this->data['sidebar'] = $this->tipesurat;
-        $this->data['formfilename'] = $formfilename;
+        $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
@@ -60,7 +60,7 @@ class Opd extends CI_Controller
         // $this->data['contents'] = file_get_contents(APPPATH . "views/formtemplate/$formname.php");
         $this->data['sidebar'] = $this->tipesurat;
         $this->data['formname'] = $formname;
-        $this->data['formfilename'] = str_replace(' ', '', strtolower($formname));
+        $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . ".php";
         $this->data['id_surat'] = $id;
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
