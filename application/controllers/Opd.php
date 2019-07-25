@@ -85,7 +85,10 @@ class Opd extends CI_Controller
 
     public function carisurat($page_number)
     {
-        $getdata = $this->input->get();
+        $this->load->model('surat_model', 'surat');
+        $this->data['list_surat'] = $this->surat->search($this->input->get());
+        $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
+        $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function submit()

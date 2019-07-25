@@ -36,13 +36,13 @@
                               <td class="col-sm-1">
                               <center>
                                 <strong> Waktu Awal </strong> <br/>
-                                <input type="date" name="start_date">
+                                <input type="date" name="start_date" value="<?php echo date('Y-m-d'); ?>">
                               </center>
                               </td>
                               <td class="col-sm-1">
                               <center>
                                 <strong> Waktu Akhir </strong> <br/>
-                                <input type="date" name="end_date">
+                                <input type="date" name="end_date" value="<?php echo date('Y-m-d'); ?>">
                               </center>
                               </td>
                               <td class="col-sm-1">

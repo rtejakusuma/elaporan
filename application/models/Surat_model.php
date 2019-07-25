@@ -29,6 +29,17 @@ class Surat_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function search($cond)
+    {
+        $this->db->from('surat');
+        foreach($cond as $key => $value){
+            if($key != "start_date" && $key != "end_date")
+                $this->db->where("$key = $value");
+        }
+        // check date
+        var_dump($cond['start_date']); die();
+    }
+
     public function get_idtipe_by_idsurat($id)
     {
         $ret = $this->db->get_where('surat', array('id_surat' => $id))->result();
