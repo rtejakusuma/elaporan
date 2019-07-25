@@ -33,11 +33,20 @@ class Surat_model extends CI_Model
     {
         $this->db->from('surat');
         foreach($cond as $key => $value){
-            if($key != "start_date" && $key != "end_date")
-                $this->db->where("$key = $value");
+            if($key != "start_date" && $key != "end_date" && $value != NULL)
+                $this->db->where("surat.$key = $value");
         }
         // check date
-        var_dump($cond['start_date']); die();
+        if(strtotime($cond['start_date']) > strtotime($cond['end_date'])){
+            $tmp = $cond['start_date'];
+            $cond['start_date'] = $cond['end_date'];
+            $cond['end_date'] = $tmp;
+        }
+        $this->db->where("created_at >= ", $cond['start_date'] . ' 00:00:00')
+                    ->where("created_at <= ", $cond['end_date'] . ' 23:59:59');
+        $this->db->join('tipe_surat', 'tipe_surat.id_tipe = surat.id_tipe');
+        // var_dump($this->db->get()->result()); die();
+        return $this->db->get()->result();
     }
 
     public function get_idtipe_by_idsurat($id)

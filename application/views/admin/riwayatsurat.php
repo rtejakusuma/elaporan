@@ -9,18 +9,10 @@
 
                   <div class="x_content">
                   <div id='search box' style='border: 1px solid; padding: 5px'>
-                      <form action="admin/riwayatsurat" method="get">
+                      <form action="<?php echo base_url('admin/riwayatsurat'); ?>" method="get">
                         <table>
                           <tbody>
                             <tr>
-                              <td class="col-sm-1">
-                              <center>
-                                <strong>OPD</strong> <br/>
-                                <select name="id_opd">
-                                  <option value="diisi id_opd"></option>
-                                </select>
-                              </center>
-                              </td>
                               <td class="col-sm-1">
                               <center>
                                 <strong>ID Surat</strong> <br/>
@@ -29,14 +21,25 @@
                               </td>
                               <td class="col-sm-1">
                               <center>
+                                <strong>OPD</strong> <br/>
+                                <select name="id_opd">
+                                  <?php
+                                    foreach($data['opsi_opd'] as $row){
+                                      echo "<option value='$row->id_opd'>$row->nama_opd</option>";
+                                    }
+                                  ?>
+                                  
+                                </select>
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
                                 <strong> Jenis Surat </strong> <br/>
                                 <select name="id_tipe">
                                   <?php
-                                    if($data['sidebar'] !=  NULL){
-                                      foreach ($data['sidebar'] as $type) {
+                                      foreach ($data['opsi_surat'] as $type) {
                                         echo "<option value='$type->id_tipe'>$type->nama_surat</option>";
                                       }
-                                    }
                                   ?>
                                 </select>
                               </center>
@@ -44,13 +47,13 @@
                               <td class="col-sm-1">
                               <center>
                                 <strong> Waktu Awal </strong> <br/>
-                                <input type="date" name="start_date">
+                                <input type="date" name="start_date" value="<?php echo date('Y-m-d'); ?>">
                               </center>
                               </td>
                               <td class="col-sm-1">
                               <center>
                                 <strong> Waktu Akhir </strong> <br/>
-                                <input type="date" name="end_date">
+                                <input type="date" name="end_date" value="<?php echo date('Y-m-d'); ?>">
                               </center>
                               </td>
                               <td class="col-sm-1">
@@ -82,10 +85,10 @@
                               $counter = "even pointer";
                               foreach($data['list_surat'] as $datasurat){
                                 echo "<tr class=$counter>
-                                        <td>$datasurat[id_surat]</td>
-                                        <td>$datasurat[opd]</td>
-                                        <td>$datasurat[nama_surat]</td>
-                                        <td>$datasurat[created_at]</td>
+                                        <td>$datasurat->id_surat</td>
+                                        <td>$datasurat->nama_opd</td>
+                                        <td>$datasurat->nama_surat</td>
+                                        <td>".date('d-m-Y H:i:s', strtotime($datasurat->created_at))."</td>
                                       </tr>";
                                 if($counter == "even pointer") $counter = "odd pointer";
                                 else $counter = "even pointer";

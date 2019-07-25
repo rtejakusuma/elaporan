@@ -68,17 +68,7 @@ class Opd extends CI_Controller
         $id_opd = $this->session->tempdata('id_opd');
         $this->load->model('surat_model', 'surat');
         $datasurat = $this->surat->get_allsurat($page_number, $id_opd);
-        $this->data['list_surat'] = NULL;
-        if($datasurat != NULL && sizeof($datasurat) > 0){
-            $this->data['list_surat'] = array();
-            foreach($datasurat as $row){
-                array_push($this->data['list_surat'], array(
-                    'id_surat' => $row->id_surat,
-                    'nama_surat' => $row->nama_surat,
-                    'created_at' => date('d M Y H:i:s',strtotime($row->created_at))
-                ));
-            }
-        }
+        $this->data['list_surat'] = $datasurat;
         $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }

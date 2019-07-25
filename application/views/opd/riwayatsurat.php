@@ -9,7 +9,7 @@
 
                   <div class="x_content">
                     <div id='search box' style='border: 1px solid; padding: 5px'>
-                      <form action="admin/riwayatsurat" method="get">
+                      <form action="<?php echo base_url('opd/riwayatsurat'); ?>" method="get">
                         <table>
                           <tbody>
                             <tr>
@@ -76,9 +76,9 @@
                               $counter = "even pointer";
                               foreach($data['list_surat'] as $datasurat){
                                 echo "<tr class=$counter>
-                                        <td>$datasurat[id_surat]</td>
-                                        <td>$datasurat[nama_surat]</td>
-                                        <td>$datasurat[created_at]</td>
+                                        <td>$datasurat->id_surat</td>
+                                        <td>$datasurat->nama_surat</td>
+                                        <td>".date('d-m-Y H:i:s', strtotime($datasurat->created_at))."</td>
                                       </tr>";
                                 if($counter == "even pointer") $counter = "odd pointer";
                                 else $counter = "even pointer";

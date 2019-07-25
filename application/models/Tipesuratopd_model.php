@@ -8,6 +8,21 @@ class Tipesuratopd_model extends CI_Model
         return $this->db->select('tipesurat_per_opd')->result();
     }
 
+    public function get_opd_namatipesurat($id_opd=NULL)
+    {
+        if($id_opd != NULL){
+            $this->db->select('id_opd, tipe_surat.*')
+                        ->from('tipesurat_per_opd')
+                        ->where('id_opd', $id_opd)
+                        ->join('tipe_surat', 'tipesurat_per_opd.id_tipe = tipe_surat.id_tipe'); 
+        } else {
+            $this->db->select('id_opd, tipe_surat.*')
+                        ->from('tipesurat_per_opd')
+                        ->join('tipe_surat', 'tipesurat_per_opd.id_tipe = tipe_surat.id_tipe');
+        }
+        return $this->db->get()->result();
+    }
+
     public function get_tipesurat_by_idopd($id_opd)
     {
         $this->db->select('*')

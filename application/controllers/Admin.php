@@ -85,18 +85,12 @@ class Admin extends CI_Controller
         }
         $this->load->model('surat_model', 'surat');
         $datasurat = $this->surat->get_allsurat($page_number);
-        $this->data['list_surat'] = NULL;
-        if($datasurat != NULL && sizeof($datasurat) > 0){
-            $this->data['list_surat'] = array();
-            foreach($datasurat as $row){
-                array_push($this->data['list_surat'], array(
-                    'id_surat' => $row->id_surat,
-                    'opd' => $row->nama_opd,
-                    'nama_surat' => $row->nama_surat,
-                    'created_at' => date('d M Y H:i:s',strtotime($row->created_at))
-                ));
-            }
-        }
+        $this->data['list_surat'] = $datasurat;
+        $this->load->model('opd_model', 'opd');
+        $this->data['opsi_opd'] = $this->opd->gets_as_object();
+        unset($this->data['opsi_opd'][0]);
+        $this->load->model('tipesuratopd_model', 'tso');
+        $this->data['opsi_surat'] = $this->tso->get_opd_namatipesurat();
         $this->data['contents'] = APPPATH . "views/admin/riwayatsurat.php";
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
