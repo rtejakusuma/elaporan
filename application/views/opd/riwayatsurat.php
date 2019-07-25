@@ -8,6 +8,54 @@
                   </div>
 
                   <div class="x_content">
+                    <div id='search box' style='border: 1px solid; padding: 5px'>
+                      <form action="admin/riwayatsurat" method="get">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong>ID Surat</strong> <br/>
+                                <input type="text" name="id_surat">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Jenis Surat </strong> <br/>
+                                <select name="id_tipe">
+                                  <?php
+                                    if($data['sidebar'] !=  NULL){
+                                      foreach ($data['sidebar'] as $type) {
+                                        echo "<option value='$type->id_tipe'>$type->nama_surat</option>";
+                                      }
+                                    }
+                                  ?>
+                                </select>
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Waktu Awal </strong> <br/>
+                                <input type="date" name="start_date">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Waktu Akhir </strong> <br/>
+                                <input type="date" name="end_date">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <button type="submit">Cari</button>
+                              </center>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </form>
+                    </div>
+                    <div class="clearfix"><br/></div>
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
@@ -21,7 +69,9 @@
                         <tbody>
                           <?php
                             if($data['list_surat'] == NULL || sizeof($data['list_surat']) <= 0){
-                              echo "<h2>Tidak ada riwayat surat</h2>";
+                              echo "<tr class='even pointer'>
+                                      <td>Tidak ada riwayat surat</td>
+                                    </tr>";
                             } else {
                               $counter = "even pointer";
                               foreach($data['list_surat'] as $datasurat){

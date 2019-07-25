@@ -21,16 +21,8 @@ class Opd extends CI_Controller
 
     public function get_tipesurat($id_opd)
     {
-        $this->load->model('tipesurat_model', 'ts');
         $this->load->model('tipesuratopd_model', 'tso');
-        $idtipe = $this->tso->get_idtipe_per_opd($id_opd);
-        $this->tipesurat = array();
-        // GARAI INVITE LOOP ASUUUUWWW
-        if ($idtipe == NULL)
-            return;
-        foreach ($idtipe as $id) {
-            array_push($this->tipesurat, $this->ts->get_namasurat($id)[0]);
-        }
+        $this->tipesurat = $this->tso->get_tipesurat_by_idopd($id_opd);
     }
 
     public function get_list_tipesurat()
@@ -70,28 +62,30 @@ class Opd extends CI_Controller
 
     public function riwayatsurat($page_number = 1)
     {
+        if($this->input->get() != NULL){
+            return $this->carisurat($page_number);
+        }
         $id_opd = $this->session->tempdata('id_opd');
         $this->load->model('surat_model', 'surat');
-        $datasurat = $this->surat->get_listsurat_by_idopd($id_opd, $page_number);
+        $datasurat = $this->surat->get_allsurat($page_number, $id_opd);
         $this->data['list_surat'] = NULL;
         if($datasurat != NULL && sizeof($datasurat) > 0){
-            $this->load->model('tipesurat_model', 'ts');
-            $this->load->model('opd_model', 'opd');
-            $opdmap = $this->opd->gets_as_map();
-            $tsmap = $this->ts->gets_as_map();
-            $this->data['page_number'] = $page_number;
             $this->data['list_surat'] = array();
             foreach($datasurat as $row){
                 array_push($this->data['list_surat'], array(
                     'id_surat' => $row->id_surat,
-                    // 'opd' => $opdmap[$row->id_opd],
-                    'nama_surat' => $tsmap[$row->id_tipe],
+                    'nama_surat' => $row->nama_surat,
                     'created_at' => date('d M Y H:i:s',strtotime($row->created_at))
                 ));
             }
         }
         $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
+    }
+
+    public function carisurat($page_number)
+    {
+        $getdata = $this->input->get();
     }
 
     public function submit()

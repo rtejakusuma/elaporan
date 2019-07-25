@@ -8,6 +8,61 @@
                   </div>
 
                   <div class="x_content">
+                  <div id='search box' style='border: 1px solid; padding: 5px'>
+                      <form action="admin/riwayatsurat" method="get">
+                        <table>
+                          <tbody>
+                            <tr>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong>OPD</strong> <br/>
+                                <select name="id_opd">
+                                  <option value="diisi id_opd"></option>
+                                </select>
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong>ID Surat</strong> <br/>
+                                <input type="text" name="id_surat">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Jenis Surat </strong> <br/>
+                                <select name="id_tipe">
+                                  <?php
+                                    if($data['sidebar'] !=  NULL){
+                                      foreach ($data['sidebar'] as $type) {
+                                        echo "<option value='$type->id_tipe'>$type->nama_surat</option>";
+                                      }
+                                    }
+                                  ?>
+                                </select>
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Waktu Awal </strong> <br/>
+                                <input type="date" name="start_date">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <strong> Waktu Akhir </strong> <br/>
+                                <input type="date" name="end_date">
+                              </center>
+                              </td>
+                              <td class="col-sm-1">
+                              <center>
+                                <button type="submit">Cari</button>
+                              </center>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </form>
+                    </div>
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>

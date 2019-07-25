@@ -8,9 +8,25 @@ class Surat_model extends CI_Model
         return $this->db->select('surat')->result();
     }
 
-    public function get_allsurat($page, $limit=20)
+    public function get_allsurat($page_number, $id_opd=NULL, $limit=20)
     {
-        return $this->db->get('surat', $limit, ($page-1) * $limit)->result();
+        if($id_opd == NULL || $id_opd == '1'){
+            $this->db->select('id_surat, nama_opd, nama_surat, created_at')
+                        ->from('surat')
+                        ->join('tipe_surat', 'surat.id_tipe = tipe_surat.id_tipe')
+                        ->join('opd', 'surat.id_opd = opd.id_opd')
+                        ->order_by('created_at', 'desc')
+                        ->limit($limit, ($page_number-1) * $limit);
+        } else {
+            $this->db->select('id_surat, nama_opd, nama_surat, created_at')
+                    ->from('surat')
+                    ->where('surat.id_opd = ' . $id_opd)
+                    ->join('tipe_surat', 'surat.id_tipe = tipe_surat.id_tipe')
+                    ->join('opd', 'surat.id_opd = opd.id_opd')
+                    ->order_by('created_at', 'desc')
+                    ->limit($limit, ($page_number-1) * $limit);    
+        }
+        return $this->db->get()->result();
     }
 
     public function get_idtipe_by_idsurat($id)
@@ -34,11 +50,6 @@ class Surat_model extends CI_Model
     public function get_by_id($id)
     {
         return $this->db->get_where('surat', array('id_surat' => $id))->result()[0]->id_tipe;
-    }
-
-    public function get_listsurat_by_idopd($id_opd, $page_number, $limit=20)
-    {   
-        return $this->db->get_where('surat', array('id_opd' => $id_opd), $limit, ($page_number - 1) * $limit)->result();        
     }
 
     public function get_tipe_surat($id)
