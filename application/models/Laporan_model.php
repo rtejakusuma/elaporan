@@ -1,0 +1,113 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+class Laporan_model extends CI_Model
+{
+    public function gets()
+    {
+        return $this->db->select('laporan')->result();
+    }
+
+    public function get_alllaporan($page_number, $id_opd=NULL, $limit=20)
+    {
+        if($id_opd == NULL || $id_opd == '1'){
+            $this->db->select('id_laporan, nama_opd, nama_laporan, created_at')
+                        ->from('laporan')
+                        ->join('tipe_laporan', 'laporan.id_tipe = tipe_laporan.id_tipe')
+                        ->join('opd', 'laporan.id_opd = opd.id_opd')
+                        ->order_by('created_at', 'desc')
+                        ->limit($limit, ($page_number-1) * $limit);
+        } else {
+            $this->db->select('id_laporan, nama_opd, nama_laporan, created_at')
+                    ->from('laporan')
+                    ->where('laporan.id_opd = ' . $id_opd)
+                    ->join('tipe_laporan', 'laporan.id_tipe = tipe_laporan.id_tipe')
+                    ->join('opd', 'laporan.id_opd = opd.id_opd')
+                    ->order_by('created_at', 'desc')
+                    ->limit($limit, ($page_number-1) * $limit);    
+        }
+        return $this->db->get()->result();
+    }
+
+    public function search($cond)
+    {
+        $this->db->from('laporan');
+        foreach($cond as $key => $value){
+            if($key != "start_date" && $key != "end_date" && $value != NULL)
+                $this->db->where("laporan.$key = $value");
+        }
+        // check date
+        if(strtotime($cond['start_date']) > strtotime($cond['end_date'])){
+            $tmp = $cond['start_date'];
+            $cond['start_date'] = $cond['end_date'];
+            $cond['end_date'] = $tmp;
+        }
+        $this->db->where("created_at >= ", $cond['start_date'] . ' 00:00:00')
+                    ->where("created_at <= ", $cond['end_date'] . ' 23:59:59');
+        $this->db->join('tipe_laporan', 'tipe_laporan.id_tipe = laporan.id_tipe');
+        // var_dump($this->db->get()->result()); die();
+        return $this->db->get()->result();
+    }
+
+    public function get_idtipe_by_idlaporan($id)
+    {
+        $ret = $this->db->get_where('laporan', array('id_laporan' => $id))->result();
+        if($ret != NULL)
+            return $ret[0]->id_tipe;
+        return NULL;
+    }
+
+    public function get_laporan($id) // get laporan berdasarkan ID laporan
+    {
+        $table = $this->get_tipe_laporan($id);
+        $temp = $this->db->get($table)->row_array();
+        if ($temp == NULL) {
+            return -1; // error code
+        }
+        return $temp;
+    }
+
+    public function get_by_id($id)
+    {
+        return $this->db->get_where('laporan', array('id_laporan' => $id))->result()[0]->id_tipe;
+    }
+
+    public function get_tipe_laporan($id)
+    {
+        $res = $this->get_by_id($id);
+        return $this->_get_nama_laporan($res);
+    }
+
+    public function get_fielddata($name)
+    {
+        return $this->db->field_data($name);
+    }
+
+    public function get_laporan_data($id)
+    {
+        $tipe = $this->get_tipe_laporan($id);
+        return $this->db->get_where($tipe, array('id_laporan' => $id))->result[0];
+    }
+
+    private function _get_nama_laporan($id)
+    {
+        $temp = $this->db->get_where('tipe_laporan', array('id_tipe' => $id))->result();
+        return $temp[0]->nama_laporan;
+    }
+
+    public function add_data($namalaporan, $data)
+    {
+        var_dump($namalaporan, $data); die();
+        $this->db->insert($namalaporan, $data);
+        // redirect('opd','refresh');
+    }
+
+    public function update_data($id, $data)
+    {
+        $namalaporan = $this->_get_nama_laporan($id);
+        $this->db->update($namalaporan, $data, array('id_laporan' => $id));
+        // redirect('opd', 'refresh');
+    }
+}
+
+/* End of file laporan_model.php */

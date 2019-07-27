@@ -6,15 +6,15 @@
           <?php
             if($data['sidebar'] !=  NULL){
               foreach ($data['sidebar'] as $type) {
-                echo "<li><a href='" . base_url() . "opd/f/" . str_replace(' ', '', $type->nama_surat) . "'>" . $type->nama_surat . "</a></li>";
+                echo "<li><a href='" . base_url() . "opd/f/" . str_replace(' ', '', $type->nama_laporan) . "'>" . $type->nama_laporan . "</a></li>";
               }
             } else {
-              echo "Tidak ada tipe surat yang dimiliki.<br/> Hubungi Admin.";
+              echo "Tidak ada tipe laporan yang dimiliki.<br/> Hubungi Admin.";
             }
           ?>
         </ul>
       </li>
-      <li><a href="<?php echo base_url('opd/riwayatsurat') ?>"><i class="fa fa-edit"></i> Riwayat Surat </a>
+      <li><a href="<?php echo base_url('opd/riwayatlaporan') ?>"><i class="fa fa-edit"></i> Riwayat laporan </a>
       </li>
       <li><a><i class="fa fa-envelope-square"></i>Disposisi<span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">

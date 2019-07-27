@@ -30,15 +30,15 @@ class Auth extends CI_Controller
         }
     }
 
-    public function showregis()
-    {
-        $this->isAuth();
-        $data['title'] = 'Register';
-        $this->load->view('template/header_admin', array('data' => $data));
+    // public function showregis()
+    // {
+    //     $this->isAuth();
+    //     $data['title'] = 'Register';
+    //     $this->load->view('template/header_admin', array('data' => $data));
 
-        $this->load->view('auth/register');
+    //     $this->load->view('auth/register');
 
-        $this->load->view('template/footer_admin');
+    //     $this->load->view('template/footer_admin');
         // echo form_open('auth/register');
         // echo form_input('username', 'Username');
         // echo form_input('password', 'Password');
@@ -51,21 +51,21 @@ class Auth extends CI_Controller
         // echo form_dropdown('opd', $options);
         // echo form_submit('submit', 'Add');
         // echo form_close();
-    }
+    // }
 
-    public function register()
-    {
-        $data = [
-            'username' => htmlspecialchars($this->input->post('username', true)),
-            'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
-            'id_opd' => $this->input->post('opd', true)
-        ];
+    // public function register()
+    // {
+    //     $data = [
+    //         'username' => htmlspecialchars($this->input->post('username', true)),
+    //         'password' => password_hash($this->input->post('password', true), PASSWORD_BCRYPT),
+    //         'id_opd' => $this->input->post('opd', true)
+    //     ];
 
-        $this->load->model('user_model');
-        $this->user_model->insert($data);
+    //     $this->load->model('user_model');
+    //     $this->user_model->insert($data);
 
-        redirect('auth', 'refresh');
-    }
+    //     redirect('auth', 'refresh');
+    // }
 
     public function logout()
     {
@@ -88,10 +88,11 @@ class Auth extends CI_Controller
                 $this->user_model->last_login($this->session->tempdata('id'));
                 $this->_roledirect($user['id_opd']);
             } else {
-                echo 'password salah';
+                // echo 'password salah';
+                redirect('auth', 'refresh');
             }
         } else {
-            echo 'gagal';
+            redirect('auth', 'refresh');
         }
     }
 
@@ -105,7 +106,7 @@ class Auth extends CI_Controller
             'nama_opd' => $this->opd->get_namaopd($user['id_opd'])
         ];
 
-        $this->session->set_tempdata($data, NULL, 7200);
+        $this->session->set_tempdata($data, NULL, 14400);
     }
 
     private function _roledirect($id_opd)

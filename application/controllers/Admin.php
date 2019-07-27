@@ -19,7 +19,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        redirect('admin/riwayatsurat','refresh');   
+        redirect('admin/riwayatlaporan','refresh');   
         // $this->data['contents'] = APPPATH . "views/admin/dashboard.php";
         // $this->load->view('template/index_admin', ['data' => $this->data]);
     }
@@ -53,7 +53,7 @@ class Admin extends CI_Controller
                 array_push($this->data['opsi_user'],  $row);
             }
             $this->data['tipe_opsi'] = 'reset';
-        } elseif ($formfilename == 'tipesuratopdform') {
+        } elseif ($formfilename == 'tipelaporanopdform') {
             // load list OPD
             $this->load->model('opd_model', 'opd');
             $data = $this->opd->gets_as_object();
@@ -61,15 +61,15 @@ class Admin extends CI_Controller
             foreach ($data as $row) {
                 array_push($this->data['opsi_opd'],  $row);
             }
-            // load seluruh tipesurat
-            $this->load->model('tipesurat_model', 'tipesurat');
-            $data = $this->tipesurat->gets_as_object();
-            $this->data['opsi_tipesurat'] = array();
+            // load seluruh tipelaporan
+            $this->load->model('tipelaporan_model', 'tipelaporan');
+            $data = $this->tipelaporan->gets_as_object();
+            $this->data['opsi_tipelaporan'] = array();
             foreach ($data as $row) {
-                array_push($this->data['opsi_tipesurat'],  $row);
+                array_push($this->data['opsi_tipelaporan'],  $row);
             }
             
-            $this->data['tipe_opsi'] = 'tipesurat';
+            $this->data['tipe_opsi'] = 'tipelaporan';
         } else {
             redirect('admin', 'refresh');
             return;
@@ -78,24 +78,24 @@ class Admin extends CI_Controller
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
-    public function riwayatsurat($page_number = 1)
+    public function riwayatlaporan($page_number = 1)
     {
         if($this->input->get() != NULL){
-            return $this->carisurat();
+            return $this->carilaporan();
         }
-        $this->load->model('surat_model', 'surat');
-        $datasurat = $this->surat->get_allsurat($page_number);
-        $this->data['list_surat'] = $datasurat;
+        $this->load->model('laporan_model', 'laporan');
+        $datalaporan = $this->laporan->get_alllaporan($page_number);
+        $this->data['list_laporan'] = $datalaporan;
         $this->load->model('opd_model', 'opd');
         $this->data['opsi_opd'] = $this->opd->gets_as_object();
         unset($this->data['opsi_opd'][0]);
-        $this->load->model('tipesuratopd_model', 'tso');
-        $this->data['opsi_surat'] = $this->tso->get_opd_namatipesurat();
-        $this->data['contents'] = APPPATH . "views/admin/riwayatsurat.php";
+        $this->load->model('tipelaporanopd_model', 'tso');
+        $this->data['opsi_laporan'] = $this->tso->get_opd_namatipelaporan();
+        $this->data['contents'] = APPPATH . "views/admin/riwayatlaporan.php";
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
 
-    public function carisurat()
+    public function carilaporan()
     {
         $getdata = $this->input->get();
     }
@@ -114,12 +114,12 @@ class Admin extends CI_Controller
         redirect('admin/f/registrationform', 'refresh');
     }
 
-    public function update_tipesurat_per_opd()
+    public function update_tipelaporan_per_opd()
     {
         $id_opd = $this->session->tempdata('id_opd');
         $data = $this->input->post(); // data from chekbox in form
-        $this->load->model('tipesuratperopd_model', 'tipesurat');
-        $this->tipesurat->update_tipesurat_per_opd($id_opd, $data);
+        $this->load->model('tipelaporanperopd_model', 'tipelaporan');
+        $this->tipelaporan->update_tipelaporan_per_opd($id_opd, $data);
     }
 
     public function reset_password()
@@ -137,9 +137,9 @@ class Admin extends CI_Controller
         } elseif ($flag_option == 'reset') {
             $this->reset_password();
             redirect('admin/f/resetpasswordform', 'refresh');
-        } elseif ($flag_option == 'tipesurat') {
-            $this->update_tipesurat_per_opd();
-            redirect('admin/f/tipesuratopdform', 'refresh');
+        } elseif ($flag_option == 'tipelaporan') {
+            $this->update_tipelaporan_per_opd();
+            redirect('admin/f/tipelaporanopdform', 'refresh');
         }
     }
 
