@@ -3,15 +3,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Opd extends CI_Controller
 {
-    private $tipesurat;
+    private $tipelaporan;
     public $data;
 
     public function __construct()
     {
         parent::__construct();
         $this->sess_ver();
-        $this->get_tipesurat($this->session->tempdata('id_opd'));
-        $this->data['sidebar'] = $this->tipesurat;
+        $this->get_tipelaporan($this->session->tempdata('id_opd'));
+        $this->data['sidebar'] = $this->tipelaporan;
         $this->data['user'] = array(
             'id_opd' => $this->session->tempdata('id_opd'),
             'nama_opd' => $this->session->tempdata('nama_opd')
@@ -19,79 +19,79 @@ class Opd extends CI_Controller
         $this->data['title'] = "E-Laporan " . strtoupper($this->session->tempdata('nama_opd'));
     }
 
-    public function get_tipesurat($id_opd)
+    public function get_tipelaporan($id_opd)
     {
-        $this->load->model('tipesuratopd_model', 'tso');
-        $this->tipesurat = $this->tso->get_tipesurat_by_idopd($id_opd);
+        $this->load->model('tipelaporanopd_model', 'tso');
+        $this->tipelaporan = $this->tso->get_tipelaporan_by_idopd($id_opd);
     }
 
-    public function get_list_tipesurat()
+    public function get_list_tipelaporan()
     {
-        return $this->tipesurat;
+        return $this->tipelaporan;
     }
 
     public function index()
     {
-        redirect('opd/riwayatsurat','refresh');   
+        redirect('opd/riwayatlaporan','refresh');   
         // $this->data['contents'] = APPPATH . 'views/opd/dashboard.php';
         // $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function f($formname)
     {
-        $this->load->model('tipesurat_model', 'ts');
+        $this->load->model('tipelaporan_model', 'ts');
         $formfilename = str_replace(' ', '', strtolower($formname));
         $this->data['id_tipe'] = $this->ts->get_idtipe_by_kodetipe($formfilename);
-        $this->data['sidebar'] = $this->tipesurat;
+        $this->data['sidebar'] = $this->tipelaporan;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function e($id)
     {
-        $this->load->model('surat_model', 'surat');
-        $this->data['value'] = $this->surat->get_surat_data($id);
-        $formname = $this->surat->get_tipe_surat($id);
-        $this->data['sidebar'] = $this->tipesurat;
+        $this->load->model('laporan_model', 'laporan');
+        $this->data['value'] = $this->laporan->get_laporan_data($id);
+        $formname = $this->laporan->get_tipe_laporan($id);
+        $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . ".php";
-        $this->data['id_surat'] = $id;
-        $this->data['id_tipe'] = $this->surat->get_idtipe_by_idsurat($id);
+        $this->data['id_laporan'] = $id;
+        $this->data['id_tipe'] = $this->laporan->get_idtipe_by_idlaporan($id);
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function riwayatsurat($page_number = 1)
+    public function riwayatlaporan($page_number = 1)
     {
         if($this->input->get() != NULL){
-            return $this->carisurat($page_number);
+            return $this->carilaporan($page_number);
         }
         $id_opd = $this->session->tempdata('id_opd');
-        $this->load->model('surat_model', 'surat');
-        $datasurat = $this->surat->get_allsurat($page_number, $id_opd);
-        $this->data['list_surat'] = $datasurat;
-        $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
+        $this->load->model('laporan_model', 'laporan');
+        $datalaporan = $this->laporan->get_alllaporan($page_number, $id_opd);
+        $this->data['list_laporan'] = $datalaporan;
+        $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function carisurat($page_number)
+    public function carilaporan($page_number)
     {
-        $this->load->model('surat_model', 'surat');
-        $this->data['list_surat'] = $this->surat->search($this->input->get());
-        $this->data['contents'] = APPPATH . "views/opd/riwayatsurat.php";
+        $this->load->model('laporan_model', 'laporan');
+        $this->data['list_laporan'] = $this->laporan->search($this->input->get());
+        $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function submit()
     {
-        $id_surat = NULL;
-        if ($this->input->post('id_surat') != NULL) {
-            $id_surat = $this->input->post('id_surat');
+        $id_laporan = NULL;
+        if ($this->input->post('id_laporan') != NULL) {
+            $id_laporan = $this->input->post('id_laporan');
         }
         $data = $this->input->post();
-        if ($id_surat == NULL) { // new data
-            $this->surat->add_data($data);
+        if ($id_laporan == NULL) { // new data
+            $this->laporan->add_data($data);
         } else { // editted data
-            $this->surat->update_data($id, $data);
+            $this->laporan->update_data($id, $data);
         }
     }
 
@@ -145,8 +145,8 @@ class Opd extends CI_Controller
             } else {
                 $data = array('upload_data' => $this->upload->data());
 
-                $this->load->model('surat_masuk_model');
-                $this->surat_masuk_model->insert(['id_disposisi' => $id, 'nama_file' => $this->upload->data('file_name')]);
+                $this->load->model('laporan_masuk_model');
+                $this->laporan_masuk_model->insert(['id_disposisi' => $id, 'nama_file' => $this->upload->data('file_name')]);
             }
         }
     }
@@ -155,10 +155,10 @@ class Opd extends CI_Controller
     {
         $data = [
             'id_opd' => $this->session->tempdata('id_opd'),
-            'surat_dari' => htmlspecialchars($this->input->post('surat_dari', TRUE)),
-            'tgl_surat' => date('Y-m-d', strtotime($this->input->post('tgl_surat', TRUE))),
+            'laporan_dari' => htmlspecialchars($this->input->post('laporan_dari', TRUE)),
+            'tgl_laporan' => date('Y-m-d', strtotime($this->input->post('tgl_laporan', TRUE))),
             'tgl_masuk' => date('Y-m-d', strtotime($this->input->post('tgl_masuk', TRUE))),
-            'no_surat' => htmlspecialchars($this->input->post('no_surat', TRUE)),
+            'no_laporan' => htmlspecialchars($this->input->post('no_laporan', TRUE)),
             'no_agenda' => htmlspecialchars($this->input->post('no_agenda', TRUE)),
             'perihal' => htmlspecialchars($this->input->post('perihal', TRUE)),
             'diteruskan' => htmlspecialchars($this->input->post('diteruskan', TRUE)),
@@ -172,7 +172,7 @@ class Opd extends CI_Controller
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><strong>×</strong></span>
             </button>
             <center>
-              Berhasil <strong>menambah</strong> disposisi (' . $data['no_surat'] . ')
+              Berhasil <strong>menambah</strong> disposisi (' . $data['no_laporan'] . ')
             </center>
           </div>');
 

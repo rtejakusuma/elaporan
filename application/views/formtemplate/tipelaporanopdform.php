@@ -19,8 +19,8 @@
                   <div class="">
                     <ul class="to_do">
                       <?php
-                        foreach($data['opsi_tipesurat'] as $opsi_tipe){
-                          echo "<li><p><input type='checkbox'  class='flat'> $opsi_tipe->nama_surat</p></li>";
+                        foreach($data['opsi_tipelaporan'] as $opsi_tipe){
+                          echo "<li><p><input type='checkbox'  class='flat'> $opsi_tipe->nama_laporan</p></li>";
                         }
                       ?>
                       
