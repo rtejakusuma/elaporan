@@ -32,7 +32,7 @@ class Opd extends CI_Controller
 
     public function index()
     {
-        redirect('opd/riwayatsurat','refresh');   
+        redirect('opd/riwayatsurat', 'refresh');
         // $this->data['contents'] = APPPATH . 'views/opd/dashboard.php';
         // $this->load->view('template/index_opd', array('data' => $this->data));
     }
@@ -62,7 +62,7 @@ class Opd extends CI_Controller
 
     public function riwayatsurat($page_number = 1)
     {
-        if($this->input->get() != NULL){
+        if ($this->input->get() != NULL) {
             return $this->carisurat($page_number);
         }
         $id_opd = $this->session->tempdata('id_opd');
