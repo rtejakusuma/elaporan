@@ -46,6 +46,15 @@ class Tipelaporanopd_model extends CI_Model
 
     public function update_tipelaporan_per_opd($id_opd, $data)
     {
-        $this->db->update('tipelaporan_per_opd', $data, array('id_opd' => $id_opd));
+        $this->db->trans_start();
+        // delete saved data first
+        $this->db->delete('tipelaporan_per_opd', array('id_opd' => $id_opd));
+        $to_insert = array();
+        foreach($data as $value){
+            if($value == NULL) continue;
+            array_push($to_insert, ['id_opd' => $id_opd, 'id_tipe' => $value]);
+        }
+        $this->db->insert_batch('tipelaporan_per_opd', $to_insert);
+        $this->db->trans_complete();
     }
 }

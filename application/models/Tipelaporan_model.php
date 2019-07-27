@@ -29,12 +29,4 @@ class Tipelaporan_model extends CI_Model
         return NULL;
     }
 
-    public function update_tipelaporan_per_opd($id_opd, $data)
-    {
-        $this->db->trans_start();
-        
-        $this->db->trans_complete();
-        // check error
-        // $this->db->trans_status() === false
-    }
 }

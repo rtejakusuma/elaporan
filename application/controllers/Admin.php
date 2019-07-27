@@ -68,7 +68,7 @@ class Admin extends CI_Controller
             foreach ($data as $row) {
                 array_push($this->data['opsi_tipelaporan'],  $row);
             }
-            
+            // var_dump($this->data['opsi_tipelaporan']); die();
             $this->data['tipe_opsi'] = 'tipelaporan';
         } else {
             redirect('admin', 'refresh');
@@ -116,10 +116,12 @@ class Admin extends CI_Controller
 
     public function update_tipelaporan_per_opd()
     {
-        $id_opd = $this->session->tempdata('id_opd');
-        $data = $this->input->post(); // data from chekbox in form
-        $this->load->model('tipelaporanperopd_model', 'tipelaporan');
-        $this->tipelaporan->update_tipelaporan_per_opd($id_opd, $data);
+        if($this->session->tempdata('id_opd') != '1'){
+            redirect('auth','refresh');
+        }
+        $this->load->model('tipelaporanopd_model', 'tipelaporanopd');
+        $this->tipelaporanopd->update_tipelaporan_per_opd($this->input->post('id_opd'), $this->input->post('id_tipe'));
+        redirect('admin/f/tipelaporanopdform', 'refresh');  
     }
 
     public function reset_password()
