@@ -25,7 +25,7 @@
                                 <select name="id_opd">
                                   <?php
                                     foreach($data['opsi_opd'] as $row){
-                                      echo "<option value='$row->id_opd'>$row->nama_opd</option>";
+                                      echo "<option value='$row[id_opd]'>$row[nama_opd]</option>";
                                     }
                                   ?>
                                   
@@ -38,7 +38,7 @@
                                 <select name="id_tipe">
                                   <?php
                                       foreach ($data['opsi_laporan'] as $type) {
-                                        echo "<option value='$type->id_tipe'>$type->nama_laporan</option>";
+                                        echo "<option value='$type[id_tipe]'>$type[nama_laporan]</option>";
                                       }
                                   ?>
                                 </select>
@@ -85,10 +85,10 @@
                               $counter = "even pointer";
                               foreach($data['list_laporan'] as $datalaporan){
                                 echo "<tr class=$counter>
-                                        <td>$datalaporan->id_laporan</td>
-                                        <td>$datalaporan->nama_opd</td>
-                                        <td>$datalaporan->nama_laporan</td>
-                                        <td>".date('d-m-Y H:i:s', strtotime($datalaporan->created_at))."</td>
+                                        <td>$datalaporan[id_laporan]</td>
+                                        <td>$datalaporan[nama_opd]</td>
+                                        <td>$datalaporan[nama_laporan]</td>
+                                        <td>".date('d-m-Y H:i:s', strtotime($datalaporan['created_at']))."</td>
                                       </tr>";
                                 if($counter == "even pointer") $counter = "odd pointer";
                                 else $counter = "even pointer";

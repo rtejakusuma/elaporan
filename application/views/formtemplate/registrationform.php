@@ -38,7 +38,7 @@
                 <select id="opd" name="id_opd" >
                   <?php
                     foreach($data['opsi_opd'] as $opd){
-                      echo "<option value='" . $opd->id_opd . "'>" . strtoupper($opd->nama_opd) . "</option>";
+                      echo "<option value='" . $opd['id_opd'] . "'>" . strtoupper($opd['nama_opd']) . "</option>";
                     }
                   ?>
                 </select>

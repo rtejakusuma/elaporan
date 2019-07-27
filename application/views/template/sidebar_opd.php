@@ -6,7 +6,7 @@
           <?php
             if($data['sidebar'] !=  NULL){
               foreach ($data['sidebar'] as $type) {
-                echo "<li><a href='" . base_url() . "opd/f/" . str_replace(' ', '', $type->nama_laporan) . "'>" . $type->nama_laporan . "</a></li>";
+                echo "<li><a href='" . base_url() . "opd/f/" . str_replace(' ', '', $type['kode_tipe']) . "'>" . $type['nama_laporan'] . "</a></li>";
               }
             } else {
               echo "Tidak ada tipe laporan yang dimiliki.<br/> Hubungi Admin.";

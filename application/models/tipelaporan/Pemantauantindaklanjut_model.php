@@ -12,7 +12,7 @@ class Pemantauantindaklanjut_model extends CI_Model
         if($id_laporan != NULL){
             $this->db->where('pemantauan_tindak_lanjut.id_laporan', $id_laporan);
         }
-        $this->db->join('temuan', 'temuan.id_laporan = pemantauan_tindak_lanjut_opd.id_laporan')
+        $this->db->join('temuan', 'temuan.id_laporan = pemantauan_tindak_lanjut.id_laporan')
                     ->join('hasil_temuan', 'hasil_temuan.id_temuan = temuan.id_temuan');
         
         return $this->db->get()->result();

@@ -11,6 +11,16 @@ class Coba extends CI_Controller
         $json = json_encode($data, JSON_PRETTY_PRINT);
         printf("<pre>%s</pre>", $json);
     }
+
+    public function loaddata($table)
+    {
+        $table = strtolower($table);
+        $this->load->model("tipelaporan/$table"."_model", 'tes');
+        $res = $this->tes->get_data();
+        var_dump($res);
+        printf("<pre>%s</pre>", json_encode($res, JSON_PRETTY_PRINT));
+        die();
+    }
 }
 
 /* End of file Coba.php */

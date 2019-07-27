@@ -14,7 +14,7 @@ class Sotk_model extends CI_Model
         }
         $this->db->join('sotk_opd', 'sotk.id_laporan = sotk_opd.id_laporan')
                     ->join('opd', 'opd.id_opd = sotk_opd.id_opd');
-
+        // var_dump($this->db->get_compiled_select()); die();
         return $this->db->get()->result();
     }
 }

@@ -5,7 +5,7 @@ class Laporan_model extends CI_Model
 {
     public function gets()
     {
-        return $this->db->select('laporan')->result();
+        return $this->db->select('laporan')->result_array();
     }
 
     public function get_alllaporan($page_number, $id_opd=NULL, $limit=20)
@@ -26,7 +26,7 @@ class Laporan_model extends CI_Model
                     ->order_by('created_at', 'desc')
                     ->limit($limit, ($page_number-1) * $limit);    
         }
-        return $this->db->get()->result();
+        return $this->db->get()->result_array();
     }
 
     public function search($cond)
@@ -46,7 +46,7 @@ class Laporan_model extends CI_Model
                     ->where("created_at <= ", $cond['end_date'] . ' 23:59:59');
         $this->db->join('tipe_laporan', 'tipe_laporan.id_tipe = laporan.id_tipe');
         // var_dump($this->db->get()->result()); die();
-        return $this->db->get()->result();
+        return $this->db->get()->result_array();
     }
 
     public function get_idtipe_by_idlaporan($id)

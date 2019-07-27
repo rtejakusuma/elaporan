@@ -19,9 +19,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        redirect('admin/riwayatlaporan','refresh');   
-        // $this->data['contents'] = APPPATH . "views/admin/dashboard.php";
-        // $this->load->view('template/index_admin', ['data' => $this->data]);
+        redirect('admin/riwayatlaporan','refresh');
     }
 
     public function f($formfilename = NULL)
@@ -36,18 +34,18 @@ class Admin extends CI_Controller
         // data to send to view for option
         if ($formfilename == 'registrationform') {
             $this->load->model('opd_model', 'opd');
-            $data = $this->opd->gets_as_object();
+            $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
             // var_dump($data); die();
             foreach ($data as $row) {
-                if ($row->id_opd == '1') // id_opd admin
+                if ($row['id_opd'] == '1') // id_opd admin
                     continue;
                 array_push($this->data['opsi_opd'],  $row);
             }
             $this->data['tipe_opsi'] = 'register';
         } elseif ($formfilename == 'resetpasswordform') {
             $this->load->model('user_model', 'user');
-            $data = $this->user->gets_as_object();
+            $data = $this->user->gets();
             $this->data['opsi_user'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_user'],  $row);
@@ -56,14 +54,14 @@ class Admin extends CI_Controller
         } elseif ($formfilename == 'tipelaporanopdform') {
             // load list OPD
             $this->load->model('opd_model', 'opd');
-            $data = $this->opd->gets_as_object();
+            $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_opd'],  $row);
             }
             // load seluruh tipelaporan
             $this->load->model('tipelaporan_model', 'tipelaporan');
-            $data = $this->tipelaporan->gets_as_object();
+            $data = $this->tipelaporan->gets();
             $this->data['opsi_tipelaporan'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_tipelaporan'],  $row);
@@ -87,14 +85,14 @@ class Admin extends CI_Controller
         $datalaporan = $this->laporan->get_alllaporan($page_number);
         $this->data['list_laporan'] = $datalaporan;
         $this->load->model('opd_model', 'opd');
-        $this->data['opsi_opd'] = $this->opd->gets_as_object();
+        $this->data['opsi_opd'] = $this->opd->gets();
         unset($this->data['opsi_opd'][0]);
         $this->load->model('tipelaporanopd_model', 'tso');
         $this->data['opsi_laporan'] = $this->tso->get_opd_namatipelaporan();
         $this->data['contents'] = APPPATH . "views/admin/riwayatlaporan.php";
         $this->load->view('template/index_admin', array('data' => $this->data));
     }
-
+    // belum selesai
     public function carilaporan()
     {
         $getdata = $this->input->get();

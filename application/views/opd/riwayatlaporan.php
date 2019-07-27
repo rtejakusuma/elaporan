@@ -26,7 +26,7 @@
                                   <?php
                                     if($data['sidebar'] !=  NULL){
                                       foreach ($data['sidebar'] as $type) {
-                                        echo "<option value='$type->id_tipe'>$type->nama_laporan</option>";
+                                        echo "<option value='$type[id_tipe]'>$type[nama_laporan]</option>";
                                       }
                                     }
                                   ?>
@@ -76,9 +76,9 @@
                               $counter = "even pointer";
                               foreach($data['list_laporan'] as $datalaporan){
                                 echo "<tr class=$counter>
-                                        <td>$datalaporan->id_laporan</td>
-                                        <td>$datalaporan->nama_laporan</td>
-                                        <td>".date('d-m-Y H:i:s', strtotime($datalaporan->created_at))."</td>
+                                        <td>$datalaporan[id_laporan]</td>
+                                        <td>$datalaporan[nama_laporan]</td>
+                                        <td>".date('d-m-Y H:i:s', strtotime($datalaporan['created_at']))."</td>
                                       </tr>";
                                 if($counter == "even pointer") $counter = "odd pointer";
                                 else $counter = "even pointer";

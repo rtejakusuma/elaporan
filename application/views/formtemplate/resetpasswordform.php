@@ -26,7 +26,7 @@
                 <select id="user" name="id" >
                   <?php
                     foreach($data['opsi_user'] as $user){
-                      echo "<option value='" . $user->id . "'>" . strtoupper($user->username) . "</option>";
+                      echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
                     }
                   ?>
                 </select>
