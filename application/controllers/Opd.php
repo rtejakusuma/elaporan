@@ -33,28 +33,26 @@ class Opd extends CI_Controller
     public function index()
     {
         redirect('opd/riwayatlaporan', 'refresh');
-        // $this->data['contents'] = APPPATH . 'views/opd/dashboard.php';
-        // $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function f($formname)
+    public function f($formname, $id_laporan, $subpage)
     {
         $this->load->model('tipelaporan_model', 'ts');
         $formfilename = str_replace(' ', '', strtolower($formname));
         $this->data['id_tipe'] = $this->ts->get_idtipe_by_kodetipe($formfilename);
         $this->data['sidebar'] = $this->tipelaporan;
-        $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename.php";
+        $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename"."_$subpage.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function e($id)
+    public function e($id, $subpage)
     {
         $this->load->model('laporan_model', 'laporan');
         $this->data['value'] = $this->laporan->get_laporan_data($id);
         $formname = $this->laporan->get_tipe_laporan($id);
         $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
-        $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . ".php";
+        $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . "_$subpage.php";
         $this->data['id_laporan'] = $id;
         $this->data['id_tipe'] = $this->laporan->get_idtipe_by_idlaporan($id);
         $this->load->view('template/index_opd', array('data' => $this->data));
