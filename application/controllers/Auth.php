@@ -81,7 +81,7 @@ class Auth extends CI_Controller
         $password = $this->input->post('password');
 
         $user = $this->user_model->get_login($username);
-
+        
         if ($user) {
             if (password_verify($password, $user['password'])) {
                 $this->_sessionbuilder($user);

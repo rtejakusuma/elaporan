@@ -32,7 +32,7 @@ class User_model extends CI_Model
 
     public function get_login($username)
     {
-        return $this->db->get_where('user', ['username' => $username])->row_array();
+        return $this->db->get_where('user', ['username' => $username])->result_array()[0];
     }
 
     public function insert($data)
