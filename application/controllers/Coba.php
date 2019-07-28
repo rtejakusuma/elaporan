@@ -38,18 +38,7 @@ class Coba extends CI_Controller
     {
         $data = $this->index();
         var_dump($data); die();
-        $fieldindex = ['kode_opd', 'kode_program', 'nama_program', 'pagu_renja',
-                'pagu_rkpd', 'pagu_ppas_draft', 'pagu_ppas_final'
-                ];
-        $fieldkeluaran = ['indikator', 'target', 'target_rkpd', 'target_ppas_draft',
-                        'target_ppas_final', 'satuan'
-                ];
-        $fieldcapaian = ['indikator', 'target', 'target_rkpd', 'target_ppas_draft',
-                    'target_ppas_final', 'satuan'
-                ];
-        $fieldhasil = ['indikator', 'target', 'target_rkpd', 'target_ppas_draft',
-                'target_ppas_final', 'satuan'
-                ];
+       
         $this->load->model('tipelaporan/realisasifisik_model', 'rf');
         $this->load->model('laporan_model', 'lp');
         $this->load->model('opd_model', 'opd');
