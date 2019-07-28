@@ -70,7 +70,7 @@ class Coba extends CI_Controller
                 'updated_at' => $laporan_baru['updated_at'],
             );
             $this->rf->insert_index($data);
-            echo "TEST<br/><br/>";
+
             // tabel program
             foreach($dataperopd as $d){
                 $data = array(
@@ -116,16 +116,13 @@ class Coba extends CI_Controller
                 
             }
             $t=json_decode(json_encode($kegiatan, JSON_PRETTY_PRINT), true);
-            // printf("<pre>%s</pre>", $t);
 
+            // tabel kegiatan
             foreach($t as $key => $value){
-                // printf("<pre>%s</pre>", $v);
-                // var_dump($value);
                 if($value == NULL || sizeof($value) <= 0 || $value == [])
                     continue;
                 $this->rf->insert_kegiatan($value);
             }
-            // $this->rf->insert_kegiatan($kegiatan);
         }
     }
 

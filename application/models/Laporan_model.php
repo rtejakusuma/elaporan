@@ -97,7 +97,6 @@ class Laporan_model extends CI_Model
 
     public function add_data($data)
     {
-        // var_dump($namalaporan, $data); die();
         $this->db->insert('laporan', 
                     [
                         'id_opd' => $data['id_opd'],
