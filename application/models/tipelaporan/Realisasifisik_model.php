@@ -23,18 +23,20 @@ class Realisasifisik_model extends CI_Model
 
     public function insert_index($data)
     {
-        $this->db->trans_start();
         $this->db->insert('realisasi_fisik', $data);
     }
 
     public function insert_program($data)
     {
-        $this->db->insert($data);
+        if($this->db->get_where('program', ['kode_program' => $data['kode_program']])->result_array() != NULL){
+            $this->db->update('program', ['kode_program' => $data['kode_program']]);
+        } else {
+            $this->db->set($data);
+        }
     }
 
     public function insert_kegiatan($data)
     {
         $this->db->insert($data);
-        $this->db->trans_complete();
     }
 }

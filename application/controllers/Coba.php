@@ -36,7 +36,8 @@ class Coba extends CI_Controller
 
     public function fetchapi_realisasifisik()
     {
-        $data = $this->index()['data'];
+        $data = $this->index();
+        var_dump($data); die();
         $fieldindex = ['kode_opd', 'kode_program', 'nama_program', 'pagu_renja',
                 'pagu_rkpd', 'pagu_ppas_draft', 'pagu_ppas_final'
                 ];
@@ -81,7 +82,7 @@ class Coba extends CI_Controller
                 'updated_at' => $laporan_baru['updated_at'],
             );
             $this->rf->insert_index($data);
-            
+            echo "TEST<br/><br/>";
             // tabel program
             foreach($dataperopd as $d){
                 $data = array(
@@ -97,6 +98,8 @@ class Coba extends CI_Controller
                 ); 
                 $this->rf->insert_program($data);
 
+                if(!isset($kegiatan[$d['kode_program']]))
+                    $kegiatan[$d['kode_program']] = NULL;
                 array_push(
                 $kegiatan[$d['kode_program']], array(
                     'kode_kegiatan' => $d['kode_kegiatan'],
