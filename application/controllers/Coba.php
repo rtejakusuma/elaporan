@@ -37,7 +37,6 @@ class Coba extends CI_Controller
     public function fetchapi_realisasifisik()
     {
         $data = $this->index()['data'];
-
         $fieldindex = ['kode_opd', 'kode_program', 'nama_program', 'pagu_renja',
                 'pagu_rkpd', 'pagu_ppas_draft', 'pagu_ppas_final'
                 ];
@@ -54,7 +53,7 @@ class Coba extends CI_Controller
         $this->load->model('laporan_model', 'lp');
         $this->load->model('opd_model', 'opd');
         $this->load->model('tipelaporan_model', 'tl');
-        
+
         $fet = array();
         foreach($data as $row){
             if(!isset($fet[$row['nama_opd']]))
@@ -63,6 +62,7 @@ class Coba extends CI_Controller
         }
         // asumsi 1 opd 1 laporan
         foreach($fet as $dataperopd){
+            $kegiatan = [[]];
             $id_opd = $this->opd->get_id_from_ebud($dataperopd[0]['kode_opd']);
             $id_tipe = $this->tl->get_idtipe_by_kodetipe('realisasi_fisik');
             $data = array(
@@ -70,7 +70,7 @@ class Coba extends CI_Controller
                 'id_tipe' => $id_tipe,
             );
             // add to laporan
-            $laporan_baru = $this->lp->add_data('realisasi_fisik', $data);
+            $laporan_baru = $this->lp->add_data($data);
 
             //add to realisasi_fisik
             $data = array(
@@ -84,12 +84,49 @@ class Coba extends CI_Controller
             
             // tabel program
             foreach($dataperopd as $d){
+                $data = array(
+                    'id_laporan' => $laporan_baru['id_laporan'],
+                    'kode_program' => $d['kode_program'],
+                    'nama_program' => $d['nama_program'],
+                    'capaian_indikator' => $d['capaian'][0]['indikator'],
+                    'capaian_target' => $d['capaian'][0]['target'],
+                    'capaian_target_rkpd' => $d['capaian'][0]['target_rkpd'],
+                    'capaian_target_ppas_draft' => $d['capaian'][0]['target_ppas_draft'],
+                    'capaian_target_ppas_final' => $d['capaian'][0]['target_ppas_final'],
+                    'capaian_satuan' => $d['capaian'][0]['satuan'],
+                ); 
+                $this->rf->insert_program($data);
+
+                array_push(
+                $kegiatan[$d['kode_program']], array(
+                    'kode_kegiatan' => $d['kode_kegiatan'],
+                    'kode_program' => $d['kode_program'],
+                    'nama_kegiatan' => $d['nama_kegiatan'],
+                    'pagu_renja' => $d['pagu_renja'],
+                    'pagu_rkpd' => $d['pagu_rkpd'],
+                    'pagu_ppas_draft' => $d['pagu_ppas_draft'],
+                    'pagu_ppas_final' => $d['pagu_ppas_final'],
+                    
+                    'keluaran_indikator' => $d['keluaran'][0]['indikator'],
+                    'keluaran_target' => $d['keluaran'][0]['target'],
+                    'keluaran_target_rkpd' => $d['keluaran'][0]['target_rkpd'],
+                    'keluaran_target_ppas_draft' => $d['keluaran'][0]['target_ppas_draft'],
+                    'keluaran_target_ppas_final' => $d['keluaran'][0]['target_ppas_final'],
+                    'keluaran_satuan' => $d['keluaran'][0]['satuan'],
+
+                    'hasil_indikator' => $d['hasil'][0]['indikator'],
+                    'hasil_target' => $d['hasil'][0]['target'],
+                    'hasil_target_rkpd' => $d['hasil'][0]['target_rkpd'],
+                    'hasil_target_ppas_draft' => $d['hasil'][0]['target_ppas_draft'],
+                    'hasil_target_ppas_final' => $d['hasil'][0]['target_ppas_final'],
+                    'hasil_satuan' => $d['hasil'][0]['satuan'],
+                ));
+
                 
-
-
-
             }
-
+            foreach($kegiatan as $key => $value){
+                $this->rf->insert_kegiatan($value);
+            }
         }
     }
 

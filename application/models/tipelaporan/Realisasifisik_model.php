@@ -25,6 +25,16 @@ class Realisasifisik_model extends CI_Model
     {
         $this->db->trans_start();
         $this->db->insert('realisasi_fisik', $data);
+    }
+
+    public function insert_program($data)
+    {
+        $this->db->insert($data);
+    }
+
+    public function insert_kegiatan($data)
+    {
+        $this->db->insert($data);
         $this->db->trans_complete();
     }
 }
