@@ -13,10 +13,10 @@ class Api_sipp_model extends CI_Model
     }
 
 
-    public function get_api($tahun = '2020')
+    public function get_api($key, $value)
     {
         $key = 'b64149c3ea867959207e933bb686c9ab41d3370b';
-        $url = 'http://eplanning.madiunkota.go.id/api/ws/ppas/final?tahun=2020';
+        $url = "http://eplanning.madiunkota.go.id/api/ws/ppas/final?$key=$value";
 
         $curl = curl_init();
 

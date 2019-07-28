@@ -7,40 +7,29 @@ class Coba extends CI_Controller
     public function index()
     {
         $this->load->model('api_sipp_model');
-        $data = $this->api_sipp_model->get_api('2020');
+        $data = $this->api_sipp_model->get_api('tahun','2020');
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        return json_decode($json, true);
+        // return json_decode($json, true);
         
-        // printf("<pre>%s</pre>", $json);
-        // die();
-    }
-
-    public function fetchkodeebud()
-    {
-        $data = $this->index()['data'];
-        $ret = array();
-        foreach($data as $row){
-            if(!isset($ret[$row['kode_opd']]))
-                $ret[$row['kode_opd']] = $row['nama_opd'];
-        }
-        $fet = array();
-        foreach($ret as $key => $val){
-            array_push($fet, array('kode_ebud' => $key, 'nama_opd' => $val));
-        }
-        $this->load->model('opd_model', 'opd');
-        $this->opd->insert($fet);
-        var_dump($this->opd->gets()); die();
-
+        printf("<pre>%s</pre>", $json);
+        die();
     }
 
     public function fetchapi_realisasifisik()
     {
-        $data = $this->index()['data'];
-       
+        $this->load->model('api_sipp_model', 'sipp');
+        $this->load->model('opd_model', 'opd');
+        // $idebud = $this->opd->get_idebud();
+        // $tmp = array();
+        $data = $this->sipp->get_api("tahun", "2020");
+        if(!isset($data['data'])){
+            echo "TIMEOUT<br/>";
+            return;
+        }
+        $data = $data['data'];
         $this->load->model('tipelaporan/realisasifisik_model', 'rf');
         $this->load->model('laporan_model', 'lp');
-        $this->load->model('opd_model', 'opd');
         $this->load->model('tipelaporan_model', 'tl');
 
         $fet = array();
@@ -49,31 +38,39 @@ class Coba extends CI_Controller
                 $fet[$row['nama_opd']] = array();
             array_push($fet[$row['nama_opd']], $row);
         }
+        unset($data);
+        $data_lp; $data_rf; $data_prog; $data_kg;
         // asumsi 1 opd 1 laporan
         foreach($fet as $dataperopd){
-            $kegiatan = [[]];
+            unset($data_lp, $data_rf, $data_prog, $data_kg);
+            $data_kg = [[]];
             $id_opd = $this->opd->get_id_from_ebud($dataperopd[0]['kode_opd']);
+            if($id_opd == NULL){
+                var_dump($dataperopd[0]['kode_opd'], $dataperopd[0]['nama_opd']);
+                echo "<br/><br/>";
+                continue;
+            }
             $id_tipe = $this->tl->get_idtipe_by_kodetipe('realisasi_fisik');
-            $data = array(
+            $data_lp = array(
                 'id_opd' => $id_opd,
                 'id_tipe' => $id_tipe,
             );
             // add to laporan
-            $laporan_baru = $this->lp->add_data($data);
+            $laporan_baru = $this->lp->add_data($data_lp);
 
             //add to realisasi_fisik
-            $data = array(
+            $data_rf = array(
                 'id_laporan' => $laporan_baru['id_laporan'],
                 'id_opd' => $laporan_baru['id_opd'],
                 'id_tipe' => $laporan_baru['id_tipe'],
                 'created_at' => $laporan_baru['created_at'],
                 'updated_at' => $laporan_baru['updated_at'],
             );
-            $this->rf->insert_index($data);
+            $this->rf->insert_index($data_rf);
 
             // tabel program
             foreach($dataperopd as $d){
-                $data = array(
+                $data_prog = array(
                     'id_laporan' => $laporan_baru['id_laporan'],
                     'kode_program' => $d['kode_program'],
                     'nama_program' => $d['nama_program'],
@@ -84,11 +81,12 @@ class Coba extends CI_Controller
                     'capaian_target_ppas_final' => reset($d['capaian'])['target_ppas_final'],
                     'capaian_satuan' => reset($d['capaian'])['satuan'],
                 ); 
-                $this->rf->insert_program($data);
+                $this->rf->insert_program($data_prog);
 
-                if(!isset($kegiatan[$d['kode_program']]))
-                    $kegiatan[$d['kode_program']] = array();
-                array_push($kegiatan[$d['kode_program']], 
+                if(!isset($data_kg[$d['kode_program']]))
+                    $data_kg[$d['kode_program']] = array();
+
+                array_push($data_kg[$d['kode_program']], 
                     array(
                     'kode_kegiatan' => $d['kode_kegiatan'],
                     'kode_program' => $d['kode_program'],
@@ -115,7 +113,7 @@ class Coba extends CI_Controller
 
                 
             }
-            $t=json_decode(json_encode($kegiatan, JSON_PRETTY_PRINT), true);
+            $t=json_decode(json_encode($data_kg, JSON_PRETTY_PRINT), true);
 
             // tabel kegiatan
             foreach($t as $key => $value){
