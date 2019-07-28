@@ -18,7 +18,7 @@ class Realisasifisik_model extends CI_Model
                     ->join('keluaran', 'kegiatan.kode_kegiatan = keluaran.kode_kegiatan')
                     ->join('hasil', 'kegiatan.kode_kegiatan = hasil.kode_kegiatan');
         
-        return $this->db->get()->result();
+        return $this->db->get()->result_array();
     }
 
     public function insert_index($data)
@@ -29,14 +29,15 @@ class Realisasifisik_model extends CI_Model
     public function insert_program($data)
     {
         if($this->db->get_where('program', ['kode_program' => $data['kode_program']])->result_array() != NULL){
-            $this->db->update('program', ['kode_program' => $data['kode_program']]);
+            // $this->db->update('program', ['kode_program' => $data['kode_program']]);
         } else {
-            $this->db->set($data);
+             $this->db->insert('program', $data);
         }
     }
 
     public function insert_kegiatan($data)
     {
-        $this->db->insert($data);
+        if($data == NULL || $data == []) return;
+        $this->db->insert_batch('kegiatan',$data);
     }
 }

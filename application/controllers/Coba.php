@@ -36,8 +36,7 @@ class Coba extends CI_Controller
 
     public function fetchapi_realisasifisik()
     {
-        $data = $this->index();
-        var_dump($data); die();
+        $data = $this->index()['data'];
        
         $this->load->model('tipelaporan/realisasifisik_model', 'rf');
         $this->load->model('laporan_model', 'lp');
@@ -78,19 +77,19 @@ class Coba extends CI_Controller
                     'id_laporan' => $laporan_baru['id_laporan'],
                     'kode_program' => $d['kode_program'],
                     'nama_program' => $d['nama_program'],
-                    'capaian_indikator' => $d['capaian'][0]['indikator'],
-                    'capaian_target' => $d['capaian'][0]['target'],
-                    'capaian_target_rkpd' => $d['capaian'][0]['target_rkpd'],
-                    'capaian_target_ppas_draft' => $d['capaian'][0]['target_ppas_draft'],
-                    'capaian_target_ppas_final' => $d['capaian'][0]['target_ppas_final'],
-                    'capaian_satuan' => $d['capaian'][0]['satuan'],
+                    'capaian_indikator' => reset($d['capaian'])['indikator'],
+                    'capaian_target' => reset($d['capaian'])['target'],
+                    'capaian_target_rkpd' => reset($d['capaian'])['target_rkpd'],
+                    'capaian_target_ppas_draft' => reset($d['capaian'])['target_ppas_draft'],
+                    'capaian_target_ppas_final' => reset($d['capaian'])['target_ppas_final'],
+                    'capaian_satuan' => reset($d['capaian'])['satuan'],
                 ); 
                 $this->rf->insert_program($data);
 
                 if(!isset($kegiatan[$d['kode_program']]))
-                    $kegiatan[$d['kode_program']] = NULL;
-                array_push(
-                $kegiatan[$d['kode_program']], array(
+                    $kegiatan[$d['kode_program']] = array();
+                array_push($kegiatan[$d['kode_program']], 
+                    array(
                     'kode_kegiatan' => $d['kode_kegiatan'],
                     'kode_program' => $d['kode_program'],
                     'nama_kegiatan' => $d['nama_kegiatan'],
@@ -99,26 +98,34 @@ class Coba extends CI_Controller
                     'pagu_ppas_draft' => $d['pagu_ppas_draft'],
                     'pagu_ppas_final' => $d['pagu_ppas_final'],
                     
-                    'keluaran_indikator' => $d['keluaran'][0]['indikator'],
-                    'keluaran_target' => $d['keluaran'][0]['target'],
-                    'keluaran_target_rkpd' => $d['keluaran'][0]['target_rkpd'],
-                    'keluaran_target_ppas_draft' => $d['keluaran'][0]['target_ppas_draft'],
-                    'keluaran_target_ppas_final' => $d['keluaran'][0]['target_ppas_final'],
-                    'keluaran_satuan' => $d['keluaran'][0]['satuan'],
+                    'keluaran_indikator' => reset($d['keluaran'])['indikator'],
+                    'keluaran_target' => reset($d['keluaran'])['target'],
+                    'keluaran_target_rkpd' => reset($d['keluaran'])['target_rkpd'],
+                    'keluaran_target_ppas_draft' => reset($d['keluaran'])['target_ppas_draft'],
+                    'keluaran_target_ppas_final' => reset($d['keluaran'])['target_ppas_final'],
+                    'keluaran_satuan' => reset($d['keluaran'])['satuan'],
 
-                    'hasil_indikator' => $d['hasil'][0]['indikator'],
-                    'hasil_target' => $d['hasil'][0]['target'],
-                    'hasil_target_rkpd' => $d['hasil'][0]['target_rkpd'],
-                    'hasil_target_ppas_draft' => $d['hasil'][0]['target_ppas_draft'],
-                    'hasil_target_ppas_final' => $d['hasil'][0]['target_ppas_final'],
-                    'hasil_satuan' => $d['hasil'][0]['satuan'],
+                    'hasil_indikator' => reset($d['hasil'])['indikator'],
+                    'hasil_target' => reset($d['hasil'])['target'],
+                    'hasil_target_rkpd' => reset($d['hasil'])['target_rkpd'],
+                    'hasil_target_ppas_draft' => reset($d['hasil'])['target_ppas_draft'],
+                    'hasil_target_ppas_final' => reset($d['hasil'])['target_ppas_final'],
+                    'hasil_satuan' => reset($d['hasil'])['satuan'],
                 ));
 
                 
             }
-            foreach($kegiatan as $key => $value){
+            $t=json_decode(json_encode($kegiatan, JSON_PRETTY_PRINT), true);
+            // printf("<pre>%s</pre>", $t);
+
+            foreach($t as $key => $value){
+                // printf("<pre>%s</pre>", $v);
+                // var_dump($value);
+                if($value == NULL || sizeof($value) <= 0 || $value == [])
+                    continue;
                 $this->rf->insert_kegiatan($value);
             }
+            // $this->rf->insert_kegiatan($kegiatan);
         }
     }
 
