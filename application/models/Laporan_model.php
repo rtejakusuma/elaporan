@@ -95,11 +95,18 @@ class Laporan_model extends CI_Model
         return $temp[0]->nama_laporan;
     }
 
-    public function add_data($namalaporan, $data)
+    public function add_data($data)
     {
-        var_dump($namalaporan, $data); die();
-        $this->db->insert($namalaporan, $data);
-        // redirect('opd','refresh');
+        // var_dump($namalaporan, $data); die();
+        $this->db->insert('laporan', 
+                    [
+                        'id_opd' => $data['id_opd'],
+                        'id_tipe' => $data['id_tipe'],
+                        'created_at' => date('Y-m-d H:i:s', time()),
+                        'updated_at' => date('Y-m-d H:i:s', time()),
+                    ]);
+        $this->db->order_by('updated_at', 'DESC');
+        return $this->db->get_where('laporan', ['id_opd' => $data['id_opd'], 'id_tipe' => $data['id_tipe'],])->result_array()[0];
     }
 
     public function update_data($id, $data)
