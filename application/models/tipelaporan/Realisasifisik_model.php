@@ -23,10 +23,7 @@ class Realisasifisik_model extends CI_Model
 
     public function insert_fetch($data_lp, $data_rf, $data_prog, $data_kg)
     {
-        // var_dump($data_prog);
         $this->db->trans_begin();
-        // $this->load->model('laporan_model', 'lp');
-        // $this->lp->add_data($data_lp);
         $this->db->insert('realisasi_fisik', $data_rf);
         foreach(reset($data_prog) as $prog){
             if($this->db->get_where('program', ['kode_program' => $prog['kode_program']])->result_array() == NULL){

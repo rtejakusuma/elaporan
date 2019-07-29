@@ -74,8 +74,13 @@ class Api_sipp_model extends CI_Model
             $id_opd = $this->opd->get_id_from_ebud($dataperopd[0]['kode_opd']);
             // unregistered/differ kode_ebud/ekin/emonev
             if($id_opd == NULL){
-                var_dump($dataperopd[0]['kode_opd'], $dataperopd[0]['nama_opd']);
-                echo "<br/><br/>";
+                // var_dump($dataperopd[0]['kode_opd'], $dataperopd[0]['nama_opd']);
+                // echo "<br/><br/>";
+                $data = array([
+                    'nama_opd' => strtoupper($dataperopd[0]['nama_opd']),
+                    'kode_ebud' => $dataperopd[0]['kode_opd']
+                    ]);
+                $this->opd->insert($data);
                 continue;
             }
             $id_tipe = $this->tl->get_idtipe_by_kodetipe('realisasi_fisik');
