@@ -21,21 +21,45 @@
           <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
             <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
             <div class="form-group">
-              <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+              <label for="uraian" class="control-label col-md-3 col-sm-3 col-xs-12">Uraian</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="user" name="id" >
-                  <?php
-                    foreach($data['opsi_user'] as $user){
-                      echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                    }
-                  ?>
-                </select>
+                <input id="uraian" class="form-control col-md-7 col-xs-12" type="text" name="uraian" required="required">
               </div>
             </div>
             <div class="form-group">
-              <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+              <label for="indikator_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Indikator Kinerja</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+                <input id="indikator_kinerja" class="form-control col-md-7 col-xs-12" type="text" name="indikator_kinerja" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="target" class="control-label col-md-3 col-sm-3 col-xs-12">Target</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="target" class="form-control col-md-7 col-xs-12" type="number" name="target" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="realisasi_target" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Target</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="realisasi_target" class="form-control col-md-7 col-xs-12" type="number" name="realisasi_target" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="program" class="control-label col-md-3 col-sm-3 col-xs-12">Program</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="program" class="form-control col-md-7 col-xs-12" type="text" name="program" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="anggaran" class="form-control col-md-7 col-xs-12" type="int" name="anggaran" required="required">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="keluaran_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Anggaran</label>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <input id="keluaran_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="keluaran_realisasi_anggaran" required="required">
               </div>
             </div>
             <div class="ln_solid"></div>
