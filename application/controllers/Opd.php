@@ -60,16 +60,18 @@ class Opd extends CI_Controller
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function e($formname, $id_laporan)
+    public function e($formname, $id_laporan) // edit existing data
     {
+        if($this->input->post() != NULL){   // update data
+            $this->load->model('laporan_model', 'lp');
+            $this->lp->update_laporan($formname, $id_laporan, $this->input->post());
+        }
         $this->load->model('laporan_model', 'laporan');
-        $this->data['value'] = $this->laporan->get_laporan_data($id);
-        $formname = $this->laporan->get_tipe_laporan($id);
+        $this->data['fetch'] = $this->laporan->get_laporan_data($id);
         $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
-        $this->data['contents'] = APPPATH . "views/formtemplate/" . str_replace(' ', '', strtolower($formname)) . "_$subpage.php";
-        $this->data['id_laporan'] = $id;
-        $this->data['id_tipe'] = $this->laporan->get_idtipe_by_idlaporan($id);
+        $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
+        $this->data['id_laporan'] = $id_laporan;
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
