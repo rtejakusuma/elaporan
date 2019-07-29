@@ -102,14 +102,14 @@ class Api_sipp_model extends CI_Model
             
             // $this->rf->insert_index($data_rf);
 
-            // tabel program
+            // tabel program + kegiatan
             foreach($dataperopd as $d){
                 if(!isset($data_prog[$laporan_baru['id_laporan']]))
                     $data_prog[$laporan_baru['id_laporan']] = array();
                 array_push($data_prog[$laporan_baru['id_laporan']], 
                     array(
                     'id_laporan' => $laporan_baru['id_laporan'],
-                    'kode_program' => $d['kode_program'],
+                    'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
                     'nama_program' => $d['nama_program'],
                     'capaian_indikator' => reset($d['capaian'])['indikator'],
                     'capaian_target' => reset($d['capaian'])['target'],
@@ -125,8 +125,8 @@ class Api_sipp_model extends CI_Model
 
                 array_push($data_kg[$d['kode_program']], 
                     array(
-                    'kode_kegiatan' => $d['kode_kegiatan'],
-                    'kode_program' => $d['kode_program'],
+                    'kode_kegiatan' => $laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan'],
+                    'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
                     'nama_kegiatan' => $d['nama_kegiatan'],
                     'pagu_renja' => $d['pagu_renja'],
                     'pagu_rkpd' => $d['pagu_rkpd'],

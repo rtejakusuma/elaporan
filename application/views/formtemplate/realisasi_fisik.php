@@ -41,7 +41,7 @@
                             <div class="form-group">
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl" required="required">
+                                <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl">
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -56,7 +56,7 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[kode_tipe]/$data[id_laporan]"); ?>' method="post">
                             <div class="form-group">
                             <label for="nama_program" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">

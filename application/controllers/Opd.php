@@ -66,25 +66,13 @@ class Opd extends CI_Controller
             $this->load->model('laporan_model', 'lp');
             $this->lp->update_laporan($formname, $id_laporan, $this->input->post());
         }
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
         $this->data['fetch'] = $this->laporan->get_laporan_data($id);
         $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
         $this->data['id_laporan'] = $id_laporan;
-        $this->load->view('template/index_opd', array('data' => $this->data));
-    }
-
-    public function riwayatlaporan($page_number = 1)
-    {
-        if ($this->input->get() != NULL) {
-            return $this->carilaporan($page_number);
-        }
-        $id_opd = $this->session->tempdata('id_opd');
-        $this->load->model('laporan_model', 'laporan');
-        $datalaporan = $this->laporan->get_alllaporan($page_number, $id_opd);
-        $this->data['list_laporan'] = $datalaporan;
-        $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 

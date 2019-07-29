@@ -26,9 +26,7 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_begin();
         $this->db->insert('realisasi_fisik', $data_rf);
         foreach(reset($data_prog) as $prog){
-            if($this->db->get_where('program', ['kode_program' => $prog['kode_program']])->result_array() == NULL){
-                $this->db->insert('program', $prog);
-            }
+            $this->db->insert_batch('program', $prog);
         }
         foreach($data_kg as $key => $value){
             if($value == NULL || sizeof($value) <= 0 || $value == []) continue;
