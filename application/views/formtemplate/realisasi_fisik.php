@@ -154,7 +154,8 @@
                                 <input id="pagu_ppas_final" class="form-control col-md-7 col-xs-12" type="number" name="pagu_ppas_final" required="required">
                             </div>
                             </div>
-                            <div class="form-g			<div class="form-group">
+                            <br/>
+                            <div class="form-group">
                             <label for="keluaran_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Indikator</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="keluaran_indikator" class="form-control col-md-7 col-xs-12" type="text" name="keluaran_indikator" required="required">
@@ -208,56 +209,57 @@
                                 <input id="keluaran_satuan" class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan" required="required">
                             </div>
                             </div>
-                            <div class="form-g			<div class="form-group">
-                            <label for="hasil_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Indikator</label>
+                            <br/>
+                            <div class="form-group">
+                            <label for="hasil_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Indikator</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_indikator" class="form-control col-md-7 col-xs-12" type="text" name="hasil_indikator" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_target" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target</label>
+                            <label for="hasil_target" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_target" class="form-control col-md-7 col-xs-12" type="number" name="hasil_target" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_target_rkpd" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target RKPD</label>
+                            <label for="hasil_target_rkpd" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target RKPD</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_target_rkpd" class="form-control col-md-7 col-xs-12" type="number" name="hasil_target_rkpd" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_target_ppas_draft" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Draft</label>
+                            <label for="hasil_target_ppas_draft" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target PPAS Draft</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_target_ppas_draft" class="form-control col-md-7 col-xs-12" type="number" name="hasil_target_ppas_draft" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Final</label>
+                            <label for="hasil_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target PPAS Final</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_target_ppas_final" class="form-control col-md-7 col-xs-12" type="number" name="hasil_target_ppas_final" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Anggaran</label>
+                            <label for="hasil_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Anggaran</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_anggaran" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja</label>
+                            <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_realisasi_kinerja" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Fisik</label>
+                            <label for="hasil_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Fisik</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_realisasi_fisik" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_fisik" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
+                            <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="hasil_satuan" class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan" required="required">
                             </div>
