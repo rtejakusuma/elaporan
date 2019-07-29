@@ -25,7 +25,7 @@ class Tipelaporanopd_model extends CI_Model
 
     public function get_tipelaporan_by_idopd($id_opd)
     {
-        $this->db->select('*')
+        $this->db->select('tipe_laporan.id_tipe, tipe_laporan.nama_laporan, tipe_laporan.kode_tipe')
                     ->from('tipelaporan_per_opd')
                     ->where('tipelaporan_per_opd.id_opd = ' . $id_opd)
                     ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe');

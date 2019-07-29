@@ -3,7 +3,7 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Riwayat laporan</h2>
+                    <h2>Riwayat Laporan <?php echo $data['nama_laporan']; ?></h2>
                     <div class="clearfix"></div>
                   </div>
 
@@ -13,26 +13,6 @@
                         <table>
                           <tbody>
                             <tr>
-                              <td class="col-sm-1">
-                              <center>
-                                <strong>ID laporan</strong> <br/>
-                                <input type="text" name="id_laporan">
-                              </center>
-                              </td>
-                              <td class="col-sm-1">
-                              <center>
-                                <strong> Jenis laporan </strong> <br/>
-                                <select name="id_tipe">
-                                  <?php
-                                    if($data['sidebar'] !=  NULL){
-                                      foreach ($data['sidebar'] as $type) {
-                                        echo "<option value='$type[id_tipe]'>$type[nama_laporan]</option>";
-                                      }
-                                    }
-                                  ?>
-                                </select>
-                              </center>
-                              </td>
                               <td class="col-sm-1">
                               <center>
                                 <strong> Waktu Awal </strong> <br/>
@@ -56,13 +36,15 @@
                       </form>
                     </div>
                     <div class="clearfix"><br/></div>
+                    <a href="<?php echo base_url("opd/c/$data[kode_tipe]"); ?>"><button><?php echo "Buat $data[nama_laporan]"; ?></button></a>
+                    <div class="clearfix"><br/></div>
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
                             <th class="column-title">ID laporan</th>
-                            <th class="column-title">Tipe laporan</th>
-                            <th class="column-title">Waktu Pembuatan</th>
+                            <th class="column-title">Tahun Pembuatan</th>
+                            <th class="col-sm-1"></th>
                           </tr>
                         </thead>
 
@@ -77,8 +59,13 @@
                               foreach($data['list_laporan'] as $datalaporan){
                                 echo "<tr class=$counter>
                                         <td>$datalaporan[id_laporan]</td>
-                                        <td>$datalaporan[nama_laporan]</td>
-                                        <td>".date('d-m-Y H:i:s', strtotime($datalaporan['created_at']))."</td>
+                                        <td>".date('Y', strtotime($datalaporan['created_at']))."</td>
+                                        <td>
+                                        <a href=".base_url("opd/e/$data[kode_tipe]/$datalaporan[id_laporan]")."
+                                        <button>Edit</button>
+                                        </a>
+                                        </td>
+                                        </a>
                                       </tr>";
                                 if($counter == "even pointer") $counter = "odd pointer";
                                 else $counter = "even pointer";

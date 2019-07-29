@@ -5,7 +5,8 @@ class Opd_model extends CI_Model
 {
     public function gets()
     {
-        return $this->db->get('opd')->result_array();
+        $this->db->from('opd')->order_by('nama_opd','ASC');
+        return $this->db->get()->result_array();
     }
 
     public function insert($data)

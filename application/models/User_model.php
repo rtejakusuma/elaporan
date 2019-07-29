@@ -27,7 +27,8 @@ class User_model extends CI_Model
 
     public function gets()
     {
-        return $this->db->get('user')->result_array();
+        $this->db->from('user')->order_by('username', 'ASC');
+        return $this->db->get()->result_array();
     }
 
     public function get_login($username)

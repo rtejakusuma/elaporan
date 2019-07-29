@@ -32,20 +32,35 @@ class Opd extends CI_Controller
 
     public function index()
     {
-        redirect('opd/riwayatlaporan', 'refresh');
+        redirect('opd/f/'.$this->tipelaporan[0]['kode_tipe'], 'refresh');
     }
 
-    public function f($formname, $id_laporan, $subpage)
+    public function f($formname, $page_number=1) // display laporan by kode_tipe
     {
+        $this->form_ver($formname);
         $this->load->model('tipelaporan_model', 'ts');
-        $formfilename = str_replace(' ', '', strtolower($formname));
-        $this->data['id_tipe'] = $this->ts->get_idtipe_by_kodetipe($formfilename);
-        $this->data['sidebar'] = $this->tipelaporan;
-        $this->data['contents'] = APPPATH . "views/formtemplate/$formfilename"."_$subpage.php";
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
+        $this->data['kode_tipe'] = $formname;
+        $this->data['list_laporan'] = $this->get_datalaporan_by_kodetipe($formname, $page_number);
+        $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function e($id, $subpage)
+    public function get_datalaporan_by_kodetipe($kode_tipe, $page_number)
+    {
+        $this->load->model('laporan_model', 'laporan');
+        return $this->laporan->get_laporan_by_kodetipe($kode_tipe, $page_number, $this->session->tempdata('id_opd'));
+    }
+
+    public function c($formname) // create new laporan by kode_tipe
+    {
+        $this->form_ver($formname);
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
+        $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
+        $this->load->view('template/index_opd', array('data' => $this->data));
+    }
+
+    public function e($formname, $id_laporan)
     {
         $this->load->model('laporan_model', 'laporan');
         $this->data['value'] = $this->laporan->get_laporan_data($id);
@@ -199,6 +214,24 @@ class Opd extends CI_Controller
     {
         if ($this->session->tempdata() == NULL or $this->session->tempdata('id_opd') == '1') {
             redirect('auth');
+        }
+    }
+
+    private function form_ver($formname)
+    {
+        $this->load->model('tipelaporanopd_model', 'a');
+        $temp = $this->a->get_tipelaporan_by_idopd($this->session->tempdata('id_opd'));
+        $flag = false;
+        if($temp != NULL){
+            foreach($temp as $d){
+                if($d['kode_tipe'] == $formname){
+                    $flag = true;
+                    break;
+                }
+            }
+        }
+        if(!$flag){
+            return $this->index();
         }
     }
 }
