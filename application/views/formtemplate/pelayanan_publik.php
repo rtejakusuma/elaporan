@@ -72,6 +72,16 @@
                                   <input id="indeks_pelayanan_publik" class="form-control col-md-7 col-xs-12" type="number" name="indeks_pelayanan_publik" required="required">
                               </div>
                               </div>
+                              <label for="konversi_100" class="control-label col-md-3 col-sm-3 col-xs-12">Konversi 100</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <input id="konversi_100" class="form-control col-md-7 col-xs-12" type="number" name="konversi_100" required="required">
+                              </div>
+                              </div>
+                              <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                  <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket" required="required">
+                              </div>
+                              </div>
                               <div class="ln_solid"></div>
                               <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">

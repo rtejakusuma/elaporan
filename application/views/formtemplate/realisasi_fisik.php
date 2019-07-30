@@ -39,6 +39,12 @@
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
                             <div class="form-group">
+                            <label for="judul_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Realisasi Fisik</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="judul_realisasi_fisik" class="form-control col-md-7 col-xs-12" type="text" name="judul_realisasi_fisik" required="required">
+                            </div>
+                            </div>
+                            <div class="form-group">
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl">
@@ -62,55 +68,55 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Indikator</label>
+                            <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Indikator</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_indikator" class="form-control col-md-7 col-xs-12" type="text" name="capaian_indikator" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target</label>
+                            <label for="capaian_target" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_target" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_rkpd" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target RKPD</label>
+                            <label for="capaian_target_rkpd" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target RKPD</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_target_rkpd" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_rkpd" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_ppas_draft" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Draft</label>
+                            <label for="capaian_target_ppas_draft" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target PPAS Draft</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_target_ppas_draft" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_ppas_draft" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Final</label>
+                            <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target PPAS Final</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_target_ppas_final" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_ppas_final" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Anggaran</label>
+                            <label for="capaian_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Anggaran</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_anggaran" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja</label>
+                            <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Kinerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_realisasi_kinerja" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_kinerja" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Fisik</label>
+                            <label for="capaian_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Fisik</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_realisasi_fisik" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_fisik" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
+                            <label for="capaian_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Satuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="capaian_satuan" class="form-control col-md-7 col-xs-12" type="text" name="capaian_satuan" required="required">
                             </div>
