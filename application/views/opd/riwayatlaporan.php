@@ -51,7 +51,7 @@
                         <thead>
                           <tr class="headings">
                             <th class="column-title">ID laporan</th>
-                            <th class="column-title">Tahun Pembuatan</th>
+                            <th class="column-title">Tanggal Dibuat</th>
                             <th class="col-sm-1"></th>
                           </tr>
                         </thead>
@@ -67,7 +67,7 @@
                               foreach($data['list_laporan'] as $datalaporan){
                                 echo "<tr class=$counter>
                                         <td>$datalaporan[id_laporan]</td>
-                                        <td>".date('Y', strtotime($datalaporan['created_at']))."</td>
+                                        <td>".date('d-m-Y', strtotime($datalaporan['created_at']))."</td>
                                         <td>
                                         <a href=".base_url("opd/e/$data[kode_tipe]/$datalaporan[id_laporan]")."
                                         <button>Edit</button>

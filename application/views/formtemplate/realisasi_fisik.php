@@ -42,7 +42,7 @@
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Bulan & Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <!-- <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl"> -->
-                                <h3><?php echo date('M', time($data['fetch']['rf']['tgl'])) .", " . date('Y', time($data['fetch']['rf']['tgl'])); ?></h3>
+                                <h3><?php echo date('M', strtotime($data['fetch']['rf']['tgl'])) .", " . date('Y', strtotime($data['fetch']['rf']['tgl'])); ?></h3>
                             </div>
                             </div>
                             <div class="ln_solid"></div>
