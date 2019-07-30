@@ -25,7 +25,7 @@ class Api_sipp_model extends CI_Model
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
+            CURLOPT_TIMEOUT => 60,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => "GET",
             CURLOPT_HTTPHEADER => [
@@ -65,6 +65,8 @@ class Api_sipp_model extends CI_Model
                 $fet[$row['nama_opd']] = array();
             array_push($fet[$row['nama_opd']], $row);
         }
+        // printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT));
+        // die();
         unset($data);
         $data_lp; $data_rf; $data_prog; $data_kg;
         // asumsi 1 opd 1 laporan per tahun => butuh id dari API kalo mau multi laporan
@@ -104,60 +106,51 @@ class Api_sipp_model extends CI_Model
 
             // tabel program + kegiatan
             foreach($dataperopd as $d){
-                if(!isset($data_prog[$laporan_baru['id_laporan']]))
-                    $data_prog[$laporan_baru['id_laporan']] = array();
-                array_push($data_prog[$laporan_baru['id_laporan']], 
+                if(!isset($data_prog[$laporan_baru['id_laporan'].$d['kode_program']])){
+                $data_prog[$laporan_baru['id_laporan'].$d['kode_program']] = 
                     array(
-                    'id_laporan' => $laporan_baru['id_laporan'],
-                    'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
-                    'nama_program' => $d['nama_program'],
-                    'capaian_indikator' => reset($d['capaian'])['indikator'],
-                    'capaian_target' => reset($d['capaian'])['target'],
-                    'capaian_target_rkpd' => reset($d['capaian'])['target_rkpd'],
-                    'capaian_target_ppas_draft' => reset($d['capaian'])['target_ppas_draft'],
-                    'capaian_target_ppas_final' => reset($d['capaian'])['target_ppas_final'],
-                    'capaian_satuan' => reset($d['capaian'])['satuan'],
-                )); 
+                        'id_laporan' => $laporan_baru['id_laporan'],
+                        'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
+                        'nama_program' => $d['nama_program'],
+                        'capaian_indikator' => reset($d['capaian'])['indikator'],
+                        'capaian_target' => reset($d['capaian'])['target'],
+                        'capaian_target_rkpd' => reset($d['capaian'])['target_rkpd'],
+                        'capaian_target_ppas_draft' => reset($d['capaian'])['target_ppas_draft'],
+                        'capaian_target_ppas_final' => reset($d['capaian'])['target_ppas_final'],
+                        'capaian_satuan' => reset($d['capaian'])['satuan'],
+                    );
+                }
                 // $this->rf->insert_program($data_prog);
 
-                if(!isset($data_kg[$d['kode_program']]))
-                    $data_kg[$d['kode_program']] = array();
+                if(!isset($data_kg[$laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan']])){
+                    $data_kg[$laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan']] =
+                        array(
+                        'kode_kegiatan' => $laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan'],
+                        'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
+                        'nama_kegiatan' => $d['nama_kegiatan'],
+                        'pagu_renja' => $d['pagu_renja'],
+                        'pagu_rkpd' => $d['pagu_rkpd'],
+                        'pagu_ppas_draft' => $d['pagu_ppas_draft'],
+                        'pagu_ppas_final' => $d['pagu_ppas_final'],
+                        
+                        'keluaran_indikator' => reset($d['keluaran'])['indikator'],
+                        'keluaran_target' => reset($d['keluaran'])['target'],
+                        'keluaran_target_rkpd' => reset($d['keluaran'])['target_rkpd'],
+                        'keluaran_target_ppas_draft' => reset($d['keluaran'])['target_ppas_draft'],
+                        'keluaran_target_ppas_final' => reset($d['keluaran'])['target_ppas_final'],
+                        'keluaran_satuan' => reset($d['keluaran'])['satuan'],
 
-                array_push($data_kg[$d['kode_program']], 
-                    array(
-                    'kode_kegiatan' => $laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan'],
-                    'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
-                    'nama_kegiatan' => $d['nama_kegiatan'],
-                    'pagu_renja' => $d['pagu_renja'],
-                    'pagu_rkpd' => $d['pagu_rkpd'],
-                    'pagu_ppas_draft' => $d['pagu_ppas_draft'],
-                    'pagu_ppas_final' => $d['pagu_ppas_final'],
-                    
-                    'keluaran_indikator' => reset($d['keluaran'])['indikator'],
-                    'keluaran_target' => reset($d['keluaran'])['target'],
-                    'keluaran_target_rkpd' => reset($d['keluaran'])['target_rkpd'],
-                    'keluaran_target_ppas_draft' => reset($d['keluaran'])['target_ppas_draft'],
-                    'keluaran_target_ppas_final' => reset($d['keluaran'])['target_ppas_final'],
-                    'keluaran_satuan' => reset($d['keluaran'])['satuan'],
+                        'hasil_indikator' => reset($d['hasil'])['indikator'],
+                        'hasil_target' => reset($d['hasil'])['target'],
+                        'hasil_target_rkpd' => reset($d['hasil'])['target_rkpd'],
+                        'hasil_target_ppas_draft' => reset($d['hasil'])['target_ppas_draft'],
+                        'hasil_target_ppas_final' => reset($d['hasil'])['target_ppas_final'],
+                        'hasil_satuan' => reset($d['hasil'])['satuan'],
+                        );
 
-                    'hasil_indikator' => reset($d['hasil'])['indikator'],
-                    'hasil_target' => reset($d['hasil'])['target'],
-                    'hasil_target_rkpd' => reset($d['hasil'])['target_rkpd'],
-                    'hasil_target_ppas_draft' => reset($d['hasil'])['target_ppas_draft'],
-                    'hasil_target_ppas_final' => reset($d['hasil'])['target_ppas_final'],
-                    'hasil_satuan' => reset($d['hasil'])['satuan'],
-                ));
-
-                
+                }
             }
-            // $data_kg=json_decode(json_encode($data_kg, JSON_PRETTY_PRINT), true);
-
-            $this->rf->insert_fetch($data_lp, $data_rf, $data_prog, $data_kg);
-            // foreach($t as $key => $value){
-            //     if($value == NULL || sizeof($value) <= 0 || $value == [])
-            //         continue;
-            //     $this->rf->insert_kegiatan($value);
-            // }
+            $this->rf->insert_fetch($data_rf, $data_prog, $data_kg);
         }
     }
 
