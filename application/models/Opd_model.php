@@ -26,7 +26,7 @@ class Opd_model extends CI_Model
     {
         if($id_opd){
             $ret = $this->db->get_where('opd', ['id_opd' => $id_opd])->result_array();
-            if($ret) return $ret[0]['id_ebud'];
+            if($ret) return $ret[0]['kode_ebud'];
             else return NULL;
         } elseif($nama_opd) {
             $ret = $this->db->get_where('opd', ['nama_opd' => strtoupper($nama_opd)])->result_array();

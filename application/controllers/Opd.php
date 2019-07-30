@@ -60,16 +60,24 @@ class Opd extends CI_Controller
     public function c($formname) // create new laporan by kode_tipe
     {
         $this->form_ver($formname);
-        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
-        $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
-        $this->load->view('template/index_opd', array('data' => $this->data));
+        $tgl = $this->input->post('tgl');
+        // buat di tabel laporan
+        $this->load->model('tipelaporan_model', 'tl');
+        $id_tipe = $this->tl->get_idtipe_by_kodetipe($formname);
+        $this->load->model('laporan_model', 'lp');
+        $new_laporan = $this->lp->add_data(array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe));
+        // buat di table nama_surat
+        $initdata = $this->input->post();
+        $this->load->model("tipelaporan/$formname\_model", 'p');
+        $this->p->init_insert($this->session->tempdata('id_opd'), $new_laporan, $initdata);
+        redirect("opd/e/$formname/$new_laporan[id_laporan]", "refresh");
     }
 
     public function e($formname, $id_laporan) // edit existing data
     {
         if($this->input->post() != NULL){   // update data
-            $this->load->model('laporan_model', 'lp');
-            $this->lp->update_laporan($formname, $id_laporan, $this->input->post());
+            $this->load->model("tipelaporan/$formname\_model", 'lp');
+            $this->lp->update_data($id_laporan, $this->input->post());
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
@@ -87,9 +95,6 @@ class Opd extends CI_Controller
         $this->load->model('laporan_model', 'laporan');
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
-        // $this->data['formname'] = $formname;
-        // $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
-        // $this->data['id_laporan'] = $id_laporan;
         $this->load->view('print/'.$formname, array('data' => $this->data));
     }
 

@@ -39,7 +39,11 @@
                     <?php } ?>
                     <div class="clearfix"><br/></div>
                     <?php if(isset($data['nama_laporan'])) { ?>
-                    <a href="<?php echo base_url("opd/c/$data[kode_tipe]"); ?>"><button><?php echo "Buat $data[nama_laporan]"; ?></button></a>
+                    <form action="<?php echo base_url("opd/c/$data[kode_tipe]"); ?>" method="post">
+                      Masukkan tanggal sesuai bulan dan tahun laporan yang dibuat<br/><input type="date" name="tgl">
+                      <button type="submit"><?php echo "Buat $data[nama_laporan]"; ?></button>
+                    </form>
+                    <!-- <a href="<?php echo base_url("opd/c/$data[kode_tipe]"); ?>"><button><?php echo "Buat $data[nama_laporan]"; ?></button></a> -->
                     <?php } ?>
                     <div class="clearfix"><br/></div>
                     <div class="table-responsive">

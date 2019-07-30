@@ -25,7 +25,7 @@
                 <div class="x_panel">
                   <div class="x_content">
 
-                    <a href='<?php echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button>PRINT</button></a>
+                    <a href='<?php if(isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button>PRINT</button></a>
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
                       <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                         <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Realisasi Fisik</a>
@@ -39,13 +39,7 @@
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
                             <div class="form-group">
-                            <label for="judul_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Realisasi Fisik</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="judul_realisasi_fisik" class="form-control col-md-7 col-xs-12" type="text" name="judul_realisasi_fisik" required="required">
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal</label>
+                            <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Bulan & Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl">
                             </div>

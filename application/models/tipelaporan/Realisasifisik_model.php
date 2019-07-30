@@ -42,9 +42,21 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_complete();
     }
 
-    public function insert_index($data)
+    public function init_insert($id_opd, $laporan, $data)
     {
-        $this->db->insert('realisasi_fisik', $data);
+        $this->db->trans_start();
+        $laporan['tgl'] = $data['tgl'];
+        $this->db->insert('realisasi_fisik', $laporan);
+        $this->load->model('api_sipp_model', 'sipp');
+        $fet = $this->sipp->api_fetch_data($id_opd, $laporan,date('Y', time($data['tgl'])));
+        $this->db->insert_batch('program', $fet['prog']);
+        $this->db->insert_batch('kegiatan',$fet['kg']);
+        $this->db->trans_complete();
+    }
+
+    public function update_data($id_laporan, $data)
+    {
+        
     }
 
     public function insert_program($data)

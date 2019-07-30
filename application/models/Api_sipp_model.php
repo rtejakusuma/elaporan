@@ -46,10 +46,94 @@ class Api_sipp_model extends CI_Model
         }
     }
 
-    public function api_fetchall_realisasifisik()
+    public function api_fetch_data($id_opd_param, $laporan_baru, $tahun="2020")
     {
         $this->load->model('opd_model', 'opd');
-        $data = $this->get_api("tahun", "2020");
+        $idebud = $this->opd->get_idebud($id_opd_param);
+
+        $data = $this->get_api("tahun", $tahun);
+        if(!isset($data['data'])){
+            echo "TIMEOUT<br/>";
+            return false;
+        }
+        $data = $data['data'];
+        $this->load->model('laporan_model', 'lp');
+        $this->load->model('tipelaporan_model', 'tl');
+
+        $fet = array();
+        foreach($data as $row){
+            if($row['kode_opd'] != $idebud)
+                continue;
+            if(!isset($fet[$row['nama_opd']]))
+                $fet[$row['nama_opd']] = array();
+            array_push($fet[$row['nama_opd']], $row);
+        }
+        unset($data);$data_prog; $data_kg;
+        foreach($fet as $dataperopd){
+            unset($data_prog, $data_kg);
+            $data_kg = []; $data_prog = [];
+            $id_opd = $this->opd->get_id_from_ebud($dataperopd[0]['kode_opd']);
+           
+            // unregistered/differ kode_ebud/ekin/emonev
+            if($id_opd == NULL){
+                return false;
+            }
+            
+            // tabel program + kegiatan
+            foreach($dataperopd as $d){
+                if(!isset($data_prog[$laporan_baru['id_laporan'].$d['kode_program']])){
+                $data_prog[$laporan_baru['id_laporan'].$d['kode_program']] = 
+                    array(
+                        'id_laporan' => $laporan_baru['id_laporan'],
+                        'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
+                        'nama_program' => $d['nama_program'],
+                        'capaian_indikator' => reset($d['capaian'])['indikator'],
+                        'capaian_target' => reset($d['capaian'])['target'],
+                        'capaian_target_rkpd' => reset($d['capaian'])['target_rkpd'],
+                        'capaian_target_ppas_draft' => reset($d['capaian'])['target_ppas_draft'],
+                        'capaian_target_ppas_final' => reset($d['capaian'])['target_ppas_final'],
+                        'capaian_satuan' => reset($d['capaian'])['satuan'],
+                    );
+                }
+                if(!isset($data_kg[$laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan']])){
+                    $data_kg[$laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan']] =
+                        array(
+                        'kode_kegiatan' => $laporan_baru['id_laporan'].$d['kode_program'].$d['kode_kegiatan'],
+                        'kode_program' => $laporan_baru['id_laporan'].$d['kode_program'],
+                        'nama_kegiatan' => $d['nama_kegiatan'],
+                        'pagu_renja' => $d['pagu_renja'],
+                        'pagu_rkpd' => $d['pagu_rkpd'],
+                        'pagu_ppas_draft' => $d['pagu_ppas_draft'],
+                        'pagu_ppas_final' => $d['pagu_ppas_final'],
+                        
+                        'keluaran_indikator' => reset($d['keluaran'])['indikator'],
+                        'keluaran_target' => reset($d['keluaran'])['target'],
+                        'keluaran_target_rkpd' => reset($d['keluaran'])['target_rkpd'],
+                        'keluaran_target_ppas_draft' => reset($d['keluaran'])['target_ppas_draft'],
+                        'keluaran_target_ppas_final' => reset($d['keluaran'])['target_ppas_final'],
+                        'keluaran_satuan' => reset($d['keluaran'])['satuan'],
+
+                        'hasil_indikator' => reset($d['hasil'])['indikator'],
+                        'hasil_target' => reset($d['hasil'])['target'],
+                        'hasil_target_rkpd' => reset($d['hasil'])['target_rkpd'],
+                        'hasil_target_ppas_draft' => reset($d['hasil'])['target_ppas_draft'],
+                        'hasil_target_ppas_final' => reset($d['hasil'])['target_ppas_final'],
+                        'hasil_satuan' => reset($d['hasil'])['satuan'],
+                        );
+                }
+            }
+            return array('prog' => $data_prog, 'kg' => $data_kg);
+        }
+    }
+
+    public function api_fetchall_realisasifisik($id_opd_param=NULL, $tahun="2020")
+    {
+        $this->load->model('opd_model', 'opd');
+        $idebud = NULL;
+        if($id_opd_param != NULL){
+            $idebud = $this->opd->get_idebud($id_opd_param);
+        }
+        $data = $this->get_api("tahun", $tahun);
         if(!isset($data['data'])){
             echo "TIMEOUT<br/>";
             return;
@@ -61,9 +145,15 @@ class Api_sipp_model extends CI_Model
 
         $fet = array();
         foreach($data as $row){
-            if(!isset($fet[$row['nama_opd']]))
+            if($id_opd == NULL){
+                if(!isset($fet[$row['nama_opd']]))
+                    $fet[$row['nama_opd']] = array();
+                array_push($fet[$row['nama_opd']], $row);
+            } else {
+                if($row['kode_opd'] != $idebud) continue;
                 $fet[$row['nama_opd']] = array();
-            array_push($fet[$row['nama_opd']], $row);
+                array_push($fet[$row['nama_opd']], $row);
+            }
         }
         // printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT));
         // die();
