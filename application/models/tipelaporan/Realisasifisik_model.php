@@ -23,8 +23,14 @@ class Realisasifisik_model extends CI_Model
 
     public function get_data_by_id($id)
     {
-        
-        $ret = array();
+        $rfdata = $this->db->get_where('realisasi_fisik', ['id_laporan' => $id])->result_array()[0];
+        $progdata = $this->db->from('program')->like('kode_program', $id, 'after')->get()->result_array();
+        $kgdata = array();
+        foreach($progdata as $d){
+            $kgdata[$d['kode_program']] = $this->db->from('kegiatan')->like('kode_kegiatan', $d['kode_program'], 'after')->get()->result_array();
+        }
+        return array('rf' => $rfdata, 'prog' => $progdata, 'kg' => $kgdata);
+        // printf("<pre>%s</pre>", json_encode($ret, JSON_PRETTY_PRINT)); die();
     }
 
     public function insert_fetch($data_rf, $data_prog, $data_kg)

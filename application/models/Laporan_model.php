@@ -97,14 +97,14 @@ class Laporan_model extends CI_Model
 
     public function get_laporan_data_by_name_id($formname, $id)
     {
-        $tipe = $this->load->model($formname, 'tl');
+        $tipe = $this->load->model("tipelaporan/".str_replace('_', '', strtolower($formname))."_model", 'tl');
         return $this->tl->get_data_by_id($id);
     }
 
     private function _get_nama_laporan($id)
     {
         $temp = $this->db->get_where('tipe_laporan', array('id_tipe' => $id))->result();
-        return $temp[0]->nama_laporan;
+        return $temp[0]->kode_tipe;
     }
 
     public function add_data($data)

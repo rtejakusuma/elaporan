@@ -50,6 +50,10 @@ class Tipelaporanopd_model extends CI_Model
         // delete saved data first
         $this->db->delete('tipelaporan_per_opd', array('id_opd' => $id_opd));
         $to_insert = array();
+        if($data == NULL || sizeof($data) <= 0){
+            $this->db->trans_complete();
+            return;
+        }
         foreach($data as $value){
             if($value == NULL) continue;
             array_push($to_insert, ['id_opd' => $id_opd, 'id_tipe' => $value]);

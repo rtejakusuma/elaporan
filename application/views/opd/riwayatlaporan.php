@@ -3,11 +3,12 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_title">
-                    <h2>Riwayat Laporan <?php echo $data['nama_laporan']; ?></h2>
+                    <h2>Riwayat Laporan <?php if(isset($data['nama_laporan'])){ echo $data['nama_laporan']; } ?></h2>
                     <div class="clearfix"></div>
                   </div>
 
                   <div class="x_content">
+                    <?php if(isset($data['nama_laporan'])) { ?>
                     <div id='search box' style='border: 1px solid; padding: 5px'>
                       <form action="<?php echo base_url('opd/riwayatlaporan'); ?>" method="get">
                         <table>
@@ -35,8 +36,11 @@
                         </table>
                       </form>
                     </div>
+                    <?php } ?>
                     <div class="clearfix"><br/></div>
+                    <?php if(isset($data['nama_laporan'])) { ?>
                     <a href="<?php echo base_url("opd/c/$data[kode_tipe]"); ?>"><button><?php echo "Buat $data[nama_laporan]"; ?></button></a>
+                    <?php } ?>
                     <div class="clearfix"><br/></div>
                     <div class="table-responsive">
                       <table class="table table-striped jambo_table bulk_action">
@@ -50,7 +54,7 @@
 
                         <tbody>
                           <?php
-                            if($data['list_laporan'] == NULL || sizeof($data['list_laporan']) <= 0){
+                            if(!isset($data['list_laporan']) || sizeof($data['list_laporan']) <= 0){
                               echo "<tr class='even pointer'>
                                       <td>Tidak ada riwayat laporan</td>
                                     </tr>";

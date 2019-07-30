@@ -16,7 +16,11 @@ class Coba extends CI_Controller
         // die();
     }
 
-    
+    public function lap($formname, $id)
+    {
+        $this->load->model('laporan_model', 'lp');
+        $this->lp->get_laporan_data_by_name_id($formname, $id);
+    } 
 
     public function loaddata()
     {

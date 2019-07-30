@@ -32,7 +32,12 @@ class Opd extends CI_Controller
 
     public function index()
     {
-        redirect('opd/f/'.$this->tipelaporan[0]['kode_tipe'], 'refresh');
+        if($this->tipelaporan == NULL){
+            $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
+            $this->load->view('template/index_opd', array('data' => $this->data));    
+        } else {
+            redirect('opd/f/'.$this->tipelaporan[0]['kode_tipe'], 'refresh');
+        }
     }
 
     public function f($formname, $page_number=1) // display laporan by kode_tipe
@@ -68,7 +73,7 @@ class Opd extends CI_Controller
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
-        $this->data['fetch'] = $this->laporan->get_laporan_data($id);
+        $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
@@ -80,11 +85,12 @@ class Opd extends CI_Controller
     {
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
-        $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id);
-        $this->data['formname'] = $formname;
-        $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
-        $this->data['id_laporan'] = $id_laporan;
-        $this->load->view('template/index_opd', array('data' => $this->data));
+        $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
+        $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
+        // $this->data['formname'] = $formname;
+        // $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
+        // $this->data['id_laporan'] = $id_laporan;
+        $this->load->view('print/'.$formname, array('data' => $this->data));
     }
 
     public function carilaporan($page_number)
