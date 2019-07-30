@@ -121,6 +121,12 @@
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
                 
                             <div class="form-group">
+                            <label for="judul_rekap_tender" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Rekap Tender</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="judul_rekap_tender" class="form-control col-md-7 col-xs-12" type="text" name="judul_rekap_tender" required="required">
+                            </div>
+                            </div>
+                            <div class="form-group">
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl" required="required">

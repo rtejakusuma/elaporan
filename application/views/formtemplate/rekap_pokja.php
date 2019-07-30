@@ -112,9 +112,9 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="jabatan_bawah" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan Bawah</label>
+                            <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="jabatan_bawah" class="form-control col-md-7 col-xs-12" type="text" name="jabatan_bawah" required="required">
+                                <input id="jabatan" class="form-control col-md-7 col-xs-12" type="text" name="jabatan" required="required">
                             </div>
                             </div>
                             <div class="form-group">

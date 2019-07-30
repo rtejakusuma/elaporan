@@ -37,9 +37,9 @@
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
                             <div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                            <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
                             </div>
                             </div>
                             <div class="ln_solid"></div>
