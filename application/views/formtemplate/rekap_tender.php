@@ -140,6 +140,19 @@
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
                             
+                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+                            <div class="form-group">
+                            <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <select id="user" name="id" >
+                                <?php
+                                    foreach($data['opsi_user'] as $user){
+                                    echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
+                                    }
+                                ?>
+                                </select>
+                            </div>
+                            </div>
                             <div class="form-group">
                             <label for="nilai_hps" class="control-label col-md-3 col-sm-3 col-xs-12">Nilai HPS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
