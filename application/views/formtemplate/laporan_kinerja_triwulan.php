@@ -57,16 +57,14 @@
               </div>
             </div>
             <div class="form-group">
-              <label for="keluaran_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Anggaran</label>
+              <label for="capaian_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Anggaran</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="keluaran_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="keluaran_realisasi_anggaran" required="required">
+                <input id="capaian_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_anggaran" required="required">
               </div>
             </div>
             <div class="ln_solid"></div>
             <div class="form-group">
               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">Cancel</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
                 <button type="submit" class="btn btn-success">Submit</button>
               </div>
             </div>
