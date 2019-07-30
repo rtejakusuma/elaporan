@@ -45,7 +45,7 @@
         <?php
             $counter = 0;
             foreach($data['fetch']['prog'] as $prog){ 
-                $prog_rowspan = sizeof($data['fetch']['kg'][$prog['kode_program']])+1;
+                $prog_rowspan = 2*sizeof($data['fetch']['kg'][$prog['kode_program']])+1;
                 $counter += 1;
                 echo "
                     <tr>
@@ -54,7 +54,7 @@
                         <td></td>
                         <td>". $prog['capaian_indikator'] . "</td>
                         <td>$prog[capaian_satuan]</td>
-                        <td>target???</td>
+                        <td>$prog[capaian_target_ppas_final]</td>
                         <td>realisasi???</td>
                         <td>persen???</td>
                         <td>anggaran???</td>
@@ -66,15 +66,21 @@
                 foreach($data['fetch']['kg'][$prog['kode_program']] as $kg){
                     echo "
                         <tr>
-                            <td>". ucwords($kg['nama_kegiatan']). "</td>
-                            <td><strong><u>Output:</u></strong> ".ucwords($kg['keluaran_indikator'])."
+                            <td rowspan='2'>". ucwords($kg['nama_kegiatan']). "</td>
+                            <td rowspan='2'><strong><u>Output:</u></strong> ".ucwords($kg['keluaran_indikator'])."
                                 <br/><br/>
                                 <strong><u>Outcome:</u></strong> ". ucwords($kg['hasil_indikator'])."</td>
                             <td>$kg[keluaran_satuan]</td>
-                            <td>target???</td>
+                            <td>$kg[keluaran_target_ppas_final]</td>
                             <td>realisasi???</td>
                             <td>persen???</td>
-                            <td>anggaran???</td>
+                            <td rowspan='2'>$kg[pagu_ppas_final]</td>
+                            <td rowspan='2'>realisasi???</td>
+                            <td rowspan='2'>persen???</td>
+                        </tr>
+                        <tr>
+                            <td>$kg[hasil_satuan]</td>
+                            <td>$kg[hasil_target_ppas_final]</td>
                             <td>realisasi???</td>
                             <td>persen???</td>
                         </tr>

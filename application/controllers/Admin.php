@@ -22,7 +22,7 @@ class Admin extends CI_Controller
         redirect('admin/riwayatlaporan','refresh');
     }
 
-    public function f($formfilename = NULL)
+    public function f($formfilename = NULL, $id_opd=NULL)
     {
         if ($formfilename == NULL || !file_exists(APPPATH . "views/formtemplate/$formfilename.php")) {
             redirect('admin', 'refresh');
@@ -57,11 +57,25 @@ class Admin extends CI_Controller
             $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
             foreach ($data as $row) {
+                if($row['id_opd'] == '1') continue;
                 array_push($this->data['opsi_opd'],  $row);
             }
+            // load tipe laporan yang nyala
+            if($id_opd == NULL){
+                $id_opd = $data[0]['id_opd'];
+            }
+            $this->data['selected'] = $id_opd;
+            $this->load->model('tipelaporanopd_model', 'tlo');
+            $data = $this->tlo->get_tipelaporan_by_idopd($id_opd);
+            $this->data['tipelaporan_on'] = array();
+            foreach($data as $d){
+                $this->data['tipelaporan_on'][$d['id_tipe']] = "on";
+            }
+
             // load seluruh tipelaporan
             $this->load->model('tipelaporan_model', 'tipelaporan');
             $data = $this->tipelaporan->gets();
+            // var_dump($data); die();
             $this->data['opsi_tipelaporan'] = array();
             foreach ($data as $row) {
                 array_push($this->data['opsi_tipelaporan'],  $row);

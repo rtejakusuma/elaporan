@@ -11,17 +11,21 @@
                   <div class="x_content">
                       <form action="<?php echo base_url('admin/submit'); ?>" method="post">
                       <input type="hidden" name="tipe_opsi" value="<?php echo $data['tipe_opsi']; ?>">
-                      <select id="opd" name="id_opd">
+                      <select id="opd" name="id_opd" onchange="window.open('<?php echo base_url('admin/f/tipelaporanopdform/');?>'+this.value, '_self')">
                         <?php
                           foreach($data['opsi_opd'] as $opd){
-                            echo "<option value=" . $opd['id_opd'] . ">" . strtoupper($opd['nama_opd']) . "</option>";
+                            $selected = '';
+                            if($opd['id_opd'] == $data['selected']) $selected = 'selected=selected';
+                            echo "<option value='" . $opd['id_opd'] . "' $selected>" . strtoupper($opd['nama_opd']) . "</option>";
                           }
                         ?>
                       </select>
                       <ul class="to_do">
                         <?php
                           foreach($data['opsi_tipelaporan'] as $opsi_tipe){
-                            echo "<li><p><input type='checkbox' name='id_tipe[]' value='$opsi_tipe[id_tipe]' class='flat'> $opsi_tipe[nama_laporan]</p></li>";
+                            $flag = '';
+                            if(isset($data['tipelaporan_on'][$opsi_tipe['id_tipe']])) $flag="checked";
+                            echo "<li><p><input type='checkbox' name='id_tipe[]' value='$opsi_tipe[id_tipe]' class='flat' $flag> $opsi_tipe[nama_laporan]</p></li>";
                           }
                         ?>
                         

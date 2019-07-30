@@ -5,7 +5,7 @@ class Tipelaporan_model extends CI_Model
 {
     public function gets()
     {
-        return $this->db->get('tipe_laporan')->result_array();
+        return $this->db->order_by('nama_laporan','ASC')->get('tipe_laporan')->result_array();
     }
 
     public function get_namalaporan($id_tipe)
