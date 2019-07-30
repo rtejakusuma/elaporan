@@ -38,30 +38,16 @@
                       <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+                            
                             <div class="form-group">
-                            <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                            <label for="judul_laporan" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Laporan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="user" name="id" >
-                                <?php
-                                    foreach($data['opsi_user'] as $user){
-                                    echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                    }
-                                ?>
-                                </select>
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+                                <input id="judul_laporan" class="form-control col-md-7 col-xs-12" type="text" name="judul_laporan" required="required">
                             </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button class="btn btn-primary" type="button">Cancel</button>
-                                <button class="btn btn-primary" type="reset">Reset</button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                             </div>
@@ -70,30 +56,15 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
                             <div class="form-group">
-                            <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                            <label for="nama_temuan" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Temuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="user" name="id" >
-                                <?php
-                                    foreach($data['opsi_user'] as $user){
-                                    echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                    }
-                                ?>
-                                </select>
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+                                <input id="nama_temuan" class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan" required="required">
                             </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button class="btn btn-primary" type="button">Cancel</button>
-                                <button class="btn btn-primary" type="reset">Reset</button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                             </div>
@@ -102,30 +73,39 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
                             <div class="form-group">
-                            <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
+                            <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="user" name="id" >
-                                <?php
-                                    foreach($data['opsi_user'] as $user){
-                                    echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                    }
-                                ?>
-                                </select>
+                                <input id="rekomendasi" class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="password" class="control-label col-md-3 col-sm-3 col-xs-12">Password</label>
+                            <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="password" class="form-control col-md-7 col-xs-12" type="password" name="password" required="required">
+                                <input id="status_rekomendasi" class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi" required="required">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="tindak_lanjut" class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut" required="required">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="status_tindak_lanjut" class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut" required="required">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input id="catatan_bpk" class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk" required="required">
                             </div>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button class="btn btn-primary" type="button">Cancel</button>
-                                <button class="btn btn-primary" type="reset">Reset</button>
                                 <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                             </div>
