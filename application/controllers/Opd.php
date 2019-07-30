@@ -68,7 +68,7 @@ class Opd extends CI_Controller
         $new_laporan = $this->lp->add_data(array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe));
         // buat di table nama_surat
         $initdata = $this->input->post();
-        $this->load->model("tipelaporan/$formname\_model", 'p');
+        $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'p');
         $this->p->init_insert($this->session->tempdata('id_opd'), $new_laporan, $initdata);
         redirect("opd/e/$formname/$new_laporan[id_laporan]", "refresh");
     }
@@ -76,7 +76,7 @@ class Opd extends CI_Controller
     public function e($formname, $id_laporan) // edit existing data
     {
         if($this->input->post() != NULL){   // update data
-            $this->load->model("tipelaporan/$formname\_model", 'lp');
+            $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'lp');
             $this->lp->update_data($id_laporan, $this->input->post());
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));

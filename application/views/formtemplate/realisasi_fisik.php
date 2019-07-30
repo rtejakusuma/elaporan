@@ -41,80 +41,63 @@
                             <div class="form-group">
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Bulan & Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl">
+                                <!-- <input disabled id="tgl" class="form-control col-md-7 col-xs-12" type="date" name="tgl"> -->
+                                <h3><?php echo date('M', time($data['fetch']['rf']['tgl'])) .", " . date('Y', time($data['fetch']['rf']['tgl'])); ?></h3>
                             </div>
                             </div>
                             <div class="ln_solid"></div>
-                            <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
-                            </div>
-                            </div>
                         </form>
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[kode_tipe]/$data[id_laporan]"); ?>' method="post">
+                            <input value="program" type="hidden" name="nama_tabel">
+                            <?php foreach($data['fetch']['prog'] as $prog){ ?>
+                            
+                            <div class="form-group">
+                            <label for="kode_program" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Program</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value="<?php echo ucwords($prog['kode_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="kode_program[]" required="required">
+                            </div>
+                            </div>
+                            
                             <div class="form-group">
                             <label for="nama_program" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nama_program" class="form-control col-md-7 col-xs-12" type="text" name="nama_program" required="required">
+                                <input value="<?php echo ucwords($prog['nama_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="nama_program[]" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Indikator</label>
+                            <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Indikator Capaian</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_indikator" class="form-control col-md-7 col-xs-12" type="text" name="capaian_indikator" required="required">
+                                <input value="<?php echo ucwords($prog['capaian_indikator']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_indikator[]" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target</label>
+                            <label for="capaian_target" class="control-label col-md-3 col-sm-3 col-xs-12">Target Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_target" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target" required="required">
+                                <input value="<?php echo ucwords($prog['capaian_target']); ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="capaian_target[]" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_rkpd" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target RKPD</label>
+                            <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_target_rkpd" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_rkpd" required="required">
+                                <input value="<?php if(isset($prog['capaian_realisasi_kinerja']))echo ucwords($prog['capaian_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_kinerja[]">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_ppas_draft" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target PPAS Draft</label>
+                            <label for="capaian_anggaran_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran Capaian Keuangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_target_ppas_draft" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_ppas_draft" required="required">
+                                <input value="<?php echo "urung ana field e";//ucwords($prog['capaian_target']); ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="capaian_anggaran_keuangan[]" required="required">
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Target PPAS Final</label>
+                            <label for="capaian_realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Keuangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_target_ppas_final" class="form-control col-md-7 col-xs-12" type="number" name="capaian_target_ppas_final" required="required">
+                                <input value="<?php if(isset($prog['capaian_realisasi_keuangan']))echo ucwords($prog['capaian_realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_keuangan[]">
                             </div>
                             </div>
-                            <div class="form-group">
-                            <label for="capaian_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Anggaran</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_realisasi_anggaran" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_anggaran" required="required">
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Kinerja</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_realisasi_kinerja" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_kinerja" required="required">
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="capaian_realisasi_fisik" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Fisik</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_realisasi_fisik" class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_fisik" required="required">
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="capaian_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Satuan</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="capaian_satuan" class="form-control col-md-7 col-xs-12" type="text" name="capaian_satuan" required="required">
-                            </div>
-                            </div>
+                            <?php echo "<br/><br/>";} ?>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -125,7 +108,10 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[kode_tipe]/$data[id_laporan]"); ?>' method="post">
+                            <input value="kegiatan" type="hidden" name="nama_tabel">
+                            
+                            
                             <div class="form-group">
                             <label for="pagu_renja" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu Renja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">

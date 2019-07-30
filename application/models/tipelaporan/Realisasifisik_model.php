@@ -56,7 +56,9 @@ class Realisasifisik_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->update($table, $data);
     }
 
     public function insert_program($data)

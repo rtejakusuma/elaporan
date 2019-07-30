@@ -18,7 +18,11 @@
     <center><h2>
         LAPORAN REALISASI FISIK<br/>
         <?php echo $data['nama_opd']; ?><br/>
-    </h2></center>
+    </h2>
+    <h3>
+    <?php echo date('M', time($data['fetch']['rf']['tgl'])) .", " . date('Y', time($data['fetch']['rf']['tgl'])); ?>
+    </h3><br/>
+    </center>
     </div>
     <table style='width: 100%;'>
         <!-- Table header -->
