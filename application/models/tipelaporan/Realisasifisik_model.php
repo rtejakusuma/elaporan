@@ -21,6 +21,12 @@ class Realisasifisik_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function get_data_by_id($id)
+    {
+        
+        $ret = array();
+    }
+
     public function insert_fetch($data_rf, $data_prog, $data_kg)
     {
         $this->db->trans_begin();
