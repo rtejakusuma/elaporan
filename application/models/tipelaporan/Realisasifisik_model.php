@@ -21,17 +21,12 @@ class Realisasifisik_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function insert_fetch($data_lp, $data_rf, $data_prog, $data_kg)
+    public function insert_fetch($data_rf, $data_prog, $data_kg)
     {
         $this->db->trans_begin();
         $this->db->insert('realisasi_fisik', $data_rf);
-        foreach(reset($data_prog) as $prog){
-            $this->db->insert_batch('program', $prog);
-        }
-        foreach($data_kg as $key => $value){
-            if($value == NULL || sizeof($value) <= 0 || $value == []) continue;
-            $this->db->insert_batch('kegiatan',$value);
-        }
+        $this->db->insert_batch('program', $data_prog);
+        $this->db->insert_batch('kegiatan',$data_kg);
         $this->db->trans_complete();
     }
 
