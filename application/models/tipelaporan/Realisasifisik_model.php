@@ -27,7 +27,9 @@ class Realisasifisik_model extends CI_Model
         $progdata = $this->db->from('program')->like('kode_program', $id, 'after')->get()->result_array();
         $kgdata = array();
         foreach($progdata as $d){
-            $kgdata[$d['kode_program']] = $this->db->from('kegiatan')->like('kode_kegiatan', $d['kode_program'], 'after')->get()->result_array();
+            $kgdata[$d['kode_program']] = $this->db->from('kegiatan')->select('program.nama_program,kegiatan.*')
+                    ->join('program', 'program.kode_program = kegiatan.kode_program')
+                    ->like('kode_kegiatan', $d['kode_program'], 'after')->get()->result_array();
         }
         return array('rf' => $rfdata, 'prog' => $progdata, 'kg' => $kgdata);
         // printf("<pre>%s</pre>", json_encode($ret, JSON_PRETTY_PRINT)); die();
