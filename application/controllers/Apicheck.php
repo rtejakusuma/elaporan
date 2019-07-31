@@ -14,7 +14,7 @@ class Apicheck extends CI_Controller
         $data = $this->api_sipp_model->get_api($key, $val);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        return json_decode($json, true);
+        $this->response(json_decode($json, true), 200);
     }
 
     public function sikd($tahun = '2019', $tw = '2')
@@ -23,7 +23,7 @@ class Apicheck extends CI_Controller
         $data = $this->api_sikd_model->get_api($tahun, $tw);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        return json_decode($json, true);
+        $this->response(json_decode($json, true), 200);
     }
 }
 
