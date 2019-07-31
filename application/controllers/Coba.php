@@ -10,9 +10,9 @@ class Coba extends CI_Controller
         $data = $this->api_sikd_model->get_api();
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        var_dump(json_decode($json, true));
+        $json = json_decode($json, true);
 
-        // printf("<pre>%s</pre>", $json);
+        printf("<pre>%s</pre>", $json);
         // die();
     }
 
