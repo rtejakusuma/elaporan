@@ -50,10 +50,10 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[kode_tipe]/$data[id_laporan]"); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                             <input value="program" type="hidden" name="nama_tabel">
                             <?php foreach($data['fetch']['prog'] as $prog){ ?>
-                            
+                            <input value="<?php echo ucwords($prog['kode_program']); ?>" type="hidden" class="form-control col-md-7 col-xs-12" name="kode_program[]" >
                             <div class="form-group">
                             <label for="kode_program" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Program</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -108,20 +108,15 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[kode_tipe]/$data[id_laporan]"); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                             <input value="kegiatan" type="hidden" name="nama_tabel">
                             <?php foreach($data['fetch']['kg'] as $kg) { ?>
                             <h2><?php echo ucwords(reset($kg)['nama_program']); ?></h2>
-                            <!-- <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                            <label for="nama_program" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program</label>
-                                <input value="<?php echo reset($kg)['nama_program']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="nama_program[]">
-                            </div>
-                            </div>         -->
+                         
                                 <?php
                                     foreach($kg as $data){
                                 ?>
-                            
+                            <input value="<?php echo ucwords($data['kode_kegiatan']); ?>" type="hidden" class="form-control col-md-7 col-xs-12" name="kode_kegiatan[]" >   
                             <div class="form-group">
                             <label for="kode_kegiatan" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Kegiatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">

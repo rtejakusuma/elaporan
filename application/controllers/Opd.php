@@ -77,6 +77,8 @@ class Opd extends CI_Controller
     {
         if($this->input->post() != NULL){   // update data
             $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'lp');
+            // printf("<pre>%s</pre>", json_encode($this->input->post(), JSON_PRETTY_PRINT));
+            // die();
             $this->lp->update_data($id_laporan, $this->input->post());
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));

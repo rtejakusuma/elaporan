@@ -63,6 +63,7 @@ class Realisasifisik_model extends CI_Model
         $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan,date('Y', strtotime($data['tgl'])));
         $this->db->insert_batch('program', $fet['prog']);
         $this->db->insert_batch('kegiatan',$fet['kg']);
+        
         $this->db->trans_complete();
         return $datalaporan['id_laporan'];
     }
@@ -71,11 +72,43 @@ class Realisasifisik_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        
+        $this->db->trans_start();
         if($table == 'program'){
-            $this->db->update($table, $data, "kode_program like '$id_laporan'");
+            $kode = $data['kode_program'];
+            $rkinerja = $data['capaian_realisasi_kinerja'];
+            $rkeuangan = $data['capaian_realisasi_keuangan'];
+            for($i = 0; $i < sizeof($kode); $i+=1){
+               $this->db->update($table, 
+                    [
+                        'capaian_realisasi_kinerja'=>"$rkinerja[$i]",
+                        'capaian_realisasi_keuangan'=>"$rkeuangan[$i]"
+                    ], 
+                    "kode_program = '$kode[$i]'"); 
+            }
+            // $this->db->update($table, $data, "kode_program like '$id_laporan-'");
         } else if($table == 'kegiatan'){
-            $this->db->update($table, $data, "kode_kegiatan like '$id_laporan'");
+            $kode = $data['kode_kegiatan'];
+            $rkkinerja = $data['keluaran_realisasi_kinerja'];
+            $rhkinerja = $data['hasil_realisasi_kinerja'];
+            $rkeuangan = $data['realisasi_keuangan'];
+            for($i = 0; $i < sizeof($kode); $i+=1){
+               $this->db->update($table, 
+                    [
+                        'keluaran_realisasi_kinerja'=>"$rkkinerja[$i]",
+                        'hasil_realisasi_kinerja'=>"$rhkinerja[$i]",
+                        'realisasi_keuangan'=>"$rkeuangan[$i]"
+                    ], 
+                    "kode_kegiatan = '$kode[$i]'"); 
+            }
+            // $this->db->update($table, $data, "kode_kegiatan like '$id_laporan-'");
         }
+        $this->db->trans_complete();
+    }
+
+    private function calc_data($id_laporan)
+    {
+        
     }
 
     public function insert_program($data)
