@@ -76,11 +76,11 @@
                 ";
                 foreach($data['fetch']['kg'][$prog['kode_program']] as $kg){
                     $keluaran_realisasi_kinerja = "";
-                    $keluaran_realisasi_keuangan = "";
+                    $realisasi_keuangan = "";
                     $hasil_realisasi_kinerja = "";
                     // $hasil_realisasi_keuangan = "";
                     if(isset($kg['keluaran_realisasi_kinerja'])) $keluaran_realisasi_kinerja = $kg['keluaran_realisasi_kinerja'];
-                    if(isset($kg['keluaran_realisasi_keuangan'])) $keluaran_realisasi_keuangan = $kg['keluaran_realisasi_keuangan'];
+                    if(isset($kg['realisasi_keuangan'])) $realisasi_keuangan = $kg['realisasi_keuangan'];
                     if(isset($kg['hasil_realisasi_kinerja'])) $hasil_realisasi_kinerja = $kg['hasil_realisasi_kinerja'];
                     // if(isset($kg['hasil_realisasi_keuangan'])) $hasil_realisasi_keuangan = $kg['hasil_realisasi_keuangan'];
                     echo "
@@ -91,16 +91,16 @@
                                 <strong><u>Outcome:</u></strong> ". ucwords($kg['hasil_indikator'])."</td>
                             <td>$kg[keluaran_satuan]</td>
                             <td>$kg[keluaran_target_ppas_final]</td>
-                            <td>$kg[keluaran_realisasi_kinerja]</td>
+                            <td>$keluaran_realisasi_kinerja</td>
                             <td>persen???</td>
                             <td rowspan='2'>$kg[pagu_ppas_final]</td>
-                            <td rowspan='2'>$kg[keluaran_realisasi_keuangan]</td>
+                            <td rowspan='2'>$realisasi_keuangan</td>
                             <td rowspan='2'>persen???</td>
                         </tr>
                         <tr>
                             <td>$kg[hasil_satuan]</td>
                             <td>$kg[hasil_target_ppas_final]</td>
-                            <td>$kg[hasil_realisasi_kinerja]</td>
+                            <td>$hasil_realisasi_kinerja</td>
                             <td>persen???</td>
                         </tr>
                     ";  

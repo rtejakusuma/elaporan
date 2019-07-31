@@ -88,7 +88,7 @@
                             <div class="form-group">
                             <label for="capaian_anggaran_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran Capaian Keuangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo "urung ana field e";//ucwords($prog['capaian_target']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_anggaran_keuangan[]" >
+                                <input value="<?php echo $prog['capaian_anggaran_keuangan'];//ucwords($prog['capaian_target']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_anggaran_keuangan[]" >
                             </div>
                             </div>
                             <div class="form-group">
