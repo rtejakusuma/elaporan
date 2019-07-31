@@ -54,6 +54,10 @@
             foreach($data['fetch']['prog'] as $prog){ 
                 $prog_rowspan = 2*sizeof($data['fetch']['kg'][$prog['kode_program']])+1;
                 $counter += 1;
+                $capaian_realisasi_kinerja = "";
+                $capaian_realisasi_keuangan = "";
+                if(isset($prog['capaian_realisasi_kinerja'])) $capaian_realisasi_kinerja = $prog['capaian_realisasi_kinerja'];
+                if(isset($prog['capaian_realisasi_keuangan'])) $capaian_realisasi_keuangan = $prog['capaian_realisasi_keuangan'];
                 echo "
                     <tr>
                         <td rowspan='$prog_rowspan'>$counter</td>
@@ -62,15 +66,23 @@
                         <td>". $prog['capaian_indikator'] . "</td>
                         <td>$prog[capaian_satuan]</td>
                         <td>$prog[capaian_target_ppas_final]</td>
-                        <td>realisasi???</td>
+                        <td>$capaian_realisasi_kinerja</td>
                         <td>persen???</td>
-                        <td>anggaran???</td>
-                        <td>realisasi???</td>
+                        <td>$prog[capaian_anggaran_keuangan]</td>
+                        <td>$capaian_realisasi_keuangan</td>
                         <td>persen???</td>
                         <td rowspan='$prog_rowspan'></td>
                     </tr>
                 ";
                 foreach($data['fetch']['kg'][$prog['kode_program']] as $kg){
+                    $keluaran_realisasi_kinerja = "";
+                    $keluaran_realisasi_keuangan = "";
+                    $hasil_realisasi_kinerja = "";
+                    // $hasil_realisasi_keuangan = "";
+                    if(isset($kg['keluaran_realisasi_kinerja'])) $keluaran_realisasi_kinerja = $kg['keluaran_realisasi_kinerja'];
+                    if(isset($kg['keluaran_realisasi_keuangan'])) $keluaran_realisasi_keuangan = $kg['keluaran_realisasi_keuangan'];
+                    if(isset($kg['hasil_realisasi_kinerja'])) $hasil_realisasi_kinerja = $kg['hasil_realisasi_kinerja'];
+                    // if(isset($kg['hasil_realisasi_keuangan'])) $hasil_realisasi_keuangan = $kg['hasil_realisasi_keuangan'];
                     echo "
                         <tr>
                             <td rowspan='2'>". ucwords($kg['nama_kegiatan']). "</td>
@@ -79,16 +91,16 @@
                                 <strong><u>Outcome:</u></strong> ". ucwords($kg['hasil_indikator'])."</td>
                             <td>$kg[keluaran_satuan]</td>
                             <td>$kg[keluaran_target_ppas_final]</td>
-                            <td>realisasi???</td>
+                            <td>$kg[keluaran_realisasi_kinerja]</td>
                             <td>persen???</td>
                             <td rowspan='2'>$kg[pagu_ppas_final]</td>
-                            <td rowspan='2'>realisasi???</td>
+                            <td rowspan='2'>$kg[keluaran_realisasi_keuangan]</td>
                             <td rowspan='2'>persen???</td>
                         </tr>
                         <tr>
                             <td>$kg[hasil_satuan]</td>
                             <td>$kg[hasil_target_ppas_final]</td>
-                            <td>realisasi???</td>
+                            <td>$kg[hasil_realisasi_kinerja]</td>
                             <td>persen???</td>
                         </tr>
                     ";  
