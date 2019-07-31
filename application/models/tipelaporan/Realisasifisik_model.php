@@ -50,7 +50,7 @@ class Realisasifisik_model extends CI_Model
         $laporan['tgl'] = $data['tgl'];
         $this->db->insert('realisasi_fisik', $laporan);
         $this->load->model('api_sipp_model', 'sipp');
-        $fet = $this->sipp->api_fetch_data($id_opd, $laporan,date('Y', time($data['tgl'])));
+        $fet = $this->sipp->api_fetch_data($id_opd, $laporan,date('Y', strtotime($data['tgl'])));
         $this->db->insert_batch('program', $fet['prog']);
         $this->db->insert_batch('kegiatan',$fet['kg']);
         $this->db->trans_complete();
@@ -60,7 +60,11 @@ class Realisasifisik_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
-        $this->db->update($table, $data);
+        if($table == 'program'){
+            $this->db->update($table, $data, "kode_program like '$id_laporan'");
+        } else if($table == 'kegiatan'){
+            $this->db->update($table, $data, "kode_kegiatan like '$id_laporan'");
+        }
     }
 
     public function insert_program($data)
