@@ -1,7 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Apicheck extends CI_Controller
+require APPPATH . '/libraries/REST_Controller.php';
+
+use Restserver\Libraries\REST_Controller;
+
+class Apicheck extends REST_Controller
 {
 
     public function __construct($config = 'rest')
