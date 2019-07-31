@@ -14,6 +14,22 @@ class Coba extends CI_Controller
         // die();
     }
 
+    public function updatekodeskpd()
+    {
+        $this->load->model('opd_model');
+        $data = $this->opd_model->gets();
+        foreach ($data as $row) {
+            $kode = $row['kode_emov'];
+            if ($kode[0] == '0') {
+                $kode = substr($kode, 1);
+            }
+            $this->db->where('id_opd', $row['id_opd']);
+            $this->db->update('opd', ['kode_skpd' => $kode]);
+
+            $kode = NULL;
+        }
+    }
+
     public function test()
     {
         $laporan_baru = array('id_laporan' => '318', 'id_opd' => '290', 'id_tipe' => '1');
