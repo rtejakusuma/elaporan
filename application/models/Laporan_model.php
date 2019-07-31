@@ -55,7 +55,7 @@ class Laporan_model extends CI_Model
                     ->from('laporan')
                     ->join($kode_tipe, "laporan.id_laporan = $kode_tipe.id_laporan")
                     ->where("laporan.id_opd", $id_opd)
-                    ->limit($limit, ($page_number-1) * $limit);
+                    ->limit($limit);
         // $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
         $res = $this->db->get();
         return $res->result_array();

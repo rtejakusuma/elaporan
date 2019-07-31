@@ -95,7 +95,12 @@ class Opd extends CI_Controller
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-
+    public function d($formname, $id_laporan)
+    {
+        $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'd');
+        $this->d->delete_data($id_laporan);
+        redirect("opd/f/$formname",'refresh');
+    }
 
     public function p($formname, $id_laporan) // print existing data
     {
