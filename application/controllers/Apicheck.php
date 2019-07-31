@@ -3,6 +3,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Apicheck extends CI_Controller
 {
+
+    public function __construct($config = 'rest')
+    {
+        parent::__construct($config);
+    }
+
     public function index()
     {
         echo '<a href="' . base_url('apicheck/sipp/tahun/2020') . '">SIPP</a><br>';
