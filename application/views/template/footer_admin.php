@@ -77,6 +77,7 @@
                                 "targets": 8
                         }]
                 });
+                $('#db').dataTable({});
                 $('.collapsed')
                         .css('height', 'auto')
                         .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()
