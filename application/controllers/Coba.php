@@ -17,7 +17,11 @@ class Coba extends CI_Controller
     public function get_tw()
     {
         $this->load->model('api_sikd_model');
-        var_dump($this->api_sikd_model->get_apipub());
+        $data = $this->api_sikd_model->get_tahunan();
+
+        foreach ($data['data'] as $row) {
+            var_dump($row);
+        }
     }
 
     public function updatekodeskpd()
