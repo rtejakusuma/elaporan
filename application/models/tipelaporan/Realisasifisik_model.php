@@ -44,16 +44,27 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_complete();
     }
 
-    public function init_insert($id_opd, $laporan, $data)
+    public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();
-        $laporan['tgl'] = $data['tgl'];
-        $this->db->insert('realisasi_fisik', $laporan);
+        $this->load->model('laporan_model', 'lp');
+        $this->db->insert('laporan', 
+                    [
+                        'id_opd' => $datalaporan['id_opd'],
+                        'id_tipe' => $datalaporan['id_tipe'],
+                        'created_at' => date('Y-m-d H:i:s', time()),
+                        'updated_at' => date('Y-m-d H:i:s', time()),
+                    ]);
+        $this->db->order_by('updated_at', 'DESC');
+        $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
+        $datalaporan['tgl'] = $data['tgl'];
+        $this->db->insert('realisasi_fisik', $datalaporan);
         $this->load->model('api_sipp_model', 'sipp');
-        $fet = $this->sipp->api_fetch_data($id_opd, $laporan,date('Y', strtotime($data['tgl'])));
+        $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan,date('Y', strtotime($data['tgl'])));
         $this->db->insert_batch('program', $fet['prog']);
         $this->db->insert_batch('kegiatan',$fet['kg']);
         $this->db->trans_complete();
+        return $datalaporan['id_laporan'];
     }
 
     public function update_data($id_laporan, $data)

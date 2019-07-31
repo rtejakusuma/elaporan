@@ -74,9 +74,9 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="capaian_target" class="control-label col-md-3 col-sm-3 col-xs-12">Target Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
+                            <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Target Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo ucwords($prog['capaian_target']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target[]" >
+                                <input value="<?php echo ucwords($prog['capaian_target_ppas_final']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target_ppas_final[]" >
                             </div>
                             </div>
                             <div class="form-group">
@@ -155,9 +155,9 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="keluaran_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <label for="keluaran_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja (<?php echo $data['keluaran_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if(isset($prog['keluaran_realisasi_kinerja']))echo ucwords($prog['keluaran_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_kinerja[]">
+                                <input value="<?php if(isset($data['keluaran_realisasi_kinerja']))echo ucwords($data['keluaran_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_kinerja[]">
                             </div>
                             </div>
                             <div class="form-group">
@@ -185,9 +185,9 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $data['keluaran_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if(isset($prog['realisasi_keuangan']))echo ucwords($prog['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan[]">
+                                <input value="<?php if(isset($data['realisasi_keuangan']))echo ucwords($data['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan[]">
                             </div>
                             </div>
                             <div class="form-group">
@@ -197,9 +197,9 @@
                             </div>
                             </div>
                             <div class="form-group">
-                            <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $data['keluaran_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if(isset($prog['hasil_realisasi_kinerja']))echo ucwords($prog['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja[]">
+                                <input value="<?php if(isset($data['hasil_realisasi_kinerja']))echo ucwords($data['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja[]">
                             </div>
                             </div>
                             <div class="form-group">
@@ -212,12 +212,6 @@
                             <div class="col-md-6 col-sm-6 col-xs-12">
                             <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
                                 <input value="<?php echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
-                            </div>
-                            </div>
-                            <div class="form-group">
-                            <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan (<?php echo $prog['keluaran_satuan']; ?>)</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if(isset($prog['ket']))echo ucwords($prog['ket']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="ket[]">
                             </div>
                             </div>
 

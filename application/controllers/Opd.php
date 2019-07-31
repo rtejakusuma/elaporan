@@ -64,13 +64,13 @@ class Opd extends CI_Controller
         // buat di tabel laporan
         $this->load->model('tipelaporan_model', 'tl');
         $id_tipe = $this->tl->get_idtipe_by_kodetipe($formname);
-        $this->load->model('laporan_model', 'lp');
-        $new_laporan = $this->lp->add_data(array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe));
         // buat di table nama_surat
         $initdata = $this->input->post();
         $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'p');
-        $this->p->init_insert($this->session->tempdata('id_opd'), $new_laporan, $initdata);
-        redirect("opd/e/$formname/$new_laporan[id_laporan]", "refresh");
+        $newid = $this->p->init_insert($this->session->tempdata('id_opd'),
+                            array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe), 
+                            $initdata);
+        redirect("opd/e/$formname/$newid", "refresh");
     }
 
     public function e($formname, $id_laporan) // edit existing data
