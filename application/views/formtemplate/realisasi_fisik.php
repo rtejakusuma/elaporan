@@ -136,6 +136,91 @@
                             </div>
                             </div>
                             <!-- Tambah dibawah sini field lainnya -->
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="pagu_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu PPAS Final</label>
+                                <input value="<?php echo $data['pagu_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="pagu_ppas_final[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="keluaran_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Indikator</label>
+                                <input value="<?php echo $data['keluaran_indikator']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_indikator[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="keluaran_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Final</label>
+                                <input value="<?php echo $data['keluaran_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="keluaran_target_ppas_final[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="keluaran_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value="<?php if(isset($prog['keluaran_realisasi_kinerja']))echo ucwords($prog['keluaran_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_kinerja[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="keluaran_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja Persen</label>
+                                <input value="<?php echo $data['keluaran_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="keluaran_realisasi_kinerja_persen[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="keluaran_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
+                                <input value="<?php echo $data['keluaran_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="hasil_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Indikator</label>
+                                <input value="<?php echo $data['hasil_indikator']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_indikator[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="hasil_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target PPAS Final</label>
+                                <input value="<?php echo $data['hasil_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="hasil_target_ppas_final[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value="<?php if(isset($prog['realisasi_keuangan']))echo ucwords($prog['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="realisasi_keuangan_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan Persen</label>
+                                <input value="<?php echo $data['realisasi_keuangan_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan_persen[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value="<?php if(isset($prog['hasil_realisasi_kinerja']))echo ucwords($prog['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="hasil_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja Persen</label>
+                                <input value="<?php echo $data['hasil_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja_persen[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
+                                <input value="<?php echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan (<?php echo $prog['keluaran_satuan']; ?>)</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value="<?php if(isset($prog['ket']))echo ucwords($prog['ket']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="ket[]">
+                            </div>
+                            </div>
+
                             <?php echo "<br/>";}echo "<br/><br/>";} ?>
                             <div class="ln_solid"></div>
                             <div class="form-group">
