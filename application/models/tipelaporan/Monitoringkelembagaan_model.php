@@ -34,7 +34,7 @@ class Monitoringkelembagaan_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('monitoring_kelembagaan', $datalaporan);
         // insert second etc. table data here
-
+        // no api
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -46,7 +46,25 @@ class Monitoringkelembagaan_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'permasalahan_kelembagaan'){
+            $this->db->delete('permasalahan_kelembagaan', "id_laporan = $id_laporan");
+            $this->db->insert_batch('permasalahan_kelembagaan', $data);
+        }
+        $this->db->trans_complete();
     }
 
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('permasalahan_kelembagaan');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('monitoring_kelembagaan');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
+    }
 }

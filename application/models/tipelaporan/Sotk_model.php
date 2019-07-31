@@ -49,7 +49,7 @@ class Sotk_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('sotk', $datalaporan);
         // insert second etc. table data here
-
+        // no api
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -61,7 +61,26 @@ class Sotk_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'sotk_opd'){
+            $this->db->delete('sotk_opd', "id_laporan = $id_laporan");
+            $this->db->insert_batch('sotk_opd', $data);
+        }
+        $this->db->trans_complete(); 
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('sotk_opd');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('sotk');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }

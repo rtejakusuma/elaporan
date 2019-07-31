@@ -31,7 +31,7 @@ class Laporankinerjatriwulan_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('laporan_kinerja_triwulan', $datalaporan);
         // insert second etc. table data here
-
+        // ada api?
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -43,7 +43,25 @@ class Laporankinerjatriwulan_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'detail_laporan_kinerja_triwulan'){
+            $this->db->update_batch('laporan_kinerja_triwulan', $data, "id_laporan = $id_laporan");
+        }
+        $this->db->trans_complete();
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('detail_laporan_kinerja_triwulan');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan_kinerja_triwulan');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }

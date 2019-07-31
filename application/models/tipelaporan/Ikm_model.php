@@ -34,7 +34,7 @@ class Ikm_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('ikm', $datalaporan);
         // insert second etc. table data here
-
+        // no api
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -46,7 +46,27 @@ class Ikm_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'ikm_opd'){
+            $this->db->delete('ikm_opd', "id_laporan = $id_laporan");
+            $this->db->insert_batch('ikm_opd',$data);
+        }
+        $this->db->trans_complete();
         
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('ikm_opd');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('ikm');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }

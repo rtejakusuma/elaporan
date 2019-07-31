@@ -34,7 +34,7 @@ class Pelayananpublik_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('pelayanan_publik', $datalaporan);
         // insert second etc. table data here
-
+        // api dashboard?
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -46,7 +46,26 @@ class Pelayananpublik_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'pelayanan_publik_opd'){
+            $this->db->delete('pelayanan_publik_opd', "id_laporan = $id_laporan");
+            $this->db->insert_batch('pelayanan_publik_opd', $data);
+        }
+        $this->db->trans_complete();
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('pelayanan_publik_opd');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('pelayanan_publik');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }
