@@ -38,7 +38,7 @@ class Api_sipp_model extends CI_Model
 
         if ($err) {
             // API GAGAL
-            return "cURL Error #:" . $err;
+            return NULL;
         } else {
             // API BERHASIL
             $arr = json_decode($response, true);
@@ -54,7 +54,7 @@ class Api_sipp_model extends CI_Model
         $data = $this->get_api("kode_opd", $idebud);
         if(!isset($data['data'])){
             echo "TIMEOUT<br/>";
-            return false;
+            return NULL;
         }
         $data = $data['data'];
         $this->load->model('laporan_model', 'lp');

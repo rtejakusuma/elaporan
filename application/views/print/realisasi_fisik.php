@@ -23,7 +23,7 @@
         <?php echo $data['nama_opd']; ?><br/>
     </h2>
     <h3>
-    <?php echo date('M', time($data['fetch']['rf']['tgl'])) .", " . date('Y', time($data['fetch']['rf']['tgl'])); ?>
+    <?php echo date('M', strtotime($data['fetch']['rf']['tgl'])) .", " . date('Y', strtotime($data['fetch']['rf']['tgl'])); ?>
     </h3><br/>
     </center>
     </div>
