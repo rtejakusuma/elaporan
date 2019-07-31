@@ -1,22 +1,8 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-require APPPATH . '/libraries/REST_Controller.php';
-
-use Restserver\Libraries\REST_Controller;
-
-class Apicheck extends REST_Controller
+class Apicheck extends CI_Controller
 {
-    use REST_Controller {
-    REST_Controller::__construct as private __resTraitConstruct;
-    }
-
-    public function __construct()
-    {
-        parent::__construct();
-        $this->__resTraitConstruct();
-    }
-
     public function index()
     {
         echo '<a href="' . base_url('apicheck/sipp/tahun/2020') . '">SIPP</a><br>';
@@ -28,7 +14,7 @@ class Apicheck extends REST_Controller
         $data = $this->api_sipp_model->get_api($key, $val);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        $this->response(json_decode($json, true), REST_Controller::HTTP_OK);
+        printf('<pre>%s</pre>', $json);
     }
 
     public function sikd($tahun = '2019', $tw = '2')
@@ -37,7 +23,7 @@ class Apicheck extends REST_Controller
         $data = $this->api_sikd_model->get_api($tahun, $tw);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        $this->response(json_decode($json, true), 200);
+        printf('<pre>%s</pre>', $json);
     }
 }
 
