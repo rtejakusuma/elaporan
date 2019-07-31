@@ -30,8 +30,11 @@ class Opd extends CI_Controller
         return $this->tipelaporan;
     }
 
-    public function index()
+    public function index($err=NULL)
     {
+        if($err != NULL){
+            $this->data['error'] = $err;
+        }
         if($this->tipelaporan == NULL){
             $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
             $this->load->view('template/index_opd', array('data' => $this->data));    
@@ -40,7 +43,7 @@ class Opd extends CI_Controller
         }
     }
 
-    public function f($formname, $page_number=1) // display laporan by kode_tipe
+    public function f($formname, $page_number=10) // display laporan by kode_tipe
     {
         $this->form_ver($formname);
         $this->load->model('tipelaporan_model', 'ts');
@@ -70,6 +73,10 @@ class Opd extends CI_Controller
         $newid = $this->p->init_insert($this->session->tempdata('id_opd'),
                             array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe), 
                             $initdata);
+        if($newid == NULL){
+            redirect("opd/e/$formname",'refresh');
+            
+        }
         redirect("opd/e/$formname/$newid", "refresh");
     }
 
@@ -77,19 +84,18 @@ class Opd extends CI_Controller
     {
         if($this->input->post() != NULL){   // update data
             $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'lp');
-            // printf("<pre>%s</pre>", json_encode($this->input->post(), JSON_PRETTY_PRINT));
-            // die();
             $this->lp->update_data($id_laporan, $this->input->post());
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
-        $this->data['sidebar'] = $this->tipelaporan;
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
         $this->data['id_laporan'] = $id_laporan;
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
+
+
 
     public function p($formname, $id_laporan) // print existing data
     {

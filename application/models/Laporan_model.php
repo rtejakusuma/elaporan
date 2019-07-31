@@ -49,9 +49,15 @@ class Laporan_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_laporan_by_kodetipe($kode_tipe, $page_number, $id_opd, $limit=20)
+    public function get_laporan_by_kodetipe($kode_tipe, $page_number=10, $id_opd, $limit=20)
     {
-        $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
+        $this->db->select("laporan.id_laporan,$kode_tipe.*")
+                    ->from('laporan')
+                    ->join($kode_tipe, "laporan.id_laporan = $kode_tipe.id_laporan")
+                    ->where("laporan.id_opd", $id_opd)
+                    ->limit($limit, ($page_number-1) * $limit);
+        // $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
+        $res = $this->db->get();
         return $res->result_array();
     }
 
@@ -120,10 +126,10 @@ class Laporan_model extends CI_Model
         return $this->db->get_where('laporan', ['id_opd' => $data['id_opd'], 'id_tipe' => $data['id_tipe'],])->result_array()[0];
     }
 
-    public function update_data($id, $data)
+    public function update_data($id_laporan, $data)
     {
-        $namalaporan = $this->_get_nama_laporan($id);
-        $this->db->update($namalaporan, $data, array('id_laporan' => $id));
+        $namalaporan = $this->_get_nama_laporan($id_laporan);
+        $this->db->update($namalaporan, $data, array('id_laporan' => $id_laporan));
         // redirect('opd', 'refresh');
     }
 }

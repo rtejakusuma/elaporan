@@ -46,8 +46,9 @@ class Realisasifisik_model extends CI_Model
 
     public function init_insert($id_opd, $datalaporan, $data)
     {
-        $this->db->trans_start();
         $this->load->model('laporan_model', 'lp');
+        $this->load->model('api_sipp_model', 'sipp');
+        $this->db->trans_start();
         $this->db->insert('laporan', 
                     [
                         'id_opd' => $datalaporan['id_opd'],
@@ -59,12 +60,16 @@ class Realisasifisik_model extends CI_Model
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('realisasi_fisik', $datalaporan);
-        $this->load->model('api_sipp_model', 'sipp');
         $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan,date('Y', strtotime($data['tgl'])));
-        $this->db->insert_batch('program', $fet['prog']);
-        $this->db->insert_batch('kegiatan',$fet['kg']);
-        
+        if($fet != NULL && $fet != false && sizeof($fet) > 0){
+            $this->db->insert_batch('program', $fet['prog']);
+            $this->db->insert_batch('kegiatan',$fet['kg']);
+        }
         $this->db->trans_complete();
+        if($this->db->trans_status() === FALSE){
+            $this->db->trans_rollback();
+            return NULL;
+        }
         return $datalaporan['id_laporan'];
     }
 
@@ -106,23 +111,23 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_complete();
     }
 
-    private function calc_data($id_laporan)
+    public function delete_data($id_laporan)
     {
-        
+        $this->db->trans_begin();
+        $this->db->like('kode_kegiatan', $id_laporan.'-', 'after');
+        $this->db->delete('kegiatan');
+        $this->db->like('kode_program', $id_laporan.'-', 'after');
+        $this->db->delete('program');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('realisasi_fisik');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
-    public function insert_program($data)
+    public function calc_data($id_laporan)
     {
-        if($this->db->get_where('program', ['kode_program' => $data['kode_program']])->result_array() != NULL){
-            // $this->db->update('program', ['kode_program' => $data['kode_program']]);
-        } else {
-             $this->db->insert('program', $data);
-        }
+        // capaian
     }
 
-    public function insert_kegiatan($data)
-    {
-        if($data == NULL || $data == []) return;
-        $this->db->insert_batch('kegiatan',$data);
-    }
 }

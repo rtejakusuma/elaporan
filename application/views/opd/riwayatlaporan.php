@@ -51,10 +51,12 @@
                       <table class="table table-striped jambo_table bulk_action">
                         <thead>
                           <tr class="headings">
-                            <th class="column-title">ID laporan</th>
-                            <th class="column-title">Tanggal Dibuat</th>
-                            <th class="col-sm-1"></th>
+                            <th rowspan='2' class="column-title">ID laporan</th>
+                            <th rowspan='2' class="column-title">Nama laporan</th>
+                            <th rowspan='2' class="column-title">Tanggal Dibuat</th>
+                            <th colspan='2' rowspan='2' ><center>Aksi</center></th>
                           </tr>
+                          <tr></tr>
                         </thead>
 
                         <tbody>
@@ -68,11 +70,17 @@
                               foreach($data['list_laporan'] as $datalaporan){
                                 echo "<tr class=$counter>
                                         <td>$datalaporan[id_laporan]</td>
+                                        <td>$data[nama_laporan] ".date('M Y', strtotime($datalaporan['tgl']))."</td>
                                         <td>".date('d-m-Y', strtotime($datalaporan['created_at']))."</td>
-                                        <td>
+                                        <td><center>
                                         <a href=".base_url("opd/e/$data[kode_tipe]/$datalaporan[id_laporan]")."
                                         <button>Edit</button>
-                                        </a>
+                                        </a></center>
+                                        </td>
+                                        <td><center>
+                                        <a href=".base_url("opd/d/$data[kode_tipe]/$datalaporan[id_laporan]")."
+                                        <button>Hapus</button>
+                                        </a></center>
                                         </td>
                                         </a>
                                       </tr>";
