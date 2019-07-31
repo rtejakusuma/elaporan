@@ -117,6 +117,7 @@
                                     foreach($kg as $data){
                                 ?>
                             <input value="<?php echo ucwords($data['kode_kegiatan']); ?>" type="hidden" class="form-control col-md-7 col-xs-12" name="kode_kegiatan[]" >   
+                            <div style="border-style:solid; padding:25px;">
                             <div class="form-group">
                             <label for="kode_kegiatan" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Kegiatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -135,7 +136,7 @@
                             <div class="form-group">
                             <label for="pagu_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu PPAS Final</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['pagu_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="pagu_ppas_final[]">
+                                <input value="<?php echo $data['pagu_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="pagu_ppas_final[]">
                             </div>
                             </div>
 
@@ -149,7 +150,7 @@
                             <div class="form-group">
                             <label for="keluaran_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Target PPAS Final</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['keluaran_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="keluaran_target_ppas_final[]">
+                                <input value="<?php echo $data['keluaran_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_target_ppas_final[]">
                             </div>
                             </div>
 
@@ -163,7 +164,7 @@
                             <div class="form-group">
                             <label for="keluaran_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja Persen</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['keluaran_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="keluaran_realisasi_kinerja_persen[]">
+                                <input value="<?php echo $data['keluaran_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_kinerja_persen[]">
                             </div>
                             </div>
 
@@ -184,7 +185,7 @@
                             <div class="form-group">
                             <label for="hasil_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Target PPAS Final</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['hasil_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="hasil_target_ppas_final[]">
+                                <input value="<?php echo $data['hasil_target_ppas_final']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_target_ppas_final[]">
                             </div>
                             </div>
 
@@ -198,21 +199,21 @@
                             <div class="form-group">
                             <label for="realisasi_keuangan_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan Persen</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['realisasi_keuangan_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan_persen[]">
+                                <input value="<?php echo $data['realisasi_keuangan_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="realisasi_keuangan_persen[]">
                             </div>
                             </div>
 
                             <div class="form-group">
                             <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $data['keluaran_satuan']; ?>)</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php if(isset($data['hasil_realisasi_kinerja']))echo ucwords($data['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja[]">
+                                <input value="<?php if(isset($data['hasil_realisasi_kinerja']))echo ucwords($data['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="hasil_realisasi_kinerja[]">
                             </div>
                             </div>
 
                             <div class="form-group">
                             <label for="hasil_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja Persen</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value="<?php echo $data['hasil_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="number" name="hasil_realisasi_kinerja_persen[]">
+                                <input value="<?php echo $data['hasil_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_realisasi_kinerja_persen[]">
                             </div>
                             </div>
 
@@ -220,6 +221,7 @@
                             <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value="<?php echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
+                            </div>
                             </div>
                             </div>
 
