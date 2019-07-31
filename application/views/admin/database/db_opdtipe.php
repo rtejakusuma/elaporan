@@ -15,6 +15,7 @@
                             <th>User E-Budgeting</th>
                             <th>User E-Kinerja</th>
                             <th>User E-Monev</th>
+                            <th>User SKPD</th>
                             <th>Akses</th>
                             <th>Aksi</th>
                         </tr>
@@ -29,6 +30,7 @@
                                 <td><?= $row['kode_ebud'] ?></td>
                                 <td><?= $row['kode_ekin'] ?></td>
                                 <td><?= $row['kode_emov'] ?></td>
+                                <td><?= $row['kode_skpd'] ?></td>
                                 <td>
 
                                     <?php if ($row['tipe_laporan']) {

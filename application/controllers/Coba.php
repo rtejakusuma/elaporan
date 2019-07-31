@@ -14,6 +14,12 @@ class Coba extends CI_Controller
         // die();
     }
 
+    public function get_tw()
+    {
+        $this->load->model('api_sikd_model');
+        var_dump($this->api_sikd_model->get_apipub());
+    }
+
     public function updatekodeskpd()
     {
         $this->load->model('opd_model');
