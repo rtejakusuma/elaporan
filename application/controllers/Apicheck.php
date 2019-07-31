@@ -7,10 +7,14 @@ use Restserver\Libraries\REST_Controller;
 
 class Apicheck extends REST_Controller
 {
+    use REST_Controller {
+    REST_Controller::__construct as private __resTraitConstruct;
+    }
 
-    public function __construct($config = 'rest')
+    public function __construct()
     {
-        parent::__construct($config);
+        parent::__construct();
+        $this->__resTraitConstruct();
     }
 
     public function index()
@@ -24,7 +28,7 @@ class Apicheck extends REST_Controller
         $data = $this->api_sipp_model->get_api($key, $val);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
-        $this->response(json_decode($json, true), 200);
+        $this->response(json_decode($json, true), REST_Controller::HTTP_OK);
     }
 
     public function sikd($tahun = '2019', $tw = '2')
