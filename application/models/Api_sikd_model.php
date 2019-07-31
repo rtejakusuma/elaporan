@@ -12,9 +12,9 @@ class Api_sikd_model extends CI_Model
     }
 
 
-    public function get_api()
+    public function get_api($tahun, $tw)
     {
-        $url = "sikd.madiunkota.net/serapan/serapan2019/api/2";
+        $url = 'sikd.madiunkota.net/serapan/serapan' . $tahun . '/api/' . $tw;
 
         $curl = curl_init();
 
