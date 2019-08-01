@@ -46,7 +46,25 @@ class Pemantauantindaklanjut_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'detail_rekap_tender'){
+            $this->db->delete('detail_rekap_tender', "id_laporan = $id_laporan");
+            $this->db->insert_batch('detail_rekap_tender', $data);
+        }
+        $this->db->trans_complete();
     }
 
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('detail_rekap_tender');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('rekap_tender');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
+    }
 }

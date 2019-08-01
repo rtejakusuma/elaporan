@@ -34,7 +34,7 @@ class Jadwalpelaksanaan_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('jadwal_pelaksanaan', $datalaporan);
         // insert second etc. table data here
-
+        // no api
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -46,7 +46,29 @@ class Jadwalpelaksanaan_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
-        
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'jadwal_pelaksanaan_opd'){
+            $this->db->update_batch('jadwal_pelaksanaan_opd', $data, "id_laporan = $id_laporan");
+        } else if($table == 'auditor') {
+            $this->db->update_batch('auditor', $data, "id_jadwal_pelaksanaan_opd = $id_laporan");
+        }
+        $this->db->trans_complete();
     }
 
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        // cek pdm / on delete cascade di tabel auditor / buat jadwal_pelaksanaan_opd have at least one (auditor strong entity)
+        // $this->db->where('id_laporan', $id_laporan);
+        // $this->db->delete('auditor');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('jadwal_pelaksanaan_opd');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('jadwal_pelaksanaan');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
+    }
 }

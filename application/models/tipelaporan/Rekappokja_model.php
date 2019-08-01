@@ -45,7 +45,25 @@ class Rekappokja_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
         
+        $this->db->trans_complete();
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        // nunggu update pdm
+        // cek pdm untuk memastikan keutuhan data
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('detail_rekap_pokja');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('rekap_pokja');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }
