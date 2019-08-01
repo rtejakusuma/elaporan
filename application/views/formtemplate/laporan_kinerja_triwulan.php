@@ -18,8 +18,9 @@
         </div>
         <div class="x_content">
           <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
             <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+            <input value="laporan_kinerja_triwulan" type="hidden" name="nama_tabel">
             <div class="form-group">
               <label for="uraian" class="control-label col-md-3 col-sm-3 col-xs-12">Uraian</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
