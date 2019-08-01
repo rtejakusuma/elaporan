@@ -21,31 +21,31 @@
             <div class="form-group">
               <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="nama" class="form-control col-md-7 col-xs-12" type="text" name="nama" required="required">
+                <input id="nama" class="form-control col-md-7 col-xs-12" type="text" name="nama"  >
               </div>
             </div>
             <div class="form-group">
               <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="pagu" class="form-control col-md-7 col-xs-12" type="int" name="pagu" required="required">
+                <input id="pagu" class="form-control col-md-7 col-xs-12" type="int" name="pagu"  >
               </div>
             </div>
             <div class="form-group">
               <label for="jabatan_bawah" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan Bawah</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="jabatan_bawah" class="form-control col-md-7 col-xs-12" type="text" name="jabatan_bawah" required="required">
+                <input id="jabatan_bawah" class="form-control col-md-7 col-xs-12" type="text" name="jabatan_bawah"  >
               </div>
             </div>
             <div class="form-group">
               <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket" required="required">
+                <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket"  >
               </div>
             </div>
             <div class="form-group">
               <label for="paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Paket Kerja</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="paket_kerja" class="form-control col-md-7 col-xs-12" type="text" name="paket_kerja" required="required">
+                <input id="paket_kerja" class="form-control col-md-7 col-xs-12" type="text" name="paket_kerja"  >
               </div>
             </div>
 
@@ -109,19 +109,19 @@
                             <div class="form-group">
                             <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nama" class="form-control col-md-7 col-xs-12" type="text" name="nama" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="nama"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="jabatan" class="form-control col-md-7 col-xs-12" type="text" name="jabatan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="jabatan"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="ket"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -139,13 +139,13 @@
                             <div class="form-group">
                             <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nama_paket_kerja" class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="pagu" class="form-control col-md-7 col-xs-12" type="number" name="pagu" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="number" name="pagu[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>

@@ -40,7 +40,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -71,25 +71,25 @@
                             <div class="form-group">
                             <label for="permasalahan_kelembagaan" class="control-label col-md-3 col-sm-3 col-xs-12">Permasalahan Kelembagaan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="permasalahan_kelembagaan" class="form-control col-md-7 col-xs-12" type="text" name="permasalahan_kelembagaan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="permasalahan_kelembagaan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="usulan" class="control-label col-md-3 col-sm-3 col-xs-12">Usulan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="usukan" class="form-control col-md-7 col-xs-12" type="text" name="usulan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="usulan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="dasar_hukum" class="control-label col-md-3 col-sm-3 col-xs-12">Dasar Hukum</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="dasar_hukum" class="form-control col-md-7 col-xs-12" type="text" name="dasar_hukum" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="dasar_hukum[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>

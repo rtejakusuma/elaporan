@@ -42,7 +42,7 @@
                             <div class="form-group">
                             <label for="judul_laporan" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Laporan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="judul_laporan" class="form-control col-md-7 col-xs-12" type="text" name="judul_laporan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="judul_laporan"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -60,7 +60,7 @@
                             <div class="form-group">
                             <label for="nama_temuan" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Temuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nama_temuan" class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan" required="required">
+                                <input class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -78,31 +78,31 @@
                             <div class="form-group">
                             <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="rekomendasi" class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi" required="required">
+                                <input class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="status_rekomendasi" class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi" required="required">
+                                <input class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tindak_lanjut" class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="status_tindak_lanjut" class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="catatan_bpk" class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>

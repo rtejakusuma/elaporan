@@ -40,7 +40,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -71,17 +71,17 @@
                             <div class="form-group">
                               <label for="indeks_pelayanan_publik" class="control-label col-md-3 col-sm-3 col-xs-12">Indeks Pelayanan Publik</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input id="indeks_pelayanan_publik" class="form-control col-md-7 col-xs-12" type="number" name="indeks_pelayanan_publik" required="required">
+                                  <input  class="form-control col-md-7 col-xs-12" type="number" name="indeks_pelayanan_publik[]"  >
                               </div>
                               </div>
                               <label for="konversi_100" class="control-label col-md-3 col-sm-3 col-xs-12">Konversi 100</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input id="konversi_100" class="form-control col-md-7 col-xs-12" type="number" name="konversi_100" required="required">
+                                  <input  class="form-control col-md-7 col-xs-12" type="number" name="konversi_100[]"  >
                               </div>
                               </div>
                               <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket" required="required">
+                                  <input class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                               </div>
                               </div>
                               <div class="ln_solid"></div>

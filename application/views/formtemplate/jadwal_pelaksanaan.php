@@ -42,7 +42,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -73,37 +73,37 @@
                             <div class="form-group">
                             <label for="jenis_pengawasan" class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Pengawasan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="jenis_pengawasan" class="form-control col-md-7 col-xs-12" type="text" name="jenis_pengawasan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="jenis_pengawasan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="rmp" class="control-label col-md-3 col-sm-3 col-xs-12">RMP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="rmp" class="form-control col-md-7 col-xs-12" type="text" name="rmp" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="rmp[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="rpl" class="control-label col-md-3 col-sm-3 col-xs-12">RPL</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="rpl" class="form-control col-md-7 col-xs-12" type="text" name="rpl" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="rpl[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="output_lhp" class="control-label col-md-3 col-sm-3 col-xs-12">Output LHP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="output_lhp" class="form-control col-md-7 col-xs-12" type="text" name="output_lhp" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="output_lhp[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="hari_pengawasan" class="control-label col-md-3 col-sm-3 col-xs-12">Hari Pengawasan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="hari_pengawasan" class="form-control col-md-7 col-xs-12" type="text" name="hari_pengawasan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="hari_pengawasan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="keterangan" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="keterangan" class="form-control col-md-7 col-xs-12" type="text" name="keterangan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="keterangan[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -121,13 +121,13 @@
                             <input value="auditor" type="hidden" name="nama_tabel">
                             <label for="nama_auditor" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Auditor</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="nama_auditor" class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="jabatan" class="form-control col-md-7 col-xs-12" type="text" name="jabatan" required="required">
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="jabatan[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
