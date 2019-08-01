@@ -48,10 +48,12 @@ class Api_sikd_model extends CI_Model
 
         //init data
         $data = array();
+        $idx = 0;
         foreach ($rawdata['data'] as $row) {
             array_push($data, ['kode_skpd' => $row['KODE_SKPD'], 'pagu' => $row['Pagu 1 Tahun']]);
-            $data['tw'] = array();
-            array_push($data['tw'], ['realisasi' => $row['realisasi sd Tw 1'], 'target' => $row['target sd Tw 1'], 'prosentase' => $row['prosentase']]);
+            $data[$idx]['tw'] = array();
+            array_push($data[$idx]['tw'], ['realisasi' => $row['realisasi sd Tw 1'], 'target' => $row['target sd Tw 1'], 'prosentase' => $row['prosentase']]);
+            $idx++;
         }
 
         // ini tw2/3/4
