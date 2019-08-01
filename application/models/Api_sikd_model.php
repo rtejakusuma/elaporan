@@ -57,15 +57,15 @@ class Api_sikd_model extends CI_Model
         }
 
         // ini tw2/3/4
-        // for ($i = 2; $i < 4; $i++) {
-        //     $rawdata = $this->get_api($tahun, $i);
+        for ($i = 2; $i < 4; $i++) {
+            $rawdata = $this->get_api($tahun, $i);
 
-        //     $idx = 0;
-        //     foreach ($rawdata['data'] as $row) {
-        //         array_push($data[$idx]['tw'], ['realisasi' => $row['realisasi sd Tw ' . $i], 'target' => $row['target sd Tw ' . $i], 'prosentase' => $row['prosentase']]);
-        //         $idx++;
-        //     }
-        // }
+            $idx = 0;
+            foreach ($rawdata['data'] as $row) {
+                array_push($data[$idx]['tw'], ['realisasi' => $row['realisasi sd Tw ' . $i], 'target' => $row['target sd Tw ' . $i], 'prosentase' => $row['prosentase']]);
+                $idx++;
+            }
+        }
 
         return $data;
     }
