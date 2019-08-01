@@ -46,7 +46,27 @@ class Tatalaksana_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
+        $table = $data['nama_tabel'];
+        unset($data['nama_tabel']);
+        $this->db->trans_begin();
+        if($table == 'tatalaksana_opd'){
+            $this->db->delete('tatalaksana_opd',"id_laporan = $id_laporan");
+            $this->db->insert_batch('tatalaksana', $data);
+        }
+        $this->db->trans_complete();
         
+    }
+
+    public function delete_data($id_laporan)
+    {
+        $this->db->trans_begin();
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('tatalaksana_opd');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('tatalaksana');
+        $this->db->where('id_laporan', $id_laporan);
+        $this->db->delete('laporan');
+        $this->db->trans_complete();
     }
 
 }
