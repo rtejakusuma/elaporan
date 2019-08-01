@@ -40,13 +40,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
-                            </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <h2><?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?></h2>
                             </div>
                             </div>
                         </form>
@@ -54,32 +48,23 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
                             <input value="ikm_opd" type="hidden" name="nama_tabel">
-                            <div class="form-group">
-                              <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <select id="user" name="id" >
-                                  <?php
-                                      foreach($data['opsi_user'] as $user){
-                                      echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                      }
-                                  ?>
-                                  </select>
+                            
+                            <div id='container-opsi'>
+                            <button type='button' onclick='add_field()'>Tambah</button>
                             </div>
-                            </div>
-                            <div class="form-group">
+                            <!-- <div class="form-group">
                             <label for="predikat" class="control-label col-md-3 col-sm-3 col-xs-12">Predikat</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="predikat" class="form-control col-md-7 col-xs-12" type="number" name="predikat" required="required">
+                              <input class="form-control col-md-7 col-xs-12" type="text" name="predikat[]" >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="nilai" class="control-label col-md-3 col-sm-3 col-xs-12">Nilai</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input id="nilai" class="form-control col-md-7 col-xs-12" type="number" name="nilai" required="required">
+                              <input class="form-control col-md-7 col-xs-12" type="text" name="nilai[]" >
                             </div>
-                            </div>
+                            </div> -->
                               <div class="ln_solid"></div>
                               <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -97,6 +82,36 @@
     </div>
   </div>
 
+<script>
+
+  var opd = "<input type='hidden' value='<?php echo $data['fetch']['ikm']['id_laporan']; ?>'>\
+                \<select name='id_opd[]'>\
+                <?php 
+                  foreach($data['opsi_opd'] as $opd){
+                    echo "<option value'$opd[id_opd]'>$opd[nama_opd]</option>";
+                  }
+                ?>\
+              </select>\
+              <div class='form-group'>\
+              <label for='predikat' class='control-label col-md-3 col-sm-3 col-xs-12'>Predikat</label>\
+              <div class='col-md-6 col-sm-6 col-xs-12'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >\
+              </div>\
+              </div>\
+              <div class='form-group'>\
+              <label for='nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai</label>\
+              <div class='col-md-6 col-sm-6 col-xs-12'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >\
+              </div>\
+              </div>\
+              \
+              ";
+    function add_field(){
+      var cont = document.getElementById('container-opsi');
+      console.log(cont);
+      cont.innerHTML = opd + cont.innerHTML;
+    }    
+</script>
 
 
   <!-- /page content -->

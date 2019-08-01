@@ -88,6 +88,10 @@ class Opd extends CI_Controller
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
+        if($formname == "ikm"){
+            $this->load->model('opd_model', 'opd');
+            $this->data['opsi_opd'] = $this->opd->gets();
+        }
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
