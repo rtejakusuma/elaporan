@@ -58,8 +58,10 @@ class Api_sikd_model extends CI_Model
         for ($i = 2; $i < 5; $i++) {
             $rawdata = $this->get_api($tahun, $i);
 
+            $idx = 0;
             foreach ($rawdata['data'] as $row) {
-                array_push($data['tw'], ['realisasi' => $row['realisasi sd Tw ' . $i], 'target' => $row['target sd Tw ' . $i], 'prosentase' => $row['prosentase']]);
+                array_push($data[$idx]['tw'], ['realisasi' => $row['realisasi sd Tw ' . $i], 'target' => $row['target sd Tw ' . $i], 'prosentase' => $row['prosentase']]);
+                $idx++;
             }
         }
 
