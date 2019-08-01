@@ -35,7 +35,8 @@
                       </ul>
                       <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="pelayanan_publik" type="hidden" name="nama_tabel">
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -52,8 +53,9 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                             <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+                            <input value="pelayanan_publik_opd" type="hidden" name="nama_tabel">
                             <div class="form-group">
                               <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">

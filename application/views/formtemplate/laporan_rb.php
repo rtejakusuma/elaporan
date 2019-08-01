@@ -39,7 +39,8 @@
                       </ul>
                       <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="laporan_rb" type="hidden" name="nama_tabel">
                             <div class="form-group">
                             <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -62,7 +63,8 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="jenis_rb" type="hidden" name="nama_tabel">
                             <div class="form-group">
                             <label for="rincian" class="control-label col-md-3 col-sm-3 col-xs-12">Rincian</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -79,7 +81,8 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="program_rb" type="hidden" name="nama_tabel">
                             <div class="form-group">
                             <label for="nama_program_rb" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program RB</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -101,7 +104,8 @@
                         </form>
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content4" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url('admin/submit'); ?>' method="post">
+                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="kegiatan_rb" type="hidden" name="nama_tabel">
                             <div class="form-group">
                             <label for="nama_kegiatan_rb" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kegiatan RB</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
