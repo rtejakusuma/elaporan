@@ -18,6 +18,16 @@ class Monitoringkelembagaan_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $mkdata = $this->db->get_where('monitoring_kelembagaan', ['id_laporan' => $id])->result_array()[0];
+        $pkdata = $this->db->select('permasalahan_kelembagaan.*, opd.nama_opd')
+                            ->from('permasalahan_kelembagaan')
+                            ->join('opd', 'permasalahan_kelembagaan.id_opd = opd.id_opd')
+                            ->where('id_laporan', $id)->get()->result_array();
+        return array('mk' => $mkdata, 'pk' => $pkdata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

@@ -18,6 +18,17 @@ class Ikm_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function get_data_by_id($id)
+    {
+        $ikmdata = $this->db->get_where('ikm', ['id_laporan' => $id])->result_array()[0];
+        $ikmopddata = $this->db->select('ikm_opd.*, opd.nama_opd')
+                                ->from('ikm_opd')
+                                ->join('opd', 'opd.id_opd = ikm_opd.id_opd')
+                                ->where('ikm_opd.id_laporan', $id)
+                                ->get()->result_array();
+        return array('ikm' => $ikmdata, 'ikmopd' => $ikmopddata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

@@ -15,6 +15,13 @@ class Laporankinerjatriwulan_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $lktdata = $this->db->get_where('laporan_kinerja_triwulan', ['id_laporan' => $id])->result_array()[0];
+        $lktdetaildata = $this->db->from('detail_laporan_kinerja_triwulan')->where('id_laporan', $id)->get()->result_array();
+        return array('lkt' => $lktdata, 'lktdetail' => $lktdetaildata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

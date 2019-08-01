@@ -17,6 +17,19 @@ class Rekappokja_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $rpdata = $this->db->get_where('rekap_pokja', ['id_laporan' => $id])->result_array()[0];
+        $drpdata = $this->db->get_where('detail_rekap_pokja', "id_laporan = $id")->get()->result_array();
+        $pkdata = array();
+        if($drpdata != NULL){
+            foreach($drpdata as $d){
+                $pkdata[$d['id_detail_rekap_pokja']] = $this->db->get_where('paket_kerja', "id_detail_rekap_pokja = $d[id_detail_rekap_pokja]");
+            }
+        }
+        return array('rp' => $rpdata, 'drp' => $drpdata, 'pk' => $pkdata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

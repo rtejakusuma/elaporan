@@ -18,6 +18,16 @@ class Tatalaksana_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $tdata = $this->db->get_where('tatalaksana', ['id_laporan' => $id])->result_array()[0];
+        $topddata = $this->db->select('tatalaksana_opd.*, opd.nama_opd')
+                                ->from('tatalaksana_opd')
+                                ->join('opd', 'tatalaksana_opd.id_opd = opd.id_opd')
+                                ->where('id_laporan', $id)->get()->result_array();
+        return array('t' => $tdata, 'topd' => $topddata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

@@ -18,6 +18,16 @@ class Pelayananpublik_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $ppdata = $this->db->get_where('pelayanan_publik', ['id_laporan' => $id])->result_array()[0];
+        $ppopddata = $this->db->select('pelayanan_publik_opd.*, opd.nama_opd')
+                                ->from('pelayanan_publik_opd')
+                                ->join('opd', 'pelayanan_publik_opd.id_opd = opd.id_opd')
+                                ->where('id_laporan', $id)->get()->result_array();
+        return array('pp' => $ppdata, 'ppopd' => $ppopddata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

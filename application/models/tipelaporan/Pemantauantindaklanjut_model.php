@@ -18,6 +18,19 @@ class Pemantauantindaklanjut_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $ptldata = $this->db->get_where('pemantauan_tindak_lanjut', ['id_laporan' => $id])->result_array()[0];
+        $temuandata = $this->db->get_where('temuan', "id_laporan = $id")->get()->result_array();
+        $htemuan = array();
+        if($temuandata != NULL){
+            foreach($temuandata as $d){
+                $htemuan[$d['id_temuan']] = $this->db->get_where('hasil_temuan', "id_temuan = $d[id_temuan]");
+            }
+        }
+        return array('ptl' => $ptldata, 'temuan' => $temuandata, 'htemuan' => $htemuan);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

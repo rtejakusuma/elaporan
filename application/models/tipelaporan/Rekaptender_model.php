@@ -18,6 +18,17 @@ class Rekaptender_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $rtdata = $this->db->get_where('rekap_tender', ['id_laporan' => $id])->result_array()[0];
+        $drtdata = $this->db->select('detail_rekap_tender.*, paket_kerja.*, opd.nama_opd')
+                            ->from('detail_rekap_tender')
+                            ->join('opd', 'detail_rekap_tender.id_opd = opd.id_opd')
+                            ->join('paket_kerja', 'detail_rekap_tender.id_paket_kerja = paket_kerja.id_paket_kerja')
+                            ->where('id_laporan', $id)->get()->result_array();
+        return array('rt' => $rtdata, 'drt' => $drtdata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

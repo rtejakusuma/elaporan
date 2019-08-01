@@ -33,6 +33,16 @@ class Sotk_model extends CI_Model
         }
     }
 
+    public function get_data_by_id($id)
+    {
+        $sotkdata = $this->db->get_where('sotk', ['id_laporan' => $id])->result_array()[0];
+        $sotkopddata = $this->db->select('sotk_opd.*, opd.nama_opd')
+                                ->from('sotk_opd')
+                                ->join('opd', 'sotk_opd.id_opd = opd.id_opd')
+                                ->where('id_laporan', $id)->get()->result_array();
+        return array('sotk' => $sotkdata, 'sotkopd' => $sotkopddata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();

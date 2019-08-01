@@ -18,6 +18,22 @@ class Jadwalpelaksanaan_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_data_by_id($id)
+    {
+        $jpdata = $this->db->get_where('jadwal_pelaksanaan', ['id_laporan' => $id])->result_array()[0];
+        $jpopddata = $this->db->select('jadwal_pelaksanaan_opd.*, opd.nama_opd')
+                                ->from('jadwal_pelaksanaan_opd')
+                                ->join('opd', 'jadwal_pelaksanaan_opd.id_opd = opd.id_opd')
+                                ->where('id_laporan', $id)->get()->result_array();
+        $adata = array();
+        if($jpopddata != NULL){
+            foreach($jpopddata as $d){
+                $adata[$d['id_jadwal_pelaksanaan_opd']] = $this->db->get_where('auditor', "auditor.id_jadwal_pelaksanaan_opd = $d[id_jadwal_pelaksanaan_opd]");
+            }
+        }
+        return array('jp' => $jpdata, 'jpopd' => $jpopddata, 'adata' => $adata);
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();
