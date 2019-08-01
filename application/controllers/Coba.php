@@ -17,11 +17,15 @@ class Coba extends CI_Controller
     public function get_tw()
     {
         $this->load->model('api_sikd_model');
-        $data = $this->api_sikd_model->get_tahunan();
+        $rawdata = $this->api_sikd_model->get_tahunan();
 
-        foreach ($data['data'] as $row) {
-            var_dump($row);
+        //init data
+        $data = array();
+        foreach ($rawdata['data'] as $row) {
+            array_push($data, ['kode_skpd' => $row['KODE_SKPD'], 'pagu' => $row['Pagu 1 Tahun'], 'target' => $row['target sd Tw 1']]);
         }
+
+        var_dump($data);
     }
 
     public function updatekodeskpd()
