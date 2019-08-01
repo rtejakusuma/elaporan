@@ -40,7 +40,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input id="tahun" class="form-control col-md-7 col-xs-12" type="number" name="tahun" required="required">
+                                <input class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -71,7 +71,7 @@
                             <div class="form-group">
                               <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input id="besaran" class="form-control col-md-7 col-xs-12" type="text" name="besaran" required="required">
+                                  <input  class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
                               </div>
                               </div>
                               <div class="ln_solid"></div>
