@@ -55,7 +55,7 @@ class Api_sikd_model extends CI_Model
         }
 
         // ini tw2/3/4
-        for ($i = 2; $i < 5; $i++) {
+        for ($i = 2; $i < 4; $i++) {
             $rawdata = $this->get_api($tahun, $i);
 
             $idx = 0;
