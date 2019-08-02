@@ -40,13 +40,8 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
-                            </div>
-                            </div>
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                            <h2><?php echo date('Y', strtotime($data['fetch']['sotk']['tgl'])); ?></h2>
+                                <!-- <input disabled class="form-control col-md-7 col-xs-12" type="number" name="tahun"  > -->
                             </div>
                             </div>
                         </form>
@@ -54,26 +49,34 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
                             <input value="sotk_opd" type="hidden" name="nama_tabel">
-                            <div class="form-group">
-                              <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <select id="user" name="id" >
-                                  <?php
-                                      foreach($data['opsi_user'] as $user){
-                                      echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                      }
-                                  ?>
-                                  </select>
-                            </div>
-                            </div>
+                            <button type='button' onclick='add_field()'>Tambah</button>
+                            <div id='container-opsi'>
+                            
+                            <?php if($data['fetch']['sotkopd'] != NULL){ 
+                                    foreach($data['fetch']['sotkopd'] as $sotkopd){  
+                            ?>
+                            <div>  <!-- PENTING -->
+                            <div style='border: 2px solid black;'>
+                            <select name='id_opd[]'>
+                            <?php 
+                              foreach($data['opsi_opd'] as $opd){
+                                $sel = '';
+                                if($ikmopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                              }
+                            ?>
+                            </select>
+
                             <div class="form-group">
                               <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input  class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
+                                  <input value='<?php echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
                               </div>
+                              <br/><br/></div>
+                              <?php }} ?>
                               </div>
+
                               <div class="ln_solid"></div>
                               <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
