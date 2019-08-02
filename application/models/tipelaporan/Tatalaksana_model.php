@@ -58,10 +58,28 @@ class Tatalaksana_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['id_opd'][$i],
+                            'uji_kompetensi' => $data['uji_kompetensi'][$i],
+                            'sop' => $data['sop'][$i],
+                            'tata_naskah_dinas' => $data['tata_naskah_dinas'][$i],
+                            'pakaian_dinas' => $data['pakaian_dinas'][$i],
+                            'jam_kerja' => $data['jam_kerja'][$i],
+                            'jml_nilai' => $data['jml_nilai'][$i],
+                            'ket' => $data['ket'][$i]
+                ));
+            }
+        }
         $this->db->trans_begin();
         if($table == 'tatalaksana_opd'){
             $this->db->delete('tatalaksana_opd',"id_laporan = $id_laporan");
-            $this->db->insert_batch('tatalaksana', $data);
+            if($data != NULL){
+                $this->db->insert_batch('tatalaksana_opd', $insdata);
+            }
         }
         $this->db->trans_complete();
         

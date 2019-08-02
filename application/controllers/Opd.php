@@ -88,7 +88,7 @@ class Opd extends CI_Controller
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
-        if($formname == "ikm" || $formname == "sotk"){
+        if($formname == "ikm" || $formname == "sotk" || $formname == 'tatalaksana'){
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
             unset($this->data['opsi_opd'][0]);

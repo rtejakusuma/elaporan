@@ -61,19 +61,22 @@ class Ikm_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
-        for($i = 0; $i < sizeof(reset($data)); $i+=1){
-            array_push($insdata, array(
-                        'id_laporan' => $id_laporan,
-                        'id_opd' => $data['id_opd'][$i],
-                        'predikat' => $data['predikat'][$i],
-                        'nilai' => $data['nilai'][$i] 
-            ));
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['id_opd'][$i],
+                            'predikat' => $data['predikat'][$i],
+                            'nilai' => $data['nilai'][$i] 
+                ));
+            }
         }
-        // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
         $this->db->trans_begin();
         if($table == 'ikm_opd'){
             $this->db->delete('ikm_opd', "id_laporan = $id_laporan");
-            $this->db->insert_batch('ikm_opd',$insdata);
+            if($data != NULL){
+                $this->db->insert_batch('ikm_opd',$insdata);
+            }
         }
         $this->db->trans_complete();
         

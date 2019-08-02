@@ -40,7 +40,7 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"  >
+                            <h2><?php echo date('Y', strtotime($data['fetch']['mk']['tgl'])); ?></h2>
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -54,44 +54,56 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+                            
                             <input value="permasalahan_kelembagaan" type="hidden" name="nama_tabel">
-                            <div class="form-group">
-                            <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <select id="user" name="id" >
-                                <?php
-                                    foreach($data['opsi_user'] as $user){
-                                    echo "<option value='" . $user['id'] . "'>" . strtoupper($user['username']) . "</option>";
-                                    }
-                                ?>
-                                </select>
-                            </div>
-                            </div>
+                            <button type='button' onclick='add_field()'>Tambah</button>
+                            <div id='container-opsi'>
+
+                            <?php if($data['fetch']['pk'] != NULL){ 
+                                    foreach($data['fetch']['pk'] as $pkdata){  
+                            ?>
+                            <div>  <!-- PENTING -->
+                            <div style='border: 2px solid black;'>
+                            <select name='id_opd[]'>
+                            <?php 
+                              foreach($data['opsi_opd'] as $opd){
+                                $sel = '';
+                                if($pkdata['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                              }
+                            ?>
+                            </select>
+
                             <div class="form-group">
                             <label for="permasalahan_kelembagaan" class="control-label col-md-3 col-sm-3 col-xs-12">Permasalahan Kelembagaan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="permasalahan_kelembagaan[]"  >
+                                <input value='<?php echo $pkdata['permasalahan_kelembagaan'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="permasalahan_kelembagaan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="usulan" class="control-label col-md-3 col-sm-3 col-xs-12">Usulan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="usulan[]"  >
+                                <input value='<?php echo $pkdata['usulan'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="usulan[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="dasar_hukum" class="control-label col-md-3 col-sm-3 col-xs-12">Dasar Hukum</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="dasar_hukum[]"  >
+                                <input value='<?php echo $pkdata['dasar_hukum'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="dasar_hukum[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
+                                <input value='<?php echo $pkdata['ket'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                             </div>
                             </div>
+                            <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
+                              <br/><br/></div>
+                              <?php }} ?>
+                              </div>
+
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -108,7 +120,55 @@
       </div>
     </div>
   </div>
+  
 
+<script>
 
+var opd = "<div>\
+              <div style='border: 2px solid black;'>\
+              \<select name='id_opd[]'>\
+              <?php 
+                foreach($data['opsi_opd'] as $opd){
+                  echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+                }
+              ?>\
+            </select>\
+            <div class='form-group'>\
+                            <label for='permasalahan_kelembagaan' class='control-label col-md-3 col-sm-3 col-xs-12'>Permasalahan Kelembagaan</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='permasalahan_kelembagaan[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='usulan' class='control-label col-md-3 col-sm-3 col-xs-12'>Usulan</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='usulan[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='dasar_hukum' class='control-label col-md-3 col-sm-3 col-xs-12'>Dasar Hukum</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='dasar_hukum[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
+                            </div>\
+                            </div>\
+            <button type='button' onclick='delete_node(this)'>Hapus</button>\
+            </div>\
+            <br/><br/></div>";
+
+  function add_field(){
+    var cont = document.getElementById('container-opsi');
+    console.log(cont);
+    cont.innerHTML = opd + cont.innerHTML;
+  }
+  function delete_node(node){
+    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+  }
+</script>
 
   <!-- /page content -->
