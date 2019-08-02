@@ -91,6 +91,7 @@ class Opd extends CI_Controller
         if($formname == "ikm"){
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
+            unset($this->data['opsi_opd'][0]);
         }
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['formname'] = $formname;

@@ -49,40 +49,40 @@
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                             <input value="ikm_opd" type="hidden" name="nama_tabel">
-                            <input type='hidden' name='id_laporan' value='<?php echo $data['fetch']['ikm']['id_laporan']; ?>'>
+                            <button type='button' onclick='add_field()'>Tambah</button>
                             <div id='container-opsi'>
                             
                             <?php if($data['fetch']['ikmopd'] != NULL){ 
                                     foreach($data['fetch']['ikmopd'] as $ikmopd){  
                             ?>
-                              
+                            <div>  
                             <div style='border: 2px solid black;'>
                             <select name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
                                 $sel = '';
                                 if($ikmopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
-                                echo "<option value'$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                                echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
                               }
                             ?>
                             </select>
                             <div class='form-group'>
                             <label for='predikat' class='control-label col-md-3 col-sm-3 col-xs-12'>Predikat</label>
                             <div class='col-md-6 col-sm-6 col-xs-12'>
-                              <input class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >
+                              <input value='<?php echo $ikmopd['predikat']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >
                             </div>
                             </div>
                             <div class='form-group'>
                             <label for='nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai</label>
                             <div class='col-md-6 col-sm-6 col-xs-12'>
-                              <input class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >
+                              <input value='<?php echo $ikmopd['nilai']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >
                             </div>
                             </div>
+                              <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
-                              
+                            <br/><br/></div>
 
                             <?php }} ?>
-                            <button type='button' onclick='add_field()'>Tambah</button>
                             </div>
 
                               <div class="ln_solid"></div>
@@ -104,12 +104,12 @@
 
 <script>
 
-  var opd = "\
+  var opd = "\<div>\
                 <div style='border: 2px solid black;'>\
                 \<select name='id_opd[]'>\
                 <?php 
                   foreach($data['opsi_opd'] as $opd){
-                    echo "<option value'$opd[id_opd]'>$opd[nama_opd]</option>";
+                    echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
                   }
                 ?>\
               </select>\
@@ -125,13 +125,17 @@
                 <input class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >\
               </div>\
               </div>\
+              <button type='button' onclick='delete_node(this)'>Hapus</button>\
               </div>\
-              ";
+              <br/><br/></div>";
     function add_field(){
       var cont = document.getElementById('container-opsi');
       console.log(cont);
       cont.innerHTML = opd + cont.innerHTML;
-    }    
+    }
+    function delete_node(node){
+      node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    }
 </script>
 
 
