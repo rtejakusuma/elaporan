@@ -39,6 +39,7 @@ class Sotk_model extends CI_Model
         $sotkopddata = $this->db->select('sotk_opd.*, opd.nama_opd')
                                 ->from('sotk_opd')
                                 ->join('opd', 'sotk_opd.id_opd = opd.id_opd')
+                                ->order_by('nama_opd')
                                 ->where('id_laporan', $id)->get()->result_array();
         return array('sotk' => $sotkdata, 'sotkopd' => $sotkopddata);
     }
@@ -73,10 +74,18 @@ class Sotk_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        for($i = 0; $i < sizeof(reset($data)); $i+=1){
+            array_push($insdata, array(
+                        'id_laporan' => $id_laporan,
+                        'id_opd' => $data['id_opd'][$i],
+                        'besaran' => $data['besaran'][$i] 
+            ));
+        }
         $this->db->trans_begin();
         if($table == 'sotk_opd'){
             $this->db->delete('sotk_opd', "id_laporan = $id_laporan");
-            $this->db->insert_batch('sotk_opd', $data);
+            $this->db->insert_batch('sotk_opd', $insdata);
         }
         $this->db->trans_complete(); 
     }

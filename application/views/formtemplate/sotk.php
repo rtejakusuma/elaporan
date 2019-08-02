@@ -62,17 +62,20 @@
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
                                 $sel = '';
-                                if($ikmopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                if($sotkopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
                                 echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
                               }
                             ?>
                             </select>
 
                             <div class="form-group">
-                              <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input value='<?php echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
-                              </div>
+                            <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
+                            </div>
+                            </div>
+                            <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
                               <br/><br/></div>
                               <?php }} ?>
                               </div>
@@ -94,6 +97,35 @@
     </div>
   </div>
 
+<script>
+
+var opd = "<div>\
+              <div style='border: 2px solid black;'>\
+              \<select name='id_opd[]'>\
+              <?php 
+                foreach($data['opsi_opd'] as $opd){
+                  echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+                }
+              ?>\
+            </select>\
+            <div class='form-group'>\
+            <label for='besaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Besaran</label>\
+            <div class='col-md-6 col-sm-6 col-xs-12'>\
+              <input class='form-control col-md-7 col-xs-12' type='text' name='besaran[]'  >\
+            </div>\
+            </div>\
+            <button type='button' onclick='delete_node(this)'>Hapus</button>\
+            </div>\
+            <br/><br/></div>";
+  function add_field(){
+    var cont = document.getElementById('container-opsi');
+    console.log(cont);
+    cont.innerHTML = opd + cont.innerHTML;
+  }
+  function delete_node(node){
+    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+  }
+</script>
 
 
   <!-- /page content -->
