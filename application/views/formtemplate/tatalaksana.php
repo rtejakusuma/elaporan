@@ -40,7 +40,8 @@
                             <div class="form-group">
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun">
+                              <h2><?php echo date('Y', strtotime($data['fetch']['t']['tgl'])); ?></h2>
+                                <!-- <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"> -->
                             </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -54,8 +55,26 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                            <input type='hidden' name='tipe_opsi' value='<?php echo $data['tipe_opsi'] ?>'>
+                            
                             <input value="tatalaksana_opd" type="hidden" name="nama_tabel">
+                            <button type='button' onclick='add_field()'>Tambah</button>
+                            <div id='container-opsi'>
+                            
+                            <?php if($data['fetch']['topd'] != NULL){ 
+                                    foreach($data['fetch']['topd'] as $topd){  
+                            ?>
+                            <div>  <!-- PENTING -->
+                            <div style='border: 2px solid black;'>
+                            <select name='id_opd[]'>
+                            <?php 
+                              foreach($data['opsi_opd'] as $opd){
+                                $sel = '';
+                                if($topd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                              }
+                            ?>
+                            </select>
+
                             <div class="form-group">
                             <label for="username" class="control-label col-md-3 col-sm-3 col-xs-12">Username</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -71,45 +90,52 @@
                             <div class="form-group">
                             <label for="uji_kompetensi" class="control-label col-md-3 col-sm-3 col-xs-12">Uji Kompetensi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="uji_kompetensi[]"  >
+                                <input  value='<?php echo $topd['uji_kompetensi'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="uji_kompetensi[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="sop" class="control-label col-md-3 col-sm-3 col-xs-12">SOP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="sop[]"  >
+                                <input value='<?php echo $topd['sop'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="sop[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="tata_naskah_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Tata Naskah Dinas</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="tata_naskah_dinas[]"  >
+                                <input value='<?php echo $topd['tata_naskah_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="tata_naskah_dinas[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="pakaian_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Pakaian Dinas</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="pakaian_dinas[]"  >
+                                <input value='<?php echo $topd['pakaian_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="pakaian_dinas[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jam_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Jam Kerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="jam_kerja[]"  >
+                                <input value='<?php echo $topd['jam_kerja'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="jam_kerja[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jml_nilai" class="control-label col-md-3 col-sm-3 col-xs-12">Jumlah Nilai</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="jml_nilai[]"  >
+                                <input value='<?php echo $topd['jml_nilai'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="jml_nilai[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
+                                <input value='<?php echo $topd['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                             </div>
                             </div>
+
+                            <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
+                              <br/><br/></div>
+                              <?php }} ?>
+                              </div>
+
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -127,6 +153,71 @@
     </div>
   </div>
 
+<script>
 
+var opd = "<div>\
+              <div style='border: 2px solid black;'>\
+              \<select name='id_opd[]'>\
+              <?php 
+                foreach($data['opsi_opd'] as $opd){
+                  echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+                }
+              ?>\
+            </select>\
+            <div class='form-group'>\
+            <label for='uji_kompetensi' class='control-label col-md-3 col-sm-3 col-xs-12'>Uji Kompetensi</label>\
+            <div class='col-md-6 col-sm-6 col-xs-12'>\
+              <input   class='form-control col-md-7 col-xs-12' type='number' name='uji_kompetensi[]'  >\
+            </div>\
+            </div>\
+                            <div class='form-group'>\
+                            <label for='sop' class='control-label col-md-3 col-sm-3 col-xs-12'>SOP</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input   class='form-control col-md-7 col-xs-12' type='number' name='sop[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='tata_naskah_dinas' class='control-label col-md-3 col-sm-3 col-xs-12'>Tata Naskah Dinas</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input '  class='form-control col-md-7 col-xs-12' type='number' name='tata_naskah_dinas[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='pakaian_dinas' class='control-label col-md-3 col-sm-3 col-xs-12'>Pakaian Dinas</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='number' name='pakaian_dinas[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='jam_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Jam Kerja</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input   class='form-control col-md-7 col-xs-12' type='number' name='jam_kerja[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='jml_nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Jumlah Nilai</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='number' name='jml_nilai[]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
+                            </div>\
+                            </div>\
+
+                            <button type='button' onclick='delete_node(this)'>Hapus</button>\
+                            </div>\
+                              <br/><br/></div>";
+  function add_field(){
+    var cont = document.getElementById('container-opsi');
+    console.log(cont);
+    cont.innerHTML = opd + cont.innerHTML;
+  }
+  function delete_node(node){
+    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+  }
+</script>
 
   <!-- /page content -->
