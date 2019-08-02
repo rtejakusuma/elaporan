@@ -24,6 +24,7 @@ class Monitoringkelembagaan_model extends CI_Model
         $pkdata = $this->db->select('permasalahan_kelembagaan.*, opd.nama_opd')
                             ->from('permasalahan_kelembagaan')
                             ->join('opd', 'permasalahan_kelembagaan.id_opd = opd.id_opd')
+                            ->order_by('nama_opd')
                             ->where('id_laporan', $id)->get()->result_array();
         return array('mk' => $mkdata, 'pk' => $pkdata);
     }
@@ -58,10 +59,25 @@ class Monitoringkelembagaan_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['id_opd'][$i],
+                            'permasalahan_kelembagaan' => $data['permasalahan_kelembagaan'][$i], 
+                            'usulan' => $data['usulan'][$i],
+                            'dasar_hukum' => $data['dasar_hukum'][$i],
+                            'ket' => $data['ket'][$i],
+                ));
+            }
+        }
         $this->db->trans_begin();
         if($table == 'permasalahan_kelembagaan'){
             $this->db->delete('permasalahan_kelembagaan', "id_laporan = $id_laporan");
-            $this->db->insert_batch('permasalahan_kelembagaan', $data);
+            if($data != NULL){
+                $this->db->insert_batch('permasalahan_kelembagaan', $insdata);
+            }
         }
         $this->db->trans_complete();
     }

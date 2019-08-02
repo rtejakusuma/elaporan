@@ -24,6 +24,7 @@ class Pelayananpublik_model extends CI_Model
         $ppopddata = $this->db->select('pelayanan_publik_opd.*, opd.nama_opd')
                                 ->from('pelayanan_publik_opd')
                                 ->join('opd', 'pelayanan_publik_opd.id_opd = opd.id_opd')
+                                ->order_by('nama_opd')
                                 ->where('id_laporan', $id)->get()->result_array();
         return array('pp' => $ppdata, 'ppopd' => $ppopddata);
     }
@@ -58,10 +59,24 @@ class Pelayananpublik_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['id_opd'][$i],
+                            'indeks_pelayanan_publik' => $data['indeks_pelayanan_publik'][$i],
+                            'konversi_100' => $data['konversi_100'][$i],
+                            'ket' => $data['ket'][$i]
+                ));
+            }
+        }
         $this->db->trans_begin();
         if($table == 'pelayanan_publik_opd'){
             $this->db->delete('pelayanan_publik_opd', "id_laporan = $id_laporan");
-            $this->db->insert_batch('pelayanan_publik_opd', $data);
+            if($data != NULL){
+                $this->db->insert_batch('pelayanan_publik_opd', $insdata);
+            }
         }
         $this->db->trans_complete();
     }
