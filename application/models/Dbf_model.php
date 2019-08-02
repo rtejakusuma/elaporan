@@ -3,27 +3,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Dbf_model extends CI_Model
 {
-    public function get_tipelaporan_per_opd($id = NULL)
+    // USER
+    public function get_user($id = NULL)
     {
-        $this->db->from('tipelaporan_per_opd');
-        $this->db->join('opd', 'tipelaporan_per_opd.id_opd = opd.id_opd', 'left');
-        $this->db->join('tipe_laporan', 'tipe_laporan.id_tipe = tipelaporan_per_opd.id_tipe', 'left');
+        $this->db->from('user');
+        $this->db->join('opd', 'opd.id_opd = user.id_opd', 'left');
 
         if ($id) {
-            $this->db->where('tipelaporan_per_opd.id_opd = ', $id);
+            $this->db->where('id', $id);
+            return $this->db->get()->row_array();
         }
 
         return $this->db->get()->result_array();
     }
 
-    public function del_tipelaporan_per_opd($id)
-    {
-        foreach ($id as $id_tipe) {
-            $this->db->or_where('tipelaporan_per_opd.id_tipe !=', $id_tipe);
-        }
-        return $this->db->delete('tipelaporan_per_opd');
-    }
-
+    // OPD
     public function get_opd($id = NULL)
     {
         $this->db->from('opd');
@@ -31,32 +25,26 @@ class Dbf_model extends CI_Model
 
         if ($id) {
             $this->db->where('opd.id_opd = ', $id);
+            return $this->db->get()->row_array();
         }
 
         return $this->db->get()->result_array();
     }
 
-    public function get_laporan($id = NULL)
+    // TIPE LAPORAN
+    public function get_tipe_laporan($id_tipe = NULL)
     {
-        $this->db->from('laporan');
-        $this->db->join('opd', 'laporan.id_opd = opd.id_opd', 'left');
-        $this->db->join('tipe_laporan', 'laporan.id_tipe = tipe_laporan.id_tipe', 'left');
+        $this->db->from('tipe_laporan');
 
-        if ($id) {
-            $this->db->where('laporan.id_laporan = ', $id);
+        if ($id_tipe) {
+            $this->db->where('tipe_laporan.id_tipe = ', $id_tipe);
+            return $this->db->get()->row_array();
         }
 
         return $this->db->get()->result_array();
     }
 
-    public function get_user()
-    {
-        $this->db->from('user');
-        $this->db->join('opd', 'opd.id_opd = user.id_opd', 'left');
-
-        return $this->db->get()->result_array();
-    }
-
+    // TIPELAPORAN PER OPD
     public function get_opd_tipe()
     {
         $data = $this->get_opd();
@@ -75,6 +63,42 @@ class Dbf_model extends CI_Model
         }
 
         return $data;
+    }
+
+    public function get_tipelaporan_per_opd($id = NULL)
+    {
+        $this->db->from('tipelaporan_per_opd');
+        $this->db->join('opd', 'tipelaporan_per_opd.id_opd = opd.id_opd', 'left');
+        $this->db->join('tipe_laporan', 'tipe_laporan.id_tipe = tipelaporan_per_opd.id_tipe', 'left');
+
+        if ($id) {
+            $this->db->where('tipelaporan_per_opd.id_opd', $id);
+        }
+
+        return $this->db->get()->result_array();
+    }
+
+    public function del_tipelaporan_per_opd($id)
+    {
+        foreach ($id as $id_tipe) {
+            $this->db->or_where('tipelaporan_per_opd.id_tipe !=', $id_tipe);
+        }
+        return $this->db->delete('tipelaporan_per_opd');
+    }
+
+    // LAPORAN
+    public function get_laporan($id = NULL)
+    {
+        $this->db->from('laporan');
+        $this->db->join('opd', 'laporan.id_opd = opd.id_opd', 'left');
+        $this->db->join('tipe_laporan', 'laporan.id_tipe = tipe_laporan.id_tipe', 'left');
+
+        if ($id) {
+            $this->db->where('laporan.id_laporan = ', $id);
+            return $this->db->get()->row_array();
+        }
+
+        return $this->db->get()->result_array();
     }
 }
 

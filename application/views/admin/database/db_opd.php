@@ -15,6 +15,7 @@
                             <th>User E-Budgeting</th>
                             <th>User E-Kinerja</th>
                             <th>User E-Monev</th>
+                            <th>User SKPD</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -28,6 +29,7 @@
                                 <td><?= $row['kode_ebud'] ?></td>
                                 <td><?= $row['kode_ekin'] ?></td>
                                 <td><?= $row['kode_emov'] ?></td>
+                                <td><?= $row['kode_skpd'] ?></td>
                                 <td>
                                     <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
                                     <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus</a>

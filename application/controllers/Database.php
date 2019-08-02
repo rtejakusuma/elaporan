@@ -47,9 +47,21 @@ class Database extends CI_Controller
         $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
-    public function updateopdtipe()
+    public function updateopdtipe($id_opd)
     {
-        var_dump($this->input->post());
+        $this->data['contents'] = APPPATH . "views/admin/database/form/form_akses_laporan.php";
+
+        $this->load->model('dbf_model');
+        $this->data['rawdata'] = $this->dbf_model->get_tipe_laporan();
+        $this->data['selected'] = $this->dbf_model->get_tipelaporan_per_opd($id_opd);
+        $this->data['id_opd'] = $id_opd;
+
+        $nama = $this->dbf_model->get_opd($id_opd);
+        $nama = $nama['nama_opd'];
+
+        $this->data['title'] = 'Edit Akses Laporan ' . $nama;
+
+        $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 }
 
