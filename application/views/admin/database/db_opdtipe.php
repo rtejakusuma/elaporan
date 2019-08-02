@@ -45,8 +45,7 @@
 
                                 </td>
                                 <td>
-                                    <a href="<?= base_url('admin/f/tipelaporanopdform/') . $row['id_opd'] ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus</a>
+                                    <a href="<?= base_url('database/updateopdtipe/') . $row['id_opd'] ?>" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit Akses</a>
                                 </td>
                             </tr>
                         <?php } ?>

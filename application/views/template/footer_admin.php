@@ -78,6 +78,9 @@
                         }]
                 });
                 $('#db').dataTable({});
+                $("#success-alert").delay(4000).slideUp(500, function() {
+                        $(this).remove();
+                });
                 $('.collapsed')
                         .css('height', 'auto')
                         .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()

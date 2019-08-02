@@ -19,10 +19,10 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        redirect('admin/riwayatlaporan','refresh');
+        redirect('admin/riwayatlaporan', 'refresh');
     }
 
-    public function f($formfilename = NULL, $id_opd=NULL)
+    public function f($formfilename = NULL, $id_opd = NULL)
     {
         if ($formfilename == NULL || !file_exists(APPPATH . "views/formtemplate/$formfilename.php")) {
             redirect('admin', 'refresh');
@@ -57,18 +57,18 @@ class Admin extends CI_Controller
             $data = $this->opd->gets();
             $this->data['opsi_opd'] = array();
             foreach ($data as $row) {
-                if($row['id_opd'] == '1') continue;
+                if ($row['id_opd'] == '1') continue;
                 array_push($this->data['opsi_opd'],  $row);
             }
             // load tipe laporan yang nyala
-            if($id_opd == NULL){
+            if ($id_opd == NULL) {
                 $id_opd = $data[0]['id_opd'];
             }
             $this->data['selected'] = $id_opd;
             $this->load->model('tipelaporanopd_model', 'tlo');
             $data = $this->tlo->get_tipelaporan_by_idopd($id_opd);
             $this->data['tipelaporan_on'] = array();
-            foreach($data as $d){
+            foreach ($data as $d) {
                 $this->data['tipelaporan_on'][$d['id_tipe']] = "on";
             }
 
@@ -92,7 +92,7 @@ class Admin extends CI_Controller
 
     public function riwayatlaporan($page_number = 1)
     {
-        if($this->input->get() != NULL){
+        if ($this->input->get() != NULL) {
             return $this->carilaporan();
         }
         $this->load->model('laporan_model', 'laporan');
@@ -128,12 +128,11 @@ class Admin extends CI_Controller
 
     public function update_tipelaporan_per_opd()
     {
-        if($this->session->tempdata('id_opd') != '1'){
-            redirect('auth','refresh');
+        if ($this->session->tempdata('id_opd') != '1') {
+            redirect('auth', 'refresh');
         }
         $this->load->model('tipelaporanopd_model', 'tipelaporanopd');
         $this->tipelaporanopd->update_tipelaporan_per_opd($this->input->post('id_opd'), $this->input->post('id_tipe'));
-        redirect('admin/f/tipelaporanopdform', 'refresh');  
     }
 
     public function reset_password()
@@ -153,7 +152,8 @@ class Admin extends CI_Controller
             redirect('admin/f/resetpasswordform', 'refresh');
         } elseif ($flag_option == 'tipelaporan') {
             $this->update_tipelaporan_per_opd();
-            redirect('admin/f/tipelaporanopdform', 'refresh');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" id="success-alert" role="alert"><strong>Edit Tipe Berhasil!!!</strong></div>');
+            redirect('database/opdtipe', 'refresh');
         }
     }
 

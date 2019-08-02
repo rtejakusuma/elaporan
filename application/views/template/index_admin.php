@@ -55,6 +55,7 @@
 
       <!-- page content -->
       <div class="right_col" role="main">
+        <?= $this->session->flashdata('message'); ?>
         <?php if (isset($data['contents'])) {
           require $data['contents'];
         } ?>
