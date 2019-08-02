@@ -18,7 +18,8 @@ class Laporankinerjatriwulan_model extends CI_Model
     public function get_data_by_id($id)
     {
         $lktdata = $this->db->get_where('laporan_kinerja_triwulan', ['id_laporan' => $id])->result_array()[0];
-        $lktdetaildata = $this->db->from('detail_laporan_kinerja_triwulan')->where('id_laporan', $id)->get()->result_array();
+        $lktdetaildata = $this->db->from('detail_laporan_kinerja_triwulan')
+                        ->where('id_laporan', $id)->get()->result_array();
         return array('lkt' => $lktdata, 'lktdetail' => $lktdetaildata);
     }
 
@@ -52,9 +53,27 @@ class Laporankinerjatriwulan_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'uraian' => $data['uraian'][$i],
+                            'indikator_kinerja' => $data['indikator_kinerja'][$i],
+                            'target' => $data['target'][$i],
+                            'realisasi_target' => $data['realisasi_target'][$i],
+                            'program' => $data['program'][$i],
+                            'anggaran' => $data['anggaran'][$i],
+                            'capaian_realisasi_keuangan' => $data['capaian_realisasi_keuangan'][$i],
+                ));
+            }
+        }
         $this->db->trans_begin();
         if($table == 'detail_laporan_kinerja_triwulan'){
-            $this->db->update_batch('laporan_kinerja_triwulan', $data, "id_laporan = $id_laporan");
+            $this->db->delete('detail_laporan_kinerja_triwulan', "id_laporan = $id_laporan");
+            if($data != NULL){
+                $this->db->insert_batch('laporan_kinerja_triwulan', $insdata);
+            }
         }
         $this->db->trans_complete();
     }

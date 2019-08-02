@@ -24,6 +24,7 @@ class Jadwalpelaksanaan_model extends CI_Model
         $jpopddata = $this->db->select('jadwal_pelaksanaan_opd.*, opd.nama_opd')
                                 ->from('jadwal_pelaksanaan_opd')
                                 ->join('opd', 'jadwal_pelaksanaan_opd.id_opd = opd.id_opd')
+                                ->order_by('nama_opd')
                                 ->where('id_laporan', $id)->get()->result_array();
         $adata = array();
         if($jpopddata != NULL){
@@ -64,6 +65,21 @@ class Jadwalpelaksanaan_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        if($data != NULL){
+            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'uraian' => $data['uraian'][$i],
+                            'indikator_kinerja' => $data['indikator_kinerja'][$i],
+                            'target' => $data['target'][$i],
+                            'realisasi_target' => $data['realisasi_target'][$i],
+                            'program' => $data['program'][$i],
+                            'anggaran' => $data['anggaran'][$i],
+                            'capaian_realisasi_keuangan' => $data['capaian_realisasi_keuangan'][$i],
+                ));
+            }
+        }
         $this->db->trans_begin();
         if($table == 'jadwal_pelaksanaan_opd'){
             $this->db->update_batch('jadwal_pelaksanaan_opd', $data, "id_laporan = $id_laporan");
