@@ -21,7 +21,7 @@ class Pemantauantindaklanjut_model extends CI_Model
     public function get_data_by_id($id)
     {
         $ptldata = $this->db->get_where('pemantauan_tindak_lanjut', ['id_laporan' => $id])->result_array()[0];
-        $temuandata = $this->db->get_where('temuan', "id_laporan = $id")->get()->result_array();
+        $temuandata = $this->db->get_where('temuan', "id_laporan = $id")->result_array();
         $htemuan = array();
         if($temuandata != NULL){
             foreach($temuandata as $d){
@@ -62,40 +62,65 @@ class Pemantauantindaklanjut_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
+        $updata = array();
         
         $this->db->trans_begin();
         if($table == 'temuan'){
             if($data != NULL){
-                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                $offset = sizeof($data['nama_temuan']);
+                if(isset($data['id_temuan']) && $data['id_temuan'] != NULL){
+                    $offset = sizeof($data['temuan']) - sizeof($data['id_temuan']);
+                }
+                // new data
+                for($i = 0; $i < $offset; $i+=1){
                     array_push($insdata, array(
                                 'id_laporan' => $id_laporan,
-                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
-                                'id_opd' => $data['id_opd'][$i],
-                                'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
-                                'rmp' => $data['rmp'][$i],
-                                'rpl' => $data['rpl'][$i],
-                                'otuput_lhp' => $data['output_lhp'][$i],
-                                'hari_pengawasan' => $data['hari_pengawasan'][$i],
-                                'keterangan' => $data['keterangan'][$i],
+                                'nama_temuan' => $data['nama_temuan'][$i]
                     ));
                 }
-                $this->db->update_batch('jadwal_pelaksanaan_opd', $insdata, 'id_jadwal_pelaksanaan_opd');
-                $this->db->where_not_in('id_jadwal_pelaksanaan_opd', $data['id_jadwal_pelaksanaan_opd']);
-                $this->delete('jadwal_pelaksanaan_opd');
+                if($insdata != NULL){
+                    $this->db->insert_batch('temuan', $insdata);
+                }
+                
+                // updated data
+                if($offset != sizeof($data['nama_temuan'])){
+                    for($i = $offset; $i < sizeof($data['nama_temuan']); $i+=1){
+                        array_push($updata, array(
+                                    'id_laporan' => $id_laporan,
+                                    'id_temuan' => $data['id_temuan'][$i], 
+                                    'nama_temuan' => $data['nama_temuan'][$i]
+                        ));
+                    }
+                    $this->db->update_batch('temuan', $updata,'id_temuan');
+                }
+                
+                // unused data
+                if(isset($data['to_del']))
+                    $this->db->where_in('id_temuan', $data['to_del'])->delete('temuan');
+                
             } else {
-                $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
+                $this->db->delete('temuan', "id_laporan = $id_laporan");
             }
             
-        } else if($table == 'auditor') {
+        } else if($table == 'hasil_temuan') {
+            $tmp = $data['id_temuan'];
+            unset($data['id_temuan']);
             if($data != NULL){
-                for($i = 0; $i < sizeof(reset($data)); $i+=1){
-                    array_push($insdata, array(
-                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i],
-                                'nama_auditor' => $data['nama_auditor'][$i],
-                                'jabatan' => $data['jabatan'][$i]
-                    ));
+                foreach($tmp as $idx){
+                    if(isset($data['rekomendasi'][$idx])){
+                        array_push($insdata, array(
+                                    'id_temuan' => $idx,
+                                    'rekomendasi' => $data['rekomendasi'][$idx],
+                                    'status_rekomendasi' => $data['status_rekomendasi'][$idx],
+                                    'tindak_lanjut' => $data['tindak_lanjut'][$idx],
+                                    'status_tindak_lanjut' => $data['status_tindak_lanjut'][$idx],
+                                    'catatan_bpk' => $data['catatan_bpk'][$idx]
+                        ));
+                    }
                 }
-                $this->db->update_batch('auditor', $insdata, "id_jadwal_pelaksanaan_opd");
+                $this->db->where_in('id_temuan', $tmp)
+                            ->delete('hasil_temuan');
+                $this->db->insert_batch('hasil_temuan', $insdata);
             }
         }
         $this->db->trans_complete();
@@ -105,9 +130,7 @@ class Pemantauantindaklanjut_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('detail_rekap_tender');
-        $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('rekap_tender');
+        $this->db->delete('pemantauan_tindak_lanjut');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
         $this->db->trans_complete();

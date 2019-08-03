@@ -124,8 +124,9 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                        <div class="form-group">
+                            
                             <input value="auditor" type="hidden" name="nama_tabel">
+                            
                             <?php if($data['fetch']['adata'] != NULL){
                               foreach($data['fetch']['jpopd'] as $auditors){ ?>
                             <div style='border: 2px solid black;'>
@@ -153,7 +154,7 @@
                             <?php }?>
                             </div><br/><br/>
                             <?php } } ?>
-                            </div>
+                            <!-- </div> -->
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
