@@ -11,3 +11,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 |	http://codeigniter.com/user_guide/general/hooks.html
 |
 */
+$hook['post_controller'] = array(
+    'class' => 'Db_log',
+    'function' => 'logQueries',
+    'filename' => 'Db_log.php',
+    'filepath' => 'hooks'
+);

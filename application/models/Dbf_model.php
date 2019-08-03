@@ -8,6 +8,7 @@ class Dbf_model extends CI_Model
     {
         $this->db->from('user');
         $this->db->join('opd', 'opd.id_opd = user.id_opd', 'left');
+        $this->db->where('user.id != 1');
 
         if ($id) {
             $this->db->where('id', $id);

@@ -68,9 +68,12 @@
         <!-- Custom Theme Scripts -->
         <script src="<?= base_url('assets/') ?>build/js/custom.min.js"></script>
         <script>
+                // DOCUMENT READY
                 $(document).ready(function() {
                         $('.ui-pnotify').remove();
                 });
+
+                // FUNCTION
                 $('#rekapdisposisitable').dataTable({
                         "columnDefs": [{
                                 "orderable": false,
@@ -81,6 +84,7 @@
                 $("#success-alert").delay(4000).slideUp(500, function() {
                         $(this).remove();
                 });
+
                 $('.collapsed')
                         .css('height', 'auto')
                         .find('.collapse-link i').toggleClass('fa-chevron-up fa-chevron-down').end()

@@ -3,6 +3,9 @@
         <div class="x_panel">
             <div class="x_title">
                 <h2><?= $data['title'] ?></h2>
+                <div class="nav navbar-right panel_toolbox">
+                    <a href="<?= base_url('admin/f/registrationform') ?>"><button class="btn btn-primary"><i class="fa fa-plus"></i> Tambah User</button></a>
+                </div>
                 <div class="clearfix"></div>
             </div>
             <div class="x_content">
@@ -28,8 +31,8 @@
                                 <td><?= $row['nama_opd'] ?></td>
                                 <td><?= $row['last_login'] ?></td>
                                 <td>
-                                    <a href="#" class="btn btn-info btn-xs"><i class="fa fa-pencil"></i> Edit</a>
-                                    <a href="#" class="btn btn-danger btn-xs"><i class="fa fa-trash-o"></i> Hapus</a>
+                                    <a href="<?= base_url('admin/reset_password/' . $row['id']) ?>" class="btn btn-warning btn-xs"><i class="fa fa-undo"></i> Reset Pass</a>
+                                    <a href="<?= base_url('database/deluser/' . $row['id']) ?>" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Hapus</a>
                                 </td>
                             </tr>
                         <?php } ?>
