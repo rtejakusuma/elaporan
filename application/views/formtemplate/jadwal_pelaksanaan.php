@@ -140,13 +140,13 @@
                             <div class="form-group">
                             <label for="nama_auditor" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Auditor</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
+                                <input value='<?php echo $auditor['nama_auditor']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
+                                <input value='<?php echo $auditor['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
                             </div>
                             </div>
 

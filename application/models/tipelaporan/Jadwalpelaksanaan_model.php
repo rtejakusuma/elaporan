@@ -98,13 +98,6 @@ class Jadwalpelaksanaan_model extends CI_Model
                 }
                 if($insdata != NULL){
                     $this->db->insert_batch('jadwal_pelaksanaan_opd', $insdata);
-                    // $first = intval($this->db->insert_id());
-                    // $last = $first + sizeof($insdata) - 1;
-                    // $tmp = array();
-                    // foreach(range($first, $last) as $val){
-                    //     array_push($tmp, ["id_jadwal_pelaksanaan_opd" => $val]);
-                    // }
-                    // $this->db->insert_batch('auditor', $tmp);
                 }
                 
                 // updated data
@@ -134,16 +127,23 @@ class Jadwalpelaksanaan_model extends CI_Model
             }
             
         } else if($table == 'auditor') {
-            var_dump($data); die();
+            // var_dump($data); die();
+            $tmp = $data['id_jadwal_pelaksanaan_opd'];
+            unset($data['id_jadwal_pelaksanaan_opd']);
             if($data != NULL){
-                for($i = 0; $i < sizeof(reset($data)); $i+=1){
-                    array_push($insdata, array(
-                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i],
-                                'nama_auditor' => $data['nama_auditor'][$i],
-                                'jabatan' => $data['jabatan'][$i]
-                    ));
+                foreach($tmp as $idx){
+                    if(isset($data['nama_auditor'][$idx])){
+                        array_push($insdata, array(
+                                    'id_jadwal_pelaksanaan_opd' => $idx,
+                                    'nama_auditor' => $data['nama_auditor'][$idx],
+                                    'jabatan' => $data['jabatan'][$idx]
+                        ));
+                    }
                 }
-                $this->db->update_batch('auditor', $insdata, "id_jadwal_pelaksanaan_opd");
+                // var_dump($insdata); die();
+                $this->db->where_in('id_jadwal_pelaksanaan_opd', $tmp)
+                            ->delete('auditor');
+                $this->db->insert_batch('auditor', $insdata);
             }
         }
         $this->db->trans_complete();
@@ -152,12 +152,6 @@ class Jadwalpelaksanaan_model extends CI_Model
     public function delete_data($id_laporan)
     {
         $this->db->trans_begin();
-        $this->db->select('id_jadwal_pelaksanaan_opd')->from('jadwal_pelaksanaan_opd')->where('id_laporan', $id_laporan);
-        $id_to_del = $this->db->get()->result_array();
-        $this->db->where_in('id_jadwal_pelaksanaan_opd', $id_to_del);
-        $this->db->delete('auditor');
-        $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('jadwal_pelaksanaan_opd');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('jadwal_pelaksanaan');
         $this->db->where('id_laporan', $id_laporan);
