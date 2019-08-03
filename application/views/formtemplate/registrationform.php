@@ -13,7 +13,7 @@
       <div class="x_panel">
         <div class="x_title">
           <h2>Tambah User Baru</h2>
-       
+
           <div class="clearfix"></div>
         </div>
         <div class="x_content">
@@ -35,11 +35,11 @@
             <div class="form-group">
               <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">OPD</label>
               <div class="col-md-6 col-sm-6 col-xs-12">
-                <select id="opd" name="id_opd" >
+                <select id="opd" name="id_opd" class="form-control col-md-7 col-xs-12">
                   <?php
-                    foreach($data['opsi_opd'] as $opd){
-                      echo "<option value='" . $opd['id_opd'] . "'>" . strtoupper($opd['nama_opd']) . "</option>";
-                    }
+                  foreach ($data['opsi_opd'] as $opd) {
+                    echo "<option value='" . $opd['id_opd'] . "'>" . strtoupper($opd['nama_opd']) . "</option>";
+                  }
                   ?>
                 </select>
               </div>

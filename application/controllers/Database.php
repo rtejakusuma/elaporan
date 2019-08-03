@@ -34,6 +34,16 @@ class Database extends CI_Controller
         $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
+    public function deluser($id)
+    {
+        $this->load->model('user_model');
+        $this->user_model->delete($id);
+
+        $this->session->set_flashdata('message', '<div class="alert alert-danger" id="success-alert" role="alert"><strong>Data telah dihapus!!!</strong></div>');
+
+        redirect('database/user', 'refresh');
+    }
+
     public function opdtipe()
     {
         $this->data['title'] = 'Tipe Laporan OPD';

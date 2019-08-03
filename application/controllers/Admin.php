@@ -122,8 +122,6 @@ class Admin extends CI_Controller
 
         $this->load->model('user_model');
         $this->user_model->insert($data);
-
-        redirect('admin/f/registrationform', 'refresh');
     }
 
     public function update_tipelaporan_per_opd()
@@ -135,9 +133,18 @@ class Admin extends CI_Controller
         $this->tipelaporanopd->update_tipelaporan_per_opd($this->input->post('id_opd'), $this->input->post('id_tipe'));
     }
 
-    public function reset_password()
+    public function reset_password($id = NULL)
     {
         $this->load->model('user_model');
+
+        // INI KALAU RESET PASSWORD, BUKAN GANTI PASSWORD
+        if ($id) {
+            $this->session->set_flashdata('message', '<div class="alert alert-info" id="success-alert" role="alert"><strong>Reset Password Berhasil!!!</strong></div>');
+            $this->user_model->reset_password($id, '123456');
+
+            redirect('database/user', 'refresh');
+        }
+
         $this->user_model->reset_password($this->input->post('id'), $this->input->post('password'));
     }
 
@@ -146,7 +153,8 @@ class Admin extends CI_Controller
         $flag_option = $this->input->post('tipe_opsi'); // tipe_opsi from form hidden attribute
         if ($flag_option == 'register') {
             $this->add_user();
-            redirect('admin/f/registrationform', 'refresh');
+            $this->session->set_flashdata('message', '<div class="alert alert-success" id="success-alert" role="alert"><strong>User berhasil dibuat!!!</strong></div>');
+            redirect('database/user', 'refresh');
         } elseif ($flag_option == 'reset') {
             $this->reset_password();
             redirect('admin/f/resetpasswordform', 'refresh');
@@ -155,6 +163,19 @@ class Admin extends CI_Controller
             $this->session->set_flashdata('message', '<div class="alert alert-success" id="success-alert" role="alert"><strong>Edit Tipe Berhasil!!!</strong></div>');
             redirect('database/opdtipe', 'refresh');
         }
+    }
+
+    public function querylog($filename = NULL)
+    {
+        $this->data['title'] = 'Query Logger';
+
+        if ($filename) {
+            $this->data['contents'] = APPPATH . "logs/" . $filename;
+        } else {
+            $this->data['contents'] = APPPATH . "views/admin/querylogger.php";
+        }
+
+        $this->load->view('template/index_admin', ['data' => $this->data]);
     }
 
     private function sess_ver()

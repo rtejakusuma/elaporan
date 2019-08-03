@@ -53,4 +53,9 @@ class User_model extends CI_Model
     {
         return $this->db->update('user', ['password' => password_hash($newpassword, PASSWORD_BCRYPT)], ['id' => $id]);
     }
+
+    public function delete($id)
+    {
+        return $this->db->delete('user', ['id' => $id]);
+    }
 }
