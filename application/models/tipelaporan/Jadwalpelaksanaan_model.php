@@ -66,25 +66,41 @@ class Jadwalpelaksanaan_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
-        if($data != NULL){
-            for($i = 0; $i < sizeof(reset($data)); $i+=1){
-                array_push($insdata, array(
-                            'id_laporan' => $id_laporan,
-                            'uraian' => $data['uraian'][$i],
-                            'indikator_kinerja' => $data['indikator_kinerja'][$i],
-                            'target' => $data['target'][$i],
-                            'realisasi_target' => $data['realisasi_target'][$i],
-                            'program' => $data['program'][$i],
-                            'anggaran' => $data['anggaran'][$i],
-                            'capaian_realisasi_keuangan' => $data['capaian_realisasi_keuangan'][$i],
-                ));
-            }
-        }
+        
         $this->db->trans_begin();
         if($table == 'jadwal_pelaksanaan_opd'){
-            $this->db->update_batch('jadwal_pelaksanaan_opd', $data, "id_laporan = $id_laporan");
+            if($data != NULL){
+                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                    array_push($insdata, array(
+                                'id_laporan' => $id_laporan,
+                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
+                                'id_opd' => $data['id_opd'][$i],
+                                'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
+                                'rmp' => $data['rmp'][$i],
+                                'rpl' => $data['rpl'][$i],
+                                'otuput_lhp' => $data['output_lhp'][$i],
+                                'hari_pengawasan' => $data['hari_pengawasan'][$i],
+                                'keterangan' => $data['keterangan'][$i],
+                    ));
+                }
+                $this->db->update_batch('jadwal_pelaksanaan_opd', $insdata, 'id_jadwal_pelaksanaan_opd');
+                $this->db->where_not_in('id_jadwal_pelaksanaan_opd', $data['id_jadwal_pelaksanaan_opd']);
+                $this->delete('jadwal_pelaksanaan_opd');
+            } else {
+                $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
+            }
+            
         } else if($table == 'auditor') {
-            $this->db->update_batch('auditor', $data, "id_jadwal_pelaksanaan_opd = $id_laporan");
+            if($data != NULL){
+                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                    array_push($insdata, array(
+                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i],
+                                'nama_auditor' => $data['nama_auditor'][$i],
+                                'jabatan' => $data['jabatan'][$i]
+                    ));
+                }
+                $this->db->update_batch('auditor', $insdata, "id_jadwal_pelaksanaan_opd");
+            }
         }
         $this->db->trans_complete();
     }
@@ -92,9 +108,10 @@ class Jadwalpelaksanaan_model extends CI_Model
     public function delete_data($id_laporan)
     {
         $this->db->trans_begin();
-        // cek pdm / on delete cascade di tabel auditor / buat jadwal_pelaksanaan_opd have at least one (auditor strong entity)
-        // $this->db->where('id_laporan', $id_laporan);
-        // $this->db->delete('auditor');
+        $this->db->select('id_jadwal_pelaksanaan_opd')->from('jadwal_pelaksanaan_opd')->where('id_laporan', $id_laporan);
+        $id_to_del = $this->db->get()->result_array();
+        $this->db->where_in('id_jadwal_pelaksanaan_opd', $id_to_del);
+        $this->db->delete('auditor');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('jadwal_pelaksanaan_opd');
         $this->db->where('id_laporan', $id_laporan);
