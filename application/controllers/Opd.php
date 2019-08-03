@@ -85,12 +85,14 @@ class Opd extends CI_Controller
         if($this->input->post() != NULL){   // update data
             $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'lp');
             $this->lp->update_data($id_laporan, $this->input->post());
+            // prevent re-post data
+            redirect("opd/thanks/$formname/$id_laporan", 'refresh');
         }
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
         if($formname == "ikm" || $formname == "sotk" || $formname == 'tatalaksana' ||
             $formname == "pelayanan_publik" || $formname == "monitoring_kelembagaan" ||
-            $formname == "detail_rekap_tender" || $formname == "detail_jadwal_pelaksanaan"
+            $formname == "rekap_tender" || $formname == "jadwal_pelaksanaan"
         ){
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
@@ -108,6 +110,12 @@ class Opd extends CI_Controller
         $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'd');
         $this->d->delete_data($id_laporan);
         redirect("opd/f/$formname",'refresh');
+    }
+
+    public function thanks($formname, $id_laporan){
+        
+        redirect("opd/e/$formname/$id_laporan",'refresh');
+        
     }
 
     public function p($formname, $id_laporan) // print existing data

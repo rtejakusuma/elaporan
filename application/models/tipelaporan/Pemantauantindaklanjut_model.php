@@ -47,7 +47,7 @@ class Pemantauantindaklanjut_model extends CI_Model
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('pemantauan_tindak_lanjut', $datalaporan);
         // insert second etc. table data here
-
+        // no api
         // end
         $this->db->trans_complete();
         if($this->db->trans_status() === FALSE){
@@ -61,10 +61,42 @@ class Pemantauantindaklanjut_model extends CI_Model
     {
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
+        $insdata = array();
+        
         $this->db->trans_begin();
-        if($table == 'detail_rekap_tender'){
-            $this->db->delete('detail_rekap_tender', "id_laporan = $id_laporan");
-            $this->db->insert_batch('detail_rekap_tender', $data);
+        if($table == 'temuan'){
+            if($data != NULL){
+                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                    array_push($insdata, array(
+                                'id_laporan' => $id_laporan,
+                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
+                                'id_opd' => $data['id_opd'][$i],
+                                'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
+                                'rmp' => $data['rmp'][$i],
+                                'rpl' => $data['rpl'][$i],
+                                'otuput_lhp' => $data['output_lhp'][$i],
+                                'hari_pengawasan' => $data['hari_pengawasan'][$i],
+                                'keterangan' => $data['keterangan'][$i],
+                    ));
+                }
+                $this->db->update_batch('jadwal_pelaksanaan_opd', $insdata, 'id_jadwal_pelaksanaan_opd');
+                $this->db->where_not_in('id_jadwal_pelaksanaan_opd', $data['id_jadwal_pelaksanaan_opd']);
+                $this->delete('jadwal_pelaksanaan_opd');
+            } else {
+                $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
+            }
+            
+        } else if($table == 'auditor') {
+            if($data != NULL){
+                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                    array_push($insdata, array(
+                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i],
+                                'nama_auditor' => $data['nama_auditor'][$i],
+                                'jabatan' => $data['jabatan'][$i]
+                    ));
+                }
+                $this->db->update_batch('auditor', $insdata, "id_jadwal_pelaksanaan_opd");
+            }
         }
         $this->db->trans_complete();
     }

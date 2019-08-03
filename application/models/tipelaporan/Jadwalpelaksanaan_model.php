@@ -24,12 +24,19 @@ class Jadwalpelaksanaan_model extends CI_Model
         $jpopddata = $this->db->select('jadwal_pelaksanaan_opd.*, opd.nama_opd')
                                 ->from('jadwal_pelaksanaan_opd')
                                 ->join('opd', 'jadwal_pelaksanaan_opd.id_opd = opd.id_opd')
-                                ->order_by('nama_opd')
+                                ->order_by('nama_opd', 'ASC')
                                 ->where('id_laporan', $id)->get()->result_array();
         $adata = array();
         if($jpopddata != NULL){
             foreach($jpopddata as $d){
-                $adata[$d['id_jadwal_pelaksanaan_opd']] = $this->db->get_where('auditor', "auditor.id_jadwal_pelaksanaan_opd = $d[id_jadwal_pelaksanaan_opd]");
+                $adata[$d['id_jadwal_pelaksanaan_opd']] = 
+                $this->db->select('auditor.*, opd.nama_opd')->from('auditor')
+                            ->join('jadwal_pelaksanaan_opd', 'auditor.id_jadwal_pelaksanaan_opd = jadwal_pelaksanaan_opd.id_jadwal_pelaksanaan_opd')
+                            ->join('opd', 'jadwal_pelaksanaan_opd.id_opd = opd.id_opd')
+                            ->where('jadwal_pelaksanaan_opd.id_laporan', $id)
+                            ->where("auditor.id_jadwal_pelaksanaan_opd", $d['id_jadwal_pelaksanaan_opd'])
+                            ->order_by('nama_opd', 'ASC')->get()->result_array();
+                // $this->db->get_where('auditor', "auditor.id_jadwal_pelaksanaan_opd = $d[id_jadwal_pelaksanaan_opd]");
             }
         }
         return array('jp' => $jpdata, 'jpopd' => $jpopddata, 'adata' => $adata);
@@ -66,31 +73,68 @@ class Jadwalpelaksanaan_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
+        $updata = array();
         
         $this->db->trans_begin();
         if($table == 'jadwal_pelaksanaan_opd'){
             if($data != NULL){
-                for($i = 0; $i < sizeof(reset($data)); $i+=1){
+                $offset = sizeof($data['rmp']);
+                if(isset($data['id_jadwal_pelaksanaan_opd']) && $data['id_jadwal_pelaksanaan_opd'] != NULL){
+                    $offset = sizeof($data['rmp']) - sizeof($data['id_jadwal_pelaksanaan_opd']);
+                }
+                // new data
+                for($i = 0; $i < $offset; $i+=1){
                     array_push($insdata, array(
                                 'id_laporan' => $id_laporan,
-                                'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
+                                // 'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
                                 'id_opd' => $data['id_opd'][$i],
                                 'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
                                 'rmp' => $data['rmp'][$i],
                                 'rpl' => $data['rpl'][$i],
-                                'otuput_lhp' => $data['output_lhp'][$i],
+                                'output_lhp' => $data['output_lhp'][$i],
                                 'hari_pengawasan' => $data['hari_pengawasan'][$i],
                                 'keterangan' => $data['keterangan'][$i],
                     ));
                 }
-                $this->db->update_batch('jadwal_pelaksanaan_opd', $insdata, 'id_jadwal_pelaksanaan_opd');
-                $this->db->where_not_in('id_jadwal_pelaksanaan_opd', $data['id_jadwal_pelaksanaan_opd']);
-                $this->delete('jadwal_pelaksanaan_opd');
+                if($insdata != NULL){
+                    $this->db->insert_batch('jadwal_pelaksanaan_opd', $insdata);
+                    // $first = intval($this->db->insert_id());
+                    // $last = $first + sizeof($insdata) - 1;
+                    // $tmp = array();
+                    // foreach(range($first, $last) as $val){
+                    //     array_push($tmp, ["id_jadwal_pelaksanaan_opd" => $val]);
+                    // }
+                    // $this->db->insert_batch('auditor', $tmp);
+                }
+                
+                // updated data
+                if($offset != sizeof($data['rmp'])){
+                    for($i = $offset; $i < sizeof($data['rmp']); $i+=1){
+                        array_push($updata, array(
+                                    'id_laporan' => $id_laporan,
+                                    'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
+                                    'id_opd' => $data['id_opd'][$i],
+                                    'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
+                                    'rmp' => $data['rmp'][$i],
+                                    'rpl' => $data['rpl'][$i],
+                                    'output_lhp' => $data['output_lhp'][$i],
+                                    'hari_pengawasan' => $data['hari_pengawasan'][$i],
+                                    'keterangan' => $data['keterangan'][$i],
+                        ));
+                    }
+                    $this->db->update_batch('jadwal_pelaksanaan_opd', $updata,'id_jadwal_pelaksanaan_opd');
+                }
+                
+                // unused data
+                if(isset($data['to_del']))
+                    $this->db->where_in('id_jadwal_pelaksanaan_opd', $data['to_del'])->delete('jadwal_pelaksanaan_opd');
+                
             } else {
                 $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
             }
             
         } else if($table == 'auditor') {
+            var_dump($data); die();
             if($data != NULL){
                 for($i = 0; $i < sizeof(reset($data)); $i+=1){
                     array_push($insdata, array(
