@@ -24,7 +24,7 @@ class Rekappokja_model extends CI_Model
         $pkdata = array();
         if($drpdata != NULL){
             foreach($drpdata as $d){
-                $pkdata[$d['id_detail_rekap_pokja']] = $this->db->get_where('paket_kerja', "id_detail_rekap_pokja = $d[id_detail_rekap_pokja]");
+                $pkdata[$d['id_detail_rekap_pokja']] = $this->db->get_where('paket_kerja', "id_detail_rekap_pokja = $d[id_detail_rekap_pokja]")->result_array();
             }
         }
         return array('rp' => $rpdata, 'drp' => $drpdata, 'pk' => $pkdata);
