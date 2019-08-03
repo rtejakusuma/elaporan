@@ -57,11 +57,11 @@
                             <?php if($data['fetch']['jpopd'] != NULL){ 
                                     foreach($data['fetch']['jpopd'] as $jpopddata){  
                             ?>
-                            <div>  <!-- PENTING -->
+                            <div class="form-group">  <!-- PENTING -->
                             
-                            <div style='border: 2px solid black;'>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                             <input value='<?php echo $jpopddata['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
-                            <select name='id_opd[]'>
+                            <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
                                 $sel = '';
@@ -107,7 +107,11 @@
                                 <input value='<?php echo $jpopddata['keterangan']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="keterangan[]"  >
                             </div>
                             </div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
+                            </div>
                             </div>
                               <br/><br/></div>
                               <?php }} ?>
@@ -179,15 +183,17 @@
 
                             <script>
 
-var opd = "<div>\
-              <div style='border: 2px solid black;'>\
-              <select name='id_opd[]'>\
+var opd = "<div class='form-group'>\
+                <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
+                <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
                 foreach($data['opsi_opd'] as $opd){
                   echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
                 }
-              ?>
+              ?>\
             </select>\
+            <br/><br/>\
             <div class='form-group'>\
                             <label for='jenis_pengawasan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jenis Pengawasan</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -224,7 +230,11 @@ var opd = "<div>\
                                 <input  class='form-control col-md-7 col-xs-12' type='text' name='keterangan[]'  >\
                             </div>\
                             </div>\
-            <button type='button' onclick='delete_node(this)'>Hapus</button>\
+                            <div class='form-group'>\
+                              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+              <button type='button' onclick='delete_node(this)'>Hapus</button>\
+              </div>\
+              </div>\
             </div>\
             <br/><br/></div>";
   var auditor = "<div class='form-group'>\

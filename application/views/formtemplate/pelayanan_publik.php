@@ -56,9 +56,11 @@
                             <?php if($data['fetch']['ppopd'] != NULL){ 
                                     foreach($data['fetch']['ppopd'] as $ppopd){  
                             ?>
-                            <div>  <!-- PENTING -->
-                            <div style='border: 2px solid black;'>
-                            <select name='id_opd[]'>
+                            <div class="form-group">  
+                              
+                              <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                              <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
+                              <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
                                 $sel = '';
@@ -67,7 +69,7 @@
                               }
                             ?>
                             </select>
-
+                              <br/><br/>
                               <div class="form-group">
                               <label for="indeks_pelayanan_publik" class="control-label col-md-3 col-sm-3 col-xs-12">Indeks Pelayanan Publik</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -86,7 +88,11 @@
                                   <input value='<?php echo $ppopd['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                               </div>
                               </div>
-                              <button type='button' onclick='delete_node(this)'>Hapus</button>
+                              <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
+                            </div>
                               </div>
                               <br/><br/></div>
                               <?php }} ?>
@@ -112,15 +118,17 @@
                              
                               <script>
 
-var opd = "<div>\
-              <div style='border: 2px solid black;'>\
-              \<select name='id_opd[]'>\
+var opd = "<div class='form-group'>\
+                <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
+                <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
                 foreach($data['opsi_opd'] as $opd){
                   echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
                 }
               ?>\
-              </select>\
+            </select>\
+            <br/><br/>\
              <div class='form-group'>\
                               <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -139,7 +147,11 @@ var opd = "<div>\
                                   <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
                               </div>\
                               </div>\
-                <button type='button' onclick='delete_node(this)'>Hapus</button>\
+                              <div class='form-group'>\
+                              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+              <button type='button' onclick='delete_node(this)'>Hapus</button>\
+              </div>\
+              </div>\
             </div>\
             <br/><br/></div>";
   function add_field(){
