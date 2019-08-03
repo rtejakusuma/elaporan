@@ -62,7 +62,7 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                        <input value="temuan" type="hidden" name="nama_tabel">
+                            <input value="temuan" type="hidden" name="nama_tabel">
                             <button type='button' onclick='add_field()'>Tambah</button>
                             <div id="container-opsi">
                             
@@ -70,15 +70,24 @@
                                     foreach($data['fetch']['temuan'] as $temuan){  
                             ?>
                             <div>  <!-- PENTING -->
-                            <div style='border: 2px solid black;'>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                            <input value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
+                            
                             <div class="form-group">
                             <label for="nama_temuan" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Temuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $temuan['nama_temuan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan[<?php echo $temuan['id_temuan']?>]"  >
                             </div>
                             </div>
+
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
-                            <br/><br/></div>
+                            </div>
+
+                            </div>
+                            </div>
                             <?php }} ?>
                             </div>
                             
@@ -94,36 +103,61 @@
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                        <input value="hasil_temuan" type="hidden" name="nama_tabel">
+                            <input value="hasil_temuan" type="hidden" name="nama_tabel">
+                            
+                            <div id="container-opsi">
+                            
+                            <?php if($data['fetch']['temuan'] != NULL){ 
+                                    foreach($data['fetch']['temuan'] as $temuan){  
+                            ?>
+
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                            <input value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
+                            <h2><?php echo $temuan['nama_temuan']; ?></h2>
+                            <button type='button' onclick='add_hasil_temuan(this)'>Tambah Hasil Temuan</button>
+
+                            <?php
+                                foreach($data['fetch']['htemuan'][$temuan['id_temuan']] as $htemuan){
+                            ?>
+
                             <div class="form-group">
                             <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[]"  >
+                                <input value='<?php echo $htemuan['rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[<?php echo $htemuan['id_temuan']; ?>][]"  >
                             </div>
                             </div>
+                            
                             <div class="form-group">
                             <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi[]"  >
+                                <input value='<?php echo $htemuan['status_rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi[<?php echo $htemuan['id_temuan']; ?>][]"  >
                             </div>
                             </div>
+                            
                             <div class="form-group">
                             <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[]"  >
+                                <input value='<?php echo $htemuan['tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[<?php echo $htemuan['id_temuan']; ?>][]"  >
                             </div>
                             </div>
+                            
                             <div class="form-group">
                             <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut[]"  >
+                                <input value='<?php echo $htemuan['status_tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut[<?php echo $htemuan['id_temuan']; ?>][]"  >
                             </div>
                             </div>
+                            
                             <div class="form-group">
                             <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[]"  >
+                                <input value='<?php echo $htemuan['catatan_bpk']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[<?php echo $htemuan['id_temuan']; ?>][]"  >
                             </div>
+                            </div>
+                            <br/>
+                            <?php } ?>
+                            </div>
+                            <?php }} ?>
                             </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
@@ -145,6 +179,82 @@
     </div>
   </div>
 
+<script>
 
+function add_field(){
+    var cont = document.getElementById('container-opsi');
+    console.log(cont);
+    cont.innerHTML = "<div>\
+                            <div style='border: 2px solid black;'>\
+                            <div class='form-group'>\
+                            <label for='nama_temuan' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Temuan</label>\
+                            <div class='col-md-6 col-sm-6 col-xs-12'>\
+                                <input class='form-control col-md-7 col-xs-12' type='text' name='new[][nama_temuan]'  >\
+                            </div>\
+                            </div>\
+                            <div class='form-group'>\
+                            <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+                              <button type='button' onclick='delete_node(this)'>Hapus</button>\
+                            </div>\
+                            </div>\
+                            </div></div>\
+                      "
+                   + cont.innerHTML;
+  }
+
+function add_hasil_temuan(node){
+  var id = node.parentNode.childNodes[1].value;
+    console.log(node.parentNode.childNodes);
+    node.parentNode.innerHTML = node.parentNode.innerHTML+"\
+    <div class='form-group'>\
+      <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>rekomendasi</label>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+          <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi["+id+"][]'  >\
+      </div>\
+      </div>\
+      \
+      <div class='form-group'>\
+      <label for='status_rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Rekomendasi</label>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+          <input class='form-control col-md-7 col-xs-12' type='text' name='status_rekomendasi["+id+"][]'  >\
+      </div>\
+      </div>\
+      \
+      <div class='form-group'>\
+      <label for='tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Tindak Lanjut</label>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='tindak_lanjut["+id+"][]'  >\
+      </div>\
+      </div>\
+      \
+      <div class='form-group'>\
+      <label for='status_tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Tindak Lanjut</label>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='status_tindak_lanjut["+id+"][]'  >\
+      </div>\
+      </div>\
+      \
+      <div class='form-group'>\
+      <label for='catatan_bpk' class='control-label col-md-3 col-sm-3 col-xs-12'>Catatan BPK</label>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='catatan_bpk["+id+"][]'  >\
+      </div>\
+      </div><br/>";
+}
+
+function delete_node(node){
+    var cont = document.getElementById('deleted');
+    // console.log(node.parentNode.childNodes[1].nodeName);
+    var id = node.parentNode.parentNode.parentNode.childNodes[1];
+    console.log(node.parentNode.parentNode);
+    if(id.nodeName == "INPUT"){
+      id = id.value;
+      console.log(id);
+      cont.innerHTML += "<input type='hidden' value='"+id+"' name='to_del[]'>";
+    }
+    
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+  }
+</script>
 
   <!-- /page content -->

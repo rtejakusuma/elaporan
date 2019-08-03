@@ -21,11 +21,11 @@ class Pemantauantindaklanjut_model extends CI_Model
     public function get_data_by_id($id)
     {
         $ptldata = $this->db->get_where('pemantauan_tindak_lanjut', ['id_laporan' => $id])->result_array()[0];
-        $temuandata = $this->db->get_where('temuan', "id_laporan = $id")->result_array();
+        $temuandata = $this->db->order_by('nama_temuan')->get_where('temuan', "id_laporan = $id")->result_array();
         $htemuan = array();
         if($temuandata != NULL){
             foreach($temuandata as $d){
-                $htemuan[$d['id_temuan']] = $this->db->get_where('hasil_temuan', "id_temuan = $d[id_temuan]");
+                $htemuan[$d['id_temuan']] = $this->db->get_where('hasil_temuan', "id_temuan = $d[id_temuan]")->result_array();
             }
         }
         return array('ptl' => $ptldata, 'temuan' => $temuandata, 'htemuan' => $htemuan);
@@ -65,30 +65,39 @@ class Pemantauantindaklanjut_model extends CI_Model
         $updata = array();
         
         $this->db->trans_begin();
-        if($table == 'temuan'){
+        if($table == 'pemantauan_tindak_lanjut'){
             if($data != NULL){
-                $offset = sizeof($data['nama_temuan']);
-                if(isset($data['id_temuan']) && $data['id_temuan'] != NULL){
-                    $offset = sizeof($data['temuan']) - sizeof($data['id_temuan']);
-                }
+                $this->db->update('pemantauan_tindak_lanjut', $data, "id_laporan = $id_laporan");
+            }
+        }
+        elseif($table == 'temuan'){
+            if($data != NULL){
+                // $offset = sizeof($data['nama_temuan']);
+                // if(isset($data['id_temuan']) && $data['id_temuan'] != NULL){
+                //     $offset = sizeof($data['temuan']) - sizeof($data['id_temuan']);
+                // }
                 // new data
-                for($i = 0; $i < $offset; $i+=1){
-                    array_push($insdata, array(
-                                'id_laporan' => $id_laporan,
-                                'nama_temuan' => $data['nama_temuan'][$i]
-                    ));
+
+                if(isset($data['new'])){
+                    foreach($data['new'] as $newdata){
+                        if($newdata == "") continue;
+                        array_push($insdata, array(
+                                    'id_laporan' => $id_laporan,
+                                    'nama_temuan' => $newdata['nama_temuan']
+                        ));
+                    }
                 }
                 if($insdata != NULL){
                     $this->db->insert_batch('temuan', $insdata);
                 }
-                
+                unset($data['new']);
                 // updated data
-                if($offset != sizeof($data['nama_temuan'])){
-                    for($i = $offset; $i < sizeof($data['nama_temuan']); $i+=1){
+                if($data['id_temuan'] != NULL){
+                    foreach($data['id_temuan'] as $idx){
                         array_push($updata, array(
                                     'id_laporan' => $id_laporan,
-                                    'id_temuan' => $data['id_temuan'][$i], 
-                                    'nama_temuan' => $data['nama_temuan'][$i]
+                                    'id_temuan' => $data['id_temuan'][$idx], 
+                                    'nama_temuan' => $data['nama_temuan'][$idx]
                         ));
                     }
                     $this->db->update_batch('temuan', $updata,'id_temuan');
@@ -107,20 +116,32 @@ class Pemantauantindaklanjut_model extends CI_Model
             unset($data['id_temuan']);
             if($data != NULL){
                 foreach($tmp as $idx){
+                    // if($data['rekomendasi'][$idx] == "" && $data['status_rekomendasi'][$idx]=="" &&$data['tindak_lanjut'][$idx]==""&&
+                    // $data['status_tindak_lanjut'][$idx]==""&&$data['catatan_bpk'][$idx]==""
+                    // )
+                    //     continue;
                     if(isset($data['rekomendasi'][$idx])){
-                        array_push($insdata, array(
-                                    'id_temuan' => $idx,
-                                    'rekomendasi' => $data['rekomendasi'][$idx],
-                                    'status_rekomendasi' => $data['status_rekomendasi'][$idx],
-                                    'tindak_lanjut' => $data['tindak_lanjut'][$idx],
-                                    'status_tindak_lanjut' => $data['status_tindak_lanjut'][$idx],
-                                    'catatan_bpk' => $data['catatan_bpk'][$idx]
-                        ));
+                        for($i=0; $i < sizeof($data['rekomendasi'][$idx]); $i += 1){
+                            if($data['rekomendasi'][$idx][$i] == "" && $data['status_rekomendasi'][$idx][$i]=="" &&$data['tindak_lanjut'][$idx][$i]==""&&
+                                $data['status_tindak_lanjut'][$idx][$i]==""&&$data['catatan_bpk'][$idx][$i]==""
+                            )
+                                continue;
+                            array_push($insdata, array(
+                                        'id_temuan' => $idx,
+                                        'rekomendasi' => $data['rekomendasi'][$idx][$i],
+                                        'status_rekomendasi' => $data['status_rekomendasi'][$idx][$i],
+                                        'tindak_lanjut' => $data['tindak_lanjut'][$idx][$i],
+                                        'status_tindak_lanjut' => $data['status_tindak_lanjut'][$idx][$i],
+                                        'catatan_bpk' => $data['catatan_bpk'][$idx][$i]
+                            ));
+                        }
+                        
                     }
                 }
                 $this->db->where_in('id_temuan', $tmp)
                             ->delete('hasil_temuan');
-                $this->db->insert_batch('hasil_temuan', $insdata);
+                if($insdata != NULL)
+                    $this->db->insert_batch('hasil_temuan', $insdata);
             }
         }
         $this->db->trans_complete();

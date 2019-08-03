@@ -52,15 +52,18 @@
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                             <input value="jadwal_pelaksanaan_opd" type="hidden" name="nama_tabel">
                             <button type='button' onclick='add_field()'>Tambah</button>
+                            
                             <div id='container-opsi'>
 
                             <?php if($data['fetch']['jpopd'] != NULL){ 
                                     foreach($data['fetch']['jpopd'] as $jpopddata){  
                             ?>
-                            <div class="form-group">  <!-- PENTING -->
                             
+                            <div>
                             <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                             <input value='<?php echo $jpopddata['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
+                            <div class="form-group">
+                            <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>
                             <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
@@ -70,6 +73,7 @@
                               }
                             ?>
                             </select>
+                            <br/></div>
 
                             <div class="form-group">
                             <label for="jenis_pengawasan" class="control-label col-md-3 col-sm-3 col-xs-12">Jenis Pengawasan</label>
@@ -77,41 +81,48 @@
                                 <input value='<?php echo $jpopddata['jenis_pengawasan']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="jenis_pengawasan[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <label for="rmp" class="control-label col-md-3 col-sm-3 col-xs-12">RMP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $jpopddata['rmp']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="rmp[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <label for="rpl" class="control-label col-md-3 col-sm-3 col-xs-12">RPL</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $jpopddata['rpl']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="rpl[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <label for="output_lhp" class="control-label col-md-3 col-sm-3 col-xs-12">Output LHP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $jpopddata['output_lhp']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="output_lhp[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <label for="hari_pengawasan" class="control-label col-md-3 col-sm-3 col-xs-12">Hari Pengawasan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $jpopddata['hari_pengawasan']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="hari_pengawasan[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <label for="keterangan" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $jpopddata['keterangan']; ?>'  class="form-control col-md-7 col-xs-12" type="text" name="keterangan[]"  >
                             </div>
                             </div>
+
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type='button' onclick='delete_node(this)'>Hapus</button>
+                              <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
                             </div>
+                            
                             </div>
                               <br/><br/></div>
                               <?php }} ?>
@@ -133,7 +144,7 @@
                             
                             <?php if($data['fetch']['adata'] != NULL){
                               foreach($data['fetch']['jpopd'] as $auditors){ ?>
-                            <div style='border: 2px solid black;'>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                             <input value='<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
                             <h2><?php echo $auditors['nama_opd']; ?></h2>
                             <button type='button' onclick='add_auditor(this)'>Tambah Auditor</button>
@@ -145,18 +156,18 @@
                             <div class="form-group">
                             <label for="nama_auditor" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Auditor</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $auditor['nama_auditor']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
+                                <input value='<?php echo $auditor['nama_auditor']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $auditor['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]"  >
+                                <input value='<?php echo $auditor['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]"  >
                             </div>
                             </div>
 
                             <?php }?>
-                            </div><br/><br/>
+                            <br/><br/></div>
                             <?php } } ?>
                             <!-- </div> -->
                             <div class="ln_solid"></div>
@@ -183,8 +194,9 @@
 
                             <script>
 
-var opd = "<div class='form-group'>\
+var opd = "</div>\
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
@@ -192,8 +204,8 @@ var opd = "<div class='form-group'>\
                   echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
                 }
               ?>\
-            </select>\
-            <br/><br/>\
+            </select></div>\
+            <br/>\
             <div class='form-group'>\
                             <label for='jenis_pengawasan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jenis Pengawasan</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -236,20 +248,8 @@ var opd = "<div class='form-group'>\
               </div>\
               </div>\
             </div>\
-            <br/><br/></div>";
-  var auditor = "<div class='form-group'>\
-                  <label for='nama_auditor' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Auditor</label>\
-                  <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='nama_auditor[]'  >\
-                  </div>\
-                  </div>\
-                  <div class='form-group'>\
-                  <label for='jabatan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jabatan</label>\
-                  <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='jabatan[]'  >\
-                  </div>\
-                  </div><br/><br/>"
-  
+            </div></div>";
+   
   function add_field(){
     var cont = document.getElementById('container-opsi');
     console.log(cont);
@@ -262,13 +262,13 @@ var opd = "<div class='form-group'>\
     <div class='form-group'>\
                   <label for='nama_auditor' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Auditor</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='nama_auditor["+id+"]'  >\
+                    <input  class='form-control col-md-7 col-xs-12' type='text' name='nama_auditor["+id+"][]'  >\
                   </div>\
                   </div>\
                   <div class='form-group'>\
                   <label for='jabatan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jabatan</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='jabatan["+id+"]'  >\
+                    <input  class='form-control col-md-7 col-xs-12' type='text' name='jabatan["+id+"][]'  >\
                   </div>\
                   </div><br/><br/>";
     ;
@@ -276,15 +276,15 @@ var opd = "<div class='form-group'>\
   function delete_node(node){
     var cont = document.getElementById('deleted');
     // console.log(node.parentNode.childNodes[1].nodeName);
-    var id = node.parentNode.childNodes[1];
-    console.log(id);
+    var id = node.parentNode.parentNode.parentNode.childNodes[1];
+    console.log(node.parentNode.parentNode);
     if(id.nodeName == "INPUT"){
       id = id.value;
       console.log(id);
       cont.innerHTML += "<input type='hidden' value='"+id+"' name='to_del[]'>";
     }
     
-    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
   }
 </script>
 

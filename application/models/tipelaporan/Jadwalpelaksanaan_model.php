@@ -132,18 +132,24 @@ class Jadwalpelaksanaan_model extends CI_Model
             unset($data['id_jadwal_pelaksanaan_opd']);
             if($data != NULL){
                 foreach($tmp as $idx){
+                    
                     if(isset($data['nama_auditor'][$idx])){
-                        array_push($insdata, array(
-                                    'id_jadwal_pelaksanaan_opd' => $idx,
-                                    'nama_auditor' => $data['nama_auditor'][$idx],
-                                    'jabatan' => $data['jabatan'][$idx]
-                        ));
+                        if($data['nama_auditor'][$idx][$i] == "" && $data['jabatan'][$idx][$i] == "")
+                            continue;
+                        for($i=0; $i < sizeof($data['nama_auditor'][$idx]); $i+=1){
+                            array_push($insdata, array(
+                                        'id_jadwal_pelaksanaan_opd' => $idx,
+                                        'nama_auditor' => $data['nama_auditor'][$idx][$i],
+                                        'jabatan' => $data['jabatan'][$idx][$i]
+                            ));
+                        }
                     }
                 }
                 // var_dump($insdata); die();
                 $this->db->where_in('id_jadwal_pelaksanaan_opd', $tmp)
                             ->delete('auditor');
-                $this->db->insert_batch('auditor', $insdata);
+                if($insdata != NULL)
+                    $this->db->insert_batch('auditor', $insdata);
             }
         }
         $this->db->trans_complete();
