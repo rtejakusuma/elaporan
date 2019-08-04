@@ -20,7 +20,7 @@ class Rekappokja_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rpdata = $this->db->get_where('rekap_pokja', ['id_laporan' => $id])->result_array()[0];
-        $drpdata = $this->db->get_where('detail_rekap_pokja', "id_laporan = $id")->get()->result_array();
+        $drpdata = $this->db->get_where('detail_rekap_pokja', "id_laporan = $id")->result_array();
         $pkdata = array();
         if($drpdata != NULL){
             foreach($drpdata as $d){
