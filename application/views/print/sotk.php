@@ -30,7 +30,19 @@
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
-            
+         $counter = 0;
+         foreach($data['fetch']['sotkopd'] as $sotkopd){ 
+             
+             $counter += 1;
+             echo "
+                 <tr>
+                     <td ><center>$counter</center></td>
+                     <td >". ucwords($sotkopd['nama_opd'])."</center></td>
+                     <td><center>$sotkopd[besaran]</center></td>
+                 </tr>
+             ";
+
+         }  
         ?>
         <!-- End of Table Contents -->
     </table>
