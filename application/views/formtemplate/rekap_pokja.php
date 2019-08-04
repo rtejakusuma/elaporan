@@ -117,7 +117,8 @@
                         </form>
                         </div>
 
-                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="profile-tab">
+
+                        <div role="tabpanel" class="tab-pane fade " id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                           <input value="detail_rekap_pokja" type="hidden" name="nama_tabel">
                           <button type='button' onclick='add_field()'>Tambah</button>
@@ -212,6 +213,18 @@
                             <button type="submit" class="btn btn-success">Submit</button>
                           </div>
                           </div>
+                        </form>
+                        </div>
+                        
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="home-tab">
+                        <form id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                        <input value="rekap_pokja" type="hidden" name="nama_tabel">
+                            <div class="form-group">
+                            <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Bulan dan Tahun</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <h3><?php echo date('M, Y', strtotime($data['fetch']['rp']['tgl'])); ?></h3>
+                            </div>
+                            </div>
                         </form>
                         </div>
 
