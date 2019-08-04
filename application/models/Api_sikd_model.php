@@ -11,7 +11,6 @@ class Api_sikd_model extends CI_Model
         $this->load->library('xmlrpcs');
     }
 
-
     public function get_api($tahun = '2019', $tw = '1')
     {
         $url = 'sikd.madiunkota.net/serapan/serapan' . $tahun . '/api/' . $tw;

@@ -8,17 +8,17 @@ class Tipelaporanopd_model extends CI_Model
         return $this->db->select('tipelaporan_per_opd')->result_array();
     }
 
-    public function get_opd_namatipelaporan($id_opd=NULL)
+    public function get_opd_namatipelaporan($id_opd = NULL)
     {
-        if($id_opd != NULL){
+        if ($id_opd != NULL) {
             $this->db->select('id_opd, tipe_laporan.*')
-                        ->from('tipelaporan_per_opd')
-                        ->where('id_opd', $id_opd)
-                        ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe'); 
+                ->from('tipelaporan_per_opd')
+                ->where('id_opd', $id_opd)
+                ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe');
         } else {
             $this->db->select('id_opd, tipe_laporan.*')
-                        ->from('tipelaporan_per_opd')
-                        ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe');
+                ->from('tipelaporan_per_opd')
+                ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe');
         }
         return $this->db->get()->result_array();
     }
@@ -26,9 +26,11 @@ class Tipelaporanopd_model extends CI_Model
     public function get_tipelaporan_by_idopd($id_opd)
     {
         $this->db->select('tipe_laporan.id_tipe, tipe_laporan.nama_laporan, tipe_laporan.kode_tipe')
-                    ->from('tipelaporan_per_opd')
-                    ->where('tipelaporan_per_opd.id_opd = ' . $id_opd)
-                    ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe');
+            ->from('tipelaporan_per_opd')
+            ->where('tipelaporan_per_opd.id_opd = ' . $id_opd)
+            ->join('tipe_laporan', 'tipelaporan_per_opd.id_tipe = tipe_laporan.id_tipe')
+            ->order_by('tipe_laporan.nama_laporan', 'asc');
+
         return $this->db->get()->result_array();
     }
 
@@ -50,12 +52,12 @@ class Tipelaporanopd_model extends CI_Model
         // delete saved data first
         $this->db->delete('tipelaporan_per_opd', array('id_opd' => $id_opd));
         $to_insert = array();
-        if($data == NULL || sizeof($data) <= 0){
+        if ($data == NULL || sizeof($data) <= 0) {
             $this->db->trans_complete();
             return;
         }
-        foreach($data as $value){
-            if($value == NULL) continue;
+        foreach ($data as $value) {
+            if ($value == NULL) continue;
             array_push($to_insert, ['id_opd' => $id_opd, 'id_tipe' => $value]);
         }
         $this->db->insert_batch('tipelaporan_per_opd', $to_insert);
