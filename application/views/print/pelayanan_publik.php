@@ -16,7 +16,7 @@
 <body>
     <div id='header-laporan'>
     <center><h2>
-        LAPORAN HASIL PENGAMATAN PELAYANAN PUBLIK<br/>
+        LAPORAN HASIL PENGAMATAN PELAYANAN PUBLIK TAHUN <?php echo date('Y', strtotime($data['fetch']['pp']['tgl'])); ?><br/>
         <?php echo $data['nama_opd']; ?><br/>
     </h2></center>
     </div>

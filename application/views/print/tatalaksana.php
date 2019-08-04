@@ -16,7 +16,7 @@
 <body>
     <div id='header-laporan'>
     <center><h2>
-        LAPORAN HASIL PENGAMATAN TATALAKSANA<br/>
+        LAPORAN HASIL PENGAMATAN TATALAKSANA TAHUN <?php echo date('Y', strtotime($data['fetch']['t']['tgl'])); ?><br/>
         <?php echo $data['nama_opd']; ?><br/>
     </h2></center>
     </div>

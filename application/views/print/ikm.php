@@ -17,6 +17,7 @@
     <div id='header-laporan'>
     <center><h2>
         NILAI INDEKS KEPUASAAN MASYARAKAT (IKM)<br/>
+        TAHUN <?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?> DI LINGKUNGAN PEMERINTAH KOTA MADIUN<br/>
         <?php echo $data['nama_opd']; ?><br/>
     </h2></center>
     </div>
