@@ -33,42 +33,20 @@
         <!-- Table Contents -->
         <?php
          $counter = 0;
-         foreach($data['fetch']['prog'] as $prog){ 
-             $prog_rowspan = sizeof($data['fetch']['kg'][$prog['kode_program']])+1;
+         foreach($data['fetch']['ppopd'] as $ppopd){ 
              $counter += 1;
              echo "
                  <tr>
-                     <td rowspan='$prog_rowspan'>$counter</td>
-                     <td rowspan='$prog_rowspan'>". ucwords($prog['nama_program'])."</td>
-                     <td></td>
-                     <td>". $prog['capaian_indikator'] . "</td>
-                     <td>$prog[capaian_satuan]</td>
-                     <td>target???</td>
-                     <td>realisasi???</td>
-                     <td>persen???</td>
-                     <td>anggaran???</td>
-                     <td>realisasi???</td>
-                     <td>persen???</td>
-                     <td rowspan='$prog_rowspan'></td>
+
+                    <td ><center>$counter</center></td>
+                    <td >". ucwords($ppopd['nama_opd'])."</center></td>
+                    <td><center>$ppopd[indeks_pelayanan_publik]</center></td>
+                    <td><center>$ppopd[konversi_100]</center></td>
+                    <td><center>$ppopd[ket]</center></td>
+
                  </tr>
              ";
-             foreach($data['fetch']['kg'][$prog['kode_program']] as $kg){
-                 echo "
-                     <tr>
-                         <td>". ucwords($kg['nama_kegiatan']). "</td>
-                         <td><strong><u>Output:</u></strong> ".ucwords($kg['keluaran_indikator'])."
-                             <br/><br/>
-                             <strong><u>Outcome:</u></strong> ". ucwords($kg['hasil_indikator'])."</td>
-                         <td>$kg[keluaran_satuan]</td>
-                         <td>target???</td>
-                         <td>realisasi???</td>
-                         <td>persen???</td>
-                         <td>anggaran???</td>
-                         <td>realisasi???</td>
-                         <td>persen???</td>
-                     </tr>
-                 ";  
-             }
+             
          }  
         ?>
         <!-- End of Table Contents -->
