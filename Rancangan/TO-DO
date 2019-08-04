@@ -38,6 +38,7 @@
 	- form ???
 	- print ???
 - realisasi fisik
+	- FETCH UPDATE
 	- model check
 	- form check
 	- print check
@@ -48,6 +49,19 @@
 
 // 4 TABEL //
 - laporan rb
-	- model ???
+	- model
+		- Insert
+			- Init_Insert XXXX
+			- laporan_rb XXXX
+			- jenis_rb XXXX
+			- program_rb XXXX
+			- kegiatan_rb XXXX
+		- Update
+			- laporan_rb XXXX
+			- jenis_rb XXXX
+			- program_rb XXXX
+			- kegiatan_rb XXXX
+		- Delete
+			- kegiatan_rb DONE
 	- form ???
 	- print ???
