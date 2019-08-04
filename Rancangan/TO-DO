@@ -1,0 +1,53 @@
+ // 2 TABEL //
+- ikm
+	- model done
+	- form done
+	- print ???
+- sotk
+	- model done
+	- form done
+	- print ???
+- tatalaksana
+	- model done
+	- form done
+	- print ???
+- pelayanan publik
+	- model done
+	- form done
+	- print ???
+- monitoring kelembagaan
+	- model done
+	- form done
+	- print ???
+- laporan kinerja triwulan
+	- model done
+	- form done
+	- print ???
+- rekap tender
+	- model ???
+	- form ???
+	- print ???
+
+// 3 TABEL //
+- jadwal pelaksanaan
+	- model done
+	- form check blum ada tombol hapus di tab ke 3
+	- print ???
+- rekap pokja
+	- model ???
+	- form ???
+	- print ???
+- realisasi fisik
+	- model check
+	- form check
+	- print check
+- pemantauan tindak lanjut
+	- model done
+	- form check blum ada tombol hapus di tab ke 3
+	- print ???
+
+// 4 TABEL //
+- laporan rb
+	- model ???
+	- form ???
+	- print ???

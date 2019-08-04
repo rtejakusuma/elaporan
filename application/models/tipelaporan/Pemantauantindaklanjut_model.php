@@ -72,12 +72,7 @@ class Pemantauantindaklanjut_model extends CI_Model
         }
         elseif($table == 'temuan'){
             if($data != NULL){
-                // $offset = sizeof($data['nama_temuan']);
-                // if(isset($data['id_temuan']) && $data['id_temuan'] != NULL){
-                //     $offset = sizeof($data['temuan']) - sizeof($data['id_temuan']);
-                // }
                 // new data
-
                 if(isset($data['new'])){
                     foreach($data['new'] as $newdata){
                         if($newdata == "") continue;
@@ -116,10 +111,6 @@ class Pemantauantindaklanjut_model extends CI_Model
             unset($data['id_temuan']);
             if($data != NULL){
                 foreach($tmp as $idx){
-                    // if($data['rekomendasi'][$idx] == "" && $data['status_rekomendasi'][$idx]=="" &&$data['tindak_lanjut'][$idx]==""&&
-                    // $data['status_tindak_lanjut'][$idx]==""&&$data['catatan_bpk'][$idx]==""
-                    // )
-                    //     continue;
                     if(isset($data['rekomendasi'][$idx])){
                         for($i=0; $i < sizeof($data['rekomendasi'][$idx]); $i += 1){
                             if($data['rekomendasi'][$idx][$i] == "" && $data['status_rekomendasi'][$idx][$i]=="" &&$data['tindak_lanjut'][$idx][$i]==""&&

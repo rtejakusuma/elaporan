@@ -86,7 +86,6 @@ class Jadwalpelaksanaan_model extends CI_Model
                 for($i = 0; $i < $offset; $i+=1){
                     array_push($insdata, array(
                                 'id_laporan' => $id_laporan,
-                                // 'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
                                 'id_opd' => $data['id_opd'][$i],
                                 'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
                                 'rmp' => $data['rmp'][$i],
@@ -120,7 +119,8 @@ class Jadwalpelaksanaan_model extends CI_Model
                 
                 // unused data
                 if(isset($data['to_del']))
-                    $this->db->where_in('id_jadwal_pelaksanaan_opd', $data['to_del'])->delete('jadwal_pelaksanaan_opd');
+                    $this->db->where_in('id_jadwal_pelaksanaan_opd', $data['to_del'])
+                                ->delete('jadwal_pelaksanaan_opd');
                 
             } else {
                 $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
