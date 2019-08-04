@@ -51,6 +51,7 @@ class Laporankinerjatriwulan_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
+        // printf("<pre>%s</pre>", json_encode($data, JSON_PRETTY_PRINT)); die();
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
@@ -71,8 +72,8 @@ class Laporankinerjatriwulan_model extends CI_Model
         $this->db->trans_begin();
         if($table == 'detail_laporan_kinerja_triwulan'){
             $this->db->delete('detail_laporan_kinerja_triwulan', "id_laporan = $id_laporan");
-            if($data != NULL){
-                $this->db->insert_batch('laporan_kinerja_triwulan', $insdata);
+            if($insdata != NULL){
+                $this->db->insert_batch('detail_laporan_kinerja_triwulan', $insdata);
             }
         }
         $this->db->trans_complete();
@@ -81,8 +82,6 @@ class Laporankinerjatriwulan_model extends CI_Model
     public function delete_data($id_laporan)
     {
         $this->db->trans_begin();
-        $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('detail_laporan_kinerja_triwulan');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan_kinerja_triwulan');
         $this->db->where('id_laporan', $id_laporan);
