@@ -26,25 +26,25 @@
 - rekap tender
 	- model ???
 	- form ???
-	- print ???
+	- print done
 
 // 3 TABEL //
 - jadwal pelaksanaan
 	- model done
 	- form check blum ada tombol hapus di tab ke 3
-	- print ???
+	- print done
 - rekap pokja
 	- model ???
 	- form ???
-	- print ???
+	- print done
 - realisasi fisik
 	- model check
 	- form check
-	- print check
+	- print done
 - pemantauan tindak lanjut
 	- model done
 	- form check blum ada tombol hapus di tab ke 3
-	- print ???
+	- print done
 
 // 4 TABEL //
 - laporan rb
