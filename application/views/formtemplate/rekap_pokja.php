@@ -117,7 +117,8 @@
                         </form>
                         </div>
 
-                        <div role="tabpanel" class="tab-pane fade active in" id="tab_content2" aria-labelledby="profile-tab">
+
+                        <div role="tabpanel" class="tab-pane fade " id="tab_content2" aria-labelledby="profile-tab">
                         <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                           <input value="detail_rekap_pokja" type="hidden" name="nama_tabel">
                           <button type='button' onclick='add_field()'>Tambah</button>
@@ -214,7 +215,7 @@
                           </div>
                         </form>
                         </div>
-
+                        
                       </div>
                     </div>
 
