@@ -98,8 +98,6 @@ class Sotk_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('sotk_opd');
-        $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('sotk');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');

@@ -85,8 +85,6 @@ class Pelayananpublik_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('pelayanan_publik_opd');
-        $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('pelayanan_publik');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');

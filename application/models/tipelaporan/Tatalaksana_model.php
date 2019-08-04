@@ -89,8 +89,6 @@ class Tatalaksana_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('tatalaksana_opd');
-        $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('tatalaksana');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');

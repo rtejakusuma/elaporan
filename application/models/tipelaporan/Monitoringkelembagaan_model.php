@@ -86,8 +86,6 @@ class Monitoringkelembagaan_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('permasalahan_kelembagaan');
-        $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('monitoring_kelembagaan');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');

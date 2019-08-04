@@ -86,8 +86,6 @@ class Ikm_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('ikm_opd');
-        $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('ikm');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
