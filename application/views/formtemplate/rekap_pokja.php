@@ -216,13 +216,47 @@
                         </form>
                         </div>
                         
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="home-tab">
+                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                         <form id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                        <input value="rekap_pokja" type="hidden" name="nama_tabel">
+                          <input value="paket_kerja" type="hidden" name="nama_tabel">
+                          <div id="container-opsi">
+                            
+                            <?php if($data['fetch']['drp'] != NULL){ 
+                                    foreach($data['fetch']['drp'] as $drp){  
+                            ?>
+                            <div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>                           
+                            <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
+                            <h2><?php echo $drp['nama']; ?></h2>
+                            <button type='button' onclick='add_hasil_temuan(this)'>Tambah Paket Kerja</button>
+
+                            <?php
+                                foreach($data['fetch']['pk'][$drp['id_detail_rekap_pokja']] as $pk){
+                            ?>
+
                             <div class="form-group">
-                            <label for="tgl" class="control-label col-md-3 col-sm-3 col-xs-12">Bulan dan Tahun</label>
+                            <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <h3><?php echo date('M, Y', strtotime($data['fetch']['rp']['tgl'])); ?></h3>
+                              <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[<?php echo $pk['id_detail_rekap_pokja']; ?>'][]"  >
+                            </div>
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[<?php echo $pk['id_detail_rekap_pokja']; ?>'][]"  >
+                            </div>
+                            </div>
+
+                            <?php } ?>
+                            <br/></div>
+                            <?php }} ?>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button type="submit" class="btn btn-success">Submit</button>
                             </div>
                             </div>
                         </form>
@@ -266,7 +300,7 @@ function add_hasil_temuan(node){
   var id = node.parentNode.childNodes[1].value;
     console.log(node.parentNode.childNodes);
     node.parentNode.innerHTML = node.parentNode.innerHTML+"\
-
+\
     <div class='form-group'>\
     <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
     <div class='col-md-6 col-sm-6 col-xs-12'>\
