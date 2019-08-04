@@ -27,7 +27,7 @@ CREATE TABLE `auditor` (
   `nama_auditor` varchar(64) DEFAULT NULL,
   `jabatan` varchar(32) DEFAULT NULL,
   KEY `fk_relationship_30` (`id_jadwal_pelaksanaan_opd`),
-  CONSTRAINT `fk_relationship_30` FOREIGN KEY (`id_jadwal_pelaksanaan_opd`) REFERENCES `jadwal_pelaksanaan_opd` (`id_jadwal_pelaksanaan_opd`)
+  CONSTRAINT `fk_relationship_30` FOREIGN KEY (`id_jadwal_pelaksanaan_opd`) REFERENCES `jadwal_pelaksanaan_opd` (`id_jadwal_pelaksanaan_opd`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -41,6 +41,64 @@ LOCK TABLES `auditor` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `detail_laporan_kinerja_triwulan`
+--
+
+DROP TABLE IF EXISTS `detail_laporan_kinerja_triwulan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detail_laporan_kinerja_triwulan` (
+  `id_laporan` int(11) NOT NULL,
+  `uraian` varchar(128) DEFAULT NULL,
+  `indikator_kinerja` varchar(64) DEFAULT NULL,
+  `target` float DEFAULT NULL,
+  `realisasi_target` int(11) DEFAULT NULL,
+  `program` varchar(128) DEFAULT NULL,
+  `anggaran` int(11) DEFAULT NULL,
+  `capaian_realisasi_keuangan` int(11) DEFAULT NULL,
+  KEY `fk_detail_laporan_kinerja_triwulan_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_detail_laporan_kinerja_triwulan_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_kinerja_triwulan` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detail_laporan_kinerja_triwulan`
+--
+
+LOCK TABLES `detail_laporan_kinerja_triwulan` WRITE;
+/*!40000 ALTER TABLE `detail_laporan_kinerja_triwulan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detail_laporan_kinerja_triwulan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `detail_rekap_pokja`
+--
+
+DROP TABLE IF EXISTS `detail_rekap_pokja`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `detail_rekap_pokja` (
+  `id_detail_rekap_pokja` int(11) NOT NULL,
+  `id_laporan` int(11) NOT NULL,
+  `nama` varchar(64) NOT NULL,
+  `jabatan` varchar(64) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  PRIMARY KEY (`id_detail_rekap_pokja`),
+  KEY `fk_detail_rekap_pokja_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_detail_rekap_pokja_1` FOREIGN KEY (`id_laporan`) REFERENCES `rekap_pokja` (`id_laporan`) ON DELETE NO ACTION ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `detail_rekap_pokja`
+--
+
+LOCK TABLES `detail_rekap_pokja` WRITE;
+/*!40000 ALTER TABLE `detail_rekap_pokja` DISABLE KEYS */;
+/*!40000 ALTER TABLE `detail_rekap_pokja` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `detail_rekap_tender`
 --
 
@@ -49,7 +107,6 @@ DROP TABLE IF EXISTS `detail_rekap_tender`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `detail_rekap_tender` (
   `id_opd` int(11) DEFAULT NULL,
-  `opd_id_opd` int(11) DEFAULT NULL,
   `id_paket_kerja` int(11) DEFAULT NULL,
   `id_laporan` int(11) DEFAULT NULL,
   `nilai_hps` int(11) DEFAULT NULL,
@@ -57,13 +114,9 @@ CREATE TABLE `detail_rekap_tender` (
   `harga_kontrak` int(11) DEFAULT NULL,
   `presentase_kontrak_thd_hps` float DEFAULT NULL,
   `ket` text DEFAULT NULL,
-  KEY `fk_relationship_14` (`id_laporan`),
-  KEY `fk_relationship_17` (`id_paket_kerja`),
-  KEY `fk_relationship_36` (`opd_id_opd`),
   KEY `fk_relationship_41` (`id_opd`),
-  CONSTRAINT `fk_relationship_14` FOREIGN KEY (`id_laporan`) REFERENCES `rekap_tender` (`id_laporan`),
-  CONSTRAINT `fk_relationship_17` FOREIGN KEY (`id_paket_kerja`) REFERENCES `paket_kerja` (`id_paket_kerja`),
-  CONSTRAINT `fk_relationship_36` FOREIGN KEY (`opd_id_opd`) REFERENCES `opd` (`id_opd`),
+  KEY `fk_relationship_14` (`id_laporan`),
+  CONSTRAINT `fk_relationship_14` FOREIGN KEY (`id_laporan`) REFERENCES `rekap_tender` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_41` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -74,6 +127,7 @@ CREATE TABLE `detail_rekap_tender` (
 
 LOCK TABLES `detail_rekap_tender` WRITE;
 /*!40000 ALTER TABLE `detail_rekap_tender` DISABLE KEYS */;
+INSERT INTO `detail_rekap_tender` VALUES (144,NULL,23,123,'',0,0,'');
 /*!40000 ALTER TABLE `detail_rekap_tender` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +146,7 @@ CREATE TABLE `hasil_temuan` (
   `status_tindak_lanjut` char(2) DEFAULT NULL,
   `catatan_bpk` text DEFAULT NULL,
   KEY `fk_relationship_25` (`id_temuan`),
-  CONSTRAINT `fk_relationship_25` FOREIGN KEY (`id_temuan`) REFERENCES `temuan` (`id_temuan`)
+  CONSTRAINT `fk_relationship_25` FOREIGN KEY (`id_temuan`) REFERENCES `temuan` (`id_temuan`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -186,6 +240,7 @@ CREATE TABLE `jadwal_pelaksanaan` (
 
 LOCK TABLES `jadwal_pelaksanaan` WRITE;
 /*!40000 ALTER TABLE `jadwal_pelaksanaan` DISABLE KEYS */;
+INSERT INTO `jadwal_pelaksanaan` VALUES (21,8,6,'2019-08-03 14:00:05','2019-08-03 14:00:05','2019-08-13');
 /*!40000 ALTER TABLE `jadwal_pelaksanaan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -207,11 +262,11 @@ CREATE TABLE `jadwal_pelaksanaan_opd` (
   `hari_pengawasan` int(11) DEFAULT NULL,
   `keterangan` text DEFAULT NULL,
   PRIMARY KEY (`id_jadwal_pelaksanaan_opd`),
-  KEY `fk_relationship_32` (`id_laporan`),
   KEY `fk_relationship_33` (`id_opd`),
-  CONSTRAINT `fk_relationship_32` FOREIGN KEY (`id_laporan`) REFERENCES `jadwal_pelaksanaan` (`id_laporan`),
+  KEY `fk_relationship_32` (`id_laporan`),
+  CONSTRAINT `fk_relationship_32` FOREIGN KEY (`id_laporan`) REFERENCES `jadwal_pelaksanaan` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_33` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -220,6 +275,7 @@ CREATE TABLE `jadwal_pelaksanaan_opd` (
 
 LOCK TABLES `jadwal_pelaksanaan_opd` WRITE;
 /*!40000 ALTER TABLE `jadwal_pelaksanaan_opd` DISABLE KEYS */;
+INSERT INTO `jadwal_pelaksanaan_opd` VALUES (18,144,21,'','','',0,0,'');
 /*!40000 ALTER TABLE `jadwal_pelaksanaan_opd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +342,6 @@ CREATE TABLE `kegiatan` (
 
 LOCK TABLES `kegiatan` WRITE;
 /*!40000 ALTER TABLE `kegiatan` DISABLE KEYS */;
-INSERT INTO `kegiatan` VALUES ('5-01-001','5-01','Kegiatan Penyediaan Jasa, Peralatan dan Perlengkapan Kantor',2147483647,'jumlah lembaga',1,NULL,NULL,'lembaga','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-01-002','5-01','Kegiatan Koordinasi dan Konsultasi Keluar Daerah',443750000,'jumlah kali',105,NULL,NULL,'kali','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-02-001','5-02','Kegiatan Pemeliharaan Rutin/ Berkala Gedung dan Bangunan Kantor',70250000,'jumlah lembaga',1,NULL,NULL,'lembaga','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-02-002','5-02','Kegiatan Pemeliharaan Rutin/ Berkala Kendaraan Dinas',136100000,'jumlah unit',123,NULL,NULL,'kendaraan','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-02-003','5-02','Kegiatan Pemeliharaan Rutin/ Berkala Sarana Prasarana Kantor',400000000,'jumlah lembaga',1,NULL,NULL,'lembaga','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-03-001','5-03','Kegiatan Pengadaan Sarana dan Prasarana Kantor',600000000,'jumlah paket',1,NULL,NULL,'paket','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-04-001','5-04','Kegiatan Penyusunan Perencanaan serta Pelaporan Kinerja dan Ikhtisar Realisasi Kinerja Perangkat Daerah',100000000,'jumlah dokumen',9,NULL,NULL,'lembaga','akuntabilitas kinerja dinas pendidikan bernilai baik',77,NULL,NULL,NULL,NULL,'BB',NULL),('5-15-001','5-15','Kegiatan Operasional BOS Tingkat Kota',90000000,'jumlah lembaga yang memenuhi standar pendidikan',94,NULL,NULL,'lembaga','satuan pendidikan semua jenjang melaksanakan manajemen berbasis ',94,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-15-002','5-15','Kegiatan Pembinaan Komite Sekolah dalam Pengelolaan Sumber Daya Pendidikan',99750000,'jumlah komite yang memahami pendidikan meningkat',184,NULL,NULL,'orang','satuan pendidikan semua jenjang melaksanakan manajemen berbasis ',94,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-15-003','5-15','Kegiatan Pengembangan dan Implementasi Informasi Pendidikan Berbasis IT',200000000,'jumlah lembaga yang sesuai dengan SPM',142,NULL,NULL,'lembaga','satuan pendidikan semua jenjang melaksanakan manajemen berbasis ',94,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-15-004','5-15','Kegiatan Operasional BOS Madrasah Diniyah (BOSDA MADIN) BK Prov',105000000,'jumlah lembaga yang mendapat BOS',49,NULL,NULL,'lembaga','satuan pendidikan semua jenjang melaksanakan manajemen berbasis ',94,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-15-005','5-15','Kegiatan BOP Bantuan Beasiswa Mahasiswa (BBM)',65000000,'jumlah mahasiswa berprestasi yang menerima bantuan',300,NULL,NULL,'mahasiswa','satuan pendidikan semua jenjang melaksanakan manajemen berbasis ',94,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-16-001','5-16','Kegiatan Sertifikasi Guru',224054000,'jumlah guru yang bersertifikasi',125,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-002','5-16','Kegiatan Penilaian Angka Kredit Jabatan Fungsional Guru',144375000,'jumlah guru yang mengikuti penilaian angka kredit',500,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-003','5-16','Kegiatan Seleksi Guru, Kepala Sekolah, dan Pengawas Sekolah Berprestasi, OGN, Inobel, Literasi, Media Pembelajaran Berbasis IT s',700000000,'jumlah guru/kasek berkinerja baik',500,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-005','5-16','Kegiatan Bantuan Beasiswa Pendidikan S1/S2/S3',120000000,'jumlah guru yang berkualifikasi S1',10,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-006','5-16','Kegiatan Peningkatan Kompetensi SDM Guru Kelas dan Mapel Online serta Pengembangan Keprofesian Berkelanjutan (PKB)',400000000,'jumlah guru yang memahami materi',500,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-007','5-16','Kegiatan Peningkatan SDM Tenaga Kependidikan (TU)',50000000,'jumlah TU yang taat aturan',50,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-16-008','5-16','Kegiatan Outdoor Learning Guru',325000000,'jumlah guru yang mengikuti outdoor learning\r\n',400,NULL,NULL,'guru','prosentase guru, kasek dan pengawas berkompetensi',100,NULL,NULL,NULL,NULL,'%',NULL),('5-17-001','5-17','Kegiatan Penyelenggaraan SMP Terbuka',78556000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-002','5-17','Kegiatan Penyelenggaraan SMPN 1',1807273000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-003','5-17','Kegiatan Penyelenggaraan SMPN 2',1555369000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-004','5-17','Kegiatan Penyelenggaraan SMPN 3',1071885000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-005','5-17','Kegiatan Penyelenggaraan SMPN 4',1391293100,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-006','5-17','Kegiatan Penyelenggaraan SMPN 5',836852000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-007','5-17','Kegiatan Penyelenggaraan SMPN 6',1264776000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-008','5-17','Kegiatan Penyelenggaraan SMPN 7',1458032000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-009','5-17','Kegiatan Penyelenggaraan SMPN 8',1204131000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-010','5-17','Kegiatan Penyelenggaraan SMPN 9',1306194000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-011','5-17','Kegiatan Penyelenggaraan SMPN 10',1485995000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-012','5-17','Kegiatan Penyelenggaraan SMPN 11',990536000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-013','5-17','Kegiatan Penyelenggaraan SMPN 12',1376178500,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-014','5-17','Kegiatan Penyelenggaraan SMPN 13',1286469000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-015','5-17','Kegiatan Penyelenggaraan SMPN 14',906011000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-016','5-17','Kegiatan Penyelenggaraan SDN 01 Kartoharjo',489806300,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-017','5-17','Kegiatan Penyelenggaraan SDN 02 Kartoharjo',188786000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-018','5-17','Kegiatan Penyelenggaraan SDN 03 Kartoharjo',181399400,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-019','5-17','Kegiatan Penyelenggaraan SDN 01 Klegen',534335800,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-020','5-17','Kegiatan Penyelenggaraan SDN 02 Klegen',264324800,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-021','5-17','Kegiatan Penyelenggaraan SDN 03 Klegen',521516000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-022','5-17','Kegiatan Penyelenggaraan SDN 04 Klegen',219344500,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-023','5-17','Kegiatan Penyelenggaraan SDN Oro Oro Ombo',414544000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-024','5-17','Kegiatan Penyelenggaraan SDN 01 Rejomulyo',195813000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-025','5-17','Kegiatan Penyelenggaraan SDN 02 Rejomulyo',159546000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-026','5-17','Kegiatan Penyelenggaraan SDN 01 Kanigoro',223088500,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-027','5-17','Kegiatan Penyelenggaraan SDN 02 Kanigoro',290733400,'jumlah lembaga yang beroperasional baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-028','5-17','Kegiatan Penyelenggaraan SDN 03 Kanigoro',318658600,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-029','5-17','Kegiatan Penyelenggaraan SDN Sukosari',140292000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-030','5-17','Kegiatan Penyelengaraan SDN Pilangbango',499116800,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-031','5-17','Kegiatan Penyelenggaraan SDN 01 Tawangrejo',264241400,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-032','5-17','Kegiatan Penyelenggaraan SDN 02 Tawangrejo',228726400,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-033','5-17','Kegiatan Penyelenggaraan SDN Kelun',272934400,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-034','5-17','Kegiatan Penyelenggaraan SDN 01 Manguharjo',567730000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-035','5-17','Kegiatan Penyelenggaraan SDN 01 Nambangan Lor',483047000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-036','5-17','Kegiatan Penyelenggaraan SDN 02 Nambangan Lor',237330000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-037','5-17','Kegiatan Penyelenggaraan SDN 01 Madiun Lor',277889000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-038','5-17','Kegiatan Penyelenggaraan SDN 02 Madiun Lor',269837000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-039','5-17','Kegiatan Penyelenggaraan SDN 03 Madiun Lor',766267000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-040','5-17','Kegiatan Penyelenggaraan SDN 04 Madiun Lor',496014000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-041','5-17','Kegiatan Penyelenggaraan SDN 05 Madiun Lor',564228000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-042','5-17','Kegiatan Penyelenggaraan SDN 01 Nambangan Kidul',257405000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-043','5-17','Kegiatan Penyelenggaraan SDN 02 Nambangan Kidul',229253000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-044','5-17','Kegiatan Penyelenggaraan SDN 03 Nambangan Kidul',484579000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-045','5-17','Kegiatan Penyelenggaraan SDN 04 Nambangan Kidul',219053000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-046','5-17','Kegiatan Penyelenggaraan SDN 01 Winongo',449150000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-047','5-17','Kegiatan Penyelenggaraan SDN 02 Winongo',229892000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-048','5-17','Kegiatan Penyelenggaraan SDN Ngegong',227755000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNPbaik',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-049','5-17','Kegiatan Penyelenggaraan SDN Patihan',521015000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-050','5-17','Kegiatan Penyelenggaraan SDN 01 Pangongangan',223037000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-051','5-17','Kegiatan Penyelenggaraan SDN 02 Pangongangan',448071000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-052','5-17','Kegiatan Penyelenggaraan SDN Sogaten',300555000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-053','5-17','Kegiatan Penyelenggaraan SDN 01 Taman',658217000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-054','5-17','Kegiatan Penyelenggaraan SDN 02 Taman',141303000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-055','5-17','Kegiatan Penyelenggaraan SDN 03 Taman',232131000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-056','5-17','Kegiatan Penyelenggaraan SDN 01 Pandean',530143000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-057','5-17','Kegiatan Penyelenggaraan SDN 02 Pandean',527977000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-058','5-17','Kegiatan Penyelenggaraan SDN Banjarejo',657702000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-059','5-17','Kegiatan Penyelenggaraan SDN 01 Mojorejo',301846000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-060','5-17','Kegiatan Penyelenggaraan SDN 02 Mojorejo',798078000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-061','5-17','Kegiatan Penyelenggaraan SDN 01 Manisrejo',536593000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-062','5-17','Kegiatan Penyelenggaraan SDN 02 Manisrejo',486133000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-063','5-17','Kegiatan Penyelenggaraan SDN 03 Manisrejo',317695000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-064','5-17','Kegiatan Penyelenggaraan SDN 04 Manisrejo',446495000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-065','5-17','Kegiatan Penyelenggaraan SDN 01 Demangan',267498000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-066','5-17','Kegiatan Penyelenggaraan SDN 02 Demangan',289105000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-067','5-17','Kegiatan Penyelenggaraan SDN 01 Josenan',299741000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-068','5-17','Kegiatan Penyelenggaraan SDN 02 Josenan',298978000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-069','5-17','Kegiatan Penyelenggaraan SDN 03 Josenan',240785000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-070','5-17','Kegiatan Penyelenggaraan SDN Kejuron',189828000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-071','5-17','Kegiatan Penyelenggaraan SDN Kuncen',183014000,'jumlah lembaga yang beroperasional dengan baik',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-072','5-17','Kegiatan Dana BOS pada SMP Negeri 1',873939000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-073','5-17','Kegiatan Dana BOS pada SMP Negeri 2',800073000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-074','5-17','Kegiatan Dana BOS pada SMP Negeri 3',599835000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-075','5-17','Kegiatan Dana BOS pada SMP Negeri 4',1024135000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-076','5-17','Kegiatan Dana BOS pada SMP Negeri 5',531156000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-077','5-17','Kegiatan Dana BOS pada SMP Negeri 6',764211000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-078','5-17','Kegiatan Dana BOS pada SMP Negeri 7',958995000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-079','5-17','Kegiatan Dana BOS pada SMP Negeri 8',579513000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-080','5-17','Kegiatan Dana BOS pada SMP Negeri 9',659444000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-081','5-17','Kegiatan Dana BOS pada SMP Negeri 10',738899000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-082','5-17','Kegiatan Dana BOS pada SMP Negeri 11',697083000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-083','5-17','Kegiatan Dana BOS pada SMP Negeri 12',988205000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-084','5-17','Kegiatan Dana BOS pada SMP Negeri 13',915317000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-085','5-17','Kegiatan Dana BOS pada SMP Negeri 14',499220000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-086','5-17','Kegiatan Dana BOS pada SDN 01 Kartoharjo',320926000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-087','5-17','Kegiatan Dana BOS pada SDN 02 Kartoharjo',73536000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-088','5-17','Kegiatan Dana BOS pada SDN 03 Kartoharjo',71933000,'jumlah lembaga yang memenuhi standar pendidikan\r\n',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-089','5-17','Kegiatan Dana BOS pada SDN 01 Klegen',319645000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-090','5-17','Kegiatan Dana BOS pada SDN 02 Klegen',133726000,'jumlah  lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-091','5-17','Kegiatan Dana BOS pada SDN 03 Klegen',311283000,'jumlah lembaga yang memenuhi standar pendidikan\r\n',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-092','5-17','Kegiatan Dana BOS pada SDN 04 Klegen',101395000,'jumlah lembaga yang memenuhi standar pendidikan\r\n',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-093','5-17','Kegiatan Dana BOS pada SDN Oro Oro Ombo',262449000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-094','5-17','Kegiatan Dana BOS pada SDN 01 Rejomulyo',88981000,'jumlah lembaga yang memenuhi standar pendidikan\r\n',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-095','5-17','Kegiatan Dana BOS pada SDN 02 Rejomulyo',60282000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-096','5-17','Kegiatan Dana BOS pada SDN 01 Kanigoro',124730000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-097','5-17','Kegiatan Dana BOS pada SDN 02 Kanigoro',140700000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-098','5-17','Kegiatan Dana BOS pada SDN 03 Kanigoro',155219000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-099','5-17','Kegiatan Dana BOS pada SDN Sukosari',45845000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-100','5-17','Kegiatan Dana BOS pada SDN Pilangbango',213078000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-101','5-17','Kegiatan Dana BOS pada SDN 01 Tawangrejo',141427000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-102','5-17','Kegiatan Dana BOS pada SDN 02 Tawangrejo',93640000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-103','5-17','Kegiatan Dana BOS pada SDN Kelun',160652000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-104','5-17','Kegiatan Dana BOS pada SDN 01 Manguharjo',312775000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-105','5-17','Kegiatan Dana BOS pada SDN 01 Nambangan Lor',266739000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-106','5-17','Kegiatan Dana BOS pada SDN 02 Nambangan Lor',123256000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-107','5-17','Kegiatan Dana BOS pada SDN 01 Madiun Lor',115645000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-108','5-17','Kegiatan Dana BOS pada SDN 02 Madiun Lor',143626000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-109','5-17','Kegiatan Dana BOS pada SDN 03 Madiun Lor',435013000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-110','5-17','Kegiatan Dana BOS pada SDN 04 Madiun Lor',337500000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-111','5-17','Kegiatan Dana BOS pada SDN 05 Madiun Lor',382044000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-112','5-17','Kegiatan Dana BOS pada SDN 01 Nambangan Kidul',142596000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-113','5-17','Kegiatan Dana BOS pada SDN 02 Nambangan Kidul',99547000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-114','5-17','Kegiatan Dana BOS pada SDN 03 Nambangan Kidul',269766000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-115','5-17','Kegiatan Dana BOS pada SDN 04 Nambangan Kidul',253742000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-116','5-17','Kegiatan Dana BOS pada SDN 01 Winongo',451612000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-117','5-17','Kegiatan Dana BOS pada SDN 02 Winongo',81318000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-118','5-17','Kegiatan Dana BOS pada SDN Ngegong',120208000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-119','5-17','Kegiatan Dana BOS pada SDN Patihan',320119000,'jumlah lembaga yang memenuhi standar pendidikan',0,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-120','5-17','Kegiatan Dana BOS pada SDN 01 Pangongangan',97123000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-121','5-17','Kegiatan Dana BOS pada SDN 02 Pangongangan',276668000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-122','5-17','Kegiatan Dana BOS pada SDN Sogaten',157701000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-123','5-17','Kegiatan Dana BOS pada SDN 01 Taman',391001000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-124','5-17','Kegiatan Dana BOS pada SDN 02 Taman',58019000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-125','5-17','Kegiatan Dana BOS pada SDN 03 Taman',97397000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-126','5-17','Kegiatan Dana BOS pada SDN 01 Pandean',314294000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-127','5-17','Kegiatan Dana BOS pada SDN 02 Pandean',260329000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-128','5-17','Kegiatan Dana BOS pada SDN Banjarejo',398826000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-129','5-17','Kegiatan Dana BOS pada SDN 01 Mojorejo',123382000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-130','5-17','Kegiatan Dana BOS pada SDN 02 Mojorejo',470162000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-131','5-17','Kegiatan Dana BOS pada SDN 01 Manisrejo',312117000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-132','5-17','Kegiatan Dana BOS pada SDN 02 Manisrejo',275557000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-133','5-17','Kegiatan Dana BOS pada SDN 03 Manisrejo',154239000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-134','5-17','Kegiatan Dana BOS pada SDN 04 Manisrejo',229087000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-135','5-17','Kegiatan Dana BOS pada SDN 01 Demangan',134754000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-136','5-17','Kegiatan Dana BOS pada SDN 02 Demangan',152616000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-137','5-17','Kegiatan Dana BOS pada SDN 01 Josenan',161468000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-138','5-17','Kegiatan Dana BOS pada SDN 02 Josenan',159629000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-139','5-17','Kegiatan Dana BOS pada SDN 03 Josenan',94350000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-140','5-17','Kegiatan Dana BOS pada SDN Kejuron',63440000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-141','5-17','Kegiatan Dana BOS pada SDN Kuncen',73347000,'jumlah lembaga yang memenuhi standar pendidikan',1,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-142','5-17','Kegiatan Penerimaan Peserta Didik Baru',2147483647,'angka partisipasi murni sd smp, jumlah siswa yang memenuhi krite',71,NULL,NULL,'lembaga','prosentase sekolah yang mengikuti SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-143','5-17','Kegiatan Pelaksanaan Uji Coba USBN SD, SMP, Kegiatan USBN Pendidikan Agama SD dan SMP, Kegiatan USBN SD, SMP dan UN SMP',1051292000,'jumlah lembaga yang mengikuti ujicoba USBN dan UN SD dan SMP',93,NULL,NULL,'lembaga','prosentase sekolah yang mengikuti SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-144','5-17','Kegiatan OSN dan Cerdas Cermat SD, SMP',410527000,'jumlah siswa yang berprestasi',522,NULL,NULL,'siswa','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-145','5-17','Kegiatan Olimpiade Olah Raga Siswa Nasional dan Festival Lomba Seni Siswa Nasional SD dan SMP',562631000,'jumlah siswa yang berprestasi',309,NULL,NULL,'siswa','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-146','5-17','Kegiatan Penjaminan Mutu, Akreditasi Sekolah dan Best Practice',880380000,'jumlah lembaga yang terakreditasi',106,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-147','5-17','Kegiatan Pemberdayaan Tim Pengembang Kurikulum 2013 SD, SMP, Workshop Peningkatan Kualitas KKG dan MGMP, Komunitas Pembelajar',1035132000,'jumlah lembaga yang memahami materi pemberdayaan pengembang kuri',93,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-148','5-17','Kegiatan Pembinaan Pengembangan Gugus Sekolah TK, SD, Lomba Lingkungan Sekolah Sehat (LLSS), Gerakan Disiplin Siswa, Pengelolaan',615198000,'jumlah lembaga yang sesuai dengan SPM',106,NULL,NULL,'lembaga','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-151','5-17','Kegiatan Pembangunan/ Rehabilitasi Gedung Sekolah',2147483647,'jumlah gedung sekolah yang dibangun sesuai kebutuhan',7,NULL,NULL,'paket','prosentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-17-153','5-17','Kegiatan Pengadaan Sarana Pendidikan',2147483647,'jumlah paket',2,NULL,NULL,'paket','persentase sekolah yang memenuhi SNP',92,NULL,NULL,NULL,NULL,'%',NULL),('5-18-001','5-18','Kegiatan Penyelenggaraan TK Pembina',175000000,'jumlah lembaga yang beroperasional',1,NULL,NULL,'lembaga','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-18-002','5-18','Kegiatan Workshop Kurikulum PAUD',410210000,'jumlah lembaga yang memahami kurikulum PAUD',169,NULL,NULL,'lembaga','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-18-003','5-18','Kegiatan Pusat Kegiatan Gugus PAUD Terpadu Kota Madiun',468930000,'jumlah gugus yang berprestasi',22,NULL,NULL,'gugus','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-18-004','5-18','Kegiatan Bantuan BOP PAUD',175140000,'jumlah lembaga yang mendapat BOP',169,NULL,NULL,'lembaga','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-18-006','5-18','Kegiatan Rehabilitasi Bangunan PAUD',2147483647,'jumlah gedung PAUD yang direhab',1,NULL,NULL,'lembaga','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-18-007','5-18','Kegiatan Pagelaran Hari Anak Nasional',595980000,'jumlah anak yang mengikuti HAN',2000,NULL,NULL,'anak','lembaga PAUD yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-19-001','5-19','Kegiatan Penyelenggaraan Pendidikan Kesetaraan',293790000,'jumlah peserta lulus ujian',200,NULL,NULL,'peserta','lembaga non formal yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-19-002','5-19','Kegiatan Pembinaan Lembaga PAUD dan PNF',390400000,'jumlah lembaga yang sesuai dengan aturan yang berlaku',230,NULL,NULL,'lembaga','lembaga non formal yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-19-003','5-19','Kegiatan Bimbingan Teknis Exstra Kurikuler Pembina Pramuka',609000000,'jumlah peserta yang mengikuti bimtek ekskul pembina pramuka',263,NULL,NULL,'peserta','lembaga non formal yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL),('5-19-004','5-19','Kegiatan Workshop Peningkatan Pengelolaan Perpustakaan Sekolah',393916000,'jumlah peserta yang memahami workshop pengelolaan perpustakaan',169,NULL,NULL,'peserta','lembaga non formal yang terakreditasi',5,NULL,NULL,NULL,NULL,'lembaga',NULL);
 /*!40000 ALTER TABLE `kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -341,7 +396,7 @@ CREATE TABLE `laporan` (
   KEY `fk_tipelaporan_dari_laporan` (`id_tipe`),
   CONSTRAINT `fk_laporan_opd` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`),
   CONSTRAINT `fk_tipelaporan_dari_laporan` FOREIGN KEY (`id_tipe`) REFERENCES `tipe_laporan` (`id_tipe`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -350,7 +405,7 @@ CREATE TABLE `laporan` (
 
 LOCK TABLES `laporan` WRITE;
 /*!40000 ALTER TABLE `laporan` DISABLE KEYS */;
-INSERT INTO `laporan` VALUES (5,8,1,'2019-07-31 05:17:18','2019-07-31 05:17:18');
+INSERT INTO `laporan` VALUES (20,8,5,'2019-08-03 13:49:57','2019-08-03 13:49:57'),(21,8,6,'2019-08-03 14:00:05','2019-08-03 14:00:05'),(22,8,4,'2019-08-04 00:20:33','2019-08-04 00:20:33'),(23,8,3,'2019-08-04 00:21:14','2019-08-04 00:21:14');
 /*!40000 ALTER TABLE `laporan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -367,13 +422,7 @@ CREATE TABLE `laporan_kinerja_triwulan` (
   `id_tipe` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `uraian` varchar(128) DEFAULT NULL,
-  `indikator_kinerja` varchar(64) DEFAULT NULL,
-  `target` float DEFAULT NULL,
-  `realisasi_target` int(11) DEFAULT NULL,
-  `program` varchar(128) DEFAULT NULL,
-  `anggaran` int(11) DEFAULT NULL,
-  `capaian_realisasi_keuangan` int(11) DEFAULT NULL,
+  `tgl` varchar(45) DEFAULT NULL,
   PRIMARY KEY (`id_laporan`),
   CONSTRAINT `fk_inheritance_3` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -385,6 +434,7 @@ CREATE TABLE `laporan_kinerja_triwulan` (
 
 LOCK TABLES `laporan_kinerja_triwulan` WRITE;
 /*!40000 ALTER TABLE `laporan_kinerja_triwulan` DISABLE KEYS */;
+INSERT INTO `laporan_kinerja_triwulan` VALUES (22,8,4,'2019-08-04 00:20:33','2019-08-04 00:20:33','2019-08-15');
 /*!40000 ALTER TABLE `laporan_kinerja_triwulan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,12 +531,12 @@ DROP TABLE IF EXISTS `paket_kerja`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `paket_kerja` (
   `id_paket_kerja` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) NOT NULL,
+  `id_detail_rekap_pokja` int(11) NOT NULL,
   `nama_paket_kerja` varchar(64) DEFAULT NULL,
   `pagu` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_paket_kerja`),
-  KEY `fk_punya` (`id_laporan`),
-  CONSTRAINT `fk_punya` FOREIGN KEY (`id_laporan`) REFERENCES `rekap_pokja` (`id_laporan`)
+  KEY `fk_paket_kerja_1_idx` (`id_detail_rekap_pokja`),
+  CONSTRAINT `fk_paket_kerja_1` FOREIGN KEY (`id_detail_rekap_pokja`) REFERENCES `detail_rekap_pokja` (`id_detail_rekap_pokja`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -570,6 +620,7 @@ CREATE TABLE `pemantauan_tindak_lanjut` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
   `judul_laporan` varchar(64) DEFAULT NULL,
+  `tgl` date DEFAULT NULL,
   PRIMARY KEY (`id_laporan`),
   CONSTRAINT `fk_inheritance_9` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -581,6 +632,7 @@ CREATE TABLE `pemantauan_tindak_lanjut` (
 
 LOCK TABLES `pemantauan_tindak_lanjut` WRITE;
 /*!40000 ALTER TABLE `pemantauan_tindak_lanjut` DISABLE KEYS */;
+INSERT INTO `pemantauan_tindak_lanjut` VALUES (20,8,5,'2019-08-03 13:49:57','2019-08-03 13:49:57',NULL,'2019-08-14');
 /*!40000 ALTER TABLE `pemantauan_tindak_lanjut` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -646,7 +698,6 @@ CREATE TABLE `program` (
 
 LOCK TABLES `program` WRITE;
 /*!40000 ALTER TABLE `program` DISABLE KEYS */;
-INSERT INTO `program` VALUES ('5-01',5,'Program Pelayanan Administrasi Perkantoran','Persentase terlaksananya administrasi perkantoran',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-02',5,'Program Pemeliharaan Barang Milik Daerah','Persentase Barang Milik Daerah dalam kondisi baik',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-03',5,'Program Peningkatan Sarana dan Prasarana Aparatur','Persentase pemenuhan kebutuhan sarana dan prasarana aparatur',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-04',5,'Program Peningkatan, Pengembangan Sistem Pelaporan Capaian Kinerja dan Keuangan','Persentase dokumen perencanaan/laporan yang disusun tepat waktu',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-15',5,'Program Manajemen Pelayanan Pendidikan','Pengolahan database informasi pendidikan dan evaluasi pelaporan ',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-16',5,'Program Peningkatan Mutu Pendidik dan Tenaga Kependidikan','Persentase Pendidik dan Tenaga Kependidikan yang Lulus Pelatihan',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-17',5,'Program Pendidikan Dasar','Angka Partisipasi Murni SD/SMP ',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-18',5,'Program Pendidikan Anak Usia Dini','Angka Partisipasi Kasar PAUD',100,NULL,NULL,NULL,NULL,NULL,'%',NULL),('5-19',5,'Program Pendidikan Non Formal','Jumlah Lembaga yang Terakreditasi',1,NULL,NULL,NULL,NULL,NULL,'lembaga',NULL);
 /*!40000 ALTER TABLE `program` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -703,7 +754,6 @@ CREATE TABLE `realisasi_fisik` (
 
 LOCK TABLES `realisasi_fisik` WRITE;
 /*!40000 ALTER TABLE `realisasi_fisik` DISABLE KEYS */;
-INSERT INTO `realisasi_fisik` VALUES (5,8,1,'2019-07-31 05:17:18','2019-07-31 05:17:18',NULL,'2020-08-01');
 /*!40000 ALTER TABLE `realisasi_fisik` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -720,9 +770,7 @@ CREATE TABLE `rekap_pokja` (
   `id_tipe` int(11) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `nama` varchar(64) DEFAULT NULL,
-  `jabatan` varchar(32) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
+  `tgl` date DEFAULT NULL,
   PRIMARY KEY (`id_laporan`),
   CONSTRAINT `fk_inheritance_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -763,6 +811,7 @@ CREATE TABLE `rekap_tender` (
 
 LOCK TABLES `rekap_tender` WRITE;
 /*!40000 ALTER TABLE `rekap_tender` DISABLE KEYS */;
+INSERT INTO `rekap_tender` VALUES (23,8,3,'2019-08-04 01:09:31','2019-08-04 00:21:14','Judul Rekap Tenders','2019-08-14');
 /*!40000 ALTER TABLE `rekap_tender` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -895,8 +944,8 @@ CREATE TABLE `temuan` (
   `nama_temuan` varchar(256) DEFAULT NULL,
   PRIMARY KEY (`id_temuan`),
   KEY `fk_relationship_24` (`id_laporan`),
-  CONSTRAINT `fk_relationship_24` FOREIGN KEY (`id_laporan`) REFERENCES `pemantauan_tindak_lanjut` (`id_laporan`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_relationship_24` FOREIGN KEY (`id_laporan`) REFERENCES `pemantauan_tindak_lanjut` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -905,6 +954,7 @@ CREATE TABLE `temuan` (
 
 LOCK TABLES `temuan` WRITE;
 /*!40000 ALTER TABLE `temuan` DISABLE KEYS */;
+INSERT INTO `temuan` VALUES (4,20,'zxczxczx'),(5,20,'ads');
 /*!40000 ALTER TABLE `temuan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -956,7 +1006,7 @@ CREATE TABLE `tipelaporan_per_opd` (
 
 LOCK TABLES `tipelaporan_per_opd` WRITE;
 /*!40000 ALTER TABLE `tipelaporan_per_opd` DISABLE KEYS */;
-INSERT INTO `tipelaporan_per_opd` VALUES (8,1);
+INSERT INTO `tipelaporan_per_opd` VALUES (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,11),(8,12);
 /*!40000 ALTER TABLE `tipelaporan_per_opd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -986,7 +1036,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-07-31 04:55:25','2019-07-31 04:55:25'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-07-31 04:56:54','2019-07-31 04:56:54');
+INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-08-01 12:55:42','2019-08-01 12:55:42'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-08-04 00:20:15','2019-08-04 00:20:15');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -999,4 +1049,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-07-31 12:32:16
+-- Dump completed on 2019-08-04  9:28:01
