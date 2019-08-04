@@ -98,6 +98,10 @@ class Opd extends CI_Controller
             $this->data['opsi_opd'] = $this->opd->gets();
             unset($this->data['opsi_opd'][0]);
         }
+        if($formname == "rekap_tender"){
+            $this->load->model("tipelaporan/rekappokja_model", 'rp');
+            $this->data['opsi_paket_kerja'] = $this->rp->get_paket_kerja();
+        }
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";

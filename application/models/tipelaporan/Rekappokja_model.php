@@ -17,6 +17,14 @@ class Rekappokja_model extends CI_Model
         return $this->db->get()->result();
     }
 
+    public function get_paket_kerja()
+    {
+        return $this->db->from('paket_kerja')
+                        ->order_by('nama_paket_kerja')
+                        ->join('detail_rekap_pokja', 'detail_rekap_pokja.id_detail_rekap_pokja = paket_kerja.id_detail_rekap_pokja')
+                        ->get()->result_array();
+    }
+
     public function get_data_by_id($id)
     {
         $rpdata = $this->db->get_where('rekap_pokja', ['id_laporan' => $id])->result_array()[0];
