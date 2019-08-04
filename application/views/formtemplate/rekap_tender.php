@@ -196,11 +196,22 @@
 var idlap = '<?php echo $data['fetch']['rt']['id_laporan']; ?>';
 var opd = "<div>\
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
-                <input value='"+idlap+"' type='hidden' name='new[id_laporan][]'>\
+                <input value='"+idlap+"' type='hidden' name='id_laporan[]'>\
+                \
+                <div class='form-group'>\
+                <label for='paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Paket Kerja</label>\
+                  <select class='col-md-6 col-sm-6 col-xs-12' name='id_paket_kerja[]'>\
+                    <?php 
+                      foreach($data['opsi_paket_kerja'] as $opd){
+                        echo "<option value='$opd[id_paket_kerja]'>$opd[nama_paket_kerja] ($opd[nama])</option>";
+                      }
+                    ?>
+                  </select>\
+                </div>\
                 \
                 <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
-                  <select class='col-md-6 col-sm-6 col-xs-12' name='new[id_opd][]'>\
+                  <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
                   <?php 
                     foreach($data['opsi_opd'] as $opd){
                       echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
@@ -212,35 +223,35 @@ var opd = "<div>\
                 <div class='form-group'>\
                   <label for='nilai_hps' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai HPS</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                      <input class='form-control col-md-7 col-xs-12' type='number' name='new[nilai_hps][]'  >\
+                      <input class='form-control col-md-7 col-xs-12' type='number' name='nilai_hps[]'  >\
                   </div>\
                 </div>\
                 \
                 <div class='form-group'>\
                   <label for='pemenang' class='control-label col-md-3 col-sm-3 col-xs-12'>Pemenang</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                      <input class='form-control col-md-7 col-xs-12' type='text' name='new[pemenang][]'  >\
+                      <input class='form-control col-md-7 col-xs-12' type='text' name='pemenang[]'  >\
                   </div>\
                 </div>\
                 \
                 <div class='form-group'>\
                   <label for='harga_kontrak' class='control-label col-md-3 col-sm-3 col-xs-12'>Harga Kontrak</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                      <input  class='form-control col-md-7 col-xs-12' type='number' name='new[harga_kontrak][]'  >\
+                      <input  class='form-control col-md-7 col-xs-12' type='number' name='harga_kontrak[]'  >\
                   </div>\
                 </div>\
                 \
                 <div class='form-group'>\
                   <label for='presentase_kontrak_thd_hps' class='control-label col-md-3 col-sm-3 col-xs-12'>Presentase Kontrak Terhadap HPS</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                      <input   class='form-control col-md-7 col-xs-12' type='number' name='new[presentase_kontrak_thd_hps][]'  >\
+                      <input   class='form-control col-md-7 col-xs-12' type='number' name='presentase_kontrak_thd_hps[]'  >\
                   </div>\
                 </div>\
                 \
                 <div class='form-group'>\
                   <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                   <div class='col-md-6 col-sm-6 col-xs-12'>\
-                      <input class='form-control col-md-7 col-xs-12' type='text' name='new[ket][]'  >\
+                      <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
                   </div>\
                 </div>\
                 \
