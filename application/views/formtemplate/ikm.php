@@ -55,39 +55,45 @@
                             <?php if($data['fetch']['ikmopd'] != NULL){ 
                                     foreach($data['fetch']['ikmopd'] as $ikmopd){  
                             ?>
-                            <div class="form-group">  
+                            <div>  
                               
-                                <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                                <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
-                                  <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
-                                    <?php 
-                                      foreach($data['opsi_opd'] as $opd){
-                                        $sel = '';
-                                        if($ikmopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
-                                        echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
-                                      }
-                                    ?>
-                                  </select>
-                            <br/><br/>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                            <!-- <input value='<?php //echo $ikm['id_temuan']; ?>' type='hidden' name='id_temuan[]'> -->
+                            <div class='form-group'>
+                            <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
+                              <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
+                                <?php 
+                                  foreach($data['opsi_opd'] as $opd){
+                                    $sel = '';
+                                    if($ikmopd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                    echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                                  }
+                                ?>
+                              </select>
+                            </div>
+                            
                             <div class='form-group'>
                             <label for='predikat' class='control-label col-md-3 col-sm-3 col-xs-12'>Predikat</label>
                             <div class='col-md-6 col-sm-6 col-xs-12'>
                               <input value='<?php echo $ikmopd['predikat']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >
                             </div>
                             </div>
+                            
                             <div class='form-group'>
                             <label for='nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai</label>
                             <div class='col-md-6 col-sm-6 col-xs-12'>
                               <input value='<?php echo $ikmopd['nilai']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >
                             </div>
                             </div>
-                              <div class="form-group">
-                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                            
+                            <div class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                               <button type='button' onclick='delete_node(this)'>Hapus</button>
-                              </div>
-                              </div>
                             </div>
-                            <br/><br/></div>
+                            </div>
+                            
+                            </div>
+                            </div>
 
                             <?php }} ?>
                             </div>
