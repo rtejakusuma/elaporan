@@ -199,9 +199,9 @@ CREATE TABLE `ikm_opd` (
   `id_laporan` int(11) DEFAULT NULL,
   `nilai` float DEFAULT NULL,
   `predikat` varchar(16) DEFAULT NULL,
-  KEY `fk_relationship_28` (`id_laporan`),
   KEY `fk_relationship_29` (`id_opd`),
-  CONSTRAINT `fk_relationship_28` FOREIGN KEY (`id_laporan`) REFERENCES `ikm` (`id_laporan`),
+  KEY `fk_relationship_28` (`id_laporan`),
+  CONSTRAINT `fk_relationship_28` FOREIGN KEY (`id_laporan`) REFERENCES `ikm` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_29` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -590,9 +590,9 @@ CREATE TABLE `pelayanan_publik_opd` (
   `indeks_pelayanan_publik` float DEFAULT NULL,
   `konversi_100` float DEFAULT NULL,
   `ket` text DEFAULT NULL,
-  KEY `fk_relationship_18` (`id_laporan`),
   KEY `fk_relationship_19` (`id_opd`),
-  CONSTRAINT `fk_relationship_18` FOREIGN KEY (`id_laporan`) REFERENCES `pelayanan_publik` (`id_laporan`),
+  KEY `fk_relationship_18` (`id_laporan`),
+  CONSTRAINT `fk_relationship_18` FOREIGN KEY (`id_laporan`) REFERENCES `pelayanan_publik` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_19` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -650,9 +650,9 @@ CREATE TABLE `permasalahan_kelembagaan` (
   `usulan` text DEFAULT NULL,
   `dasar_hukum` text DEFAULT NULL,
   `ket` text DEFAULT NULL,
-  KEY `fk_relationship_22` (`id_laporan`),
   KEY `fk_relationship_23` (`id_opd`),
-  CONSTRAINT `fk_relationship_22` FOREIGN KEY (`id_laporan`) REFERENCES `monitoring_kelembagaan` (`id_laporan`),
+  KEY `fk_relationship_22` (`id_laporan`),
+  CONSTRAINT `fk_relationship_22` FOREIGN KEY (`id_laporan`) REFERENCES `monitoring_kelembagaan` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_23` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -857,7 +857,7 @@ CREATE TABLE `sotk_opd` (
   KEY `fk_relationship_26` (`id_opd`),
   KEY `fk_relationship_27` (`id_laporan`),
   CONSTRAINT `fk_relationship_26` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`),
-  CONSTRAINT `fk_relationship_27` FOREIGN KEY (`id_laporan`) REFERENCES `sotk` (`id_laporan`)
+  CONSTRAINT `fk_relationship_27` FOREIGN KEY (`id_laporan`) REFERENCES `sotk` (`id_laporan`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -915,9 +915,9 @@ CREATE TABLE `tatalaksana_opd` (
   `jam_kerja` float DEFAULT NULL,
   `jml_nilai` float DEFAULT NULL,
   `ket` text DEFAULT NULL,
-  KEY `fk_relationship_20` (`id_laporan`),
   KEY `fk_relationship_21` (`id_opd`),
-  CONSTRAINT `fk_relationship_20` FOREIGN KEY (`id_laporan`) REFERENCES `tatalaksana` (`id_laporan`),
+  KEY `fk_relationship_20` (`id_laporan`),
+  CONSTRAINT `fk_relationship_20` FOREIGN KEY (`id_laporan`) REFERENCES `tatalaksana` (`id_laporan`) ON DELETE CASCADE,
   CONSTRAINT `fk_relationship_21` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -1049,4 +1049,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-04  9:28:01
+-- Dump completed on 2019-08-04 10:06:30

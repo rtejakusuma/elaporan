@@ -114,8 +114,10 @@
 <script>
 
 
-  var opd = "<div class='form-group'>\
+  var opd = "<div>\
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                \
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
                 <?php 
@@ -124,33 +126,38 @@
                   }
                 ?>\
               </select>\
-              <br/><br/>\
+              </div>\
+              \
               <div class='form-group'>\
               <label for='predikat' class='control-label col-md-3 col-sm-3 col-xs-12'>Predikat</label>\
               <div class='col-md-6 col-sm-6 col-xs-12'>\
                 <input class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >\
               </div>\
               </div>\
+              \
               <div class='form-group'>\
               <label for='nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai</label>\
               <div class='col-md-6 col-sm-6 col-xs-12'>\
                 <input class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >\
               </div>\
               </div>\
+              \
               <div class='form-group'>\
-                              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
-              <button type='button' onclick='delete_node(this)'>Hapus</button>\
+              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+                <button type='button' onclick='delete_node(this)'>Hapus</button>\
               </div>\
               </div>\
+              \
               </div>\
-              <br/><br/></div>";
+              </div>\
+              ";
     function add_field(){
       var cont = document.getElementById('container-opsi');
       console.log(cont);
       cont.innerHTML = opd + cont.innerHTML;
     }
     function delete_node(node){
-      node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+      node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
     }
 </script>
 
