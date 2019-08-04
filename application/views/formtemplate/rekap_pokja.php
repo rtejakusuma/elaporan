@@ -135,21 +135,21 @@
                           <div class="form-group">
                           <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input value='<?php echo $drp['nama']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama[<?php echo $drp['id_detail_rekap_pokja']?>][]"  >
+                            <input value='<?php echo $drp['nama']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama[]"  >
                           </div>
                           </div>
 
                           <div class="form-group">
                           <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input value='<?php echo $drp['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $drp['id_detail_rekap_pokja']?>][]"  >
+                            <input value='<?php echo $drp['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[]"  >
                           </div>
                           </div>
                           
                           <div class="form-group">
                           <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                           <div class="col-md-6 col-sm-6 col-xs-12">
-                            <input value='<?php echo $drp['ket']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[<?php echo $drp['id_detail_rekap_pokja']?>][]"  >
+                            <input value='<?php echo $drp['ket']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
                           </div>
                           </div>
                           
@@ -192,17 +192,18 @@
                                 foreach($data['fetch']['pk'][$drp['id_detail_rekap_pokja']] as $pk){
                             ?>
 
+                            <input value='<?php echo $pk['id_paket_kerja']; ?>' type='hidden' name='id_paket_kerja[]'>
                             <div class="form-group">
                             <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[<?php echo $pk['id_detail_rekap_pokja']; ?>'][]"  >
+                              <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]"  >
                             </div>
                             </div>
                             
                             <div class="form-group">
                             <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[<?php echo $pk['id_detail_rekap_pokja']; ?>'][]"  >
+                              <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]"  >
                             </div>
                             </div>
 
@@ -243,21 +244,21 @@ function add_field(){
                           <div class='form-group'>\
                           <label for='nama' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama</label>\
                           <div class='col-md-6 col-sm-6 col-xs-12'>\
-                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[][nama]'  >\
+                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama][]'  >\
                           </div>\
                           </div>\
                           \
                           <div class='form-group'>\
                           <label for='jabatan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jabatan</label>\
                           <div class='col-md-6 col-sm-6 col-xs-12'>\
-                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[][jabatan]'  >\
+                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[jabatan][]'  >\
                           </div>\
                           </div>\
                           \
                           <div class='form-group'>\
                           <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                           <div class='col-md-6 col-sm-6 col-xs-12'>\
-                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[][ket]'  >\
+                            <input class='form-control col-md-7 col-xs-12' type='text' name='new[ket][]'  >\
                           </div>\
                           </div>\
                           \
@@ -275,19 +276,19 @@ function add_field(){
 
 function add_hasil_temuan(node){
   var id = node.parentNode.childNodes[1].value;
-    console.log(node.parentNode.childNodes);
+    console.log(id);
     node.parentNode.innerHTML = node.parentNode.innerHTML+"\
-\
+\<input type='hidden' value='"+id+"' name='new[id_detail_rekap_pokja][]'>\
     <div class='form-group'>\
     <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
     <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='nama_paket_kerja["+id+"][] ' >\
+      <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][] ' >\
     </div>\
     </div>\
     <div class='form-group'>\
     <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
     <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='pagu["+id+"][]'  >\
+      <input class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
     </div>\
     </div>\
     <br/>";
