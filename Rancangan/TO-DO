@@ -11,8 +11,8 @@
 // 3 TABEL //
 - jadwal pelaksanaan
 	- model done
-	- form check blum ada tombol hapus di tab ke 3
-	- print done
+	- form done
+	- print blum
 
 - rekap pokja >> CEK TOTAL
 	- model cek
