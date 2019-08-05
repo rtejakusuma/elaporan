@@ -71,6 +71,8 @@
                            <?php if ($data['fetch']['drt'] != NULL) {
                               foreach ($data['fetch']['drt'] as $drtdata) {
                             ?>
+                            <div>
+                            <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>
                             <div class="form-group">
                             <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                               <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
