@@ -73,6 +73,7 @@
                             ?>
                             <div>
                             <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>
+                            <input value='<?php echo $drtdata['id_detail_rekap_tender']; ?>' type='hidden' name='id_detail_rekap_tender[]'>
                             <div class="form-group">
                             <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                               <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
@@ -140,6 +141,7 @@
                             
                             </div>
 
+                            <div id='deleted'></div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -192,7 +194,7 @@
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
                 <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
-                <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
+                <select class='col-md-6 col-sm-6 col-xs-12' name='new[id_opd][]'>\
               <?php
               foreach ($data['opsi_opd'] as $opd) {
                 echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
@@ -257,6 +259,16 @@
   }
 
   function delete_node(node) {
+    var cont = document.getElementById('deleted');
+  // console.log(node.parentNode.childNodes[1].nodeName);
+  var id = node.parentNode.parentNode.parentNode.childNodes[1];
+  console.log(node.parentNode.parentNode);
+  if (id.nodeName == "INPUT") {
+    id = id.value;
+    console.log(id);
+    cont.innerHTML += "<input type='hidden' value='" + id + "' name='to_del[]'>";
+  }
+
     node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
   }
 </script>

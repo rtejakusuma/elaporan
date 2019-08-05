@@ -98,7 +98,8 @@ class Rekaptender_model extends CI_Model
                 unset($data['new']);
                 // updated data
                 if($data['id_detail_rekap_tender'] != NULL){
-                    foreach($data['id_detail_rekap_tender'] as $idx){
+                    // var_dump($data['id_detail_rekap_tender']); die();
+                    for($idx = 0; $idx < sizeof($data['id_detail_rekap_tender']); $idx+=1){
                         array_push($updata, array(
                             'id_laporan' => $id_laporan,
                             'id_detail_rekap_tender' => $data['id_detail_rekap_tender'][$idx], 
