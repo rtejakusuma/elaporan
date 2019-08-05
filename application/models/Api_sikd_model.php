@@ -61,6 +61,7 @@ class Api_sikd_model extends CI_Model
 
         if ($err) {
             // API GAGAL
+            var_dump($err);
             return NULL;
         } else {
             // API BERHASIL
