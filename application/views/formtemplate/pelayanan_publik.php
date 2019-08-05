@@ -71,23 +71,24 @@
                             ?>
                             </select>
                             </div>
-                              <div class="form-group">
+
+                            <div class="form-group">
                               <label for="indeks_pelayanan_publik" class="control-label col-md-3 col-sm-3 col-xs-12">Indeks Pelayanan Publik</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
                                   <input  value='<?php echo $ppopd['indeks_pelayanan_publik'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="indeks_pelayanan_publik[]"  >
                               </div>
-                              </div>
-                              
-                              <div class="form-group">
-                            <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                            <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
-                            </div>
-                              </div>
-                              </div>
-                              <?php }} ?>
-                              </div>
 
+                            <div class="form-group">
+                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type='button' onclick='delete_node(this)'>Hapus</button>
+                              </div>
+                            </div>
+
+                            </div>
+                            </div>
+                            <?php }} ?>
+                            </div>
                               <div class="ln_solid"></div>
                               <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -128,12 +129,6 @@ var opd = "<div>\
               </div>\
               </div>\
               <div class='form-group'>\
-              <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
-              <div class='col-md-6 col-sm-6 col-xs-12'>\
-                  <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
-              </div>\
-              </div>\
-              <div class='form-group'>\
               <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
               <button type='button' onclick='delete_node(this)'>Hapus</button>\
               </div>\
@@ -148,7 +143,7 @@ var opd = "<div>\
            }
 
            function delete_node(node) {
-             node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+             node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
            }
          </script>
 
