@@ -32,8 +32,6 @@
                       </li>
                       <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Detail Rekap Pokja</a>
                       </li>
-                      <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Paket Kerja</a>
-                      </li>
                     </ul>
                     <div id="myTabContent" class="tab-content">
                       <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -102,53 +100,6 @@
                               <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success" >Submit</button>
                             </div>
                           </div>
-                        </form>
-                      </div>
-
-                      <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <form id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                          <input value="paket_kerja" type="hidden" name="nama_tabel">
-                          <div id="container-opsi">
-
-                            <?php if ($data['fetch']['drp'] != NULL) {
-                              foreach ($data['fetch']['drp'] as $drp) {
-                            ?>
-                            <div>
-                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                            <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
-                            <h2><?php echo $drp['nama']; ?></h2>
-                            <button type='button' onclick='add_hasil_temuan(this)'>Tambah Paket Kerja</button>
-
-                            <?php
-                              foreach ($data['fetch']['pk'][$drp['id_detail_rekap_pokja']] as $pk) {
-                            ?>
-
-                            <input value='<?php echo $pk['id_paket_kerja']; ?>' type='hidden' name='id_paket_kerja[]'>
-                            <div class="form-group">
-                              <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]">
-                              </div>
-                            </div>
-
-                            <div class="form-group">
-                              <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]">
-                              </div>
-                            </div>
-
-                            <?php } ?>
-                            <br /></div>
-                            <?php }} ?>
-                            </div>
-
-                            <div class="ln_solid"></div>
-                            <div class="form-group">
-                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success">Submit</button>
-                              </div>
-                            </div>
                         </form>
                       </div>
 
