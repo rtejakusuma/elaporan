@@ -4,16 +4,11 @@
 	- form done >> ada bagian yang dipaksa jadi text (relasi dasar hukum dan usulan membingungkan)
 	- print done >> nah
 - laporan kinerja triwulan
-	- model done >> ada api?
-	- form done >> tergantung api
-	- print done >> belum fetch data
+	- model done kalo gak ada api
+	- form done kalo gak ada api
+	- print done
 
 // 3 TABEL //
-- jadwal pelaksanaan
-	- model done
-	- form done
-	- print blum
-
 - rekap pokja >> CEK TOTAL
 	- model cek
 	- form done blum cek
@@ -21,12 +16,12 @@
 - realisasi fisik
 	- FETCH UPDATE done
 	- model check done
-	- form check
-	- print kurang hitungan
+	- form check moga2 done
+	- print belum semua hitungan selesai
 - pemantauan tindak lanjut
 	- model done
 	- form check blum ada tombol hapus di tab ke 3
-	- print done
+	- print belum fetch data
 
 // 4 TABEL //
 - laporan rb
@@ -65,6 +60,10 @@
 	- form done
 	- print done
 - rekap tender
+	- model done
+	- form done
+	- print done
+- jadwal pelaksanaan
 	- model done
 	- form done
 	- print done

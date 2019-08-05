@@ -28,7 +28,7 @@
             <th>TB </th>
             <th>TT</th>
         </tr>
-        <tr>
+        <!-- <tr>
             <th></th>
             <th>SPI</th>
             <th></th>
@@ -41,10 +41,12 @@
             <th></th>
             <th></th>
             <th></th>
-        </tr>
+        </tr> -->
         <!-- End of Table Header -->
         <!-- Table Contents -->
-
+        <?php
+            // foreach($data)
+        ?>
         <!-- End of Table Contents -->
     </table>
     <div id='footer-laporan'></div>
