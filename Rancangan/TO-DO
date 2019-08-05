@@ -14,14 +14,14 @@
 	- form done blum cek
 	- print done
 - realisasi fisik
-	- FETCH UPDATE done
-	- model check done
-	- form check moga2 done
+	- model done kalo gak ada tambah api
+	- form moga2 done kalo gak ada tambah api
 	- print belum semua hitungan selesai
 - pemantauan tindak lanjut
 	- model done
-	- form check blum ada tombol hapus di tab ke 3
+	- form done
 	- print belum fetch data
+
 
 // 4 TABEL //
 - laporan rb
