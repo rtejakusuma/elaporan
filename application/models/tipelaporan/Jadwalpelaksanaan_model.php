@@ -127,22 +127,24 @@ class Jadwalpelaksanaan_model extends CI_Model
             }
             
         } else if($table == 'auditor') {
-            // var_dump($data); die();
+            
             $tmp = $data['id_jadwal_pelaksanaan_opd'];
             unset($data['id_jadwal_pelaksanaan_opd']);
             if($data != NULL){
                 foreach($tmp as $idx){
                     
                     if(isset($data['nama_auditor'][$idx])){
-                        if($data['nama_auditor'][$idx][$i] == "" && $data['jabatan'][$idx][$i] == "")
-                            continue;
+                        
                         for($i=0; $i < sizeof($data['nama_auditor'][$idx]); $i+=1){
+                            if($data['nama_auditor'][$idx][$i] == "" && $data['jabatan'][$idx][$i] == "")
+                                continue;
                             array_push($insdata, array(
                                         'id_jadwal_pelaksanaan_opd' => $idx,
                                         'nama_auditor' => $data['nama_auditor'][$idx][$i],
                                         'jabatan' => $data['jabatan'][$idx][$i]
                             ));
                         }
+                        
                     }
                 }
                 // var_dump($insdata); die();
