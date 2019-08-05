@@ -63,7 +63,7 @@
 
                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-
+                            <input value="detail_rekap_tender" type="hidden" name="nama_tabel">
 
                             <div class="form-group">
                             <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>

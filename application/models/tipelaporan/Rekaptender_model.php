@@ -56,6 +56,17 @@ class Rekaptender_model extends CI_Model
         return $datalaporan['id_laporan'];
     }
 
+//     array_push($insdata, array(
+//         'id_laporan' => $id_laporan,
+//         'id_opd' => $data['id_opd'][$i],
+//         'id_paket_kerja' => $data['id_paket_kerja'][$i],
+//         'nilai_hps' => $data['nilai_hps'][$i],
+//         'pemenang' => $data['pemenang'][$i],
+//         'harga_kontrak' => $data['harga_kontrak'][$i],
+//         'presentase_kontrak_thd_hps' => $data['presentase_kontrak_thd_hps'][$i],
+//         'ket' => $data['ket'][$i]
+// ));
+
     public function update_data($id_laporan, $data)
     {
         $table = $data['nama_tabel'];

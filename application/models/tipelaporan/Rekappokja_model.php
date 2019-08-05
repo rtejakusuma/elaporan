@@ -27,15 +27,20 @@ class Rekappokja_model extends CI_Model
 
     public function get_data_by_id($id)
     {
-        $rpdata = $this->db->get_where('rekap_pokja', ['id_laporan' => $id])->result_array()[0];
-        $drpdata = $this->db->get_where('detail_rekap_pokja', "id_laporan = $id")->result_array();
-        $pkdata = array();
-        if($drpdata != NULL){
-            foreach($drpdata as $d){
-                $pkdata[$d['id_detail_rekap_pokja']] = $this->db->get_where('paket_kerja', "id_detail_rekap_pokja = $d[id_detail_rekap_pokja]")->result_array();
+        $rpdata = $this->db->get_where('rekap_pokja', ['id_laporan' => $id])->result_array();
+        if($rpdata != NULL) $rpdata = $rpdata[0];
+        else return NULL;
+        $pdata = $this->db->get_where('pegawai', "id_laporan = $id")->result_array();
+        $drpdata = array();
+        if($pdata != NULL){
+            foreach($pdata as $d){
+                $drpdata[$d['id_pegawai']] = 
+                    $this->db->select("detail_rekap_pokja.jabatan, detail_rekap_pokja.ket, nama_paket_kerja, pagu")
+                                ->from("detail_rekap_pokja")->join("detail_rekap_tender", "detail_rekap_pokja.id_detail_rekap_tender = detail_rekap_tender.id_detail_rekap_tender")
+                                ->where("detail_rekap_pokja.id_pegawai", $d['id_pegawai'])->get()->result_array();                        
             }
         }
-        return array('rp' => $rpdata, 'drp' => $drpdata, 'pk' => $pkdata);
+        return array('rp' => $rpdata, 'p' => $pdata, 'drp' => $drpdata);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
