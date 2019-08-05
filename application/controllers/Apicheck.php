@@ -13,8 +13,9 @@ class Apicheck extends CI_Controller
     {
         $this->load->model('api_sipp_model');
         $data = $this->api_sipp_model->get_api($key, $val);
-        $json = json_encode($data, JSON_PRETTY_PRINT);
+        $json = json_encode($data['arr'], JSON_PRETTY_PRINT);
 
+        var_dump($data['url']);
         printf('<pre>%s</pre>', $json);
     }
 
@@ -22,8 +23,9 @@ class Apicheck extends CI_Controller
     {
         $this->load->model('api_sikd_model');
         $data = $this->api_sikd_model->get_serapan($tahun, $tw);
-        $json = json_encode($data, JSON_PRETTY_PRINT);
+        $json = json_encode($data['arr'], JSON_PRETTY_PRINT);
 
+        var_dump($data['url']);
         printf('<pre>%s</pre>', $json);
     }
 
