@@ -184,7 +184,7 @@ function add_field(){
     var cont = document.getElementById('container-opsi');
     console.log(cont);
     cont.innerHTML = "<div>\
-                            <div style='border: 2px solid black;'>\
+                            <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
                             <div class='form-group'>\
                             <label for='nama_temuan' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Temuan</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -205,7 +205,7 @@ function add_hasil_temuan(node){
     console.log(node.parentNode.childNodes);
     node.parentNode.innerHTML = node.parentNode.innerHTML+"\
     <div class='form-group'>\
-      <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>rekomendasi</label>\
+      <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
           <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi["+id+"][]'  >\
       </div>\
