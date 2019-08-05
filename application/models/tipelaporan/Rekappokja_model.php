@@ -77,77 +77,59 @@ class Rekappokja_model extends CI_Model
         $updata = array();
         
         $this->db->trans_begin();
-        if($table == 'detail_rekap_pokja'){
+        if($table == 'pegawai'){
             if($data != NULL){
                 // new data
                 for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
                     array_push($insdata, array(
                                 'id_laporan' => $id_laporan,
-                                'nama' => $data['new']['nama'][$i],
-                                'jabatan' => $data['new']['jabatan'][$i],
-                                'ket' => $data['new']['ket'][$i]
+                                'nama' => $data['new']['nama'][$i]
+                    ));
+                }
+                if($insdata != NULL){
+                    $this->db->insert_batch('pegawai', $insdata);
+                }
+                unset($data['new']);
+                
+                // updated data
+                if(isset($data['id_pegawai'])){
+                    for($i = 0; $i < sizeof($data['id_pegawai']); $i+=1){
+                        array_push($updata, array(
+                                    'id_laporan' => $id_laporan,
+                                    'id_pegawai' => $data['id_pegawai'][$i], 
+                                    'nama' => $data['nama'][$i]
+                        ));
+                    }
+                    $this->db->update_batch('pegawai', $updata, 'id_pegawai');
+                }
+                
+                // unused data
+                if(isset($data['to_del']))
+                    $this->db->where_in('id_pegawai', $data['to_del'])
+                                ->delete('pegawai');
+                
+            } else {
+                $this->db->delete('pegawai', "id_laporan = $id_laporan");
+            } 
+        } else if($table == 'detail_rekap_pokja') {
+            if($data != NULL){
+                // new data
+                for($i = 0; $i < sizeof(reset($data['jabatan'])); $i+=1){
+                    array_push($insdata, array(
+                                'id_detail_rekap_tender' => $data['id_detail_rekap_tender'][$i],
+                                'id_pegawai' => $data['id_pegawai'][$i],
+                                'jabatan' => $data['jabatan'][$i],
+                                'ket' => $data['ket'][$i]
                     ));
                 }
                 if($insdata != NULL){
                     $this->db->insert_batch('detail_rekap_pokja', $insdata);
                 }
-                unset($data['new']);
-                
-                // updated data
-                if(isset($data['id_detail_rekap_pokja'])){
-                    for($i = 0; $i < sizeof($data['id_detail_rekap_pokja']); $i+=1){
-                        array_push($updata, array(
-                                    'id_laporan' => $id_laporan,
-                                    'id_detail_rekap_pokja' => $data['id_detail_rekap_pokja'][$i], 
-                                    'nama' => $data['nama'][$i],
-                                    'jabatan' => $data['jabatan'][$i],
-                                    'ket' => $data['ket'][$i]
-                        ));
-                    }
-                    $this->db->update_batch('detail_rekap_pokja', $updata, 'id_detail_rekap_pokja');
-                }
-                
-                // unused data
-                if(isset($data['to_del']))
-                    $this->db->where_in('id_detail_rekap_pokja', $data['to_del'])
-                                ->delete('detail_rekap_pokja');
-                
             } else {
-                $this->db->delete('detail_rekap_pokja', "id_laporan = $id_laporan");
-            } 
-        } else if($table == 'paket_kerja') {
-            if($data != NULL){
-                // new data
-                // var_dump($data['new']); die();
-                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
-                    array_push($insdata, array(
-                                'id_detail_rekap_pokja' => $data['new']['id_detail_rekap_pokja'][$i],
-                                'nama_paket_kerja' => $data['new']['nama_paket_kerja'][$i],
-                                'pagu' => $data['new']['pagu'][$i]
-                    ));
-                }
-                if($insdata != NULL){
-                    $this->db->insert_batch('paket_kerja', $insdata);
-                }
-                unset($data['new']);
-                
-                // updated data
-                if(isset($data['id_paket_kerja'])){
-                    for($i = 0; $i < sizeof($data['id_paket_kerja']); $i+=1){
-                        array_push($updata, array(
-                                    'id_paket_kerja' => $data['id_paket_kerja'][$i],
-                                    'nama_paket_kerja' => $data['nama_paket_kerja'][$i], 
-                                    'pagu' => $data['pagu'][$i]
-                        ));
-                    }
-                    $this->db->update_batch('paket_kerja', $updata, 'id_paket_kerja');
-                }
-                
-            } else {
-                $this->db->from('paket_kerja')
-                            ->where('detail_rekap_pokja.id_laporan', $id_laporan)
-                            ->where('detail_rekap_pokja.id_detail_rekap_pokja = paket_kerja.id_detail_rekap_pokja')
-                            ->delete('paket_kerja');
+                $todel = $this->db->select('id_pegawai')->from('pegawai')->join('rekap_pokja', 'rekap_pokja.id_laporan = pegawai.id_laporan')
+                                    ->where('pegawai.id_laporan', $id_laporan)->get()->result_array();
+                if($todel != NULL)
+                    $this->db->where_in('id_pegawai', $todel)->delete('detail_rekap_pokja');
             }
         
         }
@@ -157,10 +139,6 @@ class Rekappokja_model extends CI_Model
     public function delete_data($id_laporan)
     {
         $this->db->trans_begin();
-        // nunggu update pdm
-        // cek pdm untuk memastikan keutuhan data
-        $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('detail_rekap_pokja');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('rekap_pokja');
         $this->db->where('id_laporan', $id_laporan);
