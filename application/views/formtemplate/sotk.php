@@ -61,7 +61,7 @@
                               <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                             <div class="form-group">
                             <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
-                                <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
+                            <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
                                 $sel = '';
@@ -70,13 +70,25 @@
                               }
                             ?>
                             </select>
-                            <br/><br/>
+                            </div>
                             
                             <div class="form-group">
                             <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
-                            </div>
+                            <select class='col-md-6 col-sm-6 col-xs-12' name='besaran[]'>
+                            <?php 
+                                $sel1 = ''; $sel2 = ''; $sel3 = '';
+                                if($sotkopd['besaran'] == "TIPE A") $sel1 = "selected='selected'";
+                                if($sotkopd['besaran'] == "TIPE B") $sel2 = "selected='selected'";
+                                if($sotkopd['besaran'] == "TIPE C") $sel3 = "selected='selected'";
+                                echo "<option value='TIPE A' $sel1>TIPE A</option>";
+                                echo "<option value='TIPE B' $sel1>TIPE B</option>";
+                                echo "<option value='TIPE C' $sel1>TIPE C</option>";
+                            ?>
+                            </select>
+                            
+                            <!-- <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php //echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
+                            </div> -->
                             </div>
                             
                             <div class="form-group">
@@ -123,9 +135,13 @@ var opd = "<div>\
             \
             <div class='form-group'>\
             <label for='besaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Besaran</label>\
-            <div class='col-md-6 col-sm-6 col-xs-12'>\
-              <input class='form-control col-md-7 col-xs-12' type='text' name='besaran[]'  >\
-            </div>\
+            <select class='col-md-6 col-sm-6 col-xs-12' name='besaran[]'>\
+                            <?php 
+                                echo "<option value='TIPE A'>TIPE A</option>";
+                                echo "<option value='TIPE B'>TIPE B</option>";
+                                echo "<option value='TIPE C'>TIPE C</option>";
+                            ?>
+                            </select>\
             </div>\
             <div class='form-group'>\
                               <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
