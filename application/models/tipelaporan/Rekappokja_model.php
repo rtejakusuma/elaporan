@@ -35,7 +35,7 @@ class Rekappokja_model extends CI_Model
         if($pdata != NULL){
             foreach($pdata as $d){
                 $drpdata[$d['id_pegawai']] = 
-                    $this->db->select("detail_rekap_pokja.jabatan, detail_rekap_pokja.ket, nama_paket_kerja, pagu")
+                    $this->db->select("id_pegawai, detail_rekap_tender.id_detail_rekap_tender,jabatan, detail_rekap_pokja.ket, nama_paket_kerja, pagu")
                                 ->from("detail_rekap_pokja")->join("detail_rekap_tender", "detail_rekap_pokja.id_detail_rekap_tender = detail_rekap_tender.id_detail_rekap_tender")
                                 ->where("detail_rekap_pokja.id_pegawai", $d['id_pegawai'])->get()->result_array();                        
             }
@@ -86,6 +86,7 @@ class Rekappokja_model extends CI_Model
                                 'nama' => $data['new']['nama'][$i]
                     ));
                 }
+                // var_dump($insdata); die();
                 if($insdata != NULL){
                     $this->db->insert_batch('pegawai', $insdata);
                 }
@@ -114,7 +115,8 @@ class Rekappokja_model extends CI_Model
         } else if($table == 'detail_rekap_pokja') {
             if($data != NULL){
                 // new data
-                for($i = 0; $i < sizeof(reset($data['jabatan'])); $i+=1){
+                // var_dump($data); die();
+                for($i = 0; $i < sizeof($data['jabatan']); $i+=1){
                     array_push($insdata, array(
                                 'id_detail_rekap_tender' => $data['id_detail_rekap_tender'][$i],
                                 'id_pegawai' => $data['id_pegawai'][$i],
@@ -122,6 +124,8 @@ class Rekappokja_model extends CI_Model
                                 'ket' => $data['ket'][$i]
                     ));
                 }
+                $iddel = array_values($data['id_pegawai']);
+                $this->db->where_in('id_pegawai', $iddel)->delete('detail_rekap_pokja');
                 if($insdata != NULL){
                     $this->db->insert_batch('detail_rekap_pokja', $insdata);
                 }

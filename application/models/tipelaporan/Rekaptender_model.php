@@ -29,6 +29,12 @@ class Rekaptender_model extends CI_Model
         return array('rt' => $rtdata, 'drt' => $drtdata);
     }
 
+    public function get_paket_kerja()
+    {
+        return $this->db->select("id_detail_rekap_tender, nama_paket_kerja, pagu")
+                        ->from('detail_rekap_tender')->get()->result_array();
+    }
+
     public function init_insert($id_opd, $datalaporan, $data)
     {
         $this->db->trans_start();
