@@ -101,8 +101,8 @@
                         </li>
                         <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">Detail Rekap Pokja</a>
                         </li>
-                        <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Paket Kerja</a>
-                        </li>
+                        <!-- <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">Paket Kerja</a>
+                        </li> -->
                       </ul>
                       <div id="myTabContent" class="tab-content">
                         <div role="tabpanel" class="tab-pane fade active in" id="tab_content1" aria-labelledby="home-tab">
@@ -174,7 +174,7 @@
                         </form>
                         </div>
                         
-                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
+                        <!-- <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                         <form id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                           <input value="paket_kerja" type="hidden" name="nama_tabel">
                           <div id="container-opsi">
@@ -219,7 +219,7 @@
                             </div>
                             </div>
                         </form>
-                        </div>
+                        </div> -->
 
                       </div>
                     </div>
@@ -274,25 +274,25 @@ function add_field(){
                    + cont.innerHTML;
   }
 
-function add_hasil_temuan(node){
-  var id = node.parentNode.childNodes[1].value;
-    console.log(id);
-    node.parentNode.innerHTML = node.parentNode.innerHTML+"\
-\<input type='hidden' value='"+id+"' name='new[id_detail_rekap_pokja][]'>\
-    <div class='form-group'>\
-    <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
-    <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][] ' >\
-    </div>\
-    </div>\
-    <div class='form-group'>\
-    <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
-    <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
-    </div>\
-    </div>\
-    <br/>";
-}
+// function add_hasil_temuan(node){
+//   var id = node.parentNode.childNodes[1].value;
+//     console.log(id);
+//     node.parentNode.innerHTML = node.parentNode.innerHTML+"\
+// \<input type='hidden' value='"+id+"' name='new[id_detail_rekap_pokja][]'>\
+//     <div class='form-group'>\
+//     <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
+//     <div class='col-md-6 col-sm-6 col-xs-12'>\
+//       <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][] ' >\
+//     </div>\
+//     </div>\
+//     <div class='form-group'>\
+//     <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
+//     <div class='col-md-6 col-sm-6 col-xs-12'>\
+//       <input class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
+//     </div>\
+//     </div>\
+//     <br/>";
+// }
 
 function delete_node(node){
     var cont = document.getElementById('deleted');

@@ -104,7 +104,18 @@
                               </select>
                             </div>
                             
-
+                            <div class="form-group">
+                            <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $drtdata['nama_paket_kerja'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]"  >
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $drtdata['pagu'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="pagu[]"  >
+                            </div>
+                            </div>
                             <div class="form-group">
                             <label for="nilai_hps" class="control-label col-md-3 col-sm-3 col-xs-12">Nilai HPS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
