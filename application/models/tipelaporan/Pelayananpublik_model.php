@@ -65,9 +65,7 @@ class Pelayananpublik_model extends CI_Model
                 array_push($insdata, array(
                             'id_laporan' => $id_laporan,
                             'id_opd' => $data['id_opd'][$i],
-                            'indeks_pelayanan_publik' => $data['indeks_pelayanan_publik'][$i],
-                            'konversi_100' => $data['konversi_100'][$i],
-                            'ket' => $data['ket'][$i]
+                            'indeks_pelayanan_publik' => $data['indeks_pelayanan_publik'][$i]
                 ));
             }
         }
