@@ -89,7 +89,6 @@ class Opd extends CI_Controller
             // prevent re-post data
             redirect("opd/thanks/$formname/$id_laporan", 'refresh');
         }
-
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
         if (
@@ -100,11 +99,6 @@ class Opd extends CI_Controller
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
             unset($this->data['opsi_opd'][0]);
-        }
-
-        if ($formname == "rekap_tender") {
-            $this->load->model("tipelaporan/rekappokja_model", 'rp');
-            $this->data['opsi_paket_kerja'] = $this->rp->get_paket_kerja();
         }
 
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
