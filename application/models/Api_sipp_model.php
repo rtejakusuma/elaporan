@@ -48,12 +48,15 @@ class Api_sipp_model extends CI_Model
 
     public function api_fetch_data($id_opd_param, $laporan_baru, $tahun = '2019')
     {
+        if($laporan_baru == NULL){
+            return NULL;
+        }
         $this->load->model('opd_model', 'opd');
         $idebud = $this->opd->get_idebud($id_opd_param);
 
         $data = $this->get_api("kode_opd", $idebud);
         if (!isset($data['data'])) {
-            echo "TIMEOUT<br/>";
+            // echo "TIMEOUT<br/>";
             return NULL;
         }
         $data = $data['data'];
@@ -79,7 +82,7 @@ class Api_sipp_model extends CI_Model
 
             // unregistered/differ kode_ebud/ekin/emonev
             if ($id_opd == NULL) {
-                return false;
+                return NULL;
             }
 
             // tabel program + kegiatan

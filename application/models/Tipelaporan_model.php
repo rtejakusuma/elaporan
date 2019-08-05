@@ -24,4 +24,15 @@ class Tipelaporan_model extends CI_Model
         return NULL;
     }
 
+    public function get_idtipe_by_idlaporan($id_laporan)
+    {
+        $ret = $this->db->select('id_tipe')
+                        ->from('tipe_laporan')
+                        ->join('laporan', 'laporan.id_tipe = tipe_laporan.id_tipe')
+                        ->where('id_laporan', $id_laporan)->get()->result_array();
+        if($ret != NULL)
+            return $ret['id_laporan'][0];
+        else return NULL;
+    }
+
 }

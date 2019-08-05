@@ -27,6 +27,7 @@
                                      <a href='<?php if (isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-primary"><i class="fa fa-print"></i> PRINT</button></a>
                                      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                                          <input value="updateapi" type="hidden" name="nama_tabel">
+                                         <input value='<?php echo $data['fetch']['rf']['tgl']; ?>' type="hidden" name="tgl">
                                          <button type="submit" class="btn btn-warning" onclick="return confirm('Update data dari SIPP?');"><i class="fa fa-refresh"></i> Refresh</button>
                                      </form>
                                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
