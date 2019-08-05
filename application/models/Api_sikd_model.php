@@ -14,7 +14,6 @@ class Api_sikd_model extends CI_Model
     public function get_serapan($tahun = '2019', $tw = '1')
     {
         $url = 'sikd.madiunkota.net/serapan/serapan' . $tahun . '/api/' . $tw;
-        print_r($url);
 
         $curl = curl_init();
 
@@ -37,14 +36,13 @@ class Api_sikd_model extends CI_Model
         } else {
             // API BERHASIL
             $arr = json_decode($response, true);
-            return $arr;
+            return ['arr' => $arr, 'url' => $url];
         }
     }
 
     public function get_lra($tahun = '2019', $kode_skpd)
     {
         $url = 'sikd.madiunkota.net/lra' . $tahun . '/lra/api/' . $kode_skpd;
-        print_r($url);
 
         $curl = curl_init();
 
@@ -68,7 +66,7 @@ class Api_sikd_model extends CI_Model
         } else {
             // API BERHASIL
             $arr = json_decode($response, true);
-            return $arr;
+            return ['arr' => $arr, 'url' => $url];
         }
     }
 
