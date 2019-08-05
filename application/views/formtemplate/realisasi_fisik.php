@@ -57,54 +57,62 @@
                                              <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                                                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                                                      <input value="program" type="hidden" name="nama_tabel">
-                                                     <?php foreach ($data['fetch']['prog'] as $prog) { ?>
-                                                         <input value="<?php echo ucwords($prog['kode_program']); ?>" type="hidden" class="form-control col-md-7 col-xs-12" name="kode_program[]">
-                                                         <div class="form-group">
-                                                             <label for="kode_program" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Program</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php echo ucwords($prog['kode_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="kode_program[]">
+                                                     <div class="accordion" id="accordion" role="tablist" aria-multiselectable="true">
+                                                         <?php foreach ($data['fetch']['prog'] as $prog) { ?>
+                                                             <div class="panel">
+                                                                 <a class="panel-heading collapsed" role="tab" id="heading<?= $prog['kode_program'] ?>" data-toggle="collapse" data-parent="#accordion" href="#collapse<?= $prog['kode_program'] ?>" aria-expanded="false" aria-controls="collapse<?= $prog['kode_program'] ?>">
+                                                                     <h4 class="panel-title"><?= $prog['nama_program'] ?></h4>
+                                                                 </a>
+                                                                 <div id="collapse<?= $prog['kode_program'] ?>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading<?= $prog['kode_program'] ?>">
+                                                                     <input value="<?php echo ucwords($prog['kode_program']); ?>" type="hidden" class="form-control col-md-7 col-xs-12" name="kode_program[]">
+                                                                     <div class="form-group">
+                                                                         <label for="kode_program" class="control-label col-md-3 col-sm-3 col-xs-12">Kode Program</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php echo ucwords($prog['kode_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="kode_program[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="nama_program" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php echo ucwords($prog['nama_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="nama_program[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Indikator Capaian</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php echo ucwords($prog['capaian_indikator']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_indikator[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Target Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php echo ucwords($prog['capaian_target_ppas_final']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target_ppas_final[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php if (isset($prog['capaian_realisasi_kinerja'])) echo ucwords($prog['capaian_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_kinerja[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="capaian_anggaran_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran Capaian Keuangan</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php echo $prog['capaian_anggaran_keuangan']; //ucwords($prog['capaian_target']); 
+                                                                                            ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_anggaran_keuangan[]">
+                                                                         </div>
+                                                                     </div>
+                                                                     <div class="form-group">
+                                                                         <label for="capaian_realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Keuangan</label>
+                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                             <input value="<?php if (isset($prog['capaian_realisasi_keuangan'])) echo ucwords($prog['capaian_realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_keuangan[]">
+                                                                         </div>
+                                                                     </div>
+                                                                 </div>
                                                              </div>
-                                                         </div>
-
-                                                         <div class="form-group">
-                                                             <label for="nama_program" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Program</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php echo ucwords($prog['nama_program']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="nama_program[]">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                             <label for="capaian_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Indikator Capaian</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php echo ucwords($prog['capaian_indikator']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_indikator[]">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                             <label for="capaian_target_ppas_final" class="control-label col-md-3 col-sm-3 col-xs-12">Target Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php echo ucwords($prog['capaian_target_ppas_final']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target_ppas_final[]">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                             <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php if (isset($prog['capaian_realisasi_kinerja'])) echo ucwords($prog['capaian_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_kinerja[]">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                             <label for="capaian_anggaran_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran Capaian Keuangan</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php echo $prog['capaian_anggaran_keuangan']; //ucwords($prog['capaian_target']); 
-                                                                                ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_anggaran_keuangan[]">
-                                                             </div>
-                                                         </div>
-                                                         <div class="form-group">
-                                                             <label for="capaian_realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Keuangan</label>
-                                                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                 <input value="<?php if (isset($prog['capaian_realisasi_keuangan'])) echo ucwords($prog['capaian_realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_keuangan[]">
-                                                             </div>
-                                                         </div>
-                                                         <?php echo "<br/><br/>";
-                                                        } ?>
+                                                             <?php echo "<br/><br/>";
+                                                            } ?>
+                                                     </div>
                                                      <div class="ln_solid"></div>
                                                      <div class="form-group">
                                                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
@@ -112,7 +120,6 @@
                                                          </div>
                                                      </div>
                                                  </form>
-
                                              </div>
                                              <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                                                  <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">

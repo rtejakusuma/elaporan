@@ -7,7 +7,7 @@ class Apicheck extends CI_Controller
     {
         echo '<a href="' . base_url('apicheck/sipp/tahun/2020') . '">SIPP</a><br>';
         echo '<a href="' . base_url('apicheck/sikd_serapan/2019/2') . '">SIKD SERAPAN</a><br>';
-        echo '<a href="' . base_url('apicheck/sikd_lra/2019') . '">SIKD LRA</a><br>';
+        echo '<a href="' . base_url('apicheck/sikd_lra/2019/1.0.18.01') . '">SIKD LRA</a><br>';
     }
     public function sipp($key = 'tahun', $val = '2020')
     {
@@ -27,10 +27,10 @@ class Apicheck extends CI_Controller
         printf('<pre>%s</pre>', $json);
     }
 
-    public function sikd_lra($tahun)
+    public function sikd_lra($tahun, $kode_skpd)
     {
         $this->load->model('api_sikd_model');
-        $data = $this->api_sikd_model->get_lra($tahun);
+        $data = $this->api_sikd_model->get_lra($tahun, $kode_skpd);
         $json = json_encode($data, JSON_PRETTY_PRINT);
 
         printf('<pre>%s</pre>', $json);

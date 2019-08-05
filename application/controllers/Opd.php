@@ -129,11 +129,27 @@ class Opd extends CI_Controller
 
     public function p($formname, $id_laporan) // print existing data
     {
-        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
+
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
+
         $this->load->view('print/' . $formname, array('data' => $this->data));
+    }
+
+    public function pdf($formname, $id_laporan)
+    {
+        $this->load->model('laporan_model', 'laporan');
+        $this->load->library('pdf');
+
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
+        $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
+        $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
+
+        $this->pdf->setPaper('A3', 'landscape');
+        $this->pdf->filename = $this->data['nama_laporan'];
+        $this->pdf->load_view('print/' . $formname, array('data' => $this->data));
     }
 
     public function carilaporan($page_number)

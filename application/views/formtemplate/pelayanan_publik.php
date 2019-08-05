@@ -114,10 +114,10 @@ var opd = "<div>\
                 <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
-              <?php 
-                foreach($data['opsi_opd'] as $opd){
-                  echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
-                }
+              <?php
+              foreach ($data['opsi_opd'] as $opd) {
+                echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+              }
               ?>\
             </select>\
             </div>\
@@ -139,15 +139,17 @@ var opd = "<div>\
               </div>\
               </div>\
             </div>\
-            </div>";
-  function add_field(){
-    var cont = document.getElementById('container-opsi');
-    console.log(cont);
-    cont.innerHTML = opd + cont.innerHTML;
-  }
-  function delete_node(node){
-    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
-  }
-</script>
+            <br/><br/></div>";
 
-  <!-- /page content -->
+           function add_field() {
+             var cont = document.getElementById('container-opsi');
+             console.log(cont);
+             cont.innerHTML = opd + cont.innerHTML;
+           }
+
+           function delete_node(node) {
+             node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+           }
+         </script>
+
+         <!-- /page content -->
