@@ -89,25 +89,9 @@
                                                                              <input value="<?php echo ucwords($prog['capaian_target_ppas_final']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target_ppas_final[]">
                                                                          </div>
                                                                      </div>
-                                                                     <div class="form-group">
-                                                                         <label for="capaian_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Kinerja (<?php echo $prog['capaian_satuan']; ?>)</label>
-                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                             <input value="<?php if (isset($prog['capaian_realisasi_kinerja'])) echo ucwords($prog['capaian_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_kinerja[]">
-                                                                         </div>
-                                                                     </div>
-                                                                     <div class="form-group">
-                                                                         <label for="capaian_anggaran_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Anggaran Capaian Keuangan</label>
-                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                             <input value="<?php echo $prog['capaian_anggaran_keuangan']; //ucwords($prog['capaian_target']); 
-                                                                                            ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_anggaran_keuangan[]">
-                                                                         </div>
-                                                                     </div>
-                                                                     <div class="form-group">
-                                                                         <label for="capaian_realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Capaian Keuangan</label>
-                                                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                             <input value="<?php if (isset($prog['capaian_realisasi_keuangan'])) echo ucwords($prog['capaian_realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_keuangan[]">
-                                                                         </div>
-                                                                     </div>
+
+
+
                                                                  </div>
                                                              </div>
                                                              <?php echo "<br/><br/>";
