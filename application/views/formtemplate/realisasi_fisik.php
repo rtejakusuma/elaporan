@@ -89,9 +89,6 @@
                                                                              <input value="<?php echo ucwords($prog['capaian_target_ppas_final']); ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="capaian_target_ppas_final[]">
                                                                          </div>
                                                                      </div>
-
-
-
                                                                  </div>
                                                              </div>
                                                              <?php echo "<br/><br/>";
