@@ -11,9 +11,38 @@ class Api_sikd_model extends CI_Model
         $this->load->library('xmlrpcs');
     }
 
-    public function get_api($tahun = '2019', $tw = '1')
+    public function get_serapan($tahun = '2019', $tw = '1')
     {
         $url = 'sikd.madiunkota.net/serapan/serapan' . $tahun . '/api/' . $tw;
+
+        $curl = curl_init();
+
+        curl_setopt_array($curl, [
+            CURLOPT_URL => $url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 60,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => "GET",
+        ]);
+
+        $response = curl_exec($curl);
+        $err = curl_error($curl);
+
+        if ($err) {
+            // API GAGAL
+            return NULL;
+        } else {
+            // API BERHASIL
+            $arr = json_decode($response, true);
+            return $arr;
+        }
+    }
+
+    public function get_lra($tahun = '2019')
+    {
+        $url = 'sikd.madiunkota.net/lra' . $tahun;
 
         $curl = curl_init();
 
