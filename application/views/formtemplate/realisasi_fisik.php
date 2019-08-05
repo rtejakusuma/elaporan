@@ -175,12 +175,6 @@
                                                                      </div>
                                                                  </div>
 
-                                                                 <div class="form-group">
-                                                                     <label for="keluaran_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Kinerja Persen</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php echo $data['keluaran_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_kinerja_persen[]">
-                                                                     </div>
-                                                                 </div>
 
                                                                  <div class="form-group">
                                                                      <label for="keluaran_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
@@ -210,12 +204,6 @@
                                                                      </div>
                                                                  </div>
 
-                                                                 <div class="form-group">
-                                                                     <label for="realisasi_keuangan_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan Persen</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php echo $data['realisasi_keuangan_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="realisasi_keuangan_persen[]">
-                                                                     </div>
-                                                                 </div>
 
                                                                  <div class="form-group">
                                                                      <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $data['keluaran_satuan']; ?>)</label>
@@ -224,12 +212,6 @@
                                                                      </div>
                                                                  </div>
 
-                                                                 <div class="form-group">
-                                                                     <label for="hasil_realisasi_kinerja_persen" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja Persen</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php echo $data['hasil_realisasi_kinerja_persen']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_realisasi_kinerja_persen[]">
-                                                                     </div>
-                                                                 </div>
 
                                                                  <div class="form-group">
                                                                      <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>

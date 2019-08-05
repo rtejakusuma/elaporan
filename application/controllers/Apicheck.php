@@ -7,7 +7,7 @@ class Apicheck extends CI_Controller
     {
         echo '<a href="' . base_url('apicheck/sipp/tahun/2020') . '">SIPP</a><br>';
         echo '<a href="' . base_url('apicheck/sikd_serapan/2019/2') . '">SIKD SERAPAN</a><br>';
-        echo '<a href="' . base_url('apicheck/sikd_lra/2019/1.0.18.01') . '">SIKD LRA</a><br>';
+        echo '<a href="' . base_url('apicheck/sikd_lra/2019/1.18.01') . '">SIKD LRA</a><br>';
     }
     public function sipp($key = 'tahun', $val = '2020')
     {
