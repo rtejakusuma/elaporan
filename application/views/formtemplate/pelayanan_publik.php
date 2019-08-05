@@ -54,7 +54,7 @@
                             <div id="container-opsi">
 
                             <?php if($data['fetch']['ppopd'] != NULL){ 
-                                    foreach($data['fetch']['ppopd'] as $ppopd){  
+                              foreach($data['fetch']['ppopd'] as $ppopd){  
                             ?>
                               
                               <div>
@@ -106,7 +106,7 @@
   </div>
 
                              
-                              <script>
+<script>
 
 var opd = "<div>\
               \
@@ -122,24 +122,24 @@ var opd = "<div>\
             </select>\
             </div>\
              <div class='form-group'>\
-                              <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
-                              <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input  class='form-control col-md-7 col-xs-12' type='text' name='indeks_pelayanan_publik[]'  >\
-                              </div>\
-                              </div>\
-                              <div class='form-group'>\
-                              <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
-                              <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
-                              </div>\
-                              </div>\
-                              <div class='form-group'>\
-                              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+              <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
+              <div class='col-md-6 col-sm-6 col-xs-12'>\
+                  <input  class='form-control col-md-7 col-xs-12' type='text' name='indeks_pelayanan_publik[]'  >\
+              </div>\
+              </div>\
+              <div class='form-group'>\
+              <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
+              <div class='col-md-6 col-sm-6 col-xs-12'>\
+                  <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
+              </div>\
+              </div>\
+              <div class='form-group'>\
+              <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
               <button type='button' onclick='delete_node(this)'>Hapus</button>\
               </div>\
               </div>\
             </div>\
-            <br/><br/></div>";
+           </div>";
 
            function add_field() {
              var cont = document.getElementById('container-opsi');
