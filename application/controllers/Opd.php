@@ -87,7 +87,7 @@ class Opd extends CI_Controller
             $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'lp');
             $this->lp->update_data($id_laporan, $this->input->post());
             // prevent re-post data
-            // redirect("opd/thanks/$formname/$id_laporan", 'refresh');
+            redirect("opd/thanks/$formname/$id_laporan", 'refresh');
         }
 
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
@@ -111,7 +111,7 @@ class Opd extends CI_Controller
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
         $this->data['id_laporan'] = $id_laporan;
-        // $this->load->view('template/index_opd', array('data' => $this->data));
+        $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function d($formname, $id_laporan)
