@@ -81,8 +81,8 @@
                                 if($sotkopd['besaran'] == "TIPE B") $sel2 = "selected='selected'";
                                 if($sotkopd['besaran'] == "TIPE C") $sel3 = "selected='selected'";
                                 echo "<option value='TIPE A' $sel1>TIPE A</option>";
-                                echo "<option value='TIPE B' $sel1>TIPE B</option>";
-                                echo "<option value='TIPE C' $sel1>TIPE C</option>";
+                                echo "<option value='TIPE B' $sel2>TIPE B</option>";
+                                echo "<option value='TIPE C' $sel3>TIPE C</option>";
                             ?>
                             </select>
                             
