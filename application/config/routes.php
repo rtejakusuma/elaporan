@@ -55,3 +55,6 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['home'] = 'auth';
 $route['login'] = 'auth';
+
+// EXPORT EXCEL
+$route['export/(:any)/(:num)'] = 'excel/$1/index/$1/$2';
