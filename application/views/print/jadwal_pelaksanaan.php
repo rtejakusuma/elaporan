@@ -37,39 +37,32 @@
         <!-- Table Contents -->
         <?php
         $counter = 0;
-        foreach ($data['fetch']['prog'] as $prog) {
-            $prog_rowspan = sizeof($data['fetch']['kg'][$prog['kode_program']]) + 1;
+        foreach ($data['fetch']['jpopd'] as $jpopd) {
+            $jpopd_rowspan = sizeof($data['fetch']['adata'][$jpopd['id_jadwal_pelaksanaan_opd']]);
             $counter += 1;
             echo "
                  <tr>
-                     <td rowspan='$prog_rowspan'>$counter</td>
-                     <td rowspan='$prog_rowspan'>" . ucwords($prog['nama_program']) . "</td>
-                     <td></td>
-                     <td>" . $prog['capaian_indikator'] . "</td>
-                     <td>$prog[capaian_satuan]</td>
-                     <td>target???</td>
-                     <td>realisasi???</td>
-                     <td>persen???</td>
-                     <td>anggaran???</td>
-                     <td>realisasi???</td>
-                     <td>persen???</td>
-                     <td rowspan='$prog_rowspan'></td>
+                     <td rowspan='$jpopd_rowspan'><center>$counter</center></td>
+                     <td rowspan='$jpopd_rowspan'>" . ucwords($jpopd['nama_opd']) . "</td>
+                     <td rowspan='$jpopd_rowspan'><center>$jpopd[jenis_pengawasan]</center></td>
+                     <td rowspan='$jpopd_rowspan'><center>$jpopd[rmp]</center></td>
+                     <td rowspan='$jpopd_rowspan'><center>$jpopd[rpl]</center></td>
+                     <td><center>".$data['fetch']['adata'][$jpopd['id_jadwal_pelaksanaan_opd']][0]['nama_auditor']."</centre></td>
+                     <td><center>".$data['fetch']['adata'][$jpopd['id_jadwal_pelaksanaan_opd']][0]['jabatan']."</centre></td>
+                     <td rowspan='$jpopd_rowspan'><center>$jpopd[output_lhp]</center></td>
+                     <td rowspan='$jpopd_rowspan'><center>$jpopd[hari_pengawasan]</center></td>
                  </tr>
              ";
-            foreach ($data['fetch']['kg'][$prog['kode_program']] as $kg) {
+             $flag = TRUE;
+            foreach ($data['fetch']['adata'][$jpopd['id_jadwal_pelaksanaan_opd']] as $jpopd) {
+            if ($flag){
+                $flag=FALSE;
+                continue;
+            }
                 echo "
                      <tr>
-                         <td>" . ucwords($kg['nama_kegiatan']) . "</td>
-                         <td><strong><u>Output:</u></strong> " . ucwords($kg['keluaran_indikator']) . "
-                             <br/><br/>
-                             <strong><u>Outcome:</u></strong> " . ucwords($kg['hasil_indikator']) . "</td>
-                         <td>$kg[keluaran_satuan]</td>
-                         <td>target???</td>
-                         <td>realisasi???</td>
-                         <td>persen???</td>
-                         <td>anggaran???</td>
-                         <td>realisasi???</td>
-                         <td>persen???</td>
+                         <td><center>$jpopd[nama_auditor]</center></td>
+                         <td><center>$jpopd[jabatan]</center></td>
                      </tr>
                  ";
             }
