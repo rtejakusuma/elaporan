@@ -9,20 +9,20 @@
 	- print done
 - tatalaksana
 	- model done
-	- form done
-	- print done
+	- form done >> hapus bagian yg dihitung
+	- print kurang yg bagian hitung >> selesai
 - pelayanan publik
 	- model done
-	- form done
-	- print done
+	- form done >> hapus bagian yang dihitung
+	- print done ada konversi bisa dihitung? >> selesai
 - monitoring kelembagaan
 	- model done
-	- form done
-	- print done
+	- form done >> ada bagian yang dipaksa jadi text (relasi dasar hukum dan usulan membingungkan)
+	- print done >> nah
 - laporan kinerja triwulan
-	- model done
-	- form done
-	- print done
+	- model done >> ada api?
+	- form done >> tergantung api
+	- print done >> belum fetch data
 - rekap tender
 	- model done
 	- form done

@@ -56,10 +56,11 @@
                             <?php if($data['fetch']['sotkopd'] != NULL){ 
                                     foreach($data['fetch']['sotkopd'] as $sotkopd){  
                             ?>
-                            <div class="form-group">  
+                            <div>  
                               
                               <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                              <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
+                            <div class="form-group">
+                            <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                                 <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
                               foreach($data['opsi_opd'] as $opd){
@@ -70,19 +71,22 @@
                             ?>
                             </select>
                             <br/><br/>
+                            
                             <div class="form-group">
                             <label for="besaran" class="control-label col-md-3 col-sm-3 col-xs-12">Besaran</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $sotkopd['besaran'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="besaran[]"  >
                             </div>
                             </div>
+                            
                             <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
                             </div>
                             </div>
-                              <br/><br/></div>
+                            
+                            </div>
                               <?php }} ?>
                               </div>
 
@@ -105,8 +109,9 @@
 
 <script>
 
-var opd = "<div class='form-group'>\
+var opd = "<div>\
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
@@ -115,7 +120,8 @@ var opd = "<div class='form-group'>\
                 }
               ?>\
             </select>\
-            <br/><br/>\
+            </div>\
+            \
             <div class='form-group'>\
             <label for='besaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Besaran</label>\
             <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -127,15 +133,16 @@ var opd = "<div class='form-group'>\
               <button type='button' onclick='delete_node(this)'>Hapus</button>\
               </div>\
               </div>\
+              <br/>\
             </div>\
-            <br/><br/></div>";
+            </div>";
   function add_field(){
     var cont = document.getElementById('container-opsi');
     console.log(cont);
     cont.innerHTML = opd + cont.innerHTML;
   }
   function delete_node(node){
-    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
   }
 </script>
 

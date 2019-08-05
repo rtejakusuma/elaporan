@@ -33,7 +33,7 @@
             <th >Hari dan Jam Kerja</th>
             <th >Nilai Penilaian Lapangan x 60%</th>
             <th >Jumlah Nilai</th>
-            <th >Ket</th>
+            <th >Keterangan</th>
         </tr>
         <!-- End of Table Header -->
         <!-- Table Contents -->
@@ -46,13 +46,22 @@
                         <td><center>$counter</center></td>
                         <td>". ucwords($topd['nama_opd'])."</td>
                         <td><center>$topd[uji_kompetensi]</center></td>
-                        <td><center>???</center></td>
+                        <td><center>".strval(floatval($topd['uji_kompetensi'])*4.0/10.0)."</center></td>
                         <td><center>$topd[sop]</center></td>
                         <td><center>$topd[tata_naskah_dinas]</center></td>
                         <td><center>$topd[pakaian_dinas]</center></td>
                         <td><center>$topd[jam_kerja]</center></td>
-                        <td><center>???</center></td>
-                        <td><center>???</center></td>
+                        <td><center>".
+                            strval(
+                                (floatval($topd['sop'])+floatval($topd['tata_naskah_dinas'])+
+                                floatval($topd['pakaian_dinas'])+floatval($topd['jam_kerja'])) * 6.0/10.0
+                                )."</center></td>
+                        <td><center>".
+                            strval(
+                                (floatval($topd['uji_kompetensi'])*4.0/10.0) + 
+                                ((floatval($topd['sop'])+floatval($topd['tata_naskah_dinas'])+
+                                floatval($topd['pakaian_dinas'])+floatval($topd['jam_kerja'])) * 6.0/10.0)
+                            )."</center></td>
                         <td><center>$topd[ket]</center></td>
  
                     </tr>

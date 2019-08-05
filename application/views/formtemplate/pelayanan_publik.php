@@ -56,9 +56,10 @@
                             <?php if($data['fetch']['ppopd'] != NULL){ 
                                     foreach($data['fetch']['ppopd'] as $ppopd){  
                             ?>
-                            <div class="form-group">  
                               
+                              <div>
                               <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                              <div class="form-group">
                               <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                               <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
@@ -69,17 +70,17 @@
                               }
                             ?>
                             </select>
-                              <br/><br/>
+                            </div>
                               <div class="form-group">
                               <label for="indeks_pelayanan_publik" class="control-label col-md-3 col-sm-3 col-xs-12">Indeks Pelayanan Publik</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input  value='<?php echo $ppopd['indeks_pelayanan_publik'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="indeks_pelayanan_publik[]"  >
+                                  <input  value='<?php echo $ppopd['indeks_pelayanan_publik'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="indeks_pelayanan_publik[]"  >
                               </div>
                               </div>
                               <div class="form-group">
                               <label for="konversi_100" class="control-label col-md-3 col-sm-3 col-xs-12">Konversi 100</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input value='<?php echo $ppopd['konversi_100'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="konversi_100[]"  >
+                                  <input value='<?php echo $ppopd['konversi_100'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="konversi_100[]"  >
                               </div>
                               </div>
                               <div class="form-group">
@@ -94,7 +95,7 @@
                             </div>
                             </div>
                               </div>
-                              <br/><br/></div>
+                              </div>
                               <?php }} ?>
                               </div>
 
@@ -118,8 +119,10 @@
                              
                               <script>
 
-var opd = "<div class='form-group'>\
+var opd = "<div>\
+              \
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
@@ -128,17 +131,17 @@ var opd = "<div class='form-group'>\
                 }
               ?>\
             </select>\
-            <br/><br/>\
+            </div>\
              <div class='form-group'>\
                               <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input  class='form-control col-md-7 col-xs-12' type='number' name='indeks_pelayanan_publik[]'  >\
+                                  <input  class='form-control col-md-7 col-xs-12' type='text' name='indeks_pelayanan_publik[]'  >\
                               </div>\
                               </div>\
                               <div class='form-group'>\
                               <label for='konversi_100' class='control-label col-md-3 col-sm-3 col-xs-12'>Konversi 100</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input  class='form-control col-md-7 col-xs-12' type='number' name='konversi_100[]'  >\
+                                  <input  class='form-control col-md-7 col-xs-12' type='text' name='konversi_100[]'  >\
                               </div>\
                               </div>\
                               <div class='form-group'>\
@@ -153,14 +156,14 @@ var opd = "<div class='form-group'>\
               </div>\
               </div>\
             </div>\
-            <br/><br/></div>";
+            </div>";
   function add_field(){
     var cont = document.getElementById('container-opsi');
     console.log(cont);
     cont.innerHTML = opd + cont.innerHTML;
   }
   function delete_node(node){
-    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
   }
 </script>
 

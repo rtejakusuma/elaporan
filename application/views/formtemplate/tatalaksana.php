@@ -41,7 +41,7 @@
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <h2><?php echo date('Y', strtotime($data['fetch']['t']['tgl'])); ?></h2>
-                                <!-- <input  class="form-control col-md-7 col-xs-12" type="number" name="tahun"> -->
+                                <!-- <input  class="form-control col-md-7 col-xs-12" type="text" name="tahun"> -->
                             </div>
                             </div>
                         </form>
@@ -73,37 +73,37 @@
                             <div class="form-group">
                             <label for="uji_kompetensi" class="control-label col-md-3 col-sm-3 col-xs-12">Uji Kompetensi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  value='<?php echo $topd['uji_kompetensi'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="uji_kompetensi[]"  >
+                                <input  value='<?php echo $topd['uji_kompetensi'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="uji_kompetensi[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="sop" class="control-label col-md-3 col-sm-3 col-xs-12">SOP</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['sop'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="sop[]"  >
+                                <input value='<?php echo $topd['sop'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="sop[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="tata_naskah_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Tata Naskah Dinas</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['tata_naskah_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="tata_naskah_dinas[]"  >
+                                <input value='<?php echo $topd['tata_naskah_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="tata_naskah_dinas[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="pakaian_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Pakaian Dinas</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['pakaian_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="pakaian_dinas[]"  >
+                                <input value='<?php echo $topd['pakaian_dinas'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="pakaian_dinas[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jam_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Jam Kerja</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['jam_kerja'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="jam_kerja[]"  >
+                                <input value='<?php echo $topd['jam_kerja'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="jam_kerja[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="jml_nilai" class="control-label col-md-3 col-sm-3 col-xs-12">Jumlah Nilai</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['jml_nilai'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="jml_nilai[]"  >
+                                <input value='<?php echo $topd['jml_nilai'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="jml_nilai[]"  >
                             </div>
                             </div>
                             <div class="form-group">
@@ -141,8 +141,10 @@
 
 <script>
 
-var opd = "<div class='form-group'>\
+var opd = "<div>\
+          \
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php 
@@ -151,41 +153,41 @@ var opd = "<div class='form-group'>\
                 }
               ?>\
             </select>\
-            <br/><br/>\
+            </div>\
             <div class='form-group'>\
             <label for='uji_kompetensi' class='control-label col-md-3 col-sm-3 col-xs-12'>Uji Kompetensi</label>\
             <div class='col-md-6 col-sm-6 col-xs-12'>\
-              <input   class='form-control col-md-7 col-xs-12' type='number' name='uji_kompetensi[]'  >\
+              <input   class='form-control col-md-7 col-xs-12' type='text' name='uji_kompetensi[]'  >\
             </div>\
             </div>\
                             <div class='form-group'>\
                             <label for='sop' class='control-label col-md-3 col-sm-3 col-xs-12'>SOP</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input   class='form-control col-md-7 col-xs-12' type='number' name='sop[]'  >\
+                                <input   class='form-control col-md-7 col-xs-12' type='text' name='sop[]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
                             <label for='tata_naskah_dinas' class='control-label col-md-3 col-sm-3 col-xs-12'>Tata Naskah Dinas</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input '  class='form-control col-md-7 col-xs-12' type='number' name='tata_naskah_dinas[]'  >\
+                                <input '  class='form-control col-md-7 col-xs-12' type='text' name='tata_naskah_dinas[]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
                             <label for='pakaian_dinas' class='control-label col-md-3 col-sm-3 col-xs-12'>Pakaian Dinas</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input  class='form-control col-md-7 col-xs-12' type='number' name='pakaian_dinas[]'  >\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='pakaian_dinas[]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
                             <label for='jam_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Jam Kerja</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input  class='form-control col-md-7 col-xs-12' type='number' name='jam_kerja[]'  >\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='jam_kerja[]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
                             <label for='jml_nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Jumlah Nilai</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input  class='form-control col-md-7 col-xs-12' type='number' name='jml_nilai[]'  >\
+                                <input  class='form-control col-md-7 col-xs-12' type='text' name='jml_nilai[]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
@@ -200,14 +202,14 @@ var opd = "<div class='form-group'>\
               </div>\
               </div>\
                             </div>\
-                              <br/><br/></div>";
+                              </div>";
   function add_field(){
     var cont = document.getElementById('container-opsi');
     console.log(cont);
     cont.innerHTML = opd + cont.innerHTML;
   }
   function delete_node(node){
-    node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
   }
 </script>
 
