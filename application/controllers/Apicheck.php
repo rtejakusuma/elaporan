@@ -31,6 +31,9 @@ class Apicheck extends CI_Controller
 
     public function sikd_lra($tahun, $kode_skpd)
     {
+        $url = 'sikd.madiunkota.net/lra' . $tahun . '/lra/api/' . $kode_skpd;
+        print_r($url);
+
         $this->load->model('api_sikd_model');
         $data = $this->api_sikd_model->get_lra($tahun, $kode_skpd);
         $json = json_encode($data, JSON_PRETTY_PRINT);
