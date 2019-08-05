@@ -63,8 +63,12 @@
 
                          <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                            <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-
-
+                           <input value="detail_rekap_tender" type="hidden" name="nama_tabel">
+                           <button type='button' onclick='add_field()'>Tambah</button>
+                           <div id="container-opsi">
+                           <?php if ($data['fetch']['drt'] != NULL) {
+                              foreach ($data['fetch']['drt'] as $drtdata) {
+                                ?>
                             <div class="form-group">
                             <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                               <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
@@ -140,7 +144,7 @@
                             </div>
                         </form>
 
-                             </div>
+                             <!-- </div>
 
                              <div class="ln_solid"></div>
                              <div class="form-group">
@@ -148,7 +152,7 @@
                                  <button type="submit" class="btn btn-success">Submit</button>
                                </div>
                              </div>
-                           </form>
+                           </form> -->
 
                          </div>
                          <!-- <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
@@ -187,121 +191,80 @@
        </div>
 
 
-       <script>
-         var idlap = '<?php echo $data['fetch']['rt']['id_laporan']; ?>';
-         var opd = "<div>\
+<script>
+  var idlap = '<?php echo $data['fetch']['rt']['id_laporan']; ?>';
+  var opd = "<div>\
+              \
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
-                <input value='" + idlap + "' type='hidden' name='id_laporan[]'>\
-                \
                 <div class='form-group'>\
-                <label for='paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Paket Kerja</label>\
-                  <select class='col-md-6 col-sm-6 col-xs-12' name='id_paket_kerja[]'>\
-                    <?php
-                    foreach ($data['opsi_paket_kerja'] as $opd) {
-                      echo "<option value='$opd[id_paket_kerja]'>$opd[nama_paket_kerja] ($opd[nama])</option>";
-                    }
-                    ?> <
-           /select>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'opd'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Nama OPD < /label>\ <
-           select class = 'col-md-6 col-sm-6 col-xs-12'
-         name = 'id_opd[]' > \
-           <?php
-            foreach ($data['opsi_opd'] as $opd) {
-              echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
-            }
-            ?>\ <
-           /select>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'nilai_hps'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Nilai HPS < /label>\ <
-           div class = 'col-md-6 col-sm-6 col-xs-12' > \
-           <
-           input class = 'form-control col-md-7 col-xs-12'
-         type = 'number'
-         name = 'nilai_hps[]' > \
-           <
-           /div>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'pemenang'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Pemenang < /label>\ <
-           div class = 'col-md-6 col-sm-6 col-xs-12' > \
-           <
-           input class = 'form-control col-md-7 col-xs-12'
-         type = 'text'
-         name = 'pemenang[]' > \
-           <
-           /div>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'harga_kontrak'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Harga Kontrak < /label>\ <
-           div class = 'col-md-6 col-sm-6 col-xs-12' > \
-           <
-           input class = 'form-control col-md-7 col-xs-12'
-         type = 'number'
-         name = 'harga_kontrak[]' > \
-           <
-           /div>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'presentase_kontrak_thd_hps'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Presentase Kontrak Terhadap HPS < /label>\ <
-           div class = 'col-md-6 col-sm-6 col-xs-12' > \
-           <
-           input class = 'form-control col-md-7 col-xs-12'
-         type = 'number'
-         name = 'presentase_kontrak_thd_hps[]' > \
-           <
-           /div>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           label
-         for = 'ket'
-         class = 'control-label col-md-3 col-sm-3 col-xs-12' > Keterangan < /label>\ <
-           div class = 'col-md-6 col-sm-6 col-xs-12' > \
-           <
-           input class = 'form-control col-md-7 col-xs-12'
-         type = 'text'
-         name = 'ket[]' > \
-           <
-           /div>\ <
-           /div>\\ <
-           div class = 'form-group' > \
-           <
-           div class = 'col-md-6 col-sm-6 col-xs-12 col-md-offset-3' > \
-           <
-           button type = 'button'
-         onclick = 'delete_node(this)' > Hapus < /button>\ <
-           /div>\ <
-           /div>\\ <
-           /div>\ <
-           /div>";
+                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
+                <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
+              <?php
+              foreach ($data['opsi_opd'] as $opd) {
+                echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+              }
+              ?>\
+            </select>\
+            </div>\
+            <div class='form-group'>\
+                <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input  class='form-control col-md-7 col-xs-12' type='text' name='nama_paket_kerja[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input  class='form-control col-md-7 col-xs-12' type='number' name='pagu[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='nilai_hps' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai HPS</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input  class='form-control col-md-7 col-xs-12' type='number' name='nilai_hps[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='pemenang' class='control-label col-md-3 col-sm-3 col-xs-12'>Pemenang</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input class='form-control col-md-7 col-xs-12' type='text' name='pemenang[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='harga_kontrak' class='control-label col-md-3 col-sm-3 col-xs-12'>Harga Kontrak</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input   class='form-control col-md-7 col-xs-12' type='number' name='harga_kontrak[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='presentase_kontrak_thd_hps' class='control-label col-md-3 col-sm-3 col-xs-12'>Presentase Kontrak Terhadap HPS</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input   class='form-control col-md-7 col-xs-12' type='number' name='presentase_kontrak_thd_hps[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input  class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
+                  <button type='button' onclick='delete_node(this)'>Hapus</button>\
+                </div>\
+                </div>\
+            </div>\
+            <br/><br/></div>";
 
-         function add_field() {
-           var cont = document.getElementById('container-opsi');
-           console.log(cont);
-           cont.innerHTML = opd + cont.innerHTML;
-         }
+  function add_field() {
+    var cont = document.getElementById('container-opsi');
+    console.log(cont);
+    cont.innerHTML = opd + cont.innerHTML;
+  }
 
-         function delete_node(node) {
-           node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
-         }
-       </script>
+  function delete_node(node) {
+    node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+  }
+</script>
 
        <!-- /page content -->
