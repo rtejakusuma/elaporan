@@ -4,15 +4,16 @@
       <li><a><i class="fa fa-home"></i> Laporan <span class="fa fa-chevron-down"></span></a>
         <ul class="nav child_menu">
           <?php
-            if($data['sidebar'] !=  NULL){
-              foreach ($data['sidebar'] as $type) {
-                echo "<li><a href='" . base_url() . "opd/f/$type[kode_tipe]'>$type[nama_laporan]</a></li>";
-              }
-            } else {
-              echo "Tidak ada tipe laporan yang dimiliki.<br/> Hubungi Admin.";
+          if ($data['sidebar'] !=  NULL) {
+            foreach ($data['sidebar'] as $type) {
+              echo "<li><a href='" . base_url() . "opd/f/$type[kode_tipe]'>$type[nama_laporan]</a></li>";
             }
+          } else {
+            echo "Tidak ada tipe laporan yang dimiliki.<br/> Hubungi Admin.";
+          }
           ?>
         </ul>
+      <li><a href="<?= base_url('export/ikm/36') ?>"><i class="fa fa-plus"></i>Export</a></li>
       </li>
       <!-- <li><a href="<?php echo base_url('opd/riwayatlaporan') ?>"><i class="fa fa-edit"></i> Riwayat laporan </a>
       </li>
