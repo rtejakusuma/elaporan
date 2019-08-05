@@ -1,20 +1,4 @@
  // 2 TABEL //
-- ikm
-	- model done
-	- form done
-	- print done
-- sotk
-	- model done
-	- form done
-	- print done
-- tatalaksana
-	- model done
-	- form done >> hapus bagian yg dihitung
-	- print kurang yg bagian hitung >> selesai
-- pelayanan publik
-	- model done
-	- form done >> hapus bagian yang dihitung
-	- print done ada konversi bisa dihitung? >> selesai
 - monitoring kelembagaan
 	- model done
 	- form done >> ada bagian yang dipaksa jadi text (relasi dasar hukum dan usulan membingungkan)
@@ -23,9 +7,10 @@
 	- model done >> ada api?
 	- form done >> tergantung api
 	- print done >> belum fetch data
-- rekap tender
-	- model done
-	- form done >> hapus yang dihitung
+
+- rekap tender >> CEK TOTAL ULANG 
+	- model check
+	- form done >> hapus yang dihitung, tambah field nama_paket_kerja & pagu
 	- print done
 
 // 3 TABEL //
@@ -33,9 +18,10 @@
 	- model done
 	- form check blum ada tombol hapus di tab ke 3
 	- print done
-- rekap pokja
+
+- rekap pokja >> CEK TOTAL
 	- model done
-	- form done
+	- form >> 3/2? butuh <select> untuk pilih paket kerja 
 	- print done
 - realisasi fisik
 	- FETCH UPDATE
@@ -65,3 +51,21 @@
 			- kegiatan_rb DONE
 	- form ???
 	- print ???
+
+// SELESAI //
+- ikm
+	- model done
+	- form done
+	- print done
+- sotk
+	- model done
+	- form done
+	- print done
+- tatalaksana
+	- model done
+	- form done
+	- print done
+- pelayanan publik
+	- model done
+	- form done
+	- print done
