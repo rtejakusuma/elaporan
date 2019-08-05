@@ -1,74 +1,5 @@
 <!-- page content -->
 
-<!-- <div class="">
-  <div class="page-title">
-    <div class="title_left">
-      <h3>Rekap Pokja</h3>
-    </div>
-
-  </div>
-  <div class="clearfix"></div>
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
-        <div class="x_title">
-          <h2>Form Design <small>different form elements</small></h2>
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-          <br />
-          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url() . "submitform" ?>' method="post">
-            <div class="form-group">
-              <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="nama" class="form-control col-md-7 col-xs-12" type="text" name="nama"  >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="pagu" class="form-control col-md-7 col-xs-12" type="int" name="pagu"  >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="jabatan_bawah" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan Bawah</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="jabatan_bawah" class="form-control col-md-7 col-xs-12" type="text" name="jabatan_bawah"  >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="ket" class="form-control col-md-7 col-xs-12" type="text" name="ket"  >
-              </div>
-            </div>
-            <div class="form-group">
-              <label for="paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Paket Kerja</label>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <input id="paket_kerja" class="form-control col-md-7 col-xs-12" type="text" name="paket_kerja"  >
-              </div>
-            </div>
-
-            <div class="ln_solid"></div>
-            <div class="form-group">
-              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                <button class="btn btn-primary" type="button">Cancel</button>
-                <button class="btn btn-primary" type="reset">Reset</button>
-                <button type="submit" class="btn btn-success">Submit</button>
-              </div>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-  </div> -->
-
-
-
-<!-- /page content -->
-
-<!-- page content -->
-
 <div class="">
   <div class="page-title">
     <div class="title_left">
@@ -127,43 +58,41 @@
 
                             <?php if ($data['fetch']['drp'] != NULL) {
                               foreach ($data['fetch']['drp'] as $drp) {
-                                ?>
-                                <div>
-                                  <!-- PENTING -->
-                                  <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                                    <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
+                            ?>
+                            <div><!-- PENTING -->
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                            <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
 
-                                    <div class="form-group">
-                                      <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
-                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input value='<?php echo $drp['nama']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama[]">
-                                      </div>
-                                    </div>
+                            <div class="form-group">
+                              <label for="nama" class="control-label col-md-3 col-sm-3 col-xs-12">Nama</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $drp['nama']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama[]">
+                              </div>
+                            </div>
 
-                                    <div class="form-group">
-                                      <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
-                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input value='<?php echo $drp['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[]">
-                                      </div>
-                                    </div>
+                            <div class="form-group">
+                              <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $drp['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[]">
+                              </div>
+                            </div>
 
-                                    <div class="form-group">
-                                      <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
-                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                        <input value='<?php echo $drp['ket']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]">
-                                      </div>
-                                    </div>
+                            <div class="form-group">
+                              <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $drp['ket']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]">
+                              </div>
+                            </div>
 
-                                    <div class="form-group">
-                                      <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                        <button type='button' onclick='delete_node(this)'>Hapus</button>
-                                      </div>
-                                    </div>
+                            <div class="form-group">
+                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                                <button type='button' onclick='delete_node(this)'>Hapus</button>
+                              </div>
+                            </div>
 
-                                  </div>
-                                </div>
-                              <?php }
-                            } ?>
+                            </div>
+                            </div>
+                            <?php }} ?>
                           </div>
 
                           <div id='deleted'></div>
@@ -183,37 +112,35 @@
 
                             <?php if ($data['fetch']['drp'] != NULL) {
                               foreach ($data['fetch']['drp'] as $drp) {
-                                ?>
-                                <div>
-                                  <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                                    <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
-                                    <h2><?php echo $drp['nama']; ?></h2>
-                                    <button type='button' onclick='add_hasil_temuan(this)'>Tambah Paket Kerja</button>
+                            ?>
+                            <div>
+                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                            <input value='<?php echo $drp['id_detail_rekap_pokja']; ?>' type='hidden' name='id_detail_rekap_pokja[]'>
+                            <h2><?php echo $drp['nama']; ?></h2>
+                            <button type='button' onclick='add_hasil_temuan(this)'>Tambah Paket Kerja</button>
 
-                                    <?php
-                                    foreach ($data['fetch']['pk'][$drp['id_detail_rekap_pokja']] as $pk) {
-                                      ?>
+                            <?php
+                              foreach ($data['fetch']['pk'][$drp['id_detail_rekap_pokja']] as $pk) {
+                            ?>
 
-                                      <input value='<?php echo $pk['id_paket_kerja']; ?>' type='hidden' name='id_paket_kerja[]'>
-                                      <div class="form-group">
-                                        <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                          <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]">
-                                        </div>
-                                      </div>
+                            <input value='<?php echo $pk['id_paket_kerja']; ?>' type='hidden' name='id_paket_kerja[]'>
+                            <div class="form-group">
+                              <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $pk['nama_paket_kerja']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]">
+                              </div>
+                            </div>
 
-                                      <div class="form-group">
-                                        <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
-                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                          <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]">
-                                        </div>
-                                      </div>
+                            <div class="form-group">
+                              <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
+                              <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input value='<?php echo $pk['pagu']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]">
+                              </div>
+                            </div>
 
-                                    <?php } ?>
-                                    <br />
-                                  </div>
-                                <?php }
-                              } ?>
+                            <?php } ?>
+                            <br /></div>
+                            <?php }} ?>
                             </div>
 
                             <div class="ln_solid"></div>
@@ -223,7 +150,7 @@
                               </div>
                             </div>
                         </form>
-                      </div> -->
+                      </div>
 
                     </div>
 
