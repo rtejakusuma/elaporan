@@ -1,29 +1,24 @@
  <!-- page content -->
 
  <div class="">
-  <div class="page-title">
-    <div class="title_left">
-      <!-- <h3>Reset Password</h3> -->
-    </div>
+   <div class="page-title">
+     <div class="title_left">
+       <!-- <h3>Reset Password</h3> -->
+     </div>
 
-  </div>
-  <div class="clearfix"></div>
-  <div class="row">
-    <div class="col-md-12 col-sm-12 col-xs-12">
-      <div class="x_panel">
-        <div class="x_title">
-          <h2>Tata Laksana</h2>
-       
-          <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-          <br />
-          <div class="clearfix"></div>
+   </div>
+   <div class="clearfix"></div>
+   <div class="row">
+     <div class="col-md-12 col-sm-12 col-xs-12">
+       <div class="x_panel">
+         <div class="x_title">
+           <h2>Tata Laksana</h2>
 
-            <div class="">
-              <div class="col-md-12 col-sm-12 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_content">
+           <div class="clearfix"></div>
+         </div>
+         <div class="x_content">
+           <br />
+           <div class="clearfix"></div>
 
                   <a href='<?php if(isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button>PRINT</button></a>
                     <div class="" role="tabpanel" data-example-id="togglable-tabs">
@@ -126,15 +121,53 @@
                         </form>
                     </div>
 
-                  </div>
-                </div>
-              </div>
-        </div>
-      </div>
-    </div>
-  </div>
+                             <?php if ($data['fetch']['topd'] != NULL) {
+                                foreach ($data['fetch']['topd'] as $topd) {
+                                  ?>
+                                 <div class="form-group">
 
-<script>
+                                   <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                                     <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
+                                     <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
+                                       <?php
+                                        foreach ($data['opsi_opd'] as $opd) {
+                                          $sel = '';
+                                          if ($topd['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                          echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                                        }
+                                        ?>
+                                     </select>
+                                     <br /><br />
+                                     <div class="form-group">
+                                       <label for="uji_kompetensi" class="control-label col-md-3 col-sm-3 col-xs-12">Uji Kompetensi</label>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input value='<?php echo $topd['uji_kompetensi'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="uji_kompetensi[]">
+                                       </div>
+                                     </div>
+                                     <div class="form-group">
+                                       <label for="sop" class="control-label col-md-3 col-sm-3 col-xs-12">SOP</label>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input value='<?php echo $topd['sop'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="sop[]">
+                                       </div>
+                                     </div>
+                                     <div class="form-group">
+                                       <label for="tata_naskah_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Tata Naskah Dinas</label>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input value='<?php echo $topd['tata_naskah_dinas'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="tata_naskah_dinas[]">
+                                       </div>
+                                     </div>
+                                     <div class="form-group">
+                                       <label for="pakaian_dinas" class="control-label col-md-3 col-sm-3 col-xs-12">Pakaian Dinas</label>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input value='<?php echo $topd['pakaian_dinas'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="pakaian_dinas[]">
+                                       </div>
+                                     </div>
+                                     <div class="form-group">
+                                       <label for="jam_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Jam Kerja</label>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <input value='<?php echo $topd['jam_kerja'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="jam_kerja[]">
+                                       </div>
+                                     </div>
 
 var opd = "<div>\
           \
@@ -142,10 +175,10 @@ var opd = "<div>\
                 <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
-              <?php 
-                foreach($data['opsi_opd'] as $opd){
-                  echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
-                }
+              <?php
+              foreach ($data['opsi_opd'] as $opd) {
+                echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
+              }
               ?>\
             </select>\
             </div>\
@@ -202,4 +235,4 @@ var opd = "<div>\
   }
 </script>
 
-  <!-- /page content -->
+         <!-- /page content -->
