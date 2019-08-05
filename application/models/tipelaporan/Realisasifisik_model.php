@@ -119,9 +119,6 @@ class Realisasifisik_model extends CI_Model
         } elseif ($table == 'updateapi') {
             $id_opd = $this->session->tempdata('id_opd');
 
-            // $this->load->model('tipelaporan_model', 'tl');
-            // $id_tipe = $this->tl->get_idtipe_by_idlaporan($id_laporan);
-
             $datalaporan = $this->db->get_where('laporan', ['id_laporan' => $id_laporan])->result_array();
             if($datalaporan != NULL){
                 $datalaporan = $datalaporan[0];
@@ -159,8 +156,4 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_complete();
     }
 
-    public function calc_data($id_laporan)
-    {
-        // capaian
-    }
 }

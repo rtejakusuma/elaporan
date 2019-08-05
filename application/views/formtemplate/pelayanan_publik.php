@@ -79,12 +79,6 @@
                               </div>
                               
                               <div class="form-group">
-                              <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input value='<?php echo $ppopd['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]"  >
-                              </div>
-                              </div>
-                              <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                             <button type='button' onclick='delete_node(this)'>Hapus</button>
                             </div>
