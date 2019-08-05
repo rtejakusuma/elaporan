@@ -2,7 +2,8 @@
  - beberapa form ada input untuk judul. konvensi (ini contoh) [judul baris 1];[judul baris 2];[judul baris 3]
  - beberapa print judul masih copy-an dari file print lain
  - konvensi poin 1 bisa dipake buat aturan field yang tipenya text dan mau di numbering
- - processing poin 1 dan 3 ditaruh di file print 
+ - processing poin 1 dan 3 ditaruh di file print
+ - yang inputnya panjang (text/varchar yang besar) diubah jadi <textarea> ? 
 
  // 2 TABEL //
 - monitoring kelembagaan
