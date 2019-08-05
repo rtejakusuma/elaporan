@@ -40,9 +40,9 @@ class Api_sikd_model extends CI_Model
         }
     }
 
-    public function get_lra($tahun = '2019')
+    public function get_lra($tahun = '2019', $kode_skpd)
     {
-        $url = 'sikd.madiunkota.net/lra' . $tahun;
+        $url = 'sikd.madiunkota.net/lra' . $tahun . '/lra/api/' . $kode_skpd;
 
         $curl = curl_init();
 
