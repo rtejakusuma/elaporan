@@ -100,12 +100,7 @@
                                 <input value='<?php echo $topd['jam_kerja'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="jam_kerja[]"  >
                             </div>
                             </div>
-                            <div class="form-group">
-                            <label for="jml_nilai" class="control-label col-md-3 col-sm-3 col-xs-12">Jumlah Nilai</label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $topd['jml_nilai'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="jml_nilai[]"  >
-                            </div>
-                            </div>
+                            
                             <div class="form-group">
                             <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -184,12 +179,16 @@ var opd = "<div>\
                                 <input  class='form-control col-md-7 col-xs-12' type='text' name='jam_kerja[]'  >\
                             </div>\
                             </div>\
+<<<<<<< HEAD
                             <div class='form-group'>\
                             <label for='jml_nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Jumlah Nilai</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
                                 <input  class='form-control col-md-7 col-xs-12' type='text' name='jml_nilai[]'  >\
                             </div>\
                             </div>\
+=======
+
+>>>>>>> 1ef907caf5c5eca1981416c42acfa05a53ce36a9
                             <div class='form-group'>\
                             <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\

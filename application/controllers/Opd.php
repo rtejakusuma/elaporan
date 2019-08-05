@@ -30,20 +30,20 @@ class Opd extends CI_Controller
         return $this->tipelaporan;
     }
 
-    public function index($err=NULL)
+    public function index($err = NULL)
     {
-        if($err != NULL){
+        if ($err != NULL) {
             $this->data['error'] = $err;
         }
-        if($this->tipelaporan == NULL){
+        if ($this->tipelaporan == NULL) {
             $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
-            $this->load->view('template/index_opd', array('data' => $this->data));    
+            $this->load->view('template/index_opd', array('data' => $this->data));
         } else {
-            redirect('opd/f/'.$this->tipelaporan[0]['kode_tipe'], 'refresh');
+            redirect('opd/f/' . $this->tipelaporan[0]['kode_tipe'], 'refresh');
         }
     }
 
-    public function f($formname, $page_number=10) // display laporan by kode_tipe
+    public function f($formname, $page_number = 10) // display laporan by kode_tipe
     {
         $this->form_ver($formname);
         $this->load->model('tipelaporan_model', 'ts');
@@ -69,57 +69,62 @@ class Opd extends CI_Controller
         $id_tipe = $this->tl->get_idtipe_by_kodetipe($formname);
         // buat di table nama_surat
         $initdata = $this->input->post();
-        $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'p');
-        $newid = $this->p->init_insert($this->session->tempdata('id_opd'),
-                            array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe), 
-                            $initdata);
-        if($newid == NULL){
-            redirect("opd/e/$formname",'refresh');
-            
+        $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'p');
+        $newid = $this->p->init_insert(
+            $this->session->tempdata('id_opd'),
+            array('id_opd' => $this->session->tempdata('id_opd'), 'id_tipe' => $id_tipe),
+            $initdata
+        );
+        if ($newid == NULL) {
+            redirect("opd/e/$formname", 'refresh');
         }
         redirect("opd/e/$formname/$newid", "refresh");
     }
 
     public function e($formname, $id_laporan) // edit existing data
     {
-        if($this->input->post() != NULL){   // update data
-            $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'lp');
+        if ($this->input->post() != NULL) {   // update data
+            $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'lp');
             $this->lp->update_data($id_laporan, $this->input->post());
             // prevent re-post data
-            redirect("opd/thanks/$formname/$id_laporan", 'refresh');
+            // redirect("opd/thanks/$formname/$id_laporan", 'refresh');
         }
+
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->load->model('laporan_model', 'laporan');
-        if($formname == "ikm" || $formname == "sotk" || $formname == 'tatalaksana' ||
+        if (
+            $formname == "ikm" || $formname == "sotk" || $formname == 'tatalaksana' ||
             $formname == "pelayanan_publik" || $formname == "monitoring_kelembagaan" ||
             $formname == "rekap_tender" || $formname == "jadwal_pelaksanaan"
-        ){
+        ) {
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
             unset($this->data['opsi_opd'][0]);
         }
-        if($formname == "rekap_tender"){
+
+        if ($formname == "rekap_tender") {
             $this->load->model("tipelaporan/rekappokja_model", 'rp');
             $this->data['opsi_paket_kerja'] = $this->rp->get_paket_kerja();
         }
+
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['formname'] = $formname;
         $this->data['contents'] = APPPATH . "views/formtemplate/$formname.php";
         $this->data['id_laporan'] = $id_laporan;
-        $this->load->view('template/index_opd', array('data' => $this->data));
+        // $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
     public function d($formname, $id_laporan)
     {
-        $this->load->model("tipelaporan/".str_replace('_', '', $formname)."_model", 'd');
+        $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'd');
         $this->d->delete_data($id_laporan);
-        redirect("opd/f/$formname",'refresh');
+        redirect("opd/f/$formname", 'refresh');
     }
 
-    public function thanks($formname, $id_laporan){
-        
-        redirect("opd/e/$formname/$id_laporan",'refresh');
-        
+    public function thanks($formname, $id_laporan)
+    {
+
+        redirect("opd/e/$formname/$id_laporan", 'refresh');
     }
 
     public function p($formname, $id_laporan) // print existing data
@@ -128,7 +133,7 @@ class Opd extends CI_Controller
         $this->load->model('laporan_model', 'laporan');
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
-        $this->load->view('print/'.$formname, array('data' => $this->data));
+        $this->load->view('print/' . $formname, array('data' => $this->data));
     }
 
     public function carilaporan($page_number)
@@ -267,15 +272,15 @@ class Opd extends CI_Controller
         $this->load->model('tipelaporanopd_model', 'a');
         $temp = $this->a->get_tipelaporan_by_idopd($this->session->tempdata('id_opd'));
         $flag = false;
-        if($temp != NULL){
-            foreach($temp as $d){
-                if($d['kode_tipe'] == $formname){
+        if ($temp != NULL) {
+            foreach ($temp as $d) {
+                if ($d['kode_tipe'] == $formname) {
                     $flag = true;
                     break;
                 }
             }
         }
-        if(!$flag){
+        if (!$flag) {
             return $this->index();
         }
     }

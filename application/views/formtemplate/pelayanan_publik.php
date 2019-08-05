@@ -77,12 +77,7 @@
                                   <input  value='<?php echo $ppopd['indeks_pelayanan_publik'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="indeks_pelayanan_publik[]"  >
                               </div>
                               </div>
-                              <div class="form-group">
-                              <label for="konversi_100" class="control-label col-md-3 col-sm-3 col-xs-12">Konversi 100</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input value='<?php echo $ppopd['konversi_100'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="konversi_100[]"  >
-                              </div>
-                              </div>
+                              
                               <div class="form-group">
                               <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -139,12 +134,15 @@ var opd = "<div>\
                               </div>\
                               </div>\
                               <div class='form-group'>\
+<<<<<<< HEAD
                               <label for='konversi_100' class='control-label col-md-3 col-sm-3 col-xs-12'>Konversi 100</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
                                   <input  class='form-control col-md-7 col-xs-12' type='text' name='konversi_100[]'  >\
                               </div>\
                               </div>\
                               <div class='form-group'>\
+=======
+>>>>>>> 1ef907caf5c5eca1981416c42acfa05a53ce36a9
                               <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
                                   <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'  >\
