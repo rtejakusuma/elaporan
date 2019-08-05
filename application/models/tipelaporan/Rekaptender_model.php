@@ -72,25 +72,55 @@ class Rekaptender_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
-        if($data != NULL){
-            for($i = 0; $i < sizeof(reset($data)); $i+=1){
-                array_push($insdata, array(
-                            'id_laporan' => $id_laporan,
-                            'id_opd' => $data['id_opd'][$i],
-                            'id_paket_kerja' => $data['id_paket_kerja'][$i],
-                            'nilai_hps' => $data['nilai_hps'][$i],
-                            'pemenang' => $data['pemenang'][$i],
-                            'harga_kontrak' => $data['harga_kontrak'][$i],
-                            'presentase_kontrak_thd_hps' => $data['presentase_kontrak_thd_hps'][$i],
-                            'ket' => $data['ket'][$i]
-                ));
-            }
-        }
+        $updata = array();
+        
         $this->db->trans_begin();
         if($table == 'detail_rekap_tender'){
-            $this->db->delete('detail_rekap_tender', "id_laporan = $id_laporan");
             if($data != NULL){
-                $this->db->insert_batch('detail_rekap_tender',$insdata);
+                // new data
+                if(isset($data['new'])){
+                    for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
+                        
+                        array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['new']['id_opd'][$i],
+                            'nama_paket_kerja' => $data['new']['nama_paket_kerja'][$i],
+                            'pagu' => $data['new']['pagu'][$i],
+                            'nilai_hps' => $data['new']['nilai_hps'][$i],
+                            'pemenang' => $data['new']['pemenang'][$i],
+                            'harga_kontrak' => $data['new']['harga_kontrak'][$i],
+                            'ket' => $data['new']['ket'][$i]
+                        ));
+                    }
+                }
+                if($insdata != NULL){
+                    $this->db->insert_batch('detail_rekap_tender', $insdata);
+                }
+                unset($data['new']);
+                // updated data
+                if($data['id_detail_rekap_tender'] != NULL){
+                    foreach($data['id_detail_rekap_tender'] as $idx){
+                        array_push($updata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_detail_rekap_tender' => $data['id_detail_rekap_tender'][$idx], 
+                            'id_opd' => $data['id_opd'][$idx],
+                            'nama_paket_kerja' => $data['nama_paket_kerja'][$idx],
+                            'pagu' => $data['pagu'][$idx],
+                            'nilai_hps' => $data['nilai_hps'][$idx],
+                            'pemenang' => $data['pemenang'][$idx],
+                            'harga_kontrak' => $data['harga_kontrak'][$idx],
+                            'ket' => $data['ket'][$idx]
+                        ));
+                    }
+                    $this->db->update_batch('detail_rekap_tender', $updata,'id_detail_rekap_tender');
+                }
+                
+                // unused data
+                if(isset($data['to_del']))
+                    $this->db->where_in('id_detail_rekap_tender', $data['to_del'])->delete('detail_rekap_tender');
+                
+            } else {
+                $this->db->delete('detail_rekap_tender', "id_laporan = $id_laporan");
             }
         }
         $this->db->trans_complete();
