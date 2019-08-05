@@ -114,7 +114,7 @@ class Jadwalpelaksanaan_model extends CI_Model
                                     'keterangan' => $data['keterangan'][$i],
                         ));
                     }
-                    $this->db->update_batch('jadwal_pelaksanaan_opd', $updata,'id_jadwal_pelaksanaan_opd');
+                    echo $this->db->update_batch('jadwal_pelaksanaan_opd', $updata,'id_jadwal_pelaksanaan_opd'); die();
                 }
                 
                 // unused data
@@ -150,6 +150,7 @@ class Jadwalpelaksanaan_model extends CI_Model
                 // var_dump($insdata); die();
                 $this->db->where_in('id_jadwal_pelaksanaan_opd', $tmp)
                             ->delete('auditor');
+                            // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
                     $this->db->insert_batch('auditor', $insdata);
             }

@@ -23,7 +23,8 @@ class Realisasifisik_model extends CI_Model
 
     public function get_data_by_id($id)
     {
-        $rfdata = $this->db->get_where('realisasi_fisik', ['id_laporan' => $id])->result_array()[0];
+        $rfdata = $this->db->get_where('realisasi_fisik', ['id_laporan' => $id])->result_array();
+        if($rfdata != NULL) $rfdata = $rfdata[0];
         $progdata = $this->db->from('program')->like('kode_program', $id, 'after')->get()->result_array();
         $kgdata = array();
         foreach ($progdata as $d) {
@@ -78,11 +79,11 @@ class Realisasifisik_model extends CI_Model
     public function update_data($id_laporan, $data)
     {
         $this->load->model('api_sipp_model', 'sipp');
-
+        $tmp = -1;
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
 
-        $this->db->trans_start();
+        $this->db->trans_begin();
         if ($table == 'program') {
             $kode = $data['kode_program'];
             $rkinerja = $data['capaian_realisasi_kinerja'];
@@ -118,25 +119,29 @@ class Realisasifisik_model extends CI_Model
         } elseif ($table == 'updateapi') {
             $id_opd = $this->session->tempdata('id_opd');
 
-            // INI TIPE AMBIL DARI INPUT HIDDEN AJA?
-            $id_tipe = 1;
-            // -------------------------------------
+            // $this->load->model('tipelaporan_model', 'tl');
+            // $id_tipe = $this->tl->get_idtipe_by_idlaporan($id_laporan);
 
-            $datalaporan = $this->db->get_where('laporan', ['id_opd' => $id_opd, 'id_tipe' => $id_tipe])->result_array()[0];
+            $datalaporan = $this->db->get_where('laporan', ['id_laporan' => $id_laporan])->result_array();
+            if($datalaporan != NULL){
+                $datalaporan = $datalaporan[0];
+            }
 
             $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan, date('Y', strtotime($data['tgl'])));
 
-            if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
+            if ($fet != NULL && sizeof($fet) > 0) {
                 $this->db->update_batch('program', $fet['prog'], 'kode_program');
                 $this->db->update_batch('kegiatan', $fet['kg'], 'kode_kegiatan');
             }
         }
-
-        // STATUS COMPLETE
-        $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
+            echo "GAGAL";
             $this->db->trans_rollback();
             return NULL;
+        } else {
+            echo "SUKSES";
+            $this->db->trans_commit();
+
         }
     }
 
