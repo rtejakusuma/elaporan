@@ -116,6 +116,7 @@
          <script>
            var opd = "<div class='form-group'>\
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+                <div class='form-group'>\
                 <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
                 <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
               <?php
@@ -124,11 +125,11 @@
               }
               ?>\
             </select>\
-            <br/><br/>\
+            </div>\
              <div class='form-group'>\
                               <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input  class='form-control col-md-7 col-xs-12' type='number' name='indeks_pelayanan_publik[]'  >\
+                                  <input  class='form-control col-md-7 col-xs-12' type='text' name='indeks_pelayanan_publik[]'  >\
                               </div>\
                               </div>\
                               <div class='form-group'>\

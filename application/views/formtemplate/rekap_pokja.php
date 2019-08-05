@@ -219,28 +219,30 @@
                             <div class="ln_solid"></div>
                             <div class="form-group">
                               <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                <button type="submit" class="btn btn-success">Submit</button>
+                                <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success">Submit</button>
                               </div>
                             </div>
                         </form>
-                      </div>
+                      </div> -->
 
                     </div>
-                  </div>
 
+                  </div>
                 </div>
+
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script>
-      function add_field() {
-        var cont = document.getElementById('container-opsi');
-        console.log(cont);
-        cont.innerHTML = "<div>\
+  <script>
+    function add_field() {
+      var cont = document.getElementById('container-opsi');
+      console.log(cont);
+      cont.innerHTML = "<div>\
                         <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
                           \
                           \
@@ -274,42 +276,42 @@
                           </div>\
                           </div>\
                       " +
-          cont.innerHTML;
-      }
+        cont.innerHTML;
+    }
 
-      function add_hasil_temuan(node) {
-        var id = node.parentNode.childNodes[1].value;
+    // function add_hasil_temuan(node){
+    //   var id = node.parentNode.childNodes[1].value;
+    //     console.log(id);
+    //     node.parentNode.innerHTML = node.parentNode.innerHTML+"\
+    // \<input type='hidden' value='"+id+"' name='new[id_detail_rekap_pokja][]'>\
+    //     <div class='form-group'>\
+    //     <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
+    //     <div class='col-md-6 col-sm-6 col-xs-12'>\
+    //       <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][] ' >\
+    //     </div>\
+    //     </div>\
+    //     <div class='form-group'>\
+    //     <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
+    //     <div class='col-md-6 col-sm-6 col-xs-12'>\
+    //       <input class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
+    //     </div>\
+    //     </div>\
+    //     <br/>";
+    // }
+
+    function delete_node(node) {
+      var cont = document.getElementById('deleted');
+      // console.log(node.parentNode.childNodes[1].nodeName);
+      var id = node.parentNode.parentNode.parentNode.childNodes[1];
+      console.log(node.parentNode.parentNode);
+      if (id.nodeName == "INPUT") {
+        id = id.value;
         console.log(id);
-        node.parentNode.innerHTML = node.parentNode.innerHTML + "\
-\<input type='hidden' value='" + id + "' name='new[id_detail_rekap_pokja][]'>\
-    <div class='form-group'>\
-    <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
-    <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][] ' >\
-    </div>\
-    </div>\
-    <div class='form-group'>\
-    <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
-    <div class='col-md-6 col-sm-6 col-xs-12'>\
-      <input class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
-    </div>\
-    </div>\
-    <br/>";
+        cont.innerHTML += "<input type='hidden' value='" + id + "' name='to_del[]'>";
       }
 
-      function delete_node(node) {
-        var cont = document.getElementById('deleted');
-        // console.log(node.parentNode.childNodes[1].nodeName);
-        var id = node.parentNode.parentNode.parentNode.childNodes[1];
-        console.log(node.parentNode.parentNode);
-        if (id.nodeName == "INPUT") {
-          id = id.value;
-          console.log(id);
-          cont.innerHTML += "<input type='hidden' value='" + id + "' name='to_del[]'>";
-        }
+      node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+    }
+  </script>
 
-        node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
-      }
-    </script>
-
-    <!-- /page content -->
+  <!-- /page content -->

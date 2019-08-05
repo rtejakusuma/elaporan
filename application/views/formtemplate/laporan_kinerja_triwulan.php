@@ -167,7 +167,21 @@
                           <div class="ln_solid"></div>
                           <div class="form-group">
                             <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                              <button type="submit" class="btn btn-success">Submit</button>
+                              <button type='button' onclick='delete_node(this)'>Hapus</button>
+                            </div>
+                            </div>
+                            
+                            </div>
+                            </div>
+                              <?php }} ?>
+                            
+                            </div> <!-- div container -->
+
+                              <div class="ln_solid"></div>
+                              <div class="form-group">
+                              <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
+                              <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success" >Submit</button>
+                            </div>
                             </div>
                           </div>
                         </form>

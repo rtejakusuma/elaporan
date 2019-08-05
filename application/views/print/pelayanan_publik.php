@@ -30,7 +30,7 @@
                     <td ><center>$counter</center></td>
                     <td >" . ucwords($ppopd['nama_opd']) . "</center></td>
                     <td><center>$ppopd[indeks_pelayanan_publik]</center></td>
-                    <td><center>$ppopd[konversi_100]</center></td>
+                    <td><center>".strval(floatval($ppopd['indeks_pelayanan_publik'])*20.0)."</center></td>
                     <td><center>$ppopd[ket]</center></td>
 
                  </tr>
