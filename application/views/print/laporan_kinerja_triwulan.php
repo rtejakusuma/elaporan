@@ -36,7 +36,25 @@
         </tr>
         <!-- End of Table Header -->
         <!-- Table Contents -->
+        <?php
+        $counter = 0;
+        foreach ($data['fetch']['lktdetail'] as $lktdetail) {
 
+            $counter += 1;
+            echo "
+                 <tr>
+                     <td ><center>$counter</center></td>
+                     <td><center>$lktdetail[uraian]</center></td>
+                     <td><center>$lktdetail[indikator_kinerja]</center></td>
+                     <td><center>$lktdetail[target]</center></td>
+                     <td><center>$lktdetail[realisasi_target]</center></td>
+                     <td><center>$lktdetail[program]</center></td>
+                     <td><center>$lktdetail[anggaran]</center></td>
+                     <td><center>$lktdetail[capaian_realisasi_keuangan]</center></td>
+                 </tr>
+             ";
+        }
+        ?>
         <!-- End of Table Contents -->
     </table>
     <div id='footer-laporan'></div>

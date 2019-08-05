@@ -144,13 +144,13 @@
                            <div class="form-group">
                              <label for="target_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Target Anggaran</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input class="form-control col-md-7 col-xs-12" type="number" name="targer_anggaran">
+                               <input class="form-control col-md-7 col-xs-12" type="text" name="targer_anggaran">
                              </div>
                            </div>
                            <div class="form-group">
                              <label for="keluaran_realisasi_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Realisasi Anggaran</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input class="form-control col-md-7 col-xs-12" type="number" name="keluaran_realisasi_anggaran">
+                               <input class="form-control col-md-7 col-xs-12" type="text" name="keluaran_realisasi_anggaran">
                              </div>
                            </div>
                            <div class="form-group">

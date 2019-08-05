@@ -78,14 +78,14 @@
                             <div class="form-group">
                               <label for="target" class="control-label col-md-3 col-sm-3 col-xs-12">Target</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $lktdetail['target']; ?>' class="form-control col-md-7 col-xs-12" type="number" name="target[]">
+                                <input value='<?php echo $lktdetail['target']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="target[]">
                               </div>
                             </div>
 
                             <div class="form-group">
                               <label for="realisasi_target" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Target</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $lktdetail['realisasi_target']; ?>' class="form-control col-md-7 col-xs-12" type="number" name="realisasi_target[]">
+                                <input value='<?php echo $lktdetail['realisasi_target']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="realisasi_target[]">
                               </div>
                             </div>
 
@@ -106,7 +106,7 @@
                             <div class="form-group">
                               <label for="capaian_realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian Realisasi Keuangan</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $lktdetail['capaian_realisasi_keuangan']; ?>' class="form-control col-md-7 col-xs-12" type="number" name="capaian_realisasi_keuangan[]">
+                                <input value='<?php echo $lktdetail['capaian_realisasi_keuangan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="capaian_realisasi_keuangan[]">
                               </div>
                             </div>
 
@@ -162,14 +162,14 @@ var opd = "<div>\
     <div class='form-group'>\
       <label for='target' class='control-label col-md-3 col-sm-3 col-xs-12'>Target</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <input class='form-control col-md-7 col-xs-12' type='number' name='target[]'  >\
+        <input class='form-control col-md-7 col-xs-12' type='text' name='target[]'  >\
       </div>\
     </div>\
     \
     <div class='form-group'>\
       <label for='realisasi_target' class='control-label col-md-3 col-sm-3 col-xs-12'>Realisasi Target</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <input  class='form-control col-md-7 col-xs-12' type='number' name='realisasi_target[]'  >\
+        <input  class='form-control col-md-7 col-xs-12' type='text' name='realisasi_target[]'  >\
       </div>\
     </div>\
     \
@@ -190,7 +190,7 @@ var opd = "<div>\
     <div class='form-group'>\
       <label for='capaian_realisasi_keuangan' class='control-label col-md-3 col-sm-3 col-xs-12'>Capaian Realisasi Keuangan</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <input class='form-control col-md-7 col-xs-12' type='number' name='capaian_realisasi_keuangan[]'  >\
+        <input class='form-control col-md-7 col-xs-12' type='text' name='capaian_realisasi_keuangan[]'  >\
       </div>\
     </div>\
     \

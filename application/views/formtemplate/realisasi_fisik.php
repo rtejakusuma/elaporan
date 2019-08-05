@@ -181,7 +181,7 @@
                                                                  <div class="form-group">
                                                                      <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $data['keluaran_satuan']; ?>)</label>
                                                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php if (isset($data['realisasi_keuangan'])) echo ucwords($data['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="number" name="realisasi_keuangan[]">
+                                                                         <input value="<?php if (isset($data['realisasi_keuangan'])) echo ucwords($data['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="realisasi_keuangan[]">
                                                                      </div>
                                                                  </div>
 

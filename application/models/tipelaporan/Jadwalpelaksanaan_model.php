@@ -78,30 +78,27 @@ class Jadwalpelaksanaan_model extends CI_Model
         $this->db->trans_begin();
         if($table == 'jadwal_pelaksanaan_opd'){
             if($data != NULL){
-                $offset = sizeof($data['rmp']);
-                if(isset($data['id_jadwal_pelaksanaan_opd']) && $data['id_jadwal_pelaksanaan_opd'] != NULL){
-                    $offset = sizeof($data['rmp']) - sizeof($data['id_jadwal_pelaksanaan_opd']);
-                }
                 // new data
-                for($i = 0; $i < $offset; $i+=1){
+                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
                     array_push($insdata, array(
-                                'id_laporan' => $id_laporan,
-                                'id_opd' => $data['id_opd'][$i],
-                                'jenis_pengawasan' => $data['jenis_pengawasan'][$i],
-                                'rmp' => $data['rmp'][$i],
-                                'rpl' => $data['rpl'][$i],
-                                'output_lhp' => $data['output_lhp'][$i],
-                                'hari_pengawasan' => $data['hari_pengawasan'][$i],
-                                'keterangan' => $data['keterangan'][$i],
+                        'id_laporan' => $id_laporan,
+                        'id_opd' => $data['new']['id_opd'][$i],
+                        'jenis_pengawasan' => $data['new']['jenis_pengawasan'][$i],
+                        'rmp' => $data['new']['rmp'][$i],
+                        'rpl' => $data['new']['rpl'][$i],
+                        'output_lhp' => $data['new']['output_lhp'][$i],
+                        'hari_pengawasan' => $data['new']['hari_pengawasan'][$i],
+                        'keterangan' => $data['new']['keterangan'][$i]
                     ));
                 }
                 if($insdata != NULL){
                     $this->db->insert_batch('jadwal_pelaksanaan_opd', $insdata);
                 }
+                unset($data['new']);
                 
                 // updated data
-                if($offset != sizeof($data['rmp'])){
-                    for($i = $offset; $i < sizeof($data['rmp']); $i+=1){
+                if(isset($data['id_jadwal_pelaksanaan_opd'])){
+                    for($i = 0; $i < sizeof($data['id_jadwal_pelaksanaan_opd']); $i+=1){
                         array_push($updata, array(
                                     'id_laporan' => $id_laporan,
                                     'id_jadwal_pelaksanaan_opd' => $data['id_jadwal_pelaksanaan_opd'][$i], 
@@ -114,7 +111,7 @@ class Jadwalpelaksanaan_model extends CI_Model
                                     'keterangan' => $data['keterangan'][$i],
                         ));
                     }
-                    echo $this->db->update_batch('jadwal_pelaksanaan_opd', $updata,'id_jadwal_pelaksanaan_opd'); die();
+                    $this->db->update_batch('jadwal_pelaksanaan_opd', $updata, 'id_jadwal_pelaksanaan_opd');
                 }
                 
                 // unused data
