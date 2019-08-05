@@ -56,9 +56,9 @@
                             <?php if($data['fetch']['topd'] != NULL){ 
                                     foreach($data['fetch']['topd'] as $topd){  
                             ?>
-                            <div class="form-group">  
-                              
+                            <div>  
                               <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
+                              <div class="form-group">
                               <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
                                 <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
                             <?php 
@@ -69,7 +69,8 @@
                               }
                             ?>
                             </select>
-                            <br/><br/>
+                              </div>
+
                             <div class="form-group">
                             <label for="uji_kompetensi" class="control-label col-md-3 col-sm-3 col-xs-12">Uji Kompetensi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
@@ -113,7 +114,7 @@
                             </div>
                             </div>
                             </div>
-                              <br/><br/></div>
+                            </div>
                               <?php }} ?>
                               </div>
 
