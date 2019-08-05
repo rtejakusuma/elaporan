@@ -4,7 +4,8 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN REKAP POKJA<br />
+                JADWAL RENCANA PELAKSANAAN PROGRAM KERJA PENGAWASAN TAHUNAN KOTA MADIUH<br />
+                TAHUN <?php echo date('Y', strtotime($data['fetch']['t']['tgl'])); ?> <br/>
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>

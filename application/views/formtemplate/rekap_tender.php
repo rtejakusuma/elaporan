@@ -96,13 +96,13 @@
                             <div class="form-group">
                             <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $drtdata['pagu'] ?>' class="form-control col-md-7 col-xs-12" type="number" name="pagu[]"  >
+                                <input value='<?php echo $drtdata['pagu'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="nilai_hps" class="control-label col-md-3 col-sm-3 col-xs-12">Nilai HPS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $drtdata['nilai_hps'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="nilai_hps[]"  >
+                                <input value='<?php echo $drtdata['nilai_hps'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="nilai_hps[]"  >
                             </div>
                             </div>
                             <div class="form-group">
@@ -114,13 +114,13 @@
                             <div class="form-group">
                             <label for="harga_kontrak" class="control-label col-md-3 col-sm-3 col-xs-12">Harga Kontrak</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $drtdata['harga_kontrak'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="harga_kontrak[]"  >
+                                <input value='<?php echo $drtdata['harga_kontrak'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="harga_kontrak[]"  >
                             </div>
                             </div>
                             <div class="form-group">
                             <label for="presentase_kontrak_thd_hps" class="control-label col-md-3 col-sm-3 col-xs-12">Presentase Kontrak Terhadap HPS</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $drtdata['presentase_kontrak_thd_hps'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="presentase_kontrak_thd_hps[]"  >
+                                <input value='<?php echo $drtdata['presentase_kontrak_thd_hps'] ?>'  class="form-control col-md-7 col-xs-12" type="text" name="presentase_kontrak_thd_hps[]"  >
                             </div>
                             </div>
                             <div class="form-group">
@@ -163,7 +163,7 @@
                             <div class="form-group">
                             <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input  class="form-control col-md-7 col-xs-12" type="number" name="pagu[]"  >
+                                <input  class="form-control col-md-7 col-xs-12" type="text" name="pagu[]"  >
                             </div>
                             </div>
                             <div class="ln_solid"></div>
