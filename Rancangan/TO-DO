@@ -9,8 +9,8 @@
 	- print done >> belum fetch data
 
 - rekap tender >> CEK TOTAL ULANG 
-	- model check
-	- form done >> hapus yang dihitung, tambah field nama_paket_kerja & pagu
+	- model cek
+	- form done blum cek
 	- print done
 
 // 3 TABEL //
@@ -20,14 +20,14 @@
 	- print done
 
 - rekap pokja >> CEK TOTAL
-	- model done
-	- form >> 3/2? butuh <select> untuk pilih paket kerja 
+	- model cek
+	- form done blum cek
 	- print done
 - realisasi fisik
-	- FETCH UPDATE
-	- model check
+	- FETCH UPDATE done
+	- model check done
 	- form check
-	- print done
+	- print kurang hitungan
 - pemantauan tindak lanjut
 	- model done
 	- form check blum ada tombol hapus di tab ke 3
