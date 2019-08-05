@@ -76,12 +76,7 @@
                                   <input  value='<?php echo $ppopd['indeks_pelayanan_publik'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="indeks_pelayanan_publik[]"  >
                               </div>
                               </div>
-                              <div class="form-group">
-                              <label for="konversi_100" class="control-label col-md-3 col-sm-3 col-xs-12">Konversi 100</label>
-                              <div class="col-md-6 col-sm-6 col-xs-12">
-                                  <input value='<?php echo $ppopd['konversi_100'] ?>'  class="form-control col-md-7 col-xs-12" type="number" name="konversi_100[]"  >
-                              </div>
-                              </div>
+                              
                               <div class="form-group">
                               <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                               <div class="col-md-6 col-sm-6 col-xs-12">
@@ -133,12 +128,6 @@ var opd = "<div class='form-group'>\
                               <label for='indeks_pelayanan_publik' class='control-label col-md-3 col-sm-3 col-xs-12'>Indeks Pelayanan Publik</label>\
                               <div class='col-md-6 col-sm-6 col-xs-12'>\
                                   <input  class='form-control col-md-7 col-xs-12' type='number' name='indeks_pelayanan_publik[]'  >\
-                              </div>\
-                              </div>\
-                              <div class='form-group'>\
-                              <label for='konversi_100' class='control-label col-md-3 col-sm-3 col-xs-12'>Konversi 100</label>\
-                              <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                  <input  class='form-control col-md-7 col-xs-12' type='number' name='konversi_100[]'  >\
                               </div>\
                               </div>\
                               <div class='form-group'>\
