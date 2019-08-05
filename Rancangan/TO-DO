@@ -1,3 +1,9 @@
+ // CEK //
+ - beberapa form ada input untuk judul. konvensi (ini contoh) [judul baris 1];[judul baris 2];[judul baris 3]
+ - beberapa print judul masih copy-an dari file print lain
+ - konvensi poin 1 bisa dipake buat aturan field yang tipenya text dan mau di numbering
+ - processing poin 1 dan 3 ditaruh di file print 
+
  // 2 TABEL //
 - monitoring kelembagaan
 	- model done
@@ -14,7 +20,18 @@
 	- form moga2 done kalo gak ada tambah api
 	- print belum semua hitungan selesai
 
-CATATAN: 
+CATATAN:
+- SIPP 2020, SIKD adanya 2019 => mau cek gak nyaman datanya gak sinkron
+- SIKD ada per opd per triwulan? kalo ada bisa ke laporan triwulan?,
+	kalo gak ada bisa untuk realisasi fisik?
+
+KESULITAN:
+- monitoring kelembagaan: relasi antara dasar hukum dan usulan sulit
+	ditentukan, banyak dasar hukum memiliki 0/lebih usulan dan banyak usulan
+	memiliki 1/lebih dasar hukum
+- Pemberian API (selain SIPP) cukup lama dan data dari API banyak yang tidak terpakai
+	(misal, dashboard madiun ada data pelayanan publik dan terdapat laporan
+		pelayanan publik. Namun dari dashboard hanya menyediakan data statistik saja)
 
 - pemantauan tindak lanjut
 	- model done

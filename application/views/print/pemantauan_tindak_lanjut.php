@@ -12,13 +12,26 @@
     <table style='width: 100%;'>
         <!-- Table header -->
         <tr>
-            <th rowspan='2'>NO.</th>
-            <th rowspan='2'>TEMUAN</th>
-            <th rowspan='2'>REKOMENDASI</th>
+            <th rowspan='3'>NO.</th>
+            <th rowspan='3'>TEMUAN</th>
+            <th rowspan='3'>REKOMENDASI</th>
             <th colspan='3'>STATUS TAHUN</th>
-            <th rowspan='2'>TINDAK LANJUT</th>
+            <th rowspan='3'>TINDAK LANJUT</th>
             <th colspan='3'>STATUS TAHUN</th>
-            <th rowspan='2'>CATATAN BPK</th>
+            <th rowspan='3'>CATATAN BPK</th>
+        </tr>
+        <tr>
+            <td colspan='3'>
+                <center>
+                <?php if(isset($data['fetch']['ptl']['tgl_status_rekomendasi'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_rekomendasi'])); ?>
+                </center>    
+            </td>
+            
+            <td colspan='3'>
+                <center>
+                <?php if(isset($data['fetch']['ptl']['tgl_status_tindak_lanjut'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_tindak_lanjut'])); ?>
+                </center>    
+            </td>
         </tr>
         <tr>
             <th>TS</th>
