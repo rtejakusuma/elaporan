@@ -39,8 +39,8 @@
 
 - pemantauan tindak lanjut
 	- model done
-	- form done
-	- print belum fetch data
+	- form error saat nambah yg hasil temuan
+	- print isi status rekomendasi as dan status tindak lanjut null
 
 
 // 4 TABEL //

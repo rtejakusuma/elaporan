@@ -665,12 +665,10 @@ DROP TABLE IF EXISTS `rb_area_perubahan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_area_perubahan` (
-  `id_rb_area_perubahan` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) NOT NULL,
+  `id_rb_area_perubahan` int(11) NOT NULL,
+  `id_laporan` int(11) DEFAULT NULL,
   `rincian` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_area_perubahan`),
-  KEY `fk_rb_area_perubahan_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_area_perubahan_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE ON UPDATE NO ACTION
+  PRIMARY KEY (`id_rb_area_perubahan`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -691,7 +689,7 @@ DROP TABLE IF EXISTS `rb_fokus`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_fokus` (
-  `id_rb_fokus` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_fokus` int(11) NOT NULL,
   `id_laporan` int(11) DEFAULT NULL,
   `rincian` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_fokus`)
@@ -746,7 +744,7 @@ DROP TABLE IF EXISTS `rb_fokus_sasaran`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_fokus_sasaran` (
-  `id_rb_fokus_sasaran` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_fokus_sasaran` int(11) NOT NULL,
   `id_rb_fokus` int(11) DEFAULT NULL,
   `sasaran` varchar(256) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
@@ -771,12 +769,10 @@ DROP TABLE IF EXISTS `rb_prioritas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_prioritas` (
-  `id_rb_prioritas` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) NOT NULL,
+  `id_rb_prioritas` int(11) NOT NULL,
+  `id_laporan` int(11) DEFAULT NULL,
   `rincian` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_prioritas`),
-  KEY `fk_rb_prioritas_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_prioritas_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_prioritas`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -797,7 +793,7 @@ DROP TABLE IF EXISTS `rb_prioritas_kegiatan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_prioritas_kegiatan` (
-  `id_rb_prioritas_sasaran` int(11) NOT NULL,
+  `id_rb_prioritas_sasaran` int(11) DEFAULT NULL,
   `nama_kegiatan` varchar(128) DEFAULT NULL,
   `indikator` varchar(64) DEFAULT NULL,
   `target_output` varchar(64) DEFAULT NULL,
@@ -807,9 +803,7 @@ CREATE TABLE `rb_prioritas_kegiatan` (
   `target_anggaran` int(11) DEFAULT NULL,
   `realisasi_anggaran` int(11) DEFAULT NULL,
   `capaian` tinyint(1) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
-  KEY `fk_rb_prioritas_kegiatan_1_idx` (`id_rb_prioritas_sasaran`),
-  CONSTRAINT `fk_rb_prioritas_kegiatan_1` FOREIGN KEY (`id_rb_prioritas_sasaran`) REFERENCES `rb_prioritas_sasaran` (`id_rb_prioritas_sasaran`) ON DELETE CASCADE
+  `ket` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -830,13 +824,11 @@ DROP TABLE IF EXISTS `rb_prioritas_sasaran`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_prioritas_sasaran` (
-  `id_rb_prioritas_sasaran` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rb_prioritas` int(11) NOT NULL,
+  `id_rb_prioritas_sasaran` int(11) NOT NULL,
+  `id_rb_prioritas` int(11) DEFAULT NULL,
   `sasaran` varchar(256) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_prioritas_sasaran`),
-  KEY `fk_rb_prioritas_sasaran_1_idx` (`id_rb_prioritas`),
-  CONSTRAINT `fk_rb_prioritas_sasaran_1` FOREIGN KEY (`id_rb_prioritas`) REFERENCES `rb_prioritas` (`id_rb_prioritas`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_prioritas_sasaran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -857,12 +849,10 @@ DROP TABLE IF EXISTS `rb_quick_wins`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_quick_wins` (
-  `id_rb_quick_wins` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) NOT NULL,
+  `id_rb_quick_wins` int(11) NOT NULL,
+  `id_laporan` int(11) DEFAULT NULL,
   `rincian` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_quick_wins`),
-  KEY `fk_rb_quick_wins_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_quick_wins_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_quick_wins`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -883,7 +873,7 @@ DROP TABLE IF EXISTS `rb_quick_wins_kegiatan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_quick_wins_kegiatan` (
-  `id_rb_quick_wins_sasaran` int(11) NOT NULL,
+  `id_rb_quick_wins_sasaran` int(11) DEFAULT NULL,
   `nama_kegiatan` varchar(128) DEFAULT NULL,
   `indikator` varchar(64) DEFAULT NULL,
   `target_output` varchar(64) DEFAULT NULL,
@@ -893,9 +883,7 @@ CREATE TABLE `rb_quick_wins_kegiatan` (
   `target_anggaran` int(11) DEFAULT NULL,
   `realisasi_anggaran` int(11) DEFAULT NULL,
   `capaian` tinyint(1) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
-  KEY `fk_rb_quick_wins_kegiatan_1_idx` (`id_rb_quick_wins_sasaran`),
-  CONSTRAINT `fk_rb_quick_wins_kegiatan_1` FOREIGN KEY (`id_rb_quick_wins_sasaran`) REFERENCES `rb_quick_wins_sasaran` (`id_rb_quick_wins_sasaran`) ON DELETE CASCADE
+  `ket` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -916,13 +904,11 @@ DROP TABLE IF EXISTS `rb_quick_wins_sasaran`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_quick_wins_sasaran` (
-  `id_rb_quick_wins_sasaran` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rb_quick_wins` int(11) NOT NULL,
+  `id_rb_quick_wins_sasaran` int(11) NOT NULL,
+  `id_rb_quick_wins` int(11) DEFAULT NULL,
   `sasaran` varchar(256) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_quick_wins_sasaran`),
-  KEY `fk_rb_quick_wins_sasaran_1_idx` (`id_rb_quick_wins`),
-  CONSTRAINT `fk_rb_quick_wins_sasaran_1` FOREIGN KEY (`id_rb_quick_wins`) REFERENCES `rb_quick_wins` (`id_rb_quick_wins`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_quick_wins_sasaran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -943,12 +929,10 @@ DROP TABLE IF EXISTS `rb_zi_wbk`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_zi_wbk` (
-  `id_rb_zi_wbk` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) NOT NULL,
+  `id_rb_zi_wbk` int(11) NOT NULL,
+  `id_laporan` int(11) DEFAULT NULL,
   `rincian` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_zi_wbk`),
-  KEY `fk_rb_zi_wbk_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_zi_wbk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_zi_wbk`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -979,9 +963,7 @@ CREATE TABLE `rb_zi_wbk_kegiatan` (
   `target_anggaran` int(11) DEFAULT NULL,
   `realisasi_anggaran` int(11) DEFAULT NULL,
   `capaian` tinyint(1) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
-  KEY `fk_rb_zi_wbk_kegiatan_1_idx` (`id_rb_zi_wbk_sasaran`),
-  CONSTRAINT `fk_rb_zi_wbk_kegiatan_1` FOREIGN KEY (`id_rb_zi_wbk_sasaran`) REFERENCES `rb_zi_wbk_sasaran` (`id_rb_zi_wbk_sasaran`) ON DELETE CASCADE
+  `ket` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1002,13 +984,11 @@ DROP TABLE IF EXISTS `rb_zi_wbk_sasaran`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_zi_wbk_sasaran` (
-  `id_rb_zi_wbk_sasaran` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rb_zi_wbk` int(11) NOT NULL,
+  `id_rb_zi_wbk_sasaran` int(11) NOT NULL,
+  `id_rb_zi_wbk` int(11) DEFAULT NULL,
   `sasaran` varchar(256) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_zi_wbk_sasaran`),
-  KEY `fk_rb_zi_wbk_sasaran_1_idx` (`id_rb_zi_wbk`),
-  CONSTRAINT `fk_rb_zi_wbk_sasaran_1` FOREIGN KEY (`id_rb_zi_wbk`) REFERENCES `rb_zi_wbk` (`id_rb_zi_wbk`) ON DELETE CASCADE
+  PRIMARY KEY (`id_rb_zi_wbk_sasaran`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1030,16 +1010,14 @@ DROP TABLE IF EXISTS `rbap_kegiatan`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rbap_kegiatan` (
   `id_opd` int(11) DEFAULT NULL,
-  `id_rbap_program` int(11) NOT NULL,
+  `id_rbap_program` int(11) DEFAULT NULL,
   `nama_kegiatan` varchar(128) DEFAULT NULL,
   `target_waktu` varchar(32) DEFAULT NULL,
   `realisasi_waktu` varchar(32) DEFAULT NULL,
   `target_anggaran` int(11) DEFAULT NULL,
   `realisasi_anggaran` int(11) DEFAULT NULL,
   `capaian` tinyint(1) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
-  KEY `fk_rbap_kegiatan_1_idx` (`id_rbap_program`),
-  CONSTRAINT `fk_rbap_kegiatan_1` FOREIGN KEY (`id_rbap_program`) REFERENCES `rbap_program` (`id_rbap_program`) ON DELETE CASCADE ON UPDATE NO ACTION
+  `ket` text DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1060,12 +1038,10 @@ DROP TABLE IF EXISTS `rbap_program`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rbap_program` (
-  `id_rbap_program` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rb_area_perubahan` int(11) NOT NULL,
+  `id_rbap_program` int(11) NOT NULL,
+  `id_rb_area_perubahan` int(11) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rbap_program`),
-  KEY `fk_rbap_program_1_idx` (`id_rb_area_perubahan`),
-  CONSTRAINT `fk_rbap_program_1` FOREIGN KEY (`id_rb_area_perubahan`) REFERENCES `rb_area_perubahan` (`id_rb_area_perubahan`) ON DELETE CASCADE ON UPDATE NO ACTION
+  PRIMARY KEY (`id_rbap_program`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1326,7 +1302,7 @@ CREATE TABLE `tipe_laporan` (
   `nama_laporan` varchar(64) DEFAULT NULL,
   `kode_tipe` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id_tipe`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1335,7 +1311,7 @@ CREATE TABLE `tipe_laporan` (
 
 LOCK TABLES `tipe_laporan` WRITE;
 /*!40000 ALTER TABLE `tipe_laporan` DISABLE KEYS */;
-INSERT INTO `tipe_laporan` VALUES (1,'Realisasi Fisik','realisasi_fisik'),(2,'Rekap Pokja','rekap_pokja'),(3,'Rekap Tender','rekap_tender'),(4,'Laporan Kinerja Triwulan','laporan_kinerja_triwulan'),(5,'Pemantauan Tindak Lanjut','pemantauan_tindak_lanjut'),(6,'Jadwal Pelaksanaan','jadwal_pelaksanaan'),(7,'Laporan RB','laporan_rb'),(8,'SOTK','sotk'),(9,'IKM','ikm'),(10,'Pelayanan Publik','pelayanan_publik'),(11,'Tatalaksana','tatalaksana'),(12,'Monitoring Kelembagaan','monitoring_kelembagaan'),(13,'RB Quick Wins','rb_quick_wins');
+INSERT INTO `tipe_laporan` VALUES (1,'Realisasi Fisik','realisasi_fisik'),(2,'Rekap Pokja','rekap_pokja'),(3,'Rekap Tender','rekap_tender'),(4,'Laporan Kinerja Triwulan','laporan_kinerja_triwulan'),(5,'Pemantauan Tindak Lanjut','pemantauan_tindak_lanjut'),(6,'Jadwal Pelaksanaan','jadwal_pelaksanaan'),(7,'Laporan RB','laporan_rb'),(8,'SOTK','sotk'),(9,'IKM','ikm'),(10,'Pelayanan Publik','pelayanan_publik'),(11,'Tatalaksana','tatalaksana'),(12,'Monitoring Kelembagaan','monitoring_kelembagaan');
 /*!40000 ALTER TABLE `tipe_laporan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1362,7 +1338,7 @@ CREATE TABLE `tipelaporan_per_opd` (
 
 LOCK TABLES `tipelaporan_per_opd` WRITE;
 /*!40000 ALTER TABLE `tipelaporan_per_opd` DISABLE KEYS */;
-INSERT INTO `tipelaporan_per_opd` VALUES (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,11),(8,12),(8,13);
+INSERT INTO `tipelaporan_per_opd` VALUES (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,11),(8,12);
 /*!40000 ALTER TABLE `tipelaporan_per_opd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1392,7 +1368,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-08-04 12:48:52','2019-08-04 12:48:52'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-08-06 05:43:45','2019-08-06 05:43:45');
+INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-08-04 12:48:52','2019-08-04 12:48:52'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-08-05 17:02:13','2019-08-05 17:02:13');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1405,4 +1381,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-06 13:52:11
+-- Dump completed on 2019-08-06 11:18:03

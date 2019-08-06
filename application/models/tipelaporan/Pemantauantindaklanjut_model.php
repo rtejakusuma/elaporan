@@ -78,7 +78,7 @@ class Pemantauantindaklanjut_model extends CI_Model
                         if($newdata == "") continue;
                         array_push($insdata, array(
                                     'id_laporan' => $id_laporan,
-                                    'nama_temuan' => $newdata['nama_temuan']
+                                    'nama_temuan' => $newdata['nama_temuan'],
                         ));
                     }
                 }
