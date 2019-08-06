@@ -7,22 +7,23 @@ class Laporanrbfokus_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rbdata = $this->db->get_where('laporan_rb_fokus', ['id_laporan' => $id])->result_array()[0];
-        $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_fokus', "id_laporan = $id")->result_array();
-        $rbqws = array();
-        if($rbqw != NULL){
-            foreach($rbqw as $d){
-                $rbqws[$d['id_rb_fokus']] = $this->db->get_where('rb_fokus_sasaran', "id_rb_fokus = $d[id_rb_fokus]")->result_array();
+        $rbf = $this->db->order_by('rincian', 'ASC')->get_where('rb_fokus', "id_laporan = $id")->result_array();
+        $rbfs = array();
+        if($rbf != NULL){
+            foreach($rbf as $d){
+                $rbfs[$d['id_rb_fokus']] = $this->db->get_where('rb_fokus_sasaran', "id_rb_fokus = $d[id_rb_fokus]")->result_array();
             }
         }
-        $rbqwk = array();
-        if($rbqws != NULL && sizeof($rbqws) > 0){
-            foreach($rbqwk as $d){
+        $rbfk = array();
+        if($rbfs != NULL && sizeof($rbfs) > 0){
+            foreach($rbfs as $d){
                 foreach($d as $k){
-                    $rbqwk[$k['id_rb_fokus_sasaran']] = $this->db->get_where('rb_fokus_kegiatan', "id_rb_fokus_sasaran = $k[id_rb_fokus_sasaran]")->result_array();
+                    $rbfk[$k['id_rb_fokus_sasaran']] = $this->db->get_where('rb_fokus_kegiatan', "id_rb_fokus_sasaran = $k[id_rb_fokus_sasaran]")->result_array();
                 }
             }
         }
-        return array('rb' => $rbdata, 'rbqw' => $rbqw, 'rbqws' => $rbqws, 'rbqwk' => $rbqwk);
+        // printf("<pre>%s</pre>", json_encode($rbfs, JSON_PRETTY_PRINT)); die();
+        return array('rb' => $rbdata, 'rbf' => $rbf, 'rbfs' => $rbfs, 'rbfk' => $rbfk);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
@@ -100,32 +101,34 @@ class Laporanrbfokus_model extends CI_Model
             }
             
         } else if($table == 'rb_fokus_sasaran') {
+            // var_dump($data); die();
             if($data != NULL){
                 // new data
-                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
-                    array_push($insdata, array(
-                        'id_rb_fokus' => $data['new']['id_rb_fokus'][$i],
-                        'sasaran' => $data['new']['sasaran'][$i],
-                        'nama_program' => $data['new']['nama_program'][$i]
-                    ));
-                }
-                
-                if($insdata != NULL){
-                    $this->db->insert_batch('rb_fokus_sasaran', $insdata);
-                }
-                unset($data['new']);
-                
-                // updated data
-                if(isset($data['id_rb_fokus_sasaran'])){
-                    for($i = 0; $i < sizeof($data['id_rb_fokus_sasaran']); $i+=1){
-                        array_push($updata, array(
-                            'id_rb_fokus_sasaran' => $data['id_rb_fokus_sasaran'][$i],
+                if(isset($data['new'])){
+                    for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
+                        array_push($insdata, array(
                             'id_rb_fokus' => $data['new']['id_rb_fokus'][$i],
                             'sasaran' => $data['new']['sasaran'][$i],
                             'nama_program' => $data['new']['nama_program'][$i]
                         ));
                     }
-                    $this->db->update_batch('_sasaran', $updata, 'id_rb_fokus_sasaran');
+                
+                    if($insdata != NULL){
+                        $this->db->insert_batch('rb_fokus_sasaran', $insdata);
+                    }
+                    unset($data['new']);
+                }
+                // updated data
+                if(isset($data['id_rb_fokus_sasaran'])){
+                    for($i = 0; $i < sizeof($data['id_rb_fokus_sasaran']); $i+=1){
+                        array_push($updata, array(
+                            'id_rb_fokus_sasaran' => $data['id_rb_fokus_sasaran'][$i],
+                            'id_rb_fokus' => $data['id_rb_fokus'][$i],
+                            'sasaran' => $data['sasaran'][$i],
+                            'nama_program' => $data['nama_program'][$i]
+                        ));
+                    }
+                    $this->db->update_batch('rb_fokus_sasaran', $updata, 'id_rb_fokus_sasaran');
                 }
                 
                 // unused data
@@ -134,40 +137,67 @@ class Laporanrbfokus_model extends CI_Model
                                 ->delete('rb_fokus_sasaran');
                 
             } else {
-                // $this->db->delete('rb_fokus', "id_laporan = $id_laporan");
+                $del = $this->db->select('id_rb_fokus_sasaran')
+                                ->from('rb_fokus_sasaran')
+                                ->join('rb_fokus', 'rb_fokus.id_rb_fokus=rb_fokus_sasaran.id_rb_fokus')
+                                ->join('laporan_rb_fokus', "laporan_rb_fokus.id_laporan = rb_fokus.id_laporan")
+                                ->where('laporan_rb_fokus.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_fokus_sasaran']);
+                }
+                $this->db->where_in('id_rb_fokus_sasaran', $dels)
+                                ->delete('rb_fokus_sasaran');
             }
         } else if($table == 'rb_fokus_kegiatan') {
-            $tmp = $data['id_rb_fokus_sasaran'];
-            unset($data['id_rb_fokus_sasaran']);
+            // unset($data['id_rb_fokus_sasaran']);
+            // var_dump($data); die();
             if($data != NULL){
-                foreach($tmp as $idx){
-                    
-                    if(isset($data['nama_kegiatan'][$idx])){
-                        
-                        for($i=0; $i < sizeof($data['nama_kegiatan'][$idx]); $i+=1){
-                            array_push($insdata, array(
-                                        'id_rb_fokus_sasaran' => $idx,
-                                        'nama_kegiatan' => $data['nama_kegiatan'][$idx][$i],
-                                        'indikator'=> $data['indikator'][$idx][$i],
-                                        'target_output'=> $data['target_output'][$idx][$i],
-                                        'realisasi_output'=> $data['realisasi_output'][$idx][$i],
-                                        'target_waktu'=> $data['target_waktu'][$idx][$i],
-                                        'realisasi_waktu'=> $data['realisasi_waktu'][$idx][$i],
-                                        'target_anggaran'=> $data['target_anggaran'][$idx][$i],
-                                        'realisasi_anggaran'=> $data['realisasi_anggaran'][$idx][$i],
-                                        'capaian'=> $data['capaian'][$idx][$i],
-                                        'ket'=> $data['ket'][$idx][$i]
-                            ));
-                        }
-                        
-                    }
+                $tmp = $data['id_rb_fokus_sasaran'];
+                for($i=0; $i < sizeof($tmp); $i+=1){
+                    array_push($insdata, array(
+                                'id_rb_fokus_sasaran' => $data['id_rb_fokus_sasaran'][$i],
+                                'nama_kegiatan' => $data['nama_kegiatan'][$i],
+                                'indikator'=> $data['indikator'][$i],
+                                'target_output'=> $data['target_output'][$i],
+                                'realisasi_output'=> $data['realisasi_output'][$i],
+                                'target_waktu'=> $data['target_waktu'][$i],
+                                'realisasi_waktu'=> $data['realisasi_waktu'][$i],
+                                'target_anggaran'=> $data['target_anggaran'][$i],
+                                'realisasi_anggaran'=> $data['realisasi_anggaran'][$i],
+                                'capaian'=> $data['capaian'][$i],
+                                'ket'=> $data['ket'][$i]
+                    ));
                 }
-                // var_dump($insdata); die();
-                $this->db->where_in('id_rb_fokus_sasaran', $tmp)
-                            ->delete('rb_fokus_kegiatan');
+
+                $del = $this->db->select('id_rb_fokus_sasaran')
+                                ->from('rb_fokus_sasaran')
+                                ->join('rb_fokus', 'rb_fokus.id_rb_fokus=rb_fokus_sasaran.id_rb_fokus')
+                                ->join('laporan_rb_fokus', "laporan_rb_fokus.id_laporan = rb_fokus.id_laporan")
+                                ->where('laporan_rb_fokus.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_fokus_sasaran']);
+                }
+                // var_dump($dels); die();
+                $this->db->where_in('id_rb_fokus_sasaran', $dels)
+                                ->delete('rb_fokus_kegiatan');
                             // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
                     $this->db->insert_batch('rb_fokus_kegiatan', $insdata);
+            } else {
+                $del = $this->db->select('id_rb_fokus_sasaran')
+                                ->from('rb_fokus_sasaran')
+                                ->join('rb_fokus', 'rb_fokus.id_rb_fokus=rb_fokus_sasaran.id_rb_fokus')
+                                ->join('laporan_rb_fokus', "laporan_rb_fokus.id_laporan = rb_fokus.id_laporan")
+                                ->where('laporan_rb_fokus.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_fokus_sasaran']);
+                }
+                // var_dump($dels); die();
+                $this->db->where_in('id_rb_fokus_sasaran', $dels)
+                                ->delete('rb_fokus_kegiatan');
             }
         }
         $this->db->trans_complete();
