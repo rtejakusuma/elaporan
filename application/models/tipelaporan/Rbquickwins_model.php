@@ -1,34 +1,28 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Pemantauantindaklanjut_model extends CI_Model
+class Rbquickwins_model extends CI_Model
 {
-    public function get_data($id_laporan=NULL, $id_opd=NULL)
-    {
-        $this->db->from('pemantauan_tindak_lanjut');
-        if($id_opd != NULL){
-            $this->db->where('pemantauan_tindak_lanjut.id_opd', $id_opd);
-        }
-        if($id_laporan != NULL){
-            $this->db->where('pemantauan_tindak_lanjut.id_laporan', $id_laporan);
-        }
-        $this->db->join('temuan', 'temuan.id_laporan = pemantauan_tindak_lanjut.id_laporan')
-                    ->join('hasil_temuan', 'hasil_temuan.id_temuan = temuan.id_temuan');
-        
-        return $this->db->get()->result();
-    }
 
     public function get_data_by_id($id)
     {
-        $ptldata = $this->db->get_where('pemantauan_tindak_lanjut', ['id_laporan' => $id])->result_array()[0];
-        $temuandata = $this->db->order_by('nama_temuan')->get_where('temuan', "id_laporan = $id")->result_array();
-        $htemuan = array();
-        if($temuandata != NULL){
-            foreach($temuandata as $d){
-                $htemuan[$d['id_temuan']] = $this->db->get_where('hasil_temuan', "id_temuan = $d[id_temuan]")->result_array();
+        $rbdata = $this->db->get_where('laporan_rb', ['id_laporan' => $id])->result_array()[0];
+        $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_quick_wins', "id_laporan = $id")->result_array();
+        $rbqws = array();
+        if($rbqw != NULL){
+            foreach($rbqw as $d){
+                $rbqws[$d['id_rb_quick_wins']] = $this->db->get_where('rb_quick_wins_sasaran', "id_rb_quick_wins = $d[id_rb_quick_wins]")->result_array();
             }
         }
-        return array('ptl' => $ptldata, 'temuan' => $temuandata, 'htemuan' => $htemuan);
+        $rbqwk = array();
+        if($rbqws != NULL && sizeof($rbqws) > 0){
+            foreach($rbqwk as $d){
+                foreach($d as $k){
+                    $rbqwk[$k['id_rb_quick_wins_sasaran']] = $this->db->get_where('rb_quick_wins_kegiatan', "id_rb_quick_wins_sasaran = $k[id_rb_quick_wins_sasaran]")->result_array();
+                }
+            }
+        }
+        return array('rb' => $rbdata, 'rbqw' => $rbqw, 'rbqws' => $rbqws, 'rbqwk' => $rbqwk);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
@@ -45,7 +39,7 @@ class Pemantauantindaklanjut_model extends CI_Model
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
-        $this->db->insert('pemantauan_tindak_lanjut', $datalaporan);
+        $this->db->insert('laporan_rb', $datalaporan);
         // insert second etc. table data here
         // no api
         // end
@@ -65,79 +59,115 @@ class Pemantauantindaklanjut_model extends CI_Model
         $updata = array();
         
         $this->db->trans_begin();
-        if($table == 'pemantauan_tindak_lanjut'){
+        if($table == 'laporan_rb'){
             if($data != NULL){
-                $this->db->update('pemantauan_tindak_lanjut', $data, "id_laporan = $id_laporan");
+                $this->db->update('laporan_rb', $data, "id_laporan = $id_laporan");
             }
         }
-        elseif($table == 'temuan'){
+        elseif($table == 'rb_quick_wins'){
             if($data != NULL){
                 // new data
-                if(isset($data['new'])){
-                    foreach($data['new'] as $newdata){
-                        if($newdata == "") continue;
-                        array_push($insdata, array(
-                                    'id_laporan' => $id_laporan,
-                                    'nama_temuan' => $newdata['nama_temuan'],
-                                    'rekomendasi' => $newdata['rekomendasi'],
-                                    'status_rekomendasi' => $newdata['status_rekomendasi'],
-                                    'tindak_lanjut' => $newdata['tindak_lanjut'],
-                                    'status_tindak_lanjut' => $newdata['status_tindak_lanjut'],
-                                    'catatan_bpk' => $newdata['catatan_bpk'],
-                        ));
-                    }
+                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
+                    array_push($insdata, array(
+                        'id_laporan' => $id_laporan,
+                        'rincian' => $data['new']['rincian'][$i]
+                    ));
                 }
                 if($insdata != NULL){
-                    $this->db->insert_batch('temuan', $insdata);
+                    $this->db->insert_batch('rb_quick_wins', $insdata);
                 }
                 unset($data['new']);
+                
                 // updated data
-                if($data['id_temuan'] != NULL){
-                    foreach($data['id_temuan'] as $idx){
+                if(isset($data['id_rb_quick_wins'])){
+                    for($i = 0; $i < sizeof($data['id_rb_quick_wins']); $i+=1){
                         array_push($updata, array(
                                     'id_laporan' => $id_laporan,
-                                    'id_temuan' => $data['id_temuan'][$idx], 
-                                    'nama_temuan' => $data['nama_temuan'][$idx]
+                                    'id_rb_quick_wins' => $data['id_rb_quick_wins'][$i], 
+                                    'rincian' => $data['rincian'][$i],
                         ));
                     }
-                    $this->db->update_batch('temuan', $updata,'id_temuan');
+                    $this->db->update_batch('rb_quick_wins', $updata, 'id_rb_quick_wins');
                 }
                 
                 // unused data
                 if(isset($data['to_del']))
-                    $this->db->where_in('id_temuan', $data['to_del'])->delete('temuan');
+                    $this->db->where_in('id_rb_quick_wins', $data['to_del'])
+                                ->delete('rb_quick_wins');
                 
             } else {
-                $this->db->delete('temuan', "id_laporan = $id_laporan");
+                $this->db->delete('rb_quick_wins', "id_laporan = $id_laporan");
             }
             
-        } else if($table == 'hasil_temuan') {
-            $tmp = $data['id_temuan'];
-            unset($data['id_temuan']);
+        } else if($table == 'rb_quick_wins_sasaran') {
+            if($data != NULL){
+                // new data
+                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
+                    array_push($insdata, array(
+                        'id_rb_quick_wins' => $data['new']['id_rb_quick_wins'][$i],
+                        'sasaran' => $data['new']['sasaran'][$i],
+                        'nama_program' => $data['new']['nama_program'][$i]
+                    ));
+                }
+                
+                if($insdata != NULL){
+                    $this->db->insert_batch('rb_quick_wins_sasaran', $insdata);
+                }
+                unset($data['new']);
+                
+                // updated data
+                if(isset($data['id_rb_quick_wins_sasaran'])){
+                    for($i = 0; $i < sizeof($data['id_rb_quick_wins_sasaran']); $i+=1){
+                        array_push($updata, array(
+                            'id_rb_quick_wins_sasaran' => $data['id_rb_quick_wins_sasaran'][$i],
+                            'id_rb_quick_wins' => $data['new']['id_rb_quick_wins'][$i],
+                            'sasaran' => $data['new']['sasaran'][$i],
+                            'nama_program' => $data['new']['nama_program'][$i]
+                        ));
+                    }
+                    $this->db->update_batch('_sasaran', $updata, 'id_rb_quick_wins_sasaran');
+                }
+                
+                // unused data
+                if(isset($data['to_del']))
+                    $this->db->where_in('id_rb_quick_wins_sasaran', $data['to_del'])
+                                ->delete('rb_quick_wins_sasaran');
+                
+            } else {
+                // $this->db->delete('rb_quick_wins', "id_laporan = $id_laporan");
+            }
+        } else if($table == 'rb_quick_wins_kegiatan') {
+            $tmp = $data['id_rb_quick_wins_sasaran'];
+            unset($data['id_rb_quick_wins_sasaran']);
             if($data != NULL){
                 foreach($tmp as $idx){
-                    if(isset($data['rekomendasi'][$idx])){
-                        for($i=0; $i < sizeof($data['rekomendasi'][$idx]); $i += 1){
-                            if($data['rekomendasi'][$idx][$i] == "" && $data['status_rekomendasi'][$idx][$i]=="" &&$data['tindak_lanjut'][$idx][$i]==""&&
-                                $data['status_tindak_lanjut'][$idx][$i]==""&&$data['catatan_bpk'][$idx][$i]==""
-                            )
-                                continue;
+                    
+                    if(isset($data['nama_kegiatan'][$idx])){
+                        
+                        for($i=0; $i < sizeof($data['nama_kegiatan'][$idx]); $i+=1){
                             array_push($insdata, array(
-                                        'id_temuan' => $idx,
-                                        'rekomendasi' => $data['rekomendasi'][$idx][$i],
-                                        'status_rekomendasi' => $data['status_rekomendasi'][$idx][$i],
-                                        'tindak_lanjut' => $data['tindak_lanjut'][$idx][$i],
-                                        'status_tindak_lanjut' => $data['status_tindak_lanjut'][$idx][$i],
-                                        'catatan_bpk' => $data['catatan_bpk'][$idx][$i]
+                                        'id_rb_quick_wins_sasaran' => $idx,
+                                        'nama_kegiatan' => $data['nama_kegiatan'][$idx][$i],
+                                        'indikator'=> $data['indikator'][$idx][$i],
+                                        'target_output'=> $data['target_output'][$idx][$i],
+                                        'realisasi_output'=> $data['realisasi_output'][$idx][$i],
+                                        'target_waktu'=> $data['target_waktu'][$idx][$i],
+                                        'realisasi_waktu'=> $data['realisasi_waktu'][$idx][$i],
+                                        'target_anggaran'=> $data['target_anggaran'][$idx][$i],
+                                        'realisasi_anggaran'=> $data['realisasi_anggaran'][$idx][$i],
+                                        'capaian'=> $data['capaian'][$idx][$i],
+                                        'ket'=> $data['ket'][$idx][$i]
                             ));
                         }
                         
                     }
                 }
-                $this->db->where_in('id_temuan', $tmp)
-                            ->delete('hasil_temuan');
+                // var_dump($insdata); die();
+                $this->db->where_in('id_rb_quick_wins_sasaran', $tmp)
+                            ->delete('rb_quick_wins_kegiatan');
+                            // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
-                    $this->db->insert_batch('hasil_temuan', $insdata);
+                    $this->db->insert_batch('rb_quick_wins_kegiatan', $insdata);
             }
         }
         $this->db->trans_complete();
@@ -147,7 +177,7 @@ class Pemantauantindaklanjut_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('pemantauan_tindak_lanjut');
+        $this->db->delete('laporan_rb');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
         $this->db->trans_complete();
