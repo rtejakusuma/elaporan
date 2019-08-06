@@ -1,24 +1,24 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rbquickwins_model extends CI_Model
+class Laporanrbprioritas_model extends CI_Model
 {
 
     public function get_data_by_id($id)
     {
-        $rbdata = $this->db->get_where('laporan_rb', ['id_laporan' => $id])->result_array()[0];
-        $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_fokus', "id_laporan = $id")->result_array();
+        $rbdata = $this->db->get_where('laporan_rb_prioritas', ['id_laporan' => $id])->result_array()[0];
+        $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_prioritas', "id_laporan = $id")->result_array();
         $rbqws = array();
         if($rbqw != NULL){
             foreach($rbqw as $d){
-                $rbqws[$d['id_rb_fokus']] = $this->db->get_where('rb_fokus_sasaran', "id_rb_fokus = $d[id_rb_fokus]")->result_array();
+                $rbqws[$d['id_rb_prioritas']] = $this->db->get_where('rb_prioritas_sasaran', "id_rb_prioritas = $d[id_rb_prioritas]")->result_array();
             }
         }
         $rbqwk = array();
         if($rbqws != NULL && sizeof($rbqws) > 0){
             foreach($rbqwk as $d){
                 foreach($d as $k){
-                    $rbqwk[$k['id_rb_fokus_sasaran']] = $this->db->get_where('rb_fokus_kegiatan', "id_rb_fokus_sasaran = $k[id_rb_fokus_sasaran]")->result_array();
+                    $rbqwk[$k['id_rb_prioritas_sasaran']] = $this->db->get_where('rb_prioritas_kegiatan', "id_rb_prioritas_sasaran = $k[id_rb_prioritas_sasaran]")->result_array();
                 }
             }
         }
@@ -39,7 +39,7 @@ class Rbquickwins_model extends CI_Model
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
-        $this->db->insert('laporan_rb', $datalaporan);
+        $this->db->insert('laporan_rb_prioritas', $datalaporan);
         // insert second etc. table data here
         // no api
         // end
@@ -59,12 +59,12 @@ class Rbquickwins_model extends CI_Model
         $updata = array();
         
         $this->db->trans_begin();
-        if($table == 'laporan_rb'){
+        if($table == 'laporan_rb_prioritas'){
             if($data != NULL){
-                $this->db->update('laporan_rb', $data, "id_laporan = $id_laporan");
+                $this->db->update('laporan_rb_prioritas', $data, "id_laporan = $id_laporan");
             }
         }
-        elseif($table == 'rb_fokus'){
+        elseif($table == 'rb_prioritas'){
             if($data != NULL){
                 // new data
                 for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
@@ -74,71 +74,71 @@ class Rbquickwins_model extends CI_Model
                     ));
                 }
                 if($insdata != NULL){
-                    $this->db->insert_batch('rb_fokus', $insdata);
+                    $this->db->insert_batch('rb_prioritas', $insdata);
                 }
                 unset($data['new']);
                 
                 // updated data
-                if(isset($data['id_rb_fokus'])){
-                    for($i = 0; $i < sizeof($data['id_rb_fokus']); $i+=1){
+                if(isset($data['id_rb_prioritas'])){
+                    for($i = 0; $i < sizeof($data['id_rb_prioritas']); $i+=1){
                         array_push($updata, array(
                                     'id_laporan' => $id_laporan,
-                                    'id_rb_fokus' => $data['id_rb_fokus'][$i], 
+                                    'id_rb_prioritas' => $data['id_rb_prioritas'][$i], 
                                     'rincian' => $data['rincian'][$i],
                         ));
                     }
-                    $this->db->update_batch('rb_fokus', $updata, 'id_rb_fokus');
+                    $this->db->update_batch('rb_prioritas', $updata, 'id_rb_prioritas');
                 }
                 
                 // unused data
                 if(isset($data['to_del']))
-                    $this->db->where_in('id_rb_fokus', $data['to_del'])
-                                ->delete('rb_fokus');
+                    $this->db->where_in('id_rb_prioritas', $data['to_del'])
+                                ->delete('rb_prioritas');
                 
             } else {
-                $this->db->delete('rb_fokus', "id_laporan = $id_laporan");
+                $this->db->delete('rb_prioritas', "id_laporan = $id_laporan");
             }
             
-        } else if($table == 'rb_fokus_sasaran') {
+        } else if($table == 'rb_prioritas_sasaran') {
             if($data != NULL){
                 // new data
                 for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
                     array_push($insdata, array(
-                        'id_rb_fokus' => $data['new']['id_rb_fokus'][$i],
+                        'id_rb_prioritas' => $data['new']['id_rb_prioritas'][$i],
                         'sasaran' => $data['new']['sasaran'][$i],
                         'nama_program' => $data['new']['nama_program'][$i]
                     ));
                 }
                 
                 if($insdata != NULL){
-                    $this->db->insert_batch('rb_fokus_sasaran', $insdata);
+                    $this->db->insert_batch('rb_prioritas_sasaran', $insdata);
                 }
                 unset($data['new']);
                 
                 // updated data
-                if(isset($data['id_rb_fokus_sasaran'])){
-                    for($i = 0; $i < sizeof($data['id_rb_fokus_sasaran']); $i+=1){
+                if(isset($data['id_rb_prioritas_sasaran'])){
+                    for($i = 0; $i < sizeof($data['id_rb_prioritas_sasaran']); $i+=1){
                         array_push($updata, array(
-                            'id_rb_fokus_sasaran' => $data['id_rb_fokus_sasaran'][$i],
-                            'id_rb_fokus' => $data['new']['id_rb_fokus'][$i],
+                            'id_rb_prioritas_sasaran' => $data['id_rb_prioritas_sasaran'][$i],
+                            'id_rb_prioritas' => $data['new']['id_rb_prioritas'][$i],
                             'sasaran' => $data['new']['sasaran'][$i],
                             'nama_program' => $data['new']['nama_program'][$i]
                         ));
                     }
-                    $this->db->update_batch('_sasaran', $updata, 'id_rb_fokus_sasaran');
+                    $this->db->update_batch('_sasaran', $updata, 'id_rb_prioritas_sasaran');
                 }
                 
                 // unused data
                 if(isset($data['to_del']))
-                    $this->db->where_in('id_rb_fokus_sasaran', $data['to_del'])
-                                ->delete('rb_fokus_sasaran');
+                    $this->db->where_in('id_rb_prioritas_sasaran', $data['to_del'])
+                                ->delete('rb_prioritas_sasaran');
                 
             } else {
-                // $this->db->delete('rb_fokus', "id_laporan = $id_laporan");
+                // $this->db->delete('rb_prioritas', "id_laporan = $id_laporan");
             }
-        } else if($table == 'rb_fokus_kegiatan') {
-            $tmp = $data['id_rb_fokus_sasaran'];
-            unset($data['id_rb_fokus_sasaran']);
+        } else if($table == 'rb_prioritas_kegiatan') {
+            $tmp = $data['id_rb_prioritas_sasaran'];
+            unset($data['id_rb_prioritas_sasaran']);
             if($data != NULL){
                 foreach($tmp as $idx){
                     
@@ -146,7 +146,7 @@ class Rbquickwins_model extends CI_Model
                         
                         for($i=0; $i < sizeof($data['nama_kegiatan'][$idx]); $i+=1){
                             array_push($insdata, array(
-                                        'id_rb_fokus_sasaran' => $idx,
+                                        'id_rb_prioritas_sasaran' => $idx,
                                         'nama_kegiatan' => $data['nama_kegiatan'][$idx][$i],
                                         'indikator'=> $data['indikator'][$idx][$i],
                                         'target_output'=> $data['target_output'][$idx][$i],
@@ -163,11 +163,11 @@ class Rbquickwins_model extends CI_Model
                     }
                 }
                 // var_dump($insdata); die();
-                $this->db->where_in('id_rb_fokus_sasaran', $tmp)
-                            ->delete('rb_fokus_kegiatan');
+                $this->db->where_in('id_rb_prioritas_sasaran', $tmp)
+                            ->delete('rb_prioritas_kegiatan');
                             // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
-                    $this->db->insert_batch('rb_fokus_kegiatan', $insdata);
+                    $this->db->insert_batch('rb_prioritas_kegiatan', $insdata);
             }
         }
         $this->db->trans_complete();
@@ -177,7 +177,7 @@ class Rbquickwins_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('laporan_rb');
+        $this->db->delete('laporan_rb_prioritas');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
         $this->db->trans_complete();

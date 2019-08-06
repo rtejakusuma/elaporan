@@ -52,7 +52,7 @@
                        <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                          <input value="rb_quick_wins" type="hidden" name="nama_tabel">
-                           <button type='button' onclick='add_field()'>Tambah</button>
+                           <button type='button' onclick='add_tab2()'>Tambah</button>
                            <div id='container-opsi'>
 
                            <?php if ($data['fetch']['rbqw'] != NULL) {
@@ -276,136 +276,136 @@
 <script>
 var tab2 ="<div>\
            <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
-
+\
            <div class='form-group'>\
             <label for='rincian' class='control-label col-md-3 col-sm-3 col-xs-12'>Rincian</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input value='<?php if(isset($rbqw['rincian']))echo $rbqw['rincian']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='rincian[]'>\
+                    <input class='form-control col-md-7 col-xs-12' type='text' name='rincian[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
                     <button type='button' onclick='delete_node(this)'>Hapus</button>\
                 </div>\
             </div>\
-
+\
             </div>\
             </div>\
         ";
 var tab3 ="<div>\
            <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
-
+\
            <div class='form-group'>\
             <label for='sasaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Sasaran</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input value='<?php if(isset($rbqw['sasaran']))echo $rbqws['sasaran']; ?>'  class='form-control col-md-7 col-xs-12' type='text' name='sasaran[]'>\
+                    <input class='form-control col-md-7 col-xs-12' type='text' name='sasaran[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='nama_program' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Program</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input  value='<?php if(isset($rbqw['nama_program']))echo $rbqws['nama_program']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='nama_program[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='nama_program[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
                 <button type='button' onclick='delete_node(this)'>Hapus</button>\
                 </div>\
             </div>\
-
+\
             </div>\
             </div>\
         ";
 var tab4 ="<div>\
            <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
-
+\
            <div class='form-group'>\
             <label for='nama_kegiatan' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Kegiatan</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input value='<?php if(isset($rbqw['nama_kegiatan']))echo $rbqwk['nama_kegiatan']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='nama_kegiatan[]'>\
+                    <input class='form-control col-md-7 col-xs-12' type='text' name='nama_kegiatan[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='indikator' class='control-label col-md-3 col-sm-3 col-xs-12'>Indikator</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['indikator']))echo $rbqwk['indikator']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='indikator[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='indikator[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='target_output' class='control-label col-md-3 col-sm-3 col-xs-12'>Target Output</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['target_output']))echo $rbqwk['target_output']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='target_output[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='target_output[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='realisasi_output' class='control-label col-md-3 col-sm-3 col-xs-12'>Realisasi Output</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['realisasi_output']))echo $rbqwk['realisasi_output']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='realisasi_output[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='realisasi_output[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='target_waktu' class='control-label col-md-3 col-sm-3 col-xs-12'>Target Waktu</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['target_waktu']))echo $rbqwk['target_waktu']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='target_waktu[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='target_waktu[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='realisasi_waktu' class='control-label col-md-3 col-sm-3 col-xs-12'>Realisasi Waktu</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['realisasi_waktu']))echo $rbqwk['realisasi_waktu']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='realisasi_waktu[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='realisasi_waktu[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='target_anggaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Target Anggaran</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['target_anggaran']))echo $rbqwk['target_anggaran']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='targer_anggaran[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='targer_anggaran[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='realisasi_anggaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Keluaran Realisasi Anggaran</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['realisasi_anggaran']))echo $rbqwk['realisasi_anggaran']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='realisasi_anggaran[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='realisasi_anggaran[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='capaian' class='control-label col-md-3 col-sm-3 col-xs-12'>Capaian</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['capaian']))echo $rbqwk['capaian']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='capaian[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='capaian[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input value='<?php if(isset($rbqw['ket']))echo $rbqwk['ket']; ?>' class='form-control col-md-7 col-xs-12' type='text' name='ket[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='ket[]'>\
                 </div>\
             </div>\
-
+\
             <div class='form-group'>\
                 <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
                 <button type='button' onclick='delete_node(this)'>Hapus</button>\
                 </div>\
             </div>\
-
+\
             </div>\
             </div>\
-
+\
         ";
-function add_field() {
+function add_tab2() {
   var cont = document.getElementById('container-opsi');
   console.log(cont);
-  cont.innerHTML = opd + cont.innerHTML;
+  cont.innerHTML = tab2 + cont.innerHTML;
 }
 
 function delete_node(node) {

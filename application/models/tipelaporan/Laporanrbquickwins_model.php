@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Rbquickwins_model extends CI_Model
+class Laporanrbquickwins_model extends CI_Model
 {
 
     public function get_data_by_id($id)
     {
-        $rbdata = $this->db->get_where('laporan_rb', ['id_laporan' => $id])->result_array()[0];
+        $rbdata = $this->db->get_where('laporan_rb_quick_wins', ['id_laporan' => $id])->result_array()[0];
         $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_quick_wins', "id_laporan = $id")->result_array();
         $rbqws = array();
         if($rbqw != NULL){
@@ -39,7 +39,7 @@ class Rbquickwins_model extends CI_Model
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
-        $this->db->insert('laporan_rb', $datalaporan);
+        $this->db->insert('laporan_rb_quick_wins', $datalaporan);
         // insert second etc. table data here
         // no api
         // end
@@ -59,9 +59,9 @@ class Rbquickwins_model extends CI_Model
         $updata = array();
         
         $this->db->trans_begin();
-        if($table == 'laporan_rb'){
+        if($table == 'laporan_rb_quick_wins'){
             if($data != NULL){
-                $this->db->update('laporan_rb', $data, "id_laporan = $id_laporan");
+                $this->db->update('laporan_rb_quick_wins', $data, "id_laporan = $id_laporan");
             }
         }
         elseif($table == 'rb_quick_wins'){
@@ -177,7 +177,7 @@ class Rbquickwins_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('laporan_rb');
+        $this->db->delete('laporan_rb_quick_wins');
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
         $this->db->trans_complete();
