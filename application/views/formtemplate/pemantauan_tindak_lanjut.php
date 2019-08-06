@@ -251,14 +251,14 @@ function add_hasil_temuan(node){
     <div class='form-group'>\
       <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input class='form-control col-md-7 col-xs-12' type='text' name='new[rekomendasi][]'  >\
+          <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi["+id+"][]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <select class='col-md-6 col-sm-6 col-xs-12' name='new[status_rekomendasi][]'>\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='status_rekomendasi["+id+"][]'>\
           <?php
             echo "<option value='TS' $sel1>TS</option>";
             echo "<option value='TB' $sel2>TB</option>";
@@ -271,14 +271,14 @@ function add_hasil_temuan(node){
       <div class='form-group'>\
       <label for='tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='new[tindak_lanjut][]'  >\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='tindak_lanjut["+id+"][]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <select class='col-md-6 col-sm-6 col-xs-12' name='new[status_tindak_lanjut][]'>\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='status_tindak_lanjut["+id+"][]'>\
         <?php
           echo "<option value='TS' $sel1>TS</option>";
           echo "<option value='TB' $sel2>TB</option>";
@@ -291,7 +291,7 @@ function add_hasil_temuan(node){
       <div class='form-group'>\
       <label for='catatan_bpk' class='control-label col-md-3 col-sm-3 col-xs-12'>Catatan BPK</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='new[catatan_bpk][]'  >\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='catatan_bpk["+id+"][]'  >\
       </div><br/><br/>\
       <div class='form-group'>\
               <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\

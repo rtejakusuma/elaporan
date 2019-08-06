@@ -113,10 +113,6 @@ class Pemantauantindaklanjut_model extends CI_Model
                 foreach($tmp as $idx){
                     if(isset($data['rekomendasi'][$idx])){
                         for($i=0; $i < sizeof($data['rekomendasi'][$idx]); $i += 1){
-                            if($data['rekomendasi'][$idx][$i] == "" && $data['status_rekomendasi'][$idx][$i]=="" &&$data['tindak_lanjut'][$idx][$i]==""&&
-                                $data['status_tindak_lanjut'][$idx][$i]==""&&$data['catatan_bpk'][$idx][$i]==""
-                            )
-                                continue;
                             array_push($insdata, array(
                                         'id_temuan' => $idx,
                                         'rekomendasi' => $data['rekomendasi'][$idx][$i],
@@ -131,6 +127,7 @@ class Pemantauantindaklanjut_model extends CI_Model
                 }
                 $this->db->where_in('id_temuan', $tmp)
                             ->delete('hasil_temuan');
+                
                 if($insdata != NULL)
                     $this->db->insert_batch('hasil_temuan', $insdata);
             }

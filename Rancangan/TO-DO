@@ -38,7 +38,7 @@
 
 - pemantauan tindak lanjut
 	- model done
-	- form error saat nambah yg hasil temuan
+	- form done
 	- print isi status rekomendasi as dan status tindak lanjut null
 
 
@@ -89,4 +89,4 @@
 - rekap pokja
 	- model done
 	- form done
-	- print done, tpi cek dulu fetch nya
+	- print done

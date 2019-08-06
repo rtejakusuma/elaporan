@@ -41,20 +41,19 @@
             <th>TB </th>
             <th>TT</th>
         </tr>
-        <!-- <tr>
-            <th></th>
-            <th>SPI</th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-        </tr> -->
+        <tr>
+            <th>1</th>
+            <th>2</th>
+            <th>3</th>
+            <th>4</th>
+            <th>5</th>
+            <th>6</th>
+            <th>7</th>
+            <th>8</th>
+            <th>9</th>
+            <th>10</th>
+            <th>11</th>
+        </tr>
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
@@ -86,6 +85,10 @@
                             echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center>TT</center></td>";
+                        } else {
+                            echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
                         }
                         echo "
                         <td><center>$kg[tindak_lanjut]</center></td>";
@@ -103,12 +106,17 @@
                             echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center>TT</center></td>";
+                        } else {
+                            echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center>TT</center></td>";
                         }
                         echo "
                         <td><center>$kg[catatan_bpk]</center></td>
-                     </tr>";
+                     ";
                  
             }
+            echo "</tr>";
         }
         ?>
         <!-- End of Table Contents -->
