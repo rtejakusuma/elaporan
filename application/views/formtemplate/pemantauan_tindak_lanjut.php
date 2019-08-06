@@ -46,6 +46,18 @@
                             </div>
                             </div>
                             <div class="form-group">
+                            <label for="tgl1" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Rekomendasi</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input value='<?php if(isset($data['fetch']['ptl']['tgl_status_rekomendasi'])) echo $data['fetch']['ptl']['tgl_status_rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="date" name="tgl_status_rekomendasi"  >
+                            </div>
+                            </div>
+                            <div class="form-group">
+                            <label for="tgl2" class="control-label col-md-3 col-sm-3 col-xs-12">Tanggal Tindak Lanjut</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <input value='<?php if(isset($data['fetch']['ptl']['tgl_status_tindak_lanjut'])) echo $data['fetch']['ptl']['tgl_status_tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="date" name="tgl_status_tindak_lanjut"  >
+                            </div>
+                            </div>
+                            <div class="form-group">
                             <label for="judul_laporan" class="control-label col-md-3 col-sm-3 col-xs-12">Judul Laporan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <input value='<?php echo $data['fetch']['ptl']['judul_laporan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="judul_laporan"  >

@@ -40,7 +40,7 @@
                             <label for="tahun" class="control-label col-md-3 col-sm-3 col-xs-12">Tahun</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                               <h2><?php echo date('Y', strtotime($data['fetch']['lkt']['tgl'])); ?></h2>
-                              <!-- <input disabled class="form-control col-md-7 col-xs-12" type="number" name="tahun"  > -->
+                              <!-- <input disabled class="form-control col-md-7 col-xs-12" type="text" name="tahun"  > -->
                             </div>
                           </div>
                         </form>
