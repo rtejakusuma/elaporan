@@ -55,19 +55,37 @@
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
-        // $counter = 0;
-        // foreach ($data['fetch']['ikmopd'] as $ikm) {
-
-        //     $counter += 1;
-        //     echo "
-        //          <tr>
-        //              <td ><center>$counter</center></td>
-        //              <td >" . ucwords($ikm['nama_opd']) . "</center></td>
-        //              <td><center>$ikm[nilai]</center></td>
-        //              <td><center>$ikm[predikat]</center></td>
-        //          </tr>
-        //      ";
-        // }
+        $counter = 0;
+        foreach ($data['fetch']['rbqw'] as $rbqw) {
+            $prog_rowspan = 2 * sizeof($data['fetch']['rbqwk'][$rbqw['kode_program']]) + 1;
+            $counter += 1;
+            echo "
+                 <tr>
+                     <td ><center>$counter</center></td>
+                     <td><center>$rbqw[rincian]</center></td>";
+            
+            foreach ($data['fetch']['rbqws'] as $rbqws) {
+                echo "
+                    <td><center>$rbqws[sasaran]</center></td> 
+                    <td><center>$rbqws[nama_program]</center></td>";
+                
+                foreach ($data['fetch']['rbqwk'] as $rbqwk) {
+                    echo "
+                        <td><center>$rbqwk[nama_kegiatan]</center></td> 
+                        <td><center>$rbqwk[indikator]</center></td>
+                        <td><center>$rbqwk[target_output]</center></td>
+                        <td><center>$rbqwk[realisasi_output]</center></td>
+                        <td><center>$rbqwk[target_Waktu]</center></td>
+                        <td><center>$rbqwk[realisasi_waktu]</center></td>
+                        <td><center>$rbqwk[target_anggaran]</center></td>
+                        <td><center>$rbqwk[realisasi_anggaran]</center></td>
+                        <td><center>$rbqwk[capaian]</center></td>
+                        <td><center>$rbqwk[ket]</center></td>
+                        </tr>
+                        ";
+                }
+            }
+        }
         ?>
         <!-- End of Table Contents -->
     </table>
