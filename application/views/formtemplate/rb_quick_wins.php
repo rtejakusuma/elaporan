@@ -70,7 +70,7 @@
                            <div class="form-group">
                              <label for="rincian" class="control-label col-md-3 col-sm-3 col-xs-12">Rincian</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input value='<?php echo $rbqw['rincian']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rincian[]">
+                               <input value='<?php if(isset($rbqw['rincian']))echo $rbqw['rincian']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rincian[]">
                              </div>
                            </div>
 
