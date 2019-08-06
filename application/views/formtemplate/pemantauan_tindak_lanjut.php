@@ -144,7 +144,17 @@
                             <div class="form-group">
                             <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['status_rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="status_rekomendasi[<?php echo $htemuan['id_temuan']; ?>][]"  >
+                            <select class="col-md-6 col-sm-6 col-xs-12" name='status_rekomendasi[]'>
+                                <?php
+                                  $sel1 = ''; $sel2 = ''; $sel3 = '';
+                                  if($htemuan['status_rekomendasi'] == "TS") $sel1 = "selected='selected'";
+                                  if($htemuan['status_rekomendasi'] == "TB") $sel2 = "selected='selected'";
+                                  if($htemuan['status_rekomendasi'] == "TT") $sel3 = "selected='selected'";
+                                  echo "<option value='TS' $sel1>TS</option>";
+                                  echo "<option value='TB' $sel2>TB</option>";
+                                  echo "<option value='TT' $sel3>TT</option>";
+                                ?>
+                              </select>
                             </div>
                             </div>
                             
@@ -155,10 +165,21 @@
                             </div>
                             </div>
                             
+                            
                             <div class="form-group">
                             <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['status_tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="status_tindak_lanjut[<?php echo $htemuan['id_temuan']; ?>][]"  >
+                              <select class="col-md-6 col-sm-6 col-xs-12" name='status_tindak_lanjut[]'>
+                                <?php
+                                  $sel1 = ''; $sel2 = ''; $sel3 = '';
+                                  if($htemuan['status_tindak_lanjut'] == "TS") $sel1 = "selected='selected'";
+                                  if($htemuan['status_tindak_lanjut'] == "TB") $sel2 = "selected='selected'";
+                                  if($htemuan['status_tindak_lanjut'] == "TT") $sel3 = "selected='selected'";
+                                  echo "<option value='TS' $sel1>TS</option>";
+                                  echo "<option value='TB' $sel2>TB</option>";
+                                  echo "<option value='TT' $sel3>TT</option>";
+                                ?>
+                              </select>
                             </div>
                             </div>
                             
@@ -230,36 +251,48 @@ function add_hasil_temuan(node){
     <div class='form-group'>\
       <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi["+id+"][]'  >\
+          <input class='form-control col-md-7 col-xs-12' type='text' name='new[rekomendasi][]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input class='form-control col-md-7 col-xs-12' type='text' name='status_rekomendasi["+id+"][]'  >\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='new[status_rekomendasi][]'>\
+          <?php
+            echo "<option value='TS' $sel1>TS</option>";
+            echo "<option value='TB' $sel2>TB</option>";
+            echo "<option value='TT' $sel3>TT</option>";
+          ?>
+        </select>\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='tindak_lanjut["+id+"][]'  >\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='new[tindak_lanjut][]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='status_tindak_lanjut["+id+"][]'  >\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='new[status_tindak_lanjut][]'>\
+        <?php
+          echo "<option value='TS' $sel1>TS</option>";
+          echo "<option value='TB' $sel2>TB</option>";
+          echo "<option value='TT' $sel3>TT</option>";
+        ?>
+        </select>\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='catatan_bpk' class='control-label col-md-3 col-sm-3 col-xs-12'>Catatan BPK</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='catatan_bpk["+id+"][]'  >\
-      </div><br/>\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='new[catatan_bpk][]'  >\
+      </div><br/><br/>\
       <div class='form-group'>\
               <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
                 <button type='button' onclick='delete_hasil_temuan(this)'>Hapus</button>\
@@ -267,6 +300,7 @@ function add_hasil_temuan(node){
           </div>\
       </div></div></div>";
 }
+
 function delete_node(node){
     var cont = document.getElementById('deleted');
     // console.log(node.parentNode.childNodes[1].nodeName);
