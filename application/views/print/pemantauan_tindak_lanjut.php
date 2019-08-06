@@ -66,40 +66,41 @@
                  <tr>
                      <td ><center>$counter</center></td>
                      <td><center>$temuan[nama_temuan]</center></td>
-                 </tr>
              ";
              foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
+                var_dump($kg['status_rekomendasi']);die();
                 echo "
-                     <tr>
+               
                         <td><center>$kg[rekomendasi]</center></td>";
-                        if($kg[status_rekomendasi == 'TS']) {
+                        if($kg['status_rekomendasi'] == 'TS') {
+
                             echo "  <td><center>TS</center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                         }
-                        elseif($kg[status_rekomendasi == 'TB']) {
+                        elseif($kg['status_rekomendasi'] == 'TB') {
                             echo "  <td><center></center></td>
                                     <td><center>TB</center></td>
                                     <td><center></center></td>";
                         }
-                        elseif($kg[status_rekomendasi == 'TT']) {
+                        elseif($kg['status_rekomendasi'] == 'TT') {
                             echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center>TT</center></td>";
                         }
                         echo "
                         <td><center>$kg[tindak_lanjut]</center></td>";
-                        if($kg[status_tindak_lanjut == 'TS']) {
+                        if($kg['status_rekomendasi'] == 'TS') {
                             echo "  <td><center>TS</center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                         }
-                        if($kg[status_tindak_lanjut == 'TB']) {
+                        if($kg['status_rekomendasi'] == 'TB') {
                             echo "  <td><center></center></td>
                                     <td><center>TB</center></td>
                                     <td><center></center></td>";
                         }
-                        if($kg[status_tindak_lanjut == 'TT']) {
+                        if($kg['status_rekomendasi'] == 'TT') {
                             echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center>TT</center></td>";
