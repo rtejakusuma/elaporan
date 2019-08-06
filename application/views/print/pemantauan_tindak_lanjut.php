@@ -68,7 +68,7 @@
                      <td><center>$temuan[nama_temuan]</center></td>
                  </tr>
              ";
-             foreach ($data['fetch']['temuan'][$temuan['id_temuan']] as $kg) {
+             foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
                 echo "
                      <tr>
                         <td><center>$kg[rekomendasi]</center></td>";
