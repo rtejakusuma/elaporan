@@ -13,7 +13,6 @@
           }
           ?>
         </ul>
-      <li><a href="<?= base_url('export/ikm/36') ?>"><i class="fa fa-plus"></i>Export</a></li>
       </li>
       <!-- <li><a href="<?php echo base_url('opd/riwayatlaporan') ?>"><i class="fa fa-edit"></i> Riwayat laporan </a>
       </li>
