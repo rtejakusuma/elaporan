@@ -68,7 +68,6 @@
                      <td><center>$temuan[nama_temuan]</center></td>
              ";
              foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
-                var_dump($kg['status_rekomendasi']);die();
                 echo "
                
                         <td><center>$kg[rekomendasi]</center></td>";
@@ -90,17 +89,17 @@
                         }
                         echo "
                         <td><center>$kg[tindak_lanjut]</center></td>";
-                        if($kg['status_rekomendasi'] == 'TS') {
+                        if($kg['status_tindak_lanjut'] == 'TS') {
                             echo "  <td><center>TS</center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                         }
-                        if($kg['status_rekomendasi'] == 'TB') {
+                        if($kg['status_tindak_lanjut'] == 'TB') {
                             echo "  <td><center></center></td>
                                     <td><center>TB</center></td>
                                     <td><center></center></td>";
                         }
-                        if($kg['status_rekomendasi'] == 'TT') {
+                        if($kg['status_tindak_lanjut'] == 'TT') {
                             echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center>TT</center></td>";
