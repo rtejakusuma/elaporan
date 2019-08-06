@@ -79,6 +79,11 @@ class Pemantauantindaklanjut_model extends CI_Model
                         array_push($insdata, array(
                                     'id_laporan' => $id_laporan,
                                     'nama_temuan' => $newdata['nama_temuan'],
+                                    'rekomendasi' => $newdata['rekomendasi'],
+                                    'status_rekomendasi' => $newdata['status_rekomendasi'],
+                                    'tindak_lanjut' => $newdata['tindak_lanjut'],
+                                    'status_tindak_lanjut' => $newdata['status_tindak_lanjut'],
+                                    'catatan_bpk' => $newdata['catatan_bpk'],
                         ));
                     }
                 }
