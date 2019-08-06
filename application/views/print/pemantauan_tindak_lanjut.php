@@ -58,7 +58,58 @@
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
-            // foreach($data)
+        $counter = 0;
+        foreach ($data['fetch']['temuan'] as $temuan) {
+
+            $counter += 1;
+            echo "
+                 <tr>
+                     <td ><center>$counter</center></td>
+                     <td><center>$temuan[nama_temuan]</center></td>
+                 </tr>
+             ";
+             foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
+                echo "
+                     <tr>
+                        <td><center>$kg[rekomendasi]</center></td>";
+                        if($kg[status_rekomendasi == 'TS']) {
+                            echo "  <td><center>TS</center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
+                        }
+                        elseif($kg[status_rekomendasi == 'TB']) {
+                            echo "  <td><center></center></td>
+                                    <td><center>TB</center></td>
+                                    <td><center></center></td>";
+                        }
+                        elseif($kg[status_rekomendasi == 'TT']) {
+                            echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center>TT</center></td>";
+                        }
+                        echo "
+                        <td><center>$kg[tindak_lanjut]</center></td>";
+                        if($kg[status_tindak_lanjut == 'TS']) {
+                            echo "  <td><center>TS</center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
+                        }
+                        if($kg[status_tindak_lanjut == 'TB']) {
+                            echo "  <td><center></center></td>
+                                    <td><center>TB</center></td>
+                                    <td><center></center></td>";
+                        }
+                        if($kg[status_tindak_lanjut == 'TT']) {
+                            echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center>TT</center></td>";
+                        }
+                        echo "
+                        <td><center>$kg[catatan_bpk]</center></td>
+                     </tr>";
+                 
+            }
+        }
         ?>
         <!-- End of Table Contents -->
     </table>
