@@ -5,7 +5,6 @@
         <center>
             <h2>
                 Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Daerah Madiun per (tanggal) pada Prioritas yang Terkait dengan Peningkatan Kualitas Pelayanan Fokus Pelayanan Quick Wins<br />
-                TAHUN <?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?> DI LINGKUNGAN PEMERINTAH KOTA MADIUN<br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
@@ -15,6 +14,7 @@
         <tr>
             <th rowspan='2'>NO</th>
             <th rowspan='2'>QUICK WINS</th>
+            <th rowspan='2'>SASARAN</th>
             <th rowspan='2'>PROGRAM</th>
             <th rowspan='2'>KEGIATAN</th>
             <th rowspan='2'>INDIKATOR</th>
