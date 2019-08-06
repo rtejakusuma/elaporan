@@ -1,11 +1,14 @@
 <?php
+
+use phpDocumentor\Reflection\Types\Null_;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Opd_model extends CI_Model
 {
     public function gets()
     {
-        $this->db->from('opd')->order_by('nama_opd','ASC');
+        $this->db->from('opd')->order_by('nama_opd', 'ASC');
         return $this->db->get()->result_array();
     }
 
@@ -24,13 +27,13 @@ class Opd_model extends CI_Model
 
     public function get_idebud($id_opd = NULL, $nama_opd = NULL)
     {
-        if($id_opd){
+        if ($id_opd) {
             $ret = $this->db->get_where('opd', ['id_opd' => $id_opd])->result_array();
-            if($ret) return $ret[0]['kode_ebud'];
+            if ($ret) return $ret[0]['kode_ebud'];
             else return NULL;
-        } elseif($nama_opd) {
+        } elseif ($nama_opd) {
             $ret = $this->db->get_where('opd', ['nama_opd' => strtoupper($nama_opd)])->result_array();
-            if($ret) return $ret[0]['id_ebud'];
+            if ($ret) return $ret[0]['id_ebud'];
             else return NULL;
         } else {
             $this->db->select('id_ebud')->from('opd');
@@ -48,13 +51,27 @@ class Opd_model extends CI_Model
 
     public function get_id_from_ebud($kode_ebud)
     {
-        if($kode_ebud == NULL){
+        if ($kode_ebud == NULL) {
             return NULL;
         }
         $ret = $this->db->get_where('opd', ['kode_ebud' => $kode_ebud])->result_array();
-        if($ret != NULL){
+        if ($ret != NULL) {
             return $ret[0]['id_opd'];
         }
+        return NULL;
+    }
+
+    public function get_ekin_by_id($id_opd)
+    {
+        $this->db->select('opd.kode_ekin');
+        $this->db->from('opd');
+        $this->db->where('opd.id_opd', $id_opd);
+        $row = $this->db->get()->row_array();
+
+        if ($row['kode_ekin'] != '' && $row['kode_ekin'] != NULL) {
+            return $row['kode_ekin'];
+        }
+
         return NULL;
     }
 }
