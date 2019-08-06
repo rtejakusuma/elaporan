@@ -4,7 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
-class Ikm extends CI_Controller
+class monitoring_kelembagaan extends CI_Controller
 {
     public $data;
     public $spreadsheet;
@@ -61,43 +61,49 @@ class Ikm extends CI_Controller
         // ini atur width
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
         $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getColumnDimension('B')->setWidth(60);
+        $sheet->getColumnDimension('B')->setWidth(20);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
 
         // ini stylenya
-        $sheet->getStyle('1:3')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('5')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('1:4')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('1:4')->getAlignment()->setVertical('center');
         $sheet->getStyle('A')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('C:D')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A:D')->getAlignment()->setVertical('center');
-        $sheet->getStyle('A:D')->getAlignment()->setWrapText(true);
-        $sheet->getStyle('A1:D5')->getFont()->setBold(true);
+        $sheet->getStyle('C:F')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:F')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A:F')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A1:F4')->getFont()->setBold(true);
 
         // ini atur header
-        $sheet->setCellValue('A1', 'NILAI INDEKS KEPUASAAN MASYARAKAT (IKM)')
-            ->mergeCells('A1:D1');
-        $sheet->setCellValue('A2', 'TAHUN ' . date('Y', strtotime($this->data['fetch']['ikm']['tgl'])) . ' DI LINGKUNGAN PEMERINTAH KOTA MADIUN')
-            ->mergeCells('A2:D2');
-        $sheet->setCellValue('A3', $this->data['nama_opd'])
-            ->mergeCells('A3:D3');
+        $sheet->setCellValue('A1', 'INVENTARISASI DATA PERMASALAHAN KELEMBAGAAN PADA SKPD DI LINGKUNGAN PEMERINTAH MADIUN')
+            ->mergeCells('A1:F1');
+        $sheet->setCellValue('A2', $this->data['nama_opd'])
+            ->mergeCells('A2:F2');
 
         // ini tablenya
         // th numrow 5
-        $sheet->setCellValue('A5', 'No.');
-        $sheet->setCellValue('B5', 'PERANGKAT DAERAH');
-        $sheet->setCellValue('C5', 'NILAI TAHUN ' . date('Y', strtotime($this->data['fetch']['ikm']['tgl'])));
-        $sheet->setCellValue('D5', 'PREDIKAT');
+        $sheet->setCellValue('A4', 'No.');
+        $sheet->setCellValue('B4', 'Nama Perangkat Daerah');
+        $sheet->setCellValue('C4', 'Permasalahan Kelembagaan');
+        $sheet->setCellValue('D4', 'Dasar Hukum/Dasar Pertimbangan');
+        $sheet->setCellValue('E4', 'Usulan');
+        $sheet->setCellValue('F4', 'Keterangan');
 
         // td numrow 6
-        $numrow = 6;
-        $nomor = 0;
-        foreach ($this->data['fetch']['ikmopd'] as $ikm) {
-            $nomor++;
-            $sheet->setCellValue('A' . $numrow, $nomor);
-            $sheet->setCellValue('B' . $numrow, ucwords($ikm['nama_opd']));
-            $sheet->setCellValue('C' . $numrow, $ikm['nilai']);
-            $sheet->setCellValue('D' . $numrow, $ikm['predikat']);
+        $numrow = 5;
+        $counter = 0;
+        foreach ($this->data['fetch']['pk'] as $pk) {
+            $counter += 1;
+
+            $sheet->setCellValue('A' . $numrow, $counter);
+            $sheet->setCellValue('B' . $numrow, ucwords($pk['nama_opd']));
+            $sheet->setCellValue('C' . $numrow, $pk['permasalahan_kelembagaan']);
+            $sheet->setCellValue('D' . $numrow, $pk['dasar_hukum']);
+            $sheet->setCellValue('E' . $numrow, $pk['usulan']);
+            $sheet->setCellValue('F' . $numrow, $pk['ket']);
+
             $numrow++;
         }
 
@@ -105,7 +111,7 @@ class Ikm extends CI_Controller
         $sheet->getPageSetup()->setFitToWidth(1);
         $sheet->getPageSetup()->setFitToHeight(0);
         $sheet->setShowGridlines(true);
-        $sheet->getStyle('A5:D' . ($numrow - 1))->applyFromArray($this->style('allborder'));
+        $sheet->getStyle('A4:F' . ($numrow - 1))->applyFromArray($this->style('allborder'));
     }
 
     public function download()
@@ -120,4 +126,4 @@ class Ikm extends CI_Controller
     }
 }
 
-/* End of file Ikm.php */
+/* End of file monitoring_kelembagaan.php */

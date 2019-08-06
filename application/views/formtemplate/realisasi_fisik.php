@@ -24,6 +24,7 @@
                          <div class="col-md-12 col-sm-12 col-xs-12">
                              <div class="x_panel">
                                  <div class="x_content">
+                                     <a href='<?php if (isset($data['id_laporan'])) echo base_url("export/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-success"><i class="fa fa-print"></i> Excel</button></a>
                                      <a href='<?php if (isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-primary"><i class="fa fa-print"></i> PRINT</button></a>
                                      <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                                          <input value="updateapi" type="hidden" name="nama_tabel">
@@ -97,7 +98,7 @@
                                                      <div class="ln_solid"></div>
                                                      <div class="form-group">
                                                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                         <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success" >Submit</button>
+                                                             <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success">Submit</button>
                                                          </div>
                                                      </div>
                                                  </form>
@@ -209,7 +210,7 @@
                                                      <div class="ln_solid"></div>
                                                      <div class="form-group">
                                                          <div class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
-                                                         <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success" >Submit</button>
+                                                             <button style="position: fixed; bottom: 28px; right: 48px;font-size:20px;  width: 100px;" type="submit" class="btn btn-success">Submit</button>
                                                          </div>
                                                      </div>
                                                  </form>
