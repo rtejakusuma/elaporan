@@ -97,7 +97,7 @@ CREATE TABLE `detail_rekap_pokja` (
 
 LOCK TABLES `detail_rekap_pokja` WRITE;
 /*!40000 ALTER TABLE `detail_rekap_pokja` DISABLE KEYS */;
-INSERT INTO `detail_rekap_pokja` VALUES (5,7,'ketua','halo'),(5,7,'bendahara',''),(6,7,'sekretaris','');
+INSERT INTO `detail_rekap_pokja` VALUES (5,7,'ketua','halo'),(6,7,'sekretaris','');
 /*!40000 ALTER TABLE `detail_rekap_pokja` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -161,7 +161,7 @@ CREATE TABLE `hasil_temuan` (
 
 LOCK TABLES `hasil_temuan` WRITE;
 /*!40000 ALTER TABLE `hasil_temuan` DISABLE KEYS */;
-INSERT INTO `hasil_temuan` VALUES (7,'ha','','asdasd','',''),(8,'zzzz','','','','');
+INSERT INTO `hasil_temuan` VALUES (7,'ss','TS','ss','TS','sss'),(8,'zzzz','T','sss','T','ddd');
 /*!40000 ALTER TABLE `hasil_temuan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -346,7 +346,7 @@ CREATE TABLE `laporan` (
   KEY `fk_tipelaporan_dari_laporan` (`id_tipe`),
   CONSTRAINT `fk_laporan_opd` FOREIGN KEY (`id_opd`) REFERENCES `opd` (`id_opd`),
   CONSTRAINT `fk_tipelaporan_dari_laporan` FOREIGN KEY (`id_tipe`) REFERENCES `tipe_laporan` (`id_tipe`)
-) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -355,7 +355,7 @@ CREATE TABLE `laporan` (
 
 LOCK TABLES `laporan` WRITE;
 /*!40000 ALTER TABLE `laporan` DISABLE KEYS */;
-INSERT INTO `laporan` VALUES (20,8,5,'2019-08-03 13:49:57','2019-08-03 13:49:57'),(21,8,6,'2019-08-03 14:00:05','2019-08-03 14:00:05'),(22,8,4,'2019-08-04 00:20:33','2019-08-04 00:20:33'),(23,8,3,'2019-08-04 00:21:14','2019-08-04 00:21:14'),(24,8,9,'2019-08-04 03:10:31','2019-08-04 03:10:31'),(25,8,2,'2019-08-04 04:31:19','2019-08-04 04:31:19'),(26,8,8,'2019-08-05 01:47:20','2019-08-05 01:47:20'),(27,8,11,'2019-08-05 01:55:09','2019-08-05 01:55:09'),(28,8,10,'2019-08-05 02:01:22','2019-08-05 02:01:22'),(29,8,12,'2019-08-05 03:12:58','2019-08-05 03:12:58'),(31,8,1,'2019-08-05 06:08:01','2019-08-05 06:08:01');
+INSERT INTO `laporan` VALUES (20,8,5,'2019-08-03 13:49:57','2019-08-03 13:49:57'),(21,8,6,'2019-08-03 14:00:05','2019-08-03 14:00:05'),(22,8,4,'2019-08-04 00:20:33','2019-08-04 00:20:33'),(23,8,3,'2019-08-04 00:21:14','2019-08-04 00:21:14'),(24,8,9,'2019-08-04 03:10:31','2019-08-04 03:10:31'),(25,8,2,'2019-08-04 04:31:19','2019-08-04 04:31:19'),(26,8,8,'2019-08-05 01:47:20','2019-08-05 01:47:20'),(27,8,11,'2019-08-05 01:55:09','2019-08-05 01:55:09'),(28,8,10,'2019-08-05 02:01:22','2019-08-05 02:01:22'),(29,8,12,'2019-08-05 03:12:58','2019-08-05 03:12:58'),(31,8,1,'2019-08-05 06:08:01','2019-08-05 06:08:01'),(34,8,16,'2019-08-06 10:01:20','2019-08-06 10:01:20'),(35,8,13,'2019-08-06 10:02:59','2019-08-06 10:02:59'),(36,8,15,'2019-08-06 14:12:13','2019-08-06 14:12:13'),(37,8,14,'2019-08-06 14:16:51','2019-08-06 14:16:51');
 /*!40000 ALTER TABLE `laporan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -389,13 +389,13 @@ INSERT INTO `laporan_kinerja_triwulan` VALUES (22,8,4,'2019-08-04 00:20:33','201
 UNLOCK TABLES;
 
 --
--- Table structure for table `laporan_rb`
+-- Table structure for table `laporan_rb_area_perubahan`
 --
 
-DROP TABLE IF EXISTS `laporan_rb`;
+DROP TABLE IF EXISTS `laporan_rb_area_perubahan`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `laporan_rb` (
+CREATE TABLE `laporan_rb_area_perubahan` (
   `id_laporan` int(11) NOT NULL,
   `id_opd` int(11) DEFAULT NULL,
   `id_tipe` int(11) DEFAULT NULL,
@@ -409,12 +409,132 @@ CREATE TABLE `laporan_rb` (
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `laporan_rb`
+-- Dumping data for table `laporan_rb_area_perubahan`
 --
 
-LOCK TABLES `laporan_rb` WRITE;
-/*!40000 ALTER TABLE `laporan_rb` DISABLE KEYS */;
-/*!40000 ALTER TABLE `laporan_rb` ENABLE KEYS */;
+LOCK TABLES `laporan_rb_area_perubahan` WRITE;
+/*!40000 ALTER TABLE `laporan_rb_area_perubahan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `laporan_rb_area_perubahan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `laporan_rb_fokus`
+--
+
+DROP TABLE IF EXISTS `laporan_rb_fokus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `laporan_rb_fokus` (
+  `id_laporan` int(11) NOT NULL,
+  `id_opd` int(11) DEFAULT NULL,
+  `id_tipe` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tgl` date DEFAULT NULL,
+  `judul_rb` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id_laporan`),
+  CONSTRAINT `fk_laporan_rb_fokus_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `laporan_rb_fokus`
+--
+
+LOCK TABLES `laporan_rb_fokus` WRITE;
+/*!40000 ALTER TABLE `laporan_rb_fokus` DISABLE KEYS */;
+INSERT INTO `laporan_rb_fokus` VALUES (34,8,16,'2019-08-06 10:01:20','2019-08-06 10:01:20','2019-08-06',NULL);
+/*!40000 ALTER TABLE `laporan_rb_fokus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `laporan_rb_prioritas`
+--
+
+DROP TABLE IF EXISTS `laporan_rb_prioritas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `laporan_rb_prioritas` (
+  `id_laporan` int(11) NOT NULL,
+  `id_opd` int(11) DEFAULT NULL,
+  `id_tipe` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tgl` date DEFAULT NULL,
+  `judul_rb` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id_laporan`),
+  CONSTRAINT `fk_laporan_rb_prioritas_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `laporan_rb_prioritas`
+--
+
+LOCK TABLES `laporan_rb_prioritas` WRITE;
+/*!40000 ALTER TABLE `laporan_rb_prioritas` DISABLE KEYS */;
+INSERT INTO `laporan_rb_prioritas` VALUES (36,8,15,'2019-08-06 14:12:13','2019-08-06 14:12:13','2019-08-06',NULL);
+/*!40000 ALTER TABLE `laporan_rb_prioritas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `laporan_rb_quick_wins`
+--
+
+DROP TABLE IF EXISTS `laporan_rb_quick_wins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `laporan_rb_quick_wins` (
+  `id_laporan` int(11) NOT NULL,
+  `id_opd` int(11) DEFAULT NULL,
+  `id_tipe` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tgl` date DEFAULT NULL,
+  `judul_rb` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id_laporan`),
+  CONSTRAINT `fk_laporan_rb_quick_wins_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `laporan_rb_quick_wins`
+--
+
+LOCK TABLES `laporan_rb_quick_wins` WRITE;
+/*!40000 ALTER TABLE `laporan_rb_quick_wins` DISABLE KEYS */;
+INSERT INTO `laporan_rb_quick_wins` VALUES (35,8,13,'2019-08-06 10:02:59','2019-08-06 10:02:59','2019-08-06',NULL);
+/*!40000 ALTER TABLE `laporan_rb_quick_wins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `laporan_rb_zi_wbk`
+--
+
+DROP TABLE IF EXISTS `laporan_rb_zi_wbk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `laporan_rb_zi_wbk` (
+  `id_laporan` int(11) NOT NULL,
+  `id_opd` int(11) DEFAULT NULL,
+  `id_tipe` int(11) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `tgl` date DEFAULT NULL,
+  `judul_rb` varchar(256) DEFAULT NULL,
+  PRIMARY KEY (`id_laporan`),
+  CONSTRAINT `fk_laporan_rb_zi_wbk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan` (`id_laporan`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `laporan_rb_zi_wbk`
+--
+
+LOCK TABLES `laporan_rb_zi_wbk` WRITE;
+/*!40000 ALTER TABLE `laporan_rb_zi_wbk` DISABLE KEYS */;
+INSERT INTO `laporan_rb_zi_wbk` VALUES (37,8,14,'2019-08-06 14:16:51','2019-08-06 14:16:51','2019-08-06',NULL);
+/*!40000 ALTER TABLE `laporan_rb_zi_wbk` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -670,7 +790,7 @@ CREATE TABLE `rb_area_perubahan` (
   `rincian` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_area_perubahan`),
   KEY `fk_rb_area_perubahan_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_area_perubahan_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE ON UPDATE NO ACTION
+  CONSTRAINT `fk_rb_area_perubahan_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb_area_perubahan` (`id_laporan`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -684,6 +804,63 @@ LOCK TABLES `rb_area_perubahan` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rb_area_perubahan_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rb_area_perubahan_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_area_perubahan_kegiatan` (
+  `id_opd` int(11) DEFAULT NULL,
+  `id_rb_area_perubahan_program` int(11) NOT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  KEY `fk_rbap_kegiatan_1_idx` (`id_rb_area_perubahan_program`),
+  CONSTRAINT `fk_rbap_kegiatan_1` FOREIGN KEY (`id_rb_area_perubahan_program`) REFERENCES `rb_area_perubahan_program` (`id_rb_area_perubahan_program`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_area_perubahan_kegiatan`
+--
+
+LOCK TABLES `rb_area_perubahan_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rb_area_perubahan_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_area_perubahan_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_area_perubahan_program`
+--
+
+DROP TABLE IF EXISTS `rb_area_perubahan_program`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_area_perubahan_program` (
+  `id_rb_area_perubahan_program` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_area_perubahan` int(11) NOT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_area_perubahan_program`),
+  KEY `fk_rbap_program_1_idx` (`id_rb_area_perubahan`),
+  CONSTRAINT `fk_rbap_program_1` FOREIGN KEY (`id_rb_area_perubahan`) REFERENCES `rb_area_perubahan` (`id_rb_area_perubahan`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_area_perubahan_program`
+--
+
+LOCK TABLES `rb_area_perubahan_program` WRITE;
+/*!40000 ALTER TABLE `rb_area_perubahan_program` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_area_perubahan_program` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `rb_fokus`
 --
 
@@ -692,10 +869,12 @@ DROP TABLE IF EXISTS `rb_fokus`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `rb_fokus` (
   `id_rb_fokus` int(11) NOT NULL AUTO_INCREMENT,
-  `id_laporan` int(11) DEFAULT NULL,
+  `id_laporan` int(11) NOT NULL,
   `rincian` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rb_fokus`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`id_rb_fokus`),
+  KEY `fk_rb_fokus_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_rb_fokus_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb_fokus` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -704,6 +883,7 @@ CREATE TABLE `rb_fokus` (
 
 LOCK TABLES `rb_fokus` WRITE;
 /*!40000 ALTER TABLE `rb_fokus` DISABLE KEYS */;
+INSERT INTO `rb_fokus` VALUES (3,34,'ddd');
 /*!40000 ALTER TABLE `rb_fokus` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -735,6 +915,7 @@ CREATE TABLE `rb_fokus_kegiatan` (
 
 LOCK TABLES `rb_fokus_kegiatan` WRITE;
 /*!40000 ALTER TABLE `rb_fokus_kegiatan` DISABLE KEYS */;
+INSERT INTO `rb_fokus_kegiatan` VALUES (2,'','dd','','','','',NULL,0,0,''),(1,'qqq','','','','','',NULL,0,0,'ddd'),(3,'qqqq','','','','','',NULL,0,0,''),(4,'','','atta','','','',0,0,0,''),(4,'','','','','','',0,0,0,'');
 /*!40000 ALTER TABLE `rb_fokus_kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -751,7 +932,7 @@ CREATE TABLE `rb_fokus_sasaran` (
   `sasaran` varchar(256) DEFAULT NULL,
   `nama_program` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_fokus_sasaran`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -760,6 +941,7 @@ CREATE TABLE `rb_fokus_sasaran` (
 
 LOCK TABLES `rb_fokus_sasaran` WRITE;
 /*!40000 ALTER TABLE `rb_fokus_sasaran` DISABLE KEYS */;
+INSERT INTO `rb_fokus_sasaran` VALUES (1,2,'sss','ccc'),(3,1,'fff','qqqqq');
 /*!40000 ALTER TABLE `rb_fokus_sasaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -776,8 +958,8 @@ CREATE TABLE `rb_prioritas` (
   `rincian` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_prioritas`),
   KEY `fk_rb_prioritas_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_prioritas_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_rb_prioritas_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb_prioritas` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -786,6 +968,7 @@ CREATE TABLE `rb_prioritas` (
 
 LOCK TABLES `rb_prioritas` WRITE;
 /*!40000 ALTER TABLE `rb_prioritas` DISABLE KEYS */;
+INSERT INTO `rb_prioritas` VALUES (1,36,'');
 /*!40000 ALTER TABLE `rb_prioritas` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -819,6 +1002,7 @@ CREATE TABLE `rb_prioritas_kegiatan` (
 
 LOCK TABLES `rb_prioritas_kegiatan` WRITE;
 /*!40000 ALTER TABLE `rb_prioritas_kegiatan` DISABLE KEYS */;
+INSERT INTO `rb_prioritas_kegiatan` VALUES (2,'','','','','','fff',0,0,0,'');
 /*!40000 ALTER TABLE `rb_prioritas_kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -837,7 +1021,7 @@ CREATE TABLE `rb_prioritas_sasaran` (
   PRIMARY KEY (`id_rb_prioritas_sasaran`),
   KEY `fk_rb_prioritas_sasaran_1_idx` (`id_rb_prioritas`),
   CONSTRAINT `fk_rb_prioritas_sasaran_1` FOREIGN KEY (`id_rb_prioritas`) REFERENCES `rb_prioritas` (`id_rb_prioritas`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -846,6 +1030,7 @@ CREATE TABLE `rb_prioritas_sasaran` (
 
 LOCK TABLES `rb_prioritas_sasaran` WRITE;
 /*!40000 ALTER TABLE `rb_prioritas_sasaran` DISABLE KEYS */;
+INSERT INTO `rb_prioritas_sasaran` VALUES (2,1,'','');
 /*!40000 ALTER TABLE `rb_prioritas_sasaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -862,8 +1047,8 @@ CREATE TABLE `rb_quick_wins` (
   `rincian` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_quick_wins`),
   KEY `fk_rb_quick_wins_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_quick_wins_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_rb_quick_wins_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb_quick_wins` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -872,6 +1057,7 @@ CREATE TABLE `rb_quick_wins` (
 
 LOCK TABLES `rb_quick_wins` WRITE;
 /*!40000 ALTER TABLE `rb_quick_wins` DISABLE KEYS */;
+INSERT INTO `rb_quick_wins` VALUES (5,35,'Menurunkan Lemak');
 /*!40000 ALTER TABLE `rb_quick_wins` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -905,6 +1091,7 @@ CREATE TABLE `rb_quick_wins_kegiatan` (
 
 LOCK TABLES `rb_quick_wins_kegiatan` WRITE;
 /*!40000 ALTER TABLE `rb_quick_wins_kegiatan` DISABLE KEYS */;
+INSERT INTO `rb_quick_wins_kegiatan` VALUES (13,'','','','','','',0,0,0,''),(13,'','','','','','',0,0,0,''),(16,'','','','','','',0,0,0,''),(16,'','','','','','',0,0,0,''),(16,'','','','','','',0,0,0,''),(16,'','','','','','',0,0,0,'');
 /*!40000 ALTER TABLE `rb_quick_wins_kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -923,7 +1110,7 @@ CREATE TABLE `rb_quick_wins_sasaran` (
   PRIMARY KEY (`id_rb_quick_wins_sasaran`),
   KEY `fk_rb_quick_wins_sasaran_1_idx` (`id_rb_quick_wins`),
   CONSTRAINT `fk_rb_quick_wins_sasaran_1` FOREIGN KEY (`id_rb_quick_wins`) REFERENCES `rb_quick_wins` (`id_rb_quick_wins`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -932,6 +1119,7 @@ CREATE TABLE `rb_quick_wins_sasaran` (
 
 LOCK TABLES `rb_quick_wins_sasaran` WRITE;
 /*!40000 ALTER TABLE `rb_quick_wins_sasaran` DISABLE KEYS */;
+INSERT INTO `rb_quick_wins_sasaran` VALUES (13,5,'aaaa','sss'),(16,5,'','');
 /*!40000 ALTER TABLE `rb_quick_wins_sasaran` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -948,8 +1136,8 @@ CREATE TABLE `rb_zi_wbk` (
   `rincian` varchar(128) DEFAULT NULL,
   PRIMARY KEY (`id_rb_zi_wbk`),
   KEY `fk_rb_zi_wbk_1_idx` (`id_laporan`),
-  CONSTRAINT `fk_rb_zi_wbk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `fk_rb_zi_wbk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb_zi_wbk` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -958,6 +1146,7 @@ CREATE TABLE `rb_zi_wbk` (
 
 LOCK TABLES `rb_zi_wbk` WRITE;
 /*!40000 ALTER TABLE `rb_zi_wbk` DISABLE KEYS */;
+INSERT INTO `rb_zi_wbk` VALUES (1,37,'dd'),(2,37,'');
 /*!40000 ALTER TABLE `rb_zi_wbk` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -991,6 +1180,7 @@ CREATE TABLE `rb_zi_wbk_kegiatan` (
 
 LOCK TABLES `rb_zi_wbk_kegiatan` WRITE;
 /*!40000 ALTER TABLE `rb_zi_wbk_kegiatan` DISABLE KEYS */;
+INSERT INTO `rb_zi_wbk_kegiatan` VALUES (1,'','','','','','',0,0,0,''),(1,'','','','','','',0,0,0,'');
 /*!40000 ALTER TABLE `rb_zi_wbk_kegiatan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1009,7 +1199,7 @@ CREATE TABLE `rb_zi_wbk_sasaran` (
   PRIMARY KEY (`id_rb_zi_wbk_sasaran`),
   KEY `fk_rb_zi_wbk_sasaran_1_idx` (`id_rb_zi_wbk`),
   CONSTRAINT `fk_rb_zi_wbk_sasaran_1` FOREIGN KEY (`id_rb_zi_wbk`) REFERENCES `rb_zi_wbk` (`id_rb_zi_wbk`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1018,64 +1208,8 @@ CREATE TABLE `rb_zi_wbk_sasaran` (
 
 LOCK TABLES `rb_zi_wbk_sasaran` WRITE;
 /*!40000 ALTER TABLE `rb_zi_wbk_sasaran` DISABLE KEYS */;
+INSERT INTO `rb_zi_wbk_sasaran` VALUES (1,1,'zxcz','vxcv'),(2,2,'','sdasd');
 /*!40000 ALTER TABLE `rb_zi_wbk_sasaran` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `rbap_kegiatan`
---
-
-DROP TABLE IF EXISTS `rbap_kegiatan`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rbap_kegiatan` (
-  `id_opd` int(11) DEFAULT NULL,
-  `id_rbap_program` int(11) NOT NULL,
-  `nama_kegiatan` varchar(128) DEFAULT NULL,
-  `target_waktu` varchar(32) DEFAULT NULL,
-  `realisasi_waktu` varchar(32) DEFAULT NULL,
-  `target_anggaran` int(11) DEFAULT NULL,
-  `realisasi_anggaran` int(11) DEFAULT NULL,
-  `capaian` tinyint(1) DEFAULT NULL,
-  `ket` text DEFAULT NULL,
-  KEY `fk_rbap_kegiatan_1_idx` (`id_rbap_program`),
-  CONSTRAINT `fk_rbap_kegiatan_1` FOREIGN KEY (`id_rbap_program`) REFERENCES `rbap_program` (`id_rbap_program`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rbap_kegiatan`
---
-
-LOCK TABLES `rbap_kegiatan` WRITE;
-/*!40000 ALTER TABLE `rbap_kegiatan` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rbap_kegiatan` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `rbap_program`
---
-
-DROP TABLE IF EXISTS `rbap_program`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `rbap_program` (
-  `id_rbap_program` int(11) NOT NULL AUTO_INCREMENT,
-  `id_rb_area_perubahan` int(11) NOT NULL,
-  `nama_program` varchar(128) DEFAULT NULL,
-  PRIMARY KEY (`id_rbap_program`),
-  KEY `fk_rbap_program_1_idx` (`id_rb_area_perubahan`),
-  CONSTRAINT `fk_rbap_program_1` FOREIGN KEY (`id_rb_area_perubahan`) REFERENCES `rb_area_perubahan` (`id_rb_area_perubahan`) ON DELETE CASCADE ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `rbap_program`
---
-
-LOCK TABLES `rbap_program` WRITE;
-/*!40000 ALTER TABLE `rbap_program` DISABLE KEYS */;
-/*!40000 ALTER TABLE `rbap_program` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -1301,7 +1435,7 @@ CREATE TABLE `temuan` (
   PRIMARY KEY (`id_temuan`),
   KEY `fk_relationship_24` (`id_laporan`),
   CONSTRAINT `fk_relationship_24` FOREIGN KEY (`id_laporan`) REFERENCES `pemantauan_tindak_lanjut` (`id_laporan`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1326,7 +1460,7 @@ CREATE TABLE `tipe_laporan` (
   `nama_laporan` varchar(64) DEFAULT NULL,
   `kode_tipe` varchar(64) DEFAULT NULL,
   PRIMARY KEY (`id_tipe`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1335,7 +1469,7 @@ CREATE TABLE `tipe_laporan` (
 
 LOCK TABLES `tipe_laporan` WRITE;
 /*!40000 ALTER TABLE `tipe_laporan` DISABLE KEYS */;
-INSERT INTO `tipe_laporan` VALUES (1,'Realisasi Fisik','realisasi_fisik'),(2,'Rekap Pokja','rekap_pokja'),(3,'Rekap Tender','rekap_tender'),(4,'Laporan Kinerja Triwulan','laporan_kinerja_triwulan'),(5,'Pemantauan Tindak Lanjut','pemantauan_tindak_lanjut'),(6,'Jadwal Pelaksanaan','jadwal_pelaksanaan'),(7,'Laporan RB','laporan_rb'),(8,'SOTK','sotk'),(9,'IKM','ikm'),(10,'Pelayanan Publik','pelayanan_publik'),(11,'Tatalaksana','tatalaksana'),(12,'Monitoring Kelembagaan','monitoring_kelembagaan'),(13,'RB Quick Wins','rb_quick_wins');
+INSERT INTO `tipe_laporan` VALUES (1,'Realisasi Fisik','realisasi_fisik'),(2,'Rekap Pokja','rekap_pokja'),(3,'Rekap Tender','rekap_tender'),(4,'Laporan Kinerja Triwulan','laporan_kinerja_triwulan'),(5,'Pemantauan Tindak Lanjut','pemantauan_tindak_lanjut'),(6,'Jadwal Pelaksanaan','jadwal_pelaksanaan'),(7,'Laporan RB Area Perubahan','laporan_rb_area_perubahan'),(8,'SOTK','sotk'),(9,'IKM','ikm'),(10,'Pelayanan Publik','pelayanan_publik'),(11,'Tatalaksana','tatalaksana'),(12,'Monitoring Kelembagaan','monitoring_kelembagaan'),(13,'Laporan RB Quick Wins','laporan_rb_quick_wins'),(14,'Laporan RB ZI WBK','laporan_rb_zi_wbk'),(15,'Laporan RB Prioritas','laporan_rb_prioritas'),(16,'Laporan RB Fokus','laporan_rb_fokus');
 /*!40000 ALTER TABLE `tipe_laporan` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1362,7 +1496,7 @@ CREATE TABLE `tipelaporan_per_opd` (
 
 LOCK TABLES `tipelaporan_per_opd` WRITE;
 /*!40000 ALTER TABLE `tipelaporan_per_opd` DISABLE KEYS */;
-INSERT INTO `tipelaporan_per_opd` VALUES (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,11),(8,12),(8,13);
+INSERT INTO `tipelaporan_per_opd` VALUES (8,1),(8,2),(8,3),(8,4),(8,5),(8,6),(8,7),(8,8),(8,9),(8,10),(8,11),(8,12),(8,13),(8,14),(8,15),(8,16);
 /*!40000 ALTER TABLE `tipelaporan_per_opd` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1392,7 +1526,7 @@ CREATE TABLE `user` (
 
 LOCK TABLES `user` WRITE;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-08-04 12:48:52','2019-08-04 12:48:52'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-08-06 05:43:45','2019-08-06 05:43:45');
+INSERT INTO `user` VALUES (1,1,'admin','$2y$10$xZ/LdOuXl/7Mid/amZFHPuN/AAeKXav/2YRmuFpJKpCT0R.TesCGq','2019-08-04 12:48:52','2019-08-04 12:48:52'),(2,18,'21001','$2y$10$/A7dJC5J5ZXZKLJjb9.qd.1noI4jPNZLIolkN/q5qGXgvXH0jQKrO','2019-07-30 13:00:45','2019-07-30 13:00:45'),(3,22,'10101','$2y$10$GUGvu1ZPzVlPRpfw8TzuDeLtzhQ9Ow/VlKU/szhARkTwNvoHswJE2','2019-07-30 13:01:13','2019-07-30 13:01:13'),(4,2,'40601','$2y$10$i6Te6ECW/CazF2dDJB8h5Ou8t6NbEIb9Mxy.u1QQXveGOxC6ty4R6','2019-07-30 13:01:31','2019-07-30 13:01:31'),(5,4,'10502','$2y$10$PLJtpDPY9obyeSOx/GIPge7lJhJx2GqxhjQo0HbM8GWg7GAWqbEAy','2019-07-30 12:41:20','2019-07-30 12:41:20'),(6,148,'40502','$2y$10$wovYyN0SwVcSFEsALhh.xebhg9a941NcnImvnAM6aytNeVvhRe.YO','2019-07-30 12:41:48','2019-07-30 12:41:48'),(7,23,'30601','$2y$10$dBtW66wfqZp7kuenrXEF/eygFuJ5Civqtj93SqNt1iOc.Q4vJW1wi','2019-07-30 13:06:17','2019-07-30 13:06:17'),(8,24,'20901','$2y$10$.BkMRm70SGuXGUOmYoOALeD1SDi0TN6UPdBN9iSyZ31420zVsE.eq','2019-07-30 12:45:39','2019-07-30 12:45:39'),(9,17,'10201','$2y$10$beFpPb4VkWwVC8pCd9.Kjuss19F5EQeTsXXHc.CWqW/BfmggMtYsS','2019-07-30 12:46:39','2019-07-30 12:46:39'),(10,29,'20101','$2y$10$Y1I47suJM4v7xdXgXNEfoODirpxJiCtWOEASldI2LIbw.CINthQJa','2019-07-30 13:02:15','2019-07-30 13:02:15'),(11,66,'10501','$2y$10$XbxzSWVqqP8OP1fFIqnoxegbob0uBh35tDpfQpACIiAkR/nWAKP1O','2019-07-30 12:47:14','2019-07-30 12:47:14'),(12,25,'21701','$2y$10$Xo/dS5MlFfXNKrJZc.q01.e.b8JePkQ3E34YpFXQUWJ.U/2J9U8W.','2019-07-30 12:47:38','2019-07-30 12:47:38'),(13,28,'10601','$2y$10$kS7bYUmh/Rbimoru5kstLOqY/BqHbEzGwkuAPWp1trCGbv/8fCtEq','2019-07-30 12:48:35','2019-07-30 12:48:35'),(14,19,'20501','$2y$10$Pr.zjMeGAuYLdtl1.zWw5.9/Jt55Gpw/JeeIjhgpAHQ7bn0/avgA.','2019-07-30 12:48:50','2019-07-30 12:48:50'),(15,36,'40903','$2y$10$FAv7fRRXGE4iVEAG5Cgoe.xtDHhDawj9GsjQywEESnacjbyuc/g2O','2019-07-30 12:51:57','2019-07-30 12:51:57'),(16,34,'40901','$2y$10$sqhBwNH95PCV9s1GXWJme.2BLyBrZgycLkcF7cWCVybNaGe4c5JUS','2019-07-30 12:52:17','2019-07-30 12:52:17'),(17,127,'40201','$2y$10$8CtdkCWmRQKtGjOhUxFkk.6Iye.gQ7.W.ONBKMXc4ncmJuNII5/zG','2019-07-30 12:53:03','2019-07-30 12:53:03'),(18,6,'40501','$2y$10$5O.VXWCDUKKHrvik04Lzg.Ezn7K5gvWT5tKxHKazOP7uryqXzL1LO','2019-07-30 12:53:39','2019-07-30 12:53:39'),(19,32,'40902','$2y$10$kTq90jWkv9YdeRny1tKtme2UMWBkr2Dfpb0ZFHT0FiHQl0ZzmOE6m','2019-07-30 12:54:02','2019-07-30 12:54:02'),(20,16,'20601','$2y$10$.pQdaLvnNxfn.2FrceEoX.vWR0QZuo9.iNKAwD4hf9.sja0Mf/hdm','2019-07-30 12:55:21','2019-07-30 12:55:21'),(21,143,'40701','$2y$10$LHQm4ZlXqOSiqMrUUP4n.OrTZ3x14I0SA7tuOMLF0YLsSAm/G18dC','2019-07-30 12:55:47','2019-07-30 12:55:47'),(22,27,'10401','$2y$10$P0zg54ep65QjiiPO3wQeyegX/Fh.pJoQgvR.ZSMK34Ql1eZcPVWw6','2019-07-30 12:57:43','2019-07-30 12:57:43'),(23,3,'40801','$2y$10$Mc6oBmMMoNMKUR9FJG.RYOv2agliQzNam724fbvJSh56ZtDVCnNlq','2019-07-30 13:03:57','2019-07-30 13:03:57'),(24,20,'10301','$2y$10$rUVQuJOxGrozvPIN7Lz1MuRO6gEzuQU3NOuv2/gAxwpISKxjmq3Uu','2019-07-30 13:05:05','2019-07-30 13:05:05'),(25,151,'30301','$2y$10$TPwLWu1G6X4JSwpA8Eys0uI69HJ8viTSQ8GkIgsC1v86jyee4Ip1S','2019-07-30 13:08:20','2019-07-30 13:08:20'),(26,8,'40101','$2y$10$IhCN7/VMLP3LfJ66TeASzO114.8iHdfqg6fmy5Tg38xX41GIx5y1y','2019-08-06 13:51:48','2019-08-06 13:51:48');
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -1405,4 +1539,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-06 13:52:11
+-- Dump completed on 2019-08-06 22:30:21
