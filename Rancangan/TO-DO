@@ -17,6 +17,7 @@
 - Pemberian API (selain SIPP) cukup lama dan data dari API banyak yang tidak terpakai
 	(misal, dashboard madiun ada data pelayanan publik dan terdapat laporan
 		pelayanan publik. Namun dari dashboard hanya menyediakan data statistik saja)
+- JS Add auditor gak bisa masuk function auditorSelect{no}(event)
 
  // 2 TABEL //
 - monitoring kelembagaan

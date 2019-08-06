@@ -45,7 +45,7 @@ class Api_ekin_model extends CI_Model
         $data = $this->get_api();
         if ($nip) {
             foreach ($data as $key => $row) {
-                if ($row['kolok'] == $kode_ekin && ($row['jabatan'] != '' || $row['jabatan'] != NULL) && $row['unit_kerja']) {
+                if ($row['nip18'] == $nip && $row['kolok'] == $kode_ekin && ($row['jabatan'] != '' || $row['jabatan'] != NULL) && $row['unit_kerja']) {
                     return $row;
                 }
             }
