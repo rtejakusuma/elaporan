@@ -1,6 +1,6 @@
 -- MySQL dump 10.16  Distrib 10.1.40-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: 127.0.0.1    Database: testing
+-- Host: 127.0.0.1    Database: testang
 -- ------------------------------------------------------
 -- Server version	10.3.16-MariaDB
 
@@ -658,6 +658,427 @@ INSERT INTO `program` VALUES ('31-01',31,'Program Pelayanan Administrasi Perkant
 UNLOCK TABLES;
 
 --
+-- Table structure for table `rb_area_perubahan`
+--
+
+DROP TABLE IF EXISTS `rb_area_perubahan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_area_perubahan` (
+  `id_rb_area_perubahan` int(11) NOT NULL AUTO_INCREMENT,
+  `id_laporan` int(11) NOT NULL,
+  `rincian` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_area_perubahan`),
+  KEY `fk_rb_area_perubahan_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_rb_area_perubahan_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_area_perubahan`
+--
+
+LOCK TABLES `rb_area_perubahan` WRITE;
+/*!40000 ALTER TABLE `rb_area_perubahan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_area_perubahan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_fokus`
+--
+
+DROP TABLE IF EXISTS `rb_fokus`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_fokus` (
+  `id_rb_fokus` int(11) NOT NULL,
+  `id_laporan` int(11) DEFAULT NULL,
+  `rincian` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_fokus`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_fokus`
+--
+
+LOCK TABLES `rb_fokus` WRITE;
+/*!40000 ALTER TABLE `rb_fokus` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_fokus` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_fokus_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rb_fokus_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_fokus_kegiatan` (
+  `id_rb_fokus_sasaran` int(11) DEFAULT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `indikator` varchar(64) DEFAULT NULL,
+  `target_output` varchar(64) DEFAULT NULL,
+  `realisasi_output` varchar(64) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_fokus_kegiatan`
+--
+
+LOCK TABLES `rb_fokus_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rb_fokus_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_fokus_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_fokus_sasaran`
+--
+
+DROP TABLE IF EXISTS `rb_fokus_sasaran`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_fokus_sasaran` (
+  `id_rb_fokus_sasaran` int(11) NOT NULL,
+  `id_rb_fokus` int(11) DEFAULT NULL,
+  `sasaran` varchar(256) DEFAULT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_fokus_sasaran`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_fokus_sasaran`
+--
+
+LOCK TABLES `rb_fokus_sasaran` WRITE;
+/*!40000 ALTER TABLE `rb_fokus_sasaran` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_fokus_sasaran` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_prioritas`
+--
+
+DROP TABLE IF EXISTS `rb_prioritas`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_prioritas` (
+  `id_rb_prioritas` int(11) NOT NULL AUTO_INCREMENT,
+  `id_laporan` int(11) NOT NULL,
+  `rincian` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_prioritas`),
+  KEY `fk_rb_prioritas_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_rb_prioritas_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_prioritas`
+--
+
+LOCK TABLES `rb_prioritas` WRITE;
+/*!40000 ALTER TABLE `rb_prioritas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_prioritas` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_prioritas_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rb_prioritas_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_prioritas_kegiatan` (
+  `id_rb_prioritas_sasaran` int(11) NOT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `indikator` varchar(64) DEFAULT NULL,
+  `target_output` varchar(64) DEFAULT NULL,
+  `realisasi_output` varchar(64) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  KEY `fk_rb_prioritas_kegiatan_1_idx` (`id_rb_prioritas_sasaran`),
+  CONSTRAINT `fk_rb_prioritas_kegiatan_1` FOREIGN KEY (`id_rb_prioritas_sasaran`) REFERENCES `rb_prioritas_sasaran` (`id_rb_prioritas_sasaran`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_prioritas_kegiatan`
+--
+
+LOCK TABLES `rb_prioritas_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rb_prioritas_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_prioritas_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_prioritas_sasaran`
+--
+
+DROP TABLE IF EXISTS `rb_prioritas_sasaran`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_prioritas_sasaran` (
+  `id_rb_prioritas_sasaran` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_prioritas` int(11) NOT NULL,
+  `sasaran` varchar(256) DEFAULT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_prioritas_sasaran`),
+  KEY `fk_rb_prioritas_sasaran_1_idx` (`id_rb_prioritas`),
+  CONSTRAINT `fk_rb_prioritas_sasaran_1` FOREIGN KEY (`id_rb_prioritas`) REFERENCES `rb_prioritas` (`id_rb_prioritas`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_prioritas_sasaran`
+--
+
+LOCK TABLES `rb_prioritas_sasaran` WRITE;
+/*!40000 ALTER TABLE `rb_prioritas_sasaran` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_prioritas_sasaran` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_quick_wins`
+--
+
+DROP TABLE IF EXISTS `rb_quick_wins`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_quick_wins` (
+  `id_rb_quick_wins` int(11) NOT NULL AUTO_INCREMENT,
+  `id_laporan` int(11) NOT NULL,
+  `rincian` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_quick_wins`),
+  KEY `fk_rb_quick_wins_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_rb_quick_wins_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_quick_wins`
+--
+
+LOCK TABLES `rb_quick_wins` WRITE;
+/*!40000 ALTER TABLE `rb_quick_wins` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_quick_wins` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_quick_wins_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rb_quick_wins_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_quick_wins_kegiatan` (
+  `id_rb_quick_wins_sasaran` int(11) NOT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `indikator` varchar(64) DEFAULT NULL,
+  `target_output` varchar(64) DEFAULT NULL,
+  `realisasi_output` varchar(64) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  KEY `fk_rb_quick_wins_kegiatan_1_idx` (`id_rb_quick_wins_sasaran`),
+  CONSTRAINT `fk_rb_quick_wins_kegiatan_1` FOREIGN KEY (`id_rb_quick_wins_sasaran`) REFERENCES `rb_quick_wins_sasaran` (`id_rb_quick_wins_sasaran`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_quick_wins_kegiatan`
+--
+
+LOCK TABLES `rb_quick_wins_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rb_quick_wins_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_quick_wins_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_quick_wins_sasaran`
+--
+
+DROP TABLE IF EXISTS `rb_quick_wins_sasaran`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_quick_wins_sasaran` (
+  `id_rb_quick_wins_sasaran` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_quick_wins` int(11) NOT NULL,
+  `sasaran` varchar(256) DEFAULT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_quick_wins_sasaran`),
+  KEY `fk_rb_quick_wins_sasaran_1_idx` (`id_rb_quick_wins`),
+  CONSTRAINT `fk_rb_quick_wins_sasaran_1` FOREIGN KEY (`id_rb_quick_wins`) REFERENCES `rb_quick_wins` (`id_rb_quick_wins`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_quick_wins_sasaran`
+--
+
+LOCK TABLES `rb_quick_wins_sasaran` WRITE;
+/*!40000 ALTER TABLE `rb_quick_wins_sasaran` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_quick_wins_sasaran` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_zi_wbk`
+--
+
+DROP TABLE IF EXISTS `rb_zi_wbk`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_zi_wbk` (
+  `id_rb_zi_wbk` int(11) NOT NULL AUTO_INCREMENT,
+  `id_laporan` int(11) NOT NULL,
+  `rincian` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_zi_wbk`),
+  KEY `fk_rb_zi_wbk_1_idx` (`id_laporan`),
+  CONSTRAINT `fk_rb_zi_wbk_1` FOREIGN KEY (`id_laporan`) REFERENCES `laporan_rb` (`id_laporan`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_zi_wbk`
+--
+
+LOCK TABLES `rb_zi_wbk` WRITE;
+/*!40000 ALTER TABLE `rb_zi_wbk` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_zi_wbk` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_zi_wbk_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rb_zi_wbk_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_zi_wbk_kegiatan` (
+  `id_rb_zi_wbk_sasaran` int(11) DEFAULT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `indikator` varchar(64) DEFAULT NULL,
+  `target_output` varchar(64) DEFAULT NULL,
+  `realisasi_output` varchar(64) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  KEY `fk_rb_zi_wbk_kegiatan_1_idx` (`id_rb_zi_wbk_sasaran`),
+  CONSTRAINT `fk_rb_zi_wbk_kegiatan_1` FOREIGN KEY (`id_rb_zi_wbk_sasaran`) REFERENCES `rb_zi_wbk_sasaran` (`id_rb_zi_wbk_sasaran`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_zi_wbk_kegiatan`
+--
+
+LOCK TABLES `rb_zi_wbk_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rb_zi_wbk_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_zi_wbk_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rb_zi_wbk_sasaran`
+--
+
+DROP TABLE IF EXISTS `rb_zi_wbk_sasaran`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rb_zi_wbk_sasaran` (
+  `id_rb_zi_wbk_sasaran` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_zi_wbk` int(11) NOT NULL,
+  `sasaran` varchar(256) DEFAULT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rb_zi_wbk_sasaran`),
+  KEY `fk_rb_zi_wbk_sasaran_1_idx` (`id_rb_zi_wbk`),
+  CONSTRAINT `fk_rb_zi_wbk_sasaran_1` FOREIGN KEY (`id_rb_zi_wbk`) REFERENCES `rb_zi_wbk` (`id_rb_zi_wbk`) ON DELETE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rb_zi_wbk_sasaran`
+--
+
+LOCK TABLES `rb_zi_wbk_sasaran` WRITE;
+/*!40000 ALTER TABLE `rb_zi_wbk_sasaran` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rb_zi_wbk_sasaran` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rbap_kegiatan`
+--
+
+DROP TABLE IF EXISTS `rbap_kegiatan`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rbap_kegiatan` (
+  `id_opd` int(11) DEFAULT NULL,
+  `id_rbap_program` int(11) NOT NULL,
+  `nama_kegiatan` varchar(128) DEFAULT NULL,
+  `target_waktu` varchar(32) DEFAULT NULL,
+  `realisasi_waktu` varchar(32) DEFAULT NULL,
+  `target_anggaran` int(11) DEFAULT NULL,
+  `realisasi_anggaran` int(11) DEFAULT NULL,
+  `capaian` tinyint(1) DEFAULT NULL,
+  `ket` text DEFAULT NULL,
+  KEY `fk_rbap_kegiatan_1_idx` (`id_rbap_program`),
+  CONSTRAINT `fk_rbap_kegiatan_1` FOREIGN KEY (`id_rbap_program`) REFERENCES `rbap_program` (`id_rbap_program`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rbap_kegiatan`
+--
+
+LOCK TABLES `rbap_kegiatan` WRITE;
+/*!40000 ALTER TABLE `rbap_kegiatan` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rbap_kegiatan` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `rbap_program`
+--
+
+DROP TABLE IF EXISTS `rbap_program`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `rbap_program` (
+  `id_rbap_program` int(11) NOT NULL AUTO_INCREMENT,
+  `id_rb_area_perubahan` int(11) NOT NULL,
+  `nama_program` varchar(128) DEFAULT NULL,
+  PRIMARY KEY (`id_rbap_program`),
+  KEY `fk_rbap_program_1_idx` (`id_rb_area_perubahan`),
+  CONSTRAINT `fk_rbap_program_1` FOREIGN KEY (`id_rb_area_perubahan`) REFERENCES `rb_area_perubahan` (`id_rb_area_perubahan`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `rbap_program`
+--
+
+LOCK TABLES `rbap_program` WRITE;
+/*!40000 ALTER TABLE `rbap_program` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rbap_program` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `realisasi_fisik`
 --
 
@@ -984,209 +1405,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-08-06  3:09:46
-
-start transaction;
-/*==============================================================*/
-/* table: rbap_kegiatan                                         */
-/*==============================================================*/
-create table rbap_kegiatan
-(
-   id_opd               int,
-   id_rbap_program      int,
-   nama_kegiatan        varchar(128),
-   target_waktu         varchar(32),
-   realisasi_waktu      varchar(32),
-   target_anggaran      int,
-   realisasi_anggaran   int,
-   capaian              bool,
-   ket                  text
-);
-
-/*==============================================================*/
-/* table: rbap_program                                          */
-/*==============================================================*/
-create table rbap_program
-(
-   id_rbap_program      int not null,
-   id_rb_area_perubahan int,
-   nama_program         varchar(128),
-   primary key (id_rbap_program)
-);
-
-/*==============================================================*/
-/* table: rb_area_perubahan                                     */
-/*==============================================================*/
-create table rb_area_perubahan
-(
-   id_rb_area_perubahan int not null,
-   id_laporan           int,
-   rincian              varchar(128),
-   primary key (id_rb_area_perubahan)
-);
-
-/*==============================================================*/
-/* table: rb_fokus                                              */
-/*==============================================================*/
-create table rb_fokus
-(
-   id_rb_fokus          int not null,
-   id_laporan           int,
-   rincian              varchar(128),
-   primary key (id_rb_fokus)
-);
-
-/*==============================================================*/
-/* table: rb_fokus_kegiatan                                     */
-/*==============================================================*/
-create table rb_fokus_kegiatan
-(
-   id_rb_fokus_sasaran  int,
-   nama_kegiatan        varchar(128),
-   indikator            varchar(64),
-   target_output        varchar(64),
-   realisasi_output     varchar(64),
-   target_waktu         varchar(32),
-   realisasi_waktu      varchar(32),
-   target_anggaran      int,
-   realisasi_anggaran   int,
-   capaian              bool,
-   ket                  text
-);
-
-/*==============================================================*/
-/* table: rb_fokus_sasaran                                      */
-/*==============================================================*/
-create table rb_fokus_sasaran
-(
-   id_rb_fokus_sasaran  int not null,
-   id_rb_fokus          int,
-   sasaran              varchar(256),
-   nama_program         varchar(128),
-   primary key (id_rb_fokus_sasaran)
-);
-
-/*==============================================================*/
-/* table: rb_prioritas                                          */
-/*==============================================================*/
-create table rb_prioritas
-(
-   id_rb_prioritas      int not null,
-   id_laporan           int,
-   rincian              varchar(128),
-   primary key (id_rb_prioritas)
-);
-
-/*==============================================================*/
-/* table: rb_prioritas_kegiatan                                 */
-/*==============================================================*/
-create table rb_prioritas_kegiatan
-(
-   id_rb_prioritas_sasaran int,
-   nama_kegiatan        varchar(128),
-   indikator            varchar(64),
-   target_output        varchar(64),
-   realisasi_output     varchar(64),
-   target_waktu         varchar(32),
-   realisasi_waktu      varchar(32),
-   target_anggaran      int,
-   realisasi_anggaran   int,
-   capaian              bool,
-   ket                  text
-);
-
-/*==============================================================*/
-/* table: rb_prioritas_sasaran                                  */
-/*==============================================================*/
-create table rb_prioritas_sasaran
-(
-   id_rb_prioritas_sasaran int not null,
-   id_rb_prioritas      int,
-   sasaran              varchar(256),
-   nama_program         varchar(128),
-   primary key (id_rb_prioritas_sasaran)
-);
-
-/*==============================================================*/
-/* table: rb_quick_wins                                         */
-/*==============================================================*/
-create table rb_quick_wins
-(
-   id_rb_quick_wins     int not null,
-   id_laporan           int,
-   rincian              varchar(128),
-   primary key (id_rb_quick_wins)
-);
-
-/*==============================================================*/
-/* table: rb_quick_wins_kegiatan                                */
-/*==============================================================*/
-create table rb_quick_wins_kegiatan
-(
-   id_rb_quick_wins_sasaran int,
-   nama_kegiatan        varchar(128),
-   indikator            varchar(64),
-   target_output        varchar(64),
-   realisasi_output     varchar(64),
-   target_waktu         varchar(32),
-   realisasi_waktu      varchar(32),
-   target_anggaran      int,
-   realisasi_anggaran   int,
-   capaian              bool,
-   ket                  text
-);
-
-/*==============================================================*/
-/* table: rb_quick_wins_sasaran                                 */
-/*==============================================================*/
-create table rb_quick_wins_sasaran
-(
-   id_rb_quick_wins_sasaran int not null,
-   id_rb_quick_wins     int,
-   sasaran              varchar(256),
-   nama_program         varchar(128),
-   primary key (id_rb_quick_wins_sasaran)
-);
-
-/*==============================================================*/
-/* table: rb_zi_wbk                                             */
-/*==============================================================*/
-create table rb_zi_wbk
-(
-   id_rb_zi_wbk         int not null,
-   id_laporan           int,
-   rincian              varchar(128),
-   primary key (id_rb_zi_wbk)
-);
-
-/*==============================================================*/
-/* table: rb_zi_wbk_kegiatan                                    */
-/*==============================================================*/
-create table rb_zi_wbk_kegiatan
-(
-   id_rb_zi_wbk_sasaran int,
-   nama_kegiatan        varchar(128),
-   indikator            varchar(64),
-   target_output        varchar(64),
-   realisasi_output     varchar(64),
-   target_waktu         varchar(32),
-   realisasi_waktu      varchar(32),
-   target_anggaran      int,
-   realisasi_anggaran   int,
-   capaian              bool,
-   ket                  text
-);
-
-/*==============================================================*/
-/* table: rb_zi_wbk_sasaran                                     */
-/*==============================================================*/
-create table rb_zi_wbk_sasaran
-(
-   id_rb_zi_wbk_sasaran int not null,
-   id_rb_zi_wbk         int,
-   sasaran              varchar(256),
-   nama_program         varchar(128),
-   primary key (id_rb_zi_wbk_sasaran)
-);
-
-commit;
+-- Dump completed on 2019-08-06 11:35:51
