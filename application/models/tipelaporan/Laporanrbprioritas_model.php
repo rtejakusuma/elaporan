@@ -7,22 +7,23 @@ class Laporanrbprioritas_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rbdata = $this->db->get_where('laporan_rb_prioritas', ['id_laporan' => $id])->result_array()[0];
-        $rbqw = $this->db->order_by('rincian', 'ASC')->get_where('rb_prioritas', "id_laporan = $id")->result_array();
-        $rbqws = array();
-        if($rbqw != NULL){
-            foreach($rbqw as $d){
-                $rbqws[$d['id_rb_prioritas']] = $this->db->get_where('rb_prioritas_sasaran', "id_rb_prioritas = $d[id_rb_prioritas]")->result_array();
+        $rbp = $this->db->order_by('rincian', 'ASC')->get_where('rb_prioritas', "id_laporan = $id")->result_array();
+        $rbps = array();
+        if($rbp != NULL){
+            foreach($rbp as $d){
+                $rbps[$d['id_rb_prioritas']] = $this->db->get_where('rb_prioritas_sasaran', "id_rb_prioritas = $d[id_rb_prioritas]")->result_array();
             }
         }
-        $rbqwk = array();
-        if($rbqws != NULL && sizeof($rbqws) > 0){
-            foreach($rbqwk as $d){
+        $rbpk = array();
+        if($rbps != NULL && sizeof($rbps) > 0){
+            foreach($rbps as $d){
                 foreach($d as $k){
-                    $rbqwk[$k['id_rb_prioritas_sasaran']] = $this->db->get_where('rb_prioritas_kegiatan', "id_rb_prioritas_sasaran = $k[id_rb_prioritas_sasaran]")->result_array();
+                    $rbpk[$k['id_rb_prioritas_sasaran']] = $this->db->get_where('rb_prioritas_kegiatan', "id_rb_prioritas_sasaran = $k[id_rb_prioritas_sasaran]")->result_array();
                 }
             }
         }
-        return array('rb' => $rbdata, 'rbqw' => $rbqw, 'rbqws' => $rbqws, 'rbqwk' => $rbqwk);
+        // printf("<pre>%s</pre>", json_encode($rbps, JSON_PRETTY_PRINT)); die();
+        return array('rb' => $rbdata, 'rbp' => $rbp, 'rbps' => $rbps, 'rbpk' => $rbpk);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
@@ -100,32 +101,34 @@ class Laporanrbprioritas_model extends CI_Model
             }
             
         } else if($table == 'rb_prioritas_sasaran') {
+            // var_dump($data); die();
             if($data != NULL){
                 // new data
-                for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
-                    array_push($insdata, array(
-                        'id_rb_prioritas' => $data['new']['id_rb_prioritas'][$i],
-                        'sasaran' => $data['new']['sasaran'][$i],
-                        'nama_program' => $data['new']['nama_program'][$i]
-                    ));
-                }
-                
-                if($insdata != NULL){
-                    $this->db->insert_batch('rb_prioritas_sasaran', $insdata);
-                }
-                unset($data['new']);
-                
-                // updated data
-                if(isset($data['id_rb_prioritas_sasaran'])){
-                    for($i = 0; $i < sizeof($data['id_rb_prioritas_sasaran']); $i+=1){
-                        array_push($updata, array(
-                            'id_rb_prioritas_sasaran' => $data['id_rb_prioritas_sasaran'][$i],
+                if(isset($data['new'])){
+                    for($i = 0; $i < sizeof(reset($data['new'])); $i+=1){
+                        array_push($insdata, array(
                             'id_rb_prioritas' => $data['new']['id_rb_prioritas'][$i],
                             'sasaran' => $data['new']['sasaran'][$i],
                             'nama_program' => $data['new']['nama_program'][$i]
                         ));
                     }
-                    $this->db->update_batch('_sasaran', $updata, 'id_rb_prioritas_sasaran');
+                
+                    if($insdata != NULL){
+                        $this->db->insert_batch('rb_prioritas_sasaran', $insdata);
+                    }
+                    unset($data['new']);
+                }
+                // updated data
+                if(isset($data['id_rb_prioritas_sasaran'])){
+                    for($i = 0; $i < sizeof($data['id_rb_prioritas_sasaran']); $i+=1){
+                        array_push($updata, array(
+                            'id_rb_prioritas_sasaran' => $data['id_rb_prioritas_sasaran'][$i],
+                            'id_rb_prioritas' => $data['id_rb_prioritas'][$i],
+                            'sasaran' => $data['sasaran'][$i],
+                            'nama_program' => $data['nama_program'][$i]
+                        ));
+                    }
+                    $this->db->update_batch('rb_prioritas_sasaran', $updata, 'id_rb_prioritas_sasaran');
                 }
                 
                 // unused data
@@ -134,40 +137,67 @@ class Laporanrbprioritas_model extends CI_Model
                                 ->delete('rb_prioritas_sasaran');
                 
             } else {
-                // $this->db->delete('rb_prioritas', "id_laporan = $id_laporan");
+                $del = $this->db->select('id_rb_prioritas_sasaran')
+                                ->from('rb_prioritas_sasaran')
+                                ->join('rb_prioritas', 'rb_prioritas.id_rb_prioritas=rb_prioritas_sasaran.id_rb_prioritas')
+                                ->join('laporan_rb_prioritas', "laporan_rb_prioritas.id_laporan = rb_prioritas.id_laporan")
+                                ->where('laporan_rb_prioritas.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_prioritas_sasaran']);
+                }
+                $this->db->where_in('id_rb_prioritas_sasaran', $dels)
+                                ->delete('rb_prioritas_sasaran');
             }
         } else if($table == 'rb_prioritas_kegiatan') {
-            $tmp = $data['id_rb_prioritas_sasaran'];
-            unset($data['id_rb_prioritas_sasaran']);
+            // unset($data['id_rb_prioritas_sasaran']);
+            // var_dump($data); die();
             if($data != NULL){
-                foreach($tmp as $idx){
-                    
-                    if(isset($data['nama_kegiatan'][$idx])){
-                        
-                        for($i=0; $i < sizeof($data['nama_kegiatan'][$idx]); $i+=1){
-                            array_push($insdata, array(
-                                        'id_rb_prioritas_sasaran' => $idx,
-                                        'nama_kegiatan' => $data['nama_kegiatan'][$idx][$i],
-                                        'indikator'=> $data['indikator'][$idx][$i],
-                                        'target_output'=> $data['target_output'][$idx][$i],
-                                        'realisasi_output'=> $data['realisasi_output'][$idx][$i],
-                                        'target_waktu'=> $data['target_waktu'][$idx][$i],
-                                        'realisasi_waktu'=> $data['realisasi_waktu'][$idx][$i],
-                                        'target_anggaran'=> $data['target_anggaran'][$idx][$i],
-                                        'realisasi_anggaran'=> $data['realisasi_anggaran'][$idx][$i],
-                                        'capaian'=> $data['capaian'][$idx][$i],
-                                        'ket'=> $data['ket'][$idx][$i]
-                            ));
-                        }
-                        
-                    }
+                $tmp = $data['id_rb_prioritas_sasaran'];
+                for($i=0; $i < sizeof($tmp); $i+=1){
+                    array_push($insdata, array(
+                                'id_rb_prioritas_sasaran' => $data['id_rb_prioritas_sasaran'][$i],
+                                'nama_kegiatan' => $data['nama_kegiatan'][$i],
+                                'indikator'=> $data['indikator'][$i],
+                                'target_output'=> $data['target_output'][$i],
+                                'realisasi_output'=> $data['realisasi_output'][$i],
+                                'target_waktu'=> $data['target_waktu'][$i],
+                                'realisasi_waktu'=> $data['realisasi_waktu'][$i],
+                                'target_anggaran'=> $data['target_anggaran'][$i],
+                                'realisasi_anggaran'=> $data['realisasi_anggaran'][$i],
+                                'capaian'=> $data['capaian'][$i],
+                                'ket'=> $data['ket'][$i]
+                    ));
                 }
-                // var_dump($insdata); die();
-                $this->db->where_in('id_rb_prioritas_sasaran', $tmp)
-                            ->delete('rb_prioritas_kegiatan');
+
+                $del = $this->db->select('id_rb_prioritas_sasaran')
+                                ->from('rb_prioritas_sasaran')
+                                ->join('rb_prioritas', 'rb_prioritas.id_rb_prioritas=rb_prioritas_sasaran.id_rb_prioritas')
+                                ->join('laporan_rb_prioritas', "laporan_rb_prioritas.id_laporan = rb_prioritas.id_laporan")
+                                ->where('laporan_rb_prioritas.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_prioritas_sasaran']);
+                }
+                // var_dump($dels); die();
+                $this->db->where_in('id_rb_prioritas_sasaran', $dels)
+                                ->delete('rb_prioritas_kegiatan');
                             // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
                     $this->db->insert_batch('rb_prioritas_kegiatan', $insdata);
+            } else {
+                $del = $this->db->select('id_rb_prioritas_sasaran')
+                                ->from('rb_prioritas_sasaran')
+                                ->join('rb_prioritas', 'rb_prioritas.id_rb_prioritas=rb_prioritas_sasaran.id_rb_prioritas')
+                                ->join('laporan_rb_prioritas', "laporan_rb_prioritas.id_laporan = rb_prioritas.id_laporan")
+                                ->where('laporan_rb_prioritas.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_prioritas_sasaran']);
+                }
+                // var_dump($dels); die();
+                $this->db->where_in('id_rb_prioritas_sasaran', $dels)
+                                ->delete('rb_prioritas_kegiatan');
             }
         }
         $this->db->trans_complete();

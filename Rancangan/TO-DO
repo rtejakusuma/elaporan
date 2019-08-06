@@ -36,7 +36,6 @@
 	- print belum semua hitungan selesai
 
 
-
 - pemantauan tindak lanjut
 	- model done
 	- form done
@@ -44,23 +43,26 @@
 
 
 // 4 TABEL //
-- laporan rb
-	- model
-		- Insert
-			- Init_Insert XXXX
-			- laporan_rb XXXX
-			- jenis_rb XXXX
-			- program_rb XXXX
-			- kegiatan_rb XXXX
-		- Update
-			- laporan_rb XXXX
-			- jenis_rb XXXX
-			- program_rb XXXX
-			- kegiatan_rb XXXX
-		- Delete
-			- kegiatan_rb DONE
-	- form ???
-	- print ???
+- laporan rb fokus
+	- model done
+	- form done
+	- print blum
+- laporan rb prioritas
+	- model done
+	- form done
+	- print blum
+- laporan rb ZI WBK
+	- model done
+	- form done
+	- print blum
+- laporan rb Quick Wins
+	- model done
+	- form done
+	- print blum
+- laporan rb area perubahan
+	- model done
+	- form done
+	- print blum
 
 // SELESAI //
 - ikm

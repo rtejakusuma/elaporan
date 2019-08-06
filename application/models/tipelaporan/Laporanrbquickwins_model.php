@@ -151,6 +151,7 @@ class Laporanrbquickwins_model extends CI_Model
             }
         } else if($table == 'rb_quick_wins_kegiatan') {
             // unset($data['id_rb_quick_wins_sasaran']);
+            // var_dump($data); die();
             if($data != NULL){
                 $tmp = $data['id_rb_quick_wins_sasaran'];
                 for($i=0; $i < sizeof($tmp); $i+=1){
@@ -169,8 +170,18 @@ class Laporanrbquickwins_model extends CI_Model
                     ));
                 }
 
-                $this->db->where_in('id_rb_quick_wins_sasaran', $tmp)
-                            ->delete('rb_quick_wins_kegiatan');
+                $del = $this->db->select('id_rb_quick_wins_sasaran')
+                                ->from('rb_quick_wins_sasaran')
+                                ->join('rb_quick_wins', 'rb_quick_wins.id_rb_quick_wins=rb_quick_wins_sasaran.id_rb_quick_wins')
+                                ->join('laporan_rb_quick_wins', "laporan_rb_quick_wins.id_laporan = rb_quick_wins.id_laporan")
+                                ->where('laporan_rb_quick_wins.id_laporan', $id_laporan)->get()->result_array();
+                $dels = array();
+                foreach($del as $key => $values){
+                    array_push($dels, $values['id_rb_quick_wins_sasaran']);
+                }
+                // var_dump($dels); die();
+                $this->db->where_in('id_rb_quick_wins_sasaran', $dels)
+                                ->delete('rb_quick_wins_kegiatan');
                             // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if($insdata != NULL)
                     $this->db->insert_batch('rb_quick_wins_kegiatan', $insdata);

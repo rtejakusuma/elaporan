@@ -176,7 +176,7 @@
                           <div>
                           <div>
         
-                           <input value='<?php echo $rbqws['id_rb_quick_wins_sasaran']; ?>' type='hidden' name='id_rb_quick_wins_sasaran[]'>
+                          <input value='<?php echo $rbqws['id_rb_quick_wins_sasaran']; ?>' type='hidden' name='id_rb_quick_wins_sasaran[]'>
 
                            <div class="form-group">
                              <label for="nama_kegiatan" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Kegiatan</label>
@@ -223,7 +223,7 @@
                            <div class="form-group">
                              <label for="target_anggaran" class="control-label col-md-3 col-sm-3 col-xs-12">Target Anggaran</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input value='<?php if(isset($rbqwk['target_anggaran']))echo $rbqwk['target_anggaran']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="targer_anggaran[]">
+                               <input value='<?php if(isset($rbqwk['target_anggaran']))echo $rbqwk['target_anggaran']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="target_anggaran[]">
                              </div>
                            </div>
 
@@ -392,7 +392,7 @@ function add_tab4(node) {
             <div class='form-group'>\
                 <label for='target_anggaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Target Anggaran</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input class='form-control col-md-7 col-xs-12' type='text' name='targer_anggaran[]'>\
+                <input class='form-control col-md-7 col-xs-12' type='text' name='target_anggaran[]'>\
                 </div>\
             </div>\
 \
