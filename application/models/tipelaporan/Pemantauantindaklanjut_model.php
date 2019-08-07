@@ -124,7 +124,7 @@ class Pemantauantindaklanjut_model extends CI_Model
                         'catatan_bpk' => $data['catatan_bpk'][$i]
                     ));
                 }
-                 
+                //  var_dump($data['id_temuan']); die();
                 $this->db->where_in('id_temuan', $tmp)
                     ->delete('hasil_temuan');
                 activity_log();
@@ -133,6 +133,16 @@ class Pemantauantindaklanjut_model extends CI_Model
                     $this->db->insert_batch('hasil_temuan', $insdata);
                     activity_log();
                 }
+            } else {
+                $todel = $this->db->select('id_temuan')->from('temuan')
+                                ->where('temuan.id_laporan', $id_laporan)->get()->result_array();
+                activity_log();
+                $del = array();
+                foreach($todel as $key => $d){
+                    array_push($del, $d['id_temuan']);
+                }
+                $this->db->where_in('id_temuan', $del)->delete('hasil_temuan');
+                activity_log();
             }
         }
         $this->db->trans_complete();

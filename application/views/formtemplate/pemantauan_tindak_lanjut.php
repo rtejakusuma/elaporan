@@ -247,9 +247,9 @@ function add_field(){
   }
 function add_hasil_temuan(node){
   var id = node.parentNode.childNodes[1].value;
-    console.log(node.parentNode.childNodes);
+    console.log(id);
     node.parentNode.innerHTML = node.parentNode.innerHTML+"<div><div>\
-    <input type='hidden' name='id_temuan[] value='"+id+"'>\
+    <input type='hidden' name='id_temuan[]' value='"+id+"'>\
     <div class='form-group'>\
       <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -262,9 +262,9 @@ function add_hasil_temuan(node){
       <div class='col-md-6 col-sm-6 col-xs-12'>\
         <select class='col-md-6 col-sm-6 col-xs-12' name='status_rekomendasi[]'>\
           <?php
-            echo "<option value='TS' $sel1>TS</option>";
-            echo "<option value='TB' $sel2>TB</option>";
-            echo "<option value='TT' $sel3>TT</option>";
+            echo "<option value='TS' >TS</option>";
+            echo "<option value='TB' >TB</option>";
+            echo "<option value='TT' >TT</option>";
           ?>
         </select>\
       </div>\
@@ -282,9 +282,9 @@ function add_hasil_temuan(node){
       <div class='col-md-6 col-sm-6 col-xs-12'>\
         <select class='col-md-6 col-sm-6 col-xs-12' name='status_tindak_lanjut[]'>\
         <?php
-          echo "<option value='TS' $sel1>TS</option>";
-          echo "<option value='TB' $sel2>TB</option>";
-          echo "<option value='TT' $sel3>TT</option>";
+          echo "<option value='TS'>TS</option>";
+          echo "<option value='TB'>TB</option>";
+          echo "<option value='TT'>TT</option>";
         ?>
         </select>\
       </div>\
