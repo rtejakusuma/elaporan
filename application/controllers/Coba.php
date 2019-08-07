@@ -14,6 +14,13 @@ class Coba extends CI_Controller
         // die();
     }
 
+    public function inaproc()
+    {
+        $this->load->model('api_inaproc_rup_model', 'a');
+        $this->a->get_rup();
+        
+    }
+
     public function get_tw()
     {
         $this->load->model('api_sikd_model');

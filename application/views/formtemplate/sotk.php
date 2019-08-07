@@ -145,21 +145,16 @@
                             echo "<option value='TIPE A'>TIPE A</option>";
                             echo "<option value='TIPE B'>TIPE B</option>";
                             echo "<option value='TIPE C'>TIPE C</option>";
-                            ?> < /
-            select > \ <
-            /div>\ <
-          div class = 'form-group' > \
-            <
-            div class = 'col-md-6 col-sm-6 col-xs-12 col-md-offset-3' > \
-            <
-            button type = 'button'
-          onclick = 'delete_node(this)' > Hapus < /button>\ < /
-            div > \ <
-            /div>\ <
-          br / > \
-            <
-            /div>\ < /
-            div > ";
+                            ?> < /select > \ 
+            </div>\ 
+            <div class = 'form-group' > \
+            <div class = 'col-md-6 col-sm-6 col-xs-12 col-md-offset-3' > \
+              <button type = 'button'onclick = 'delete_node(this)' > Hapus < /button>\ 
+            </div > \ 
+            </div>\ 
+            <br / > \
+            </div>\ 
+            </div > ";
 
           function add_field() {
             var cont = document.getElementById('container-opsi');
