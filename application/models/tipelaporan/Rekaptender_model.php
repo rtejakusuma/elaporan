@@ -21,7 +21,7 @@ class Rekaptender_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rtdata = $this->db->get_where('rekap_tender', ['id_laporan' => $id])->result_array()[0];
-        $drtdata = $this->db->select('detail_rekap_tender.*, opd.nama_opd')
+        $drtdata = $this->db->select('detail_rekap_tender.*, opd.id_opd, opd.nama_opd')
                             ->from('detail_rekap_tender')
                             ->join('opd', 'detail_rekap_tender.id_opd = opd.id_opd')
                             ->where('id_laporan', $id)->get()->result_array();
