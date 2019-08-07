@@ -59,72 +59,57 @@
         <?php
         $counter = 0;
         foreach ($data['fetch']['temuan'] as $temuan) {
-            $rowspan = 1;
-            if ($data['fetch']['htemuan'][$temuan['id_temuan']] != NULL || $data['fetch']['htemuan'][$temuan['id_temuan']] == '') {
-                $rowspan = sizeof($data['fetch']['htemuan'][$temuan['id_temuan']]);
-            }
+            $rowspan = sizeof($data['fetch']['htemuan'][$temuan['id_temuan']]);
             $counter += 1;
+            $flag = FALSE;
             echo "
                  <tr>
                      <td rowspan='$rowspan'><center>$counter</center></td>
                      <td rowspan='$rowspan'><center>$temuan[nama_temuan]</center></td>
              ";
-            if ($data['fetch']['htemuan'][$temuan['id_temuan']] != NULL || $data['fetch']['htemuan'][$temuan['id_temuan']] == '') {
-                foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
-                    echo "<td><center>$kg[rekomendasi]</center></td>";
-                    if ($kg['status_rekomendasi'] == 'TS') {
-
-                        echo "  <td><center>TS</center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                    } elseif ($kg['status_rekomendasi'] == 'TB') {
-                        echo "  <td><center></center></td>
-                                       <td><center>TB</center></td>
-                                       <td><center></center></td>";
-                    } elseif ($kg['status_rekomendasi'] == 'TT') {
-                        echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center>TT</center></td>";
-                    } else {
-                        echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                    }
-                    echo "
-                           <td><center>$kg[tindak_lanjut]</center></td>";
-                    if ($kg['status_tindak_lanjut'] == 'TS') {
-                        echo "  <td><center>TS</center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                    } elseif ($kg['status_tindak_lanjut'] == 'TB') {
-                        echo "  <td><center></center></td>
-                                       <td><center>TB</center></td>
-                                       <td><center></center></td>";
-                    } elseif ($kg['status_tindak_lanjut'] == 'TT') {
-                        echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center>TT</center></td>";
-                    } else {
-                        echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                    }
-                    echo "
-                           <td><center>$kg[catatan_bpk]</center></td>
-                        ";
+            foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
+                if($flag) echo "<tr>";
+                echo "<td><center>$kg[rekomendasi]</center></td>";
+                if ($kg['status_rekomendasi'] == 'TS') {
+                    echo "  <td><center>TS</center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
+                } elseif ($kg['status_rekomendasi'] == 'TB') {
+                    echo "  <td><center></center></td>
+                                    <td><center>TB</center></td>
+                                    <td><center></center></td>";
+                } elseif ($kg['status_rekomendasi'] == 'TT') {
+                    echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center>TT</center></td>";
+                } else {
+                    echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
                 }
-            } else {
-                echo "<td><center></center></td>";
-                echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                echo "<td><center></center></td>";
-                echo "  <td><center></center></td>
-                                       <td><center></center></td>
-                                       <td><center></center></td>";
-                echo "<td><center></center></td>";
+                echo "<td><center>$kg[tindak_lanjut]</center></td>";
+                if ($kg['status_tindak_lanjut'] == 'TS') {
+                    echo "  <td><center>TS</center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
+                } elseif ($kg['status_tindak_lanjut'] == 'TB') {
+                    echo "  <td><center></center></td>
+                                    <td><center>TB</center></td>
+                                    <td><center></center></td>";
+                } elseif ($kg['status_tindak_lanjut'] == 'TT') {
+                    echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center>TT</center></td>";
+                } else {
+                    echo "  <td><center></center></td>
+                                    <td><center></center></td>
+                                    <td><center></center></td>";
+                }
+                echo "
+                        <td><center>$kg[catatan_bpk]</center></td>
+                    </tr>";
+                $flag = TRUE;
             }
-            echo "</tr>";
         }
         ?>
         <!-- End of Table Contents -->
