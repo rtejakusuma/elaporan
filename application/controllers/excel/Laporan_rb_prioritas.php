@@ -105,7 +105,7 @@ class laporan_rb_prioritas extends CI_Controller
         $sheet->getStyle('A3:O6')->getFont()->setBold(true);
   
         // ini atur header
-        $sheet->setCellValue('A1', 'Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Madiun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Prioritas yang Terkait dengan Peningkatan Kualitas Pelayanan Fokus Pelayanan Sektor Tertentu (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
+        $sheet->setCellValue('A1', 'Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Madiun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Prioritas yang Harus Terus Dipelihara (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
             ->mergeCells('A1:O1');
 
 
