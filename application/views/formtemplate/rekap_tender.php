@@ -75,29 +75,33 @@
                                    <div>
                                      <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>
                                        <input value='<?php echo $drtdata['id_detail_rekap_tender']; ?>' type='hidden' name='id_detail_rekap_tender[]'>
-                                       <div class="form-group">
-                                         <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
-                                         <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
-                                           <?php
-                                            foreach ($data['opsi_opd'] as $opd) {
-                                              $sel = '';
-                                              if ($drtdata['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
-                                              echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
-                                            }
-                                            ?>
-                                         </select>
-                                       </div>
-
-                                       <div class="form-group">
-                                         <label for="nama_paket_kerja" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Paket Kerja</label>
-                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <input value='<?php echo $drtdata['nama_paket_kerja'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_paket_kerja[]">
-                                         </div>
-                                       </div>
+                                       <!-- <div class='form-group'>
+                                        <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>
+                                        <select class='col-md-6 col-sm-6 col-xs-12' name='new[id_opd][]' onchange='select_paket_kerja(this)'>
+                                        <?php
+                                          // foreach ($data['opsi_paket_kerja'] as $opd) {
+                                          //   echo "<option value='{\"nama_paket_kerja\":\"$opd[nama_paket_kerja]\", \"id_opd\": \"$opd[id_opd]\", \"nama_opd\":\"$opd[nama_opd]\", \"pagu\":\"$opd[pagu]\"}'>$opd[nama_paket_kerja]</option>";
+                                          // }
+                                        ?>
+                                        </select>
+                                        </div> -->
+                                        <div class='form-group'>
+                                        <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Paket Kerja</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <input readonly value='<?php echo $drtdata['nama_paket_kerja'] ?>' class='form-control col-md-7 col-xs-12' type='text' name='nama_paket_kerja[]'>
+                                        </div>
+                                        </div>
+                                        <div class='form-group'>
+                                        <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>
+                                        <div class='col-md-6 col-sm-6 col-xs-12'>
+                                            <input value='<?php echo $drtdata['id_opd'] ?>' readonly class='form-control col-md-7 col-xs-12' type='hidden' name='id_opd[]'  >
+                                            <input value='<?php echo $drtdata['nama_opd'] ?>' disabled class='form-control col-md-7 col-xs-12' type='text'>
+                                        </div>
+                                        </div>
                                        <div class="form-group">
                                          <label for="pagu" class="control-label col-md-3 col-sm-3 col-xs-12">Pagu</label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <input value='<?php echo $drtdata['pagu'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]">
+                                           <input readonly value='<?php echo $drtdata['pagu'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="pagu[]">
                                          </div>
                                        </div>
                                        <div class="form-group">
@@ -118,12 +122,7 @@
                                            <input value='<?php echo $drtdata['harga_kontrak'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="harga_kontrak[]">
                                          </div>
                                        </div>
-                                       <div class="form-group">
-                                         <label for="presentase_kontrak_thd_hps" class="control-label col-md-3 col-sm-3 col-xs-12">Presentase Kontrak Terhadap HPS</label>
-                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <input value='<?php echo $drtdata['presentase_kontrak_thd_hps'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="presentase_kontrak_thd_hps[]">
-                                         </div>
-                                       </div>
+                                       
                                        <div class="form-group">
                                          <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
@@ -195,25 +194,32 @@
               \
                 <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
                 <div class='form-group'>\
-                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
-                <select class='col-md-6 col-sm-6 col-xs-12' name='new[id_opd][]'>\
-              <?php
-              foreach ($data['opsi_opd'] as $opd) {
-                echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
-              }
-              ?>\
-            </select>\
-            </div>\
-            <div class='form-group'>\
                 <label for='nama_paket_kerja' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Paket Kerja</label>\
+                <select class='col-md-6 col-sm-6 col-xs-12' name='' onchange='select_paket_kerja(this)'>\
+                <?php
+                  foreach ($data['opsi_paket_kerja'] as $opd) {
+                    echo "<option value='{\\\"nama_paket_kerja\\\": \\\"$opd[nama_paket_kerja]\\\", \\\"id_opd\\\": \\\"$opd[id_opd]\\\", \\\"nama_opd\\\":\\\"$opd[nama_opd]\\\", \\\"pagu\\\":\\\"$opd[pagu]\\\"}'>$opd[nama_paket_kerja]</option>";
+                  }
+                ?>
+                </select>\
+                </div>\
+                <div class='form-group'>\
+                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Paket Kerja</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][]'  >\
+                    <input readonly class='form-control col-md-7 col-xs-12' type='text' name='new[nama_paket_kerja][]'>\
+                </div>\
+                </div>\
+                <div class='form-group'>\
+                <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
+                <div class='col-md-6 col-sm-6 col-xs-12'>\
+                    <input readonly class='form-control col-md-7 col-xs-12' type='hidden' name='new[id_opd][]'>\
+                    <input disabled class='form-control col-md-7 col-xs-12' type='text' name='dev'>\
                 </div>\
                 </div>\
                 <div class='form-group'>\
                 <label for='pagu' class='control-label col-md-3 col-sm-3 col-xs-12'>Pagu</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input  class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
+                    <input readonly class='form-control col-md-7 col-xs-12' type='text' name='new[pagu][]'  >\
                 </div>\
                 </div>\
                 <div class='form-group'>\
@@ -234,12 +240,7 @@
                     <input   class='form-control col-md-7 col-xs-12' type='text' name='new[harga_kontrak][]'  >\
                 </div>\
                 </div>\
-                <div class='form-group'>\
-                <label for='presentase_kontrak_thd_hps' class='control-label col-md-3 col-sm-3 col-xs-12'>Presentase Kontrak Terhadap HPS</label>\
-                <div class='col-md-6 col-sm-6 col-xs-12'>\
-                    <input   class='form-control col-md-7 col-xs-12' type='text' name='new[presentase_kontrak_thd_hps][]'  >\
-                </div>\
-                </div>\
+                \
                 <div class='form-group'>\
                 <label for='ket' class='control-label col-md-3 col-sm-3 col-xs-12'>Keterangan</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -272,6 +273,19 @@
            }
 
            node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+         }
+
+         function select_paket_kerja(node){
+           var data = JSON.parse(node.value);
+          //  console.log(data['pagu']);
+           var pkNode = node.parentNode.parentNode.childNodes[3].childNodes[3].childNodes[1];
+           var opdNode =  node.parentNode.parentNode.childNodes[5].childNodes[3];
+           var paguNode = node.parentNode.parentNode.childNodes[7].childNodes[3].childNodes[1];
+           console.log(opdNode.childNodes[1], opdNode.childNodes[3]);
+           pkNode.value = data['nama_paket_kerja'];
+           opdNode.childNodes[1].value = data['id_opd'];
+           opdNode.childNodes[3].value = data['nama_opd'];
+           paguNode.value = data['pagu'];
          }
        </script>
 
