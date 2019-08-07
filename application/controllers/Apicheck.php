@@ -15,7 +15,7 @@ class Apicheck extends CI_Controller
     {
         $this->load->model('api_sipp_model');
         $data = $this->api_sipp_model->get_api($key, $val);
-        $json = json_encode($data['arr'], JSON_PRETTY_PRINT);
+        $json = json_encode($arr, JSON_PRETTY_PRINT);
 
         printf('Data<pre>%s</pre>', $json);
     }

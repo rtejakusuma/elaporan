@@ -123,6 +123,7 @@ class Opd extends CI_Controller
     {
         $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'd');
         $this->d->delete_data($id_laporan);
+        $this->set_flash('Hapus', 'Berhasil menghapus ' . ucwords(str_replace('_', ' ', $formname)) . ' dengan id ' . $id_laporan, 'warning');
         redirect("opd/f/$formname", 'refresh');
     }
 
