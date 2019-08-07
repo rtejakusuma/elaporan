@@ -62,33 +62,57 @@
             foreach($data['fetch']['rbqws'][$rbqw['id_rb_quick_wins']] as $rbqws){
                 $rowspan_rincian += sizeof($data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]);
             }
-            // var_dump($rowspan); die();
-            $firstrow_sasaran = reset($data['fetch']['rbqws'][$rbqw['id_rb_quick_wins']]);
-            $rowspan_sasaran = sizeof($data['fetch']['rbqwk'][$firstrow_sasaran['id_rb_quick_wins_sasaran']]);
-            $firstrow_kegiatan = reset($data['fetch']['rbqwk'][$firstrow_sasaran['id_rb_quick_wins_sasaran']]);
             $counter += 1;
+            $flag = FALSE;
             echo "
                  <tr>
                      <td rowspan='$rowspan_rincian'><center>$counter</center></td>
-                     <td rowspan='$rowspan_rincian'><center>$rbqw[rincian]</center></td>
-                     <td rowspan='$rowspan_sasaran'><center>$firstrow_sasaran[sasaran]</center></td>
-                     <td rowspan='$rowspan_sasaran'><center>$firstrow_sasaran[nama_program]</center></td>
-                     <td><center>$firstrow_kegiatan[nama_kegiatan]</center></td>
-                     <td><center>$firstrow_kegiatan[indikator]</center></td>
-                     <td><center>$firstrow_kegiatan[target_output]</center></td>
-                     <td><center>$firstrow_kegiatan[realisasi_output]</center></td>
-                     <td><center>$firstrow_kegiatan[target_waktu]</center></td>
-                     <td><center>$firstrow_kegiatan[realisasi_waktu]</center></td>
-                     <td><center>$firstrow_kegiatan[target_anggaran]</center></td>
-                     <td><center>$firstrow_kegiatan[realisasi_anggaran]</center></td>
-                     <td><center>$firstrow_kegiatan[capaian]</center></td>
-                     <td><center>$firstrow_kegiatan[ket]</center></td>
-                </tr>
-            ";
-
+                     <td rowspan='$rowspan_rincian'><center>$rbqw[rincian]</center></td>";
             foreach($data['fetch']['rbqws'][$rbqw['id_rb_quick_wins']] as $rbqws){
                 $rowspan_sasaran = sizeof($data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]);
-
+                if($flag){
+                    echo "<tr>
+                     <td rowspan='$rowspan_sasaran'><center>$rbqws[sasaran]</center></td>
+                     <td rowspan='$rowspan_sasaran'><center>$rbqws[nama_program]</center></td>";
+                } else {
+                    echo "
+                     <td rowspan='$rowspan_sasaran'><center>$rbqws[sasaran]</center></td>
+                     <td rowspan='$rowspan_sasaran'><center>$rbqws[nama_program]</center></td>";
+                }
+                $flag2 = FALSE;
+                     $rbqwk = reset($data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]);
+                        echo "
+                        <td><center>$rbqwk[nama_kegiatan]</center></td>
+                        <td><center>$rbqwk[indikator]</center></td>
+                        <td><center>$rbqwk[target_output]</center></td>
+                        <td><center>$rbqwk[realisasi_output]</center></td>
+                        <td><center>$rbqwk[target_waktu]</center></td>
+                        <td><center>$rbqwk[realisasi_waktu]</center></td>
+                        <td><center>$rbqwk[target_anggaran]</center></td>
+                        <td><center>$rbqwk[realisasi_anggaran]</center></td>
+                        <td><center>$rbqwk[capaian]</center></td>
+                        <td><center>$rbqwk[ket]</center></td>
+                        ";
+                        echo "</tr>";
+                     foreach($data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']] as $rbqwk){
+                        if($flag2){
+                            echo "<tr>
+                                    <td><center>$rbqwk[nama_kegiatan]</center></td>
+                                    <td><center>$rbqwk[indikator]</center></td>
+                                    <td><center>$rbqwk[target_output]</center></td>
+                                    <td><center>$rbqwk[realisasi_output]</center></td>
+                                    <td><center>$rbqwk[target_waktu]</center></td>
+                                    <td><center>$rbqwk[realisasi_waktu]</center></td>
+                                    <td><center>$rbqwk[target_anggaran]</center></td>
+                                    <td><center>$rbqwk[realisasi_anggaran]</center></td>
+                                    <td><center>$rbqwk[capaian]</center></td>
+                                    <td><center>$rbqwk[ket]</center></td>
+                                </tr>";
+                        } else {
+                            $flag2 = TRUE;
+                        }
+                    }        
+                    
             }
             
         }
