@@ -13,7 +13,6 @@
         <!-- Table header -->
         <tr>
             <th rowspan='2'>NO</th>
-            <th rowspan='2'>QUICK WINS</th>
             <th rowspan='2'>SASARAN</th>
             <th rowspan='2'>PROGRAM</th>
             <th rowspan='2'>KEGIATAN</th>
@@ -50,38 +49,24 @@
             <th>12</th>
             <th>13</th>
             <th>14</th>
-            <th>15</th>
         </tr>
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
         $counter = 0;
-        foreach ($data['fetch']['rbziwbk'] as $rbziwbk) {
-            $rowspan_rincian = 0;
-            
-            foreach($data['fetch']['rbziwbks'][$rbziwbk['id_rb_zi_wbk']] as $rbziwbks){
-                $rowspan_rincian += sizeof($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']]);
-            }
+        foreach($data['fetch']['rbziwbks'] as $rbziwbks){
             $counter += 1;
-            $flag = FALSE;
-            echo "
-                 <tr>
-                     <td rowspan='$rowspan_rincian'><center>$counter</center></td>
-                     <td rowspan='$rowspan_rincian'><center>$rbziwbk[rincian]</center></td>";
-            foreach($data['fetch']['rbziwbks'][$rbziwbk['id_rb_zi_wbk']] as $rbziwbks){
-                $rowspan_sasaran = sizeof($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']]);
-                if($flag){
-                    echo "<tr>
-                     <td rowspan='$rowspan_sasaran'><center>$rbziwbks[sasaran]</center></td>
-                     <td rowspan='$rowspan_sasaran'><center>$rbziwbks[nama_program]</center></td>";
-                } else {
-                    echo "
-                     <td rowspan='$rowspan_sasaran'><center>$rbziwbks[sasaran]</center></td>
-                     <td rowspan='$rowspan_sasaran'><center>$rbziwbks[nama_program]</center></td>";
-                }
-                $flag2 = FALSE;
-                     $rbziwbkk = reset($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']]);
-                        echo "
+            $rowspan_sasaran = sizeof($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']]);
+            echo "<tr>
+                    <td rowspan='$rowspan_sasaran'><center>$counter</center></td>
+                    <td rowspan='$rowspan_sasaran'><center>$rbziwbks[sasaran]</center></td>
+                    <td rowspan='$rowspan_sasaran'><center>$rbziwbks[nama_program]</center></td>";
+            
+            $flag2 = FALSE;
+            
+            foreach($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']] as $rbziwbkk){
+            if($flag2){
+                echo "<tr>
                         <td><center>$rbziwbkk[nama_kegiatan]</center></td>
                         <td><center>$rbziwbkk[indikator]</center></td>
                         <td><center>$rbziwbkk[target_output]</center></td>
@@ -90,42 +75,35 @@
                         <td><center>$rbziwbkk[realisasi_waktu]</center></td>
                         <td><center>$rbziwbkk[target_anggaran]</center></td>
                         <td><center>$rbziwbkk[realisasi_anggaran]</center></td>";
-                        // var_dump($rbziwbkk['capaian']); die();
                         if($rbziwbkk['capaian'] == '0'){
                             echo "<td></td><td>V</td>";
                         } else {
                             echo "<td>V</td><td></td>";
                         }
-                        
                         echo "<td><center>$rbziwbkk[ket]</center></td>
-                        ";
-                        echo "</tr>";
-                     foreach($data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']] as $rbziwbkk){
-                        if($flag2){
-                            echo "<tr>
-                                    <td><center>$rbziwbkk[nama_kegiatan]</center></td>
-                                    <td><center>$rbziwbkk[indikator]</center></td>
-                                    <td><center>$rbziwbkk[target_output]</center></td>
-                                    <td><center>$rbziwbkk[realisasi_output]</center></td>
-                                    <td><center>$rbziwbkk[target_waktu]</center></td>
-                                    <td><center>$rbziwbkk[realisasi_waktu]</center></td>
-                                    <td><center>$rbziwbkk[target_anggaran]</center></td>
-                                    <td><center>$rbziwbkk[realisasi_anggaran]</center></td>";
-                                    if($rbziwbkk['capaian'] == '0'){
-                                        echo "<td></td><td>V</td>";
-                                    } else {
-                                        echo "<td>V</td><td></td>";
-                                    }
-                                    echo "<td><center>$rbziwbkk[ket]</center></td>
-                                </tr>";
+                    </tr>";
+            } else {
+                $flag2 = TRUE;
+                echo "<td><center>$rbziwbkk[nama_kegiatan]</center></td>
+                        <td><center>$rbziwbkk[indikator]</center></td>
+                        <td><center>$rbziwbkk[target_output]</center></td>
+                        <td><center>$rbziwbkk[realisasi_output]</center></td>
+                        <td><center>$rbziwbkk[target_waktu]</center></td>
+                        <td><center>$rbziwbkk[realisasi_waktu]</center></td>
+                        <td><center>$rbziwbkk[target_anggaran]</center></td>
+                        <td><center>$rbziwbkk[realisasi_anggaran]</center></td>";
+                        if($rbziwbkk['capaian'] == '0'){
+                            echo "<td></td><td>V</td>";
                         } else {
-                            $flag2 = TRUE;
+                            echo "<td>V</td><td></td>";
                         }
-                    }        
-                    
+                    echo "<td><center>$rbziwbkk[ket]</center></td>
+                    </tr>";
             }
+        }        
+                
+    }
             
-        }
         ?>
         <!-- End of Table Contents -->
     </table>
