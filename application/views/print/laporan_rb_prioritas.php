@@ -13,7 +13,7 @@
         <!-- Table header -->
         <tr>
             <th rowspan='2'>NO</th>
-            <th rowspan='2'>QUICK WINS</th>
+            <th rowspan='2'>PRIORITAS TERPELIHARA</th>
             <th rowspan='2'>SASARAN</th>
             <th rowspan='2'>PROGRAM</th>
             <th rowspan='2'>KEGIATAN</th>
