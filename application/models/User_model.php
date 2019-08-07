@@ -47,7 +47,8 @@ class User_model extends CI_Model
 
     public function last_login($id)
     {
-        return $this->db->update('user', ['last_login' => date('Y-m-d H:i:s', now())], ['id' => $id]);
+        $this->db->update('user', ['last_login' => date('Y-m-d H:i:s', now())], ['id' => $id]);
+        activity_log();
     }
 
     public function reset_password($id, $newpassword)
