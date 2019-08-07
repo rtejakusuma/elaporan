@@ -158,12 +158,12 @@
                                                                  </div>
 
 
-                                                                 <div class="form-group">
+                                                                 <!-- <div class="form-group">
                                                                      <label for="keluaran_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
                                                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php echo $data['keluaran_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan[]">
+                                                                         <input value="<?php //echo $data['keluaran_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan[]">
                                                                      </div>
-                                                                 </div>
+                                                                 </div> -->
 
                                                                  <div class="form-group">
                                                                      <label for="hasil_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Indikator</label>
@@ -180,27 +180,24 @@
                                                                  </div>
 
                                                                  <div class="form-group">
-                                                                     <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $data['keluaran_satuan']; ?>)</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php if (isset($data['realisasi_keuangan'])) echo ucwords($data['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="realisasi_keuangan[]">
-                                                                     </div>
-                                                                 </div>
-
-
-                                                                 <div class="form-group">
-                                                                     <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $data['keluaran_satuan']; ?>)</label>
+                                                                     <label for="hasil_realisasi_kinerja" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Realisasi Kinerja (<?php echo $data['hasil_satuan']; ?>)</label>
                                                                      <div class="col-md-6 col-sm-6 col-xs-12">
                                                                          <input value="<?php if (isset($data['hasil_realisasi_kinerja'])) echo ucwords($data['hasil_realisasi_kinerja']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="hasil_realisasi_kinerja[]">
                                                                      </div>
                                                                  </div>
 
-
                                                                  <div class="form-group">
-                                                                     <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
+                                                                     <label for="realisasi_keuangan" class="control-label col-md-3 col-sm-3 col-xs-12">Realisasi Keuangan (<?php echo $data['keluaran_satuan']; ?>)</label>
                                                                      <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
+                                                                         <input value="<?php if (isset($data['realisasi_keuangan'])) echo ucwords($data['realisasi_keuangan']); ?>" class="form-control col-md-7 col-xs-12" type="text" name="realisasi_keuangan[]">
                                                                      </div>
                                                                  </div>
+                                                                 <!-- <div class="form-group">
+                                                                     <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
+                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                         <input value="<?php //echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
+                                                                     </div>
+                                                                 </div> -->
                                                              </div>
 
                                                              <?php echo "<br/>";
