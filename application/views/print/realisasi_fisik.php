@@ -4,13 +4,21 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN REALISASI FISIK<br />
-                <?php echo $data['nama_opd']; ?><br />
+            
+                <?php echo 'LAPORAN REALISASI FISIK DAN KEUANGAN SERTA CAPAIAN KINERJA TAHUN ' . date('Y', strtotime($this->data['fetch']['rf']['tgl'])); ?> <br/><br/>
             </h2>
-            <h3>
-                <?php echo date('M', strtotime($data['fetch']['rf']['tgl'])) . ", " . date('Y', strtotime($data['fetch']['rf']['tgl'])); ?>
-            </h3><br />
         </center>
+        <h3>
+            <?php
+                echo 'UNIT ORGANISASI' . "\t :" . $data['nama_opd'];
+            ?><br/>
+            <?php
+                echo 'BULAN' . "\t :" . date('M', strtotime($data['fetch']['rf']['tgl']));
+            ?><br/>
+            <?php
+                echo 'TAHUN ANGGARAM' . "\t :" . date('Y', strtotime($data['fetch']['rf']['tgl']));
+            ?><br/>
+        </h3>
     </div>
     <table style='width: 100%;'>
         <!-- Table header -->
