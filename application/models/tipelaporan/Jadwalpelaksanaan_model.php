@@ -165,8 +165,12 @@ class Jadwalpelaksanaan_model extends CI_Model
             $data_insert = [
                 'id_jadwal_pelaksanaan_opd' => $idx,
                 'nama_auditor' => $data['nama_auditor'][$idx],
-                'jabatan' => $data['jabatan'][$idx]
+                'jabatan' => $data['jabatan'][$idx],
+                'editable' => 0
             ];
+            if ($data['select_auditor'] == '' || $data['select_auditor'] == null) {
+                $data_insert['editable'] = 1;
+            }
             $this->db->insert('auditor', $data_insert);
             // print_r($data_insert);
         }
