@@ -140,6 +140,7 @@ class Admin extends CI_Controller
         // INI KALAU RESET PASSWORD, BUKAN GANTI PASSWORD
         if ($id) {
             $this->session->set_flashdata('message', '<div class="alert alert-info" id="success-alert" role="alert"><strong>Reset Password Berhasil!!!</strong></div>');
+            $this->set_flash('RESET PASSWORD', 'Reset password berhasil', 'warning');
             $this->user_model->reset_password($id, '123456');
 
             redirect('database/user', 'refresh');
@@ -153,14 +154,14 @@ class Admin extends CI_Controller
         $flag_option = $this->input->post('tipe_opsi'); // tipe_opsi from form hidden attribute
         if ($flag_option == 'register') {
             $this->add_user();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" id="success-alert" role="alert"><strong>User berhasil dibuat!!!</strong></div>');
+            $this->set_flash('Tambah User', 'BERHASIL', 'success');
             redirect('database/user', 'refresh');
         } elseif ($flag_option == 'reset') {
             $this->reset_password();
             redirect('admin/f/resetpasswordform', 'refresh');
         } elseif ($flag_option == 'tipelaporan') {
             $this->update_tipelaporan_per_opd();
-            $this->session->set_flashdata('message', '<div class="alert alert-success" id="success-alert" role="alert"><strong>Edit Tipe Berhasil!!!</strong></div>');
+            $this->set_flash('Update Akses OPD', 'Update Akses OPD BERHASIL', 'success');
             redirect('database/opdtipe', 'refresh');
         }
     }
@@ -176,6 +177,18 @@ class Admin extends CI_Controller
         }
 
         $this->load->view('template/index_admin', ['data' => $this->data]);
+    }
+
+    public function set_flash($title, $string, $type)
+    {
+        $this->session->set_flashdata('message', '<body onload="new PNotify({
+                                  title: \'' . $title . '\',
+                                  text: \'' . $string . '\',
+                                  type: \'' . $type . '\',
+                                  styling: \'bootstrap3\'
+                              });">
+    
+  </body>');
     }
 
     private function sess_ver()
