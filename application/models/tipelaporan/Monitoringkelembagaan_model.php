@@ -61,29 +61,43 @@ class Monitoringkelembagaan_model extends CI_Model
 
     public function update_data($id_laporan, $data)
     {
+        // print_r($data);
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
-        $insdata = array();
-        if ($data != NULL) {
-            for ($i = 0; $i < sizeof(reset($data)); $i += 1) {
-                array_push($insdata, array(
-                    'id_laporan' => $id_laporan,
-                    'id_opd' => $data['id_opd'][$i],
-                    'permasalahan_kelembagaan' => $data['permasalahan_kelembagaan'][$i],
-                    'usulan' => $data['usulan'][$i],
-                    'dasar_hukum' => $data['dasar_hukum'][$i],
-                    'ket' => $data['ket'][$i],
-                ));
-            }
-        }
+
         $this->db->trans_begin();
         if ($table == 'permasalahan_kelembagaan') {
+            $insdata = array();
+            if ($data != NULL) {
+                for ($i = 0; $i < sizeof(reset($data)); $i += 1) {
+                    array_push($insdata, array(
+                        'id_laporan' => $id_laporan,
+                        'id_opd' => $data['id_opd'][$i],
+                        'permasalahan_kelembagaan' => $data['permasalahan_kelembagaan'][$i],
+                        'usulan' => $data['usulan'][$i],
+                        'dasar_hukum' => $data['dasar_hukum'][$i],
+                        'ket' => $data['ket'][$i],
+                    ));
+                }
+            }
             $this->db->delete('permasalahan_kelembagaan', "id_laporan = $id_laporan");
             activity_log();
             if ($data != NULL) {
                 $this->db->insert_batch('permasalahan_kelembagaan', $insdata);
                 activity_log();
             }
+        } elseif ($table == 'tambah_permasalahan_kelembagaan') {
+            $data_insert = [
+                'id_laporan' => $id_laporan,
+                'id_opd' => $data['id_opd'],
+                'permasalahan_kelembagaan' => $data['permasalahan_kelembagaan'],
+                'usulan' => $data['usulan'],
+                'dasar_hukum' => $data['dasar_hukum'],
+                'ket' => $data['ket']
+            ];
+            // print_r($data_insert);
+            $this->db->insert('permasalahan_kelembagaan', $data_insert);
+            activity_log();
         }
         $this->db->trans_complete();
     }

@@ -87,8 +87,9 @@ class pemantauan_tindak_lanjut extends CI_Controller
         $sheet->getStyle('A:K')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1:K7')->getFont()->setBold(true);
 
+       
         // ini atur header
-        $sheet->setCellValue('A1', 'PEMANTAUAN TINDAK LANJUT')
+        $sheet->setCellValue('A1', $this->data['fetch']['ptl']['judul_laporan'])
             ->mergeCells('A1:K1');
         $sheet->setCellValue('A2', $this->data['nama_opd'])
             ->mergeCells('A2:K2');
@@ -103,10 +104,12 @@ class pemantauan_tindak_lanjut extends CI_Controller
             ->mergeCells('C4:C6');
         $sheet->setCellValue('D4', 'Status Tahun')
             ->mergeCells('D4:F4');
-        $sheet->setCellValue('G4', 'Tindak Lanjut');
+        $sheet->setCellValue('G4', 'Tindak Lanjut')
+            ->mergeCells('G4:G6');
         $sheet->setCellValue('H4', 'Status Tahun')
             ->mergeCells('H4:J4');
-        $sheet->setCellValue('K4', 'Catatan BPK');
+        $sheet->setCellValue('K4', 'Catatan BPK')
+            ->mergeCells('K4:K6');
 
         // th buat status tahun
         $tgl_status_rekomendasi = 'dd/mm/YYYY';
@@ -128,12 +131,23 @@ class pemantauan_tindak_lanjut extends CI_Controller
         $sheet->setCellValue('I6', 'TB');
         $sheet->setCellValue('J6', 'TT');
 
+        $sheet->setCellValue('A7', '1');
+        $sheet->setCellValue('B7', '2');
+        $sheet->setCellValue('C7', '3');
+        $sheet->setCellValue('D7', '4');
+        $sheet->setCellValue('E7', '5');
+        $sheet->setCellValue('F7', '6');
+        $sheet->setCellValue('G7', '7');
+        $sheet->setCellValue('H7', '8');
+        $sheet->setCellValue('I7', '9');
+        $sheet->setCellValue('J7', '10');
+        $sheet->setCellValue('K7', '11');
+
         // td numrow 6
-        $numrow = 7;
+        $numrow = 8;
         $counter = 0;
         foreach ($this->data['fetch']['temuan'] as $temuan) {
             $rowspan = (sizeof($this->data['fetch']['htemuan'][$temuan['id_temuan']]) - 1);
-            if ($rowspan) $rowspan = 0;
             $counter += 1;
 
             $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan));

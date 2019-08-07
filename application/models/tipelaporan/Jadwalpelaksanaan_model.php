@@ -154,7 +154,8 @@ class Jadwalpelaksanaan_model extends CI_Model
                             array_push($insdata, array(
                                 'id_jadwal_pelaksanaan_opd' => $idx,
                                 'nama_auditor' => $data['nama_auditor'][$idx][$i],
-                                'jabatan' => $data['jabatan'][$idx][$i]
+                                'jabatan' => $data['jabatan'][$idx][$i],
+                                'editable' => $data['editable'][$idx][$i]
                             ));
                         }
                     }

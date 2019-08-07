@@ -51,7 +51,9 @@
                          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
 
                            <input value="permasalahan_kelembagaan" type="hidden" name="nama_tabel">
-                           <button type='button' onclick='add_field()'>Tambah</button>
+                           <!-- <button type='button' onclick='add_field()'>Tambah</button> -->
+                           <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg"><i class="fa fa-plus"></i> Tambah</button>
+
                            <div id='container-opsi'>
 
                              <?php if ($data['fetch']['pk'] != NULL) {
@@ -85,21 +87,21 @@
                                      <div class="form-group">
                                        <label for="usulan" class="control-label col-md-3 col-sm-3 col-xs-12">Usulan</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <!-- <textarea id="editor_usulan" name="usulan[]"></textarea> -->
-                                         <input type="text" name="usulan[]" value="<?= $pkdata['usulan'] ?>" class="form-control col-md-7 col-xs-12">
+                                         <textarea id="editor" name="usulan[]"><?= $pkdata['usulan'] ?></textarea>
+                                         <!-- <input type="text" name="usulan[]" value="" class="form-control col-md-7 col-xs-12"> -->
                                        </div>
                                      </div>
                                      <div class="form-group">
                                        <label for="dasar_hukum" class="control-label col-md-3 col-sm-3 col-xs-12">Dasar Hukum</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <!-- <textarea id="editor_dasar_hukum" name="dasar_hukum[]"></textarea> -->
-                                         <input type="text" name="dasar_hukum[]" value="<?= $pkdata['dasar_hukum'] ?>" class="form-control col-md-7 col-xs-12" style="height:100px">
+                                         <textarea id="editor" name="dasar_hukum[]"><?= $pkdata['dasar_hukum'] ?></textarea>
+                                         <!-- <input type="text" name="dasar_hukum[]" value="" class="form-control col-md-7 col-xs-12" style="height:100px"> -->
                                        </div>
                                      </div>
                                      <div class="form-group">
                                        <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <input value='<?php echo $pkdata['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]" style="height:100px">
+                                         <textarea class="form-control col-md-7 col-xs-12" type="text" name="ket[]" style="height:100px"><?= $pkdata['ket'] ?></textarea>
                                        </div>
                                      </div>
                                      <div class="form-group">
@@ -131,6 +133,67 @@
            </div>
          </div>
 
+         <div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+           <div class="modal-dialog modal-lg">
+             <form action='#' method="post" data-parsley-validate class="form-horizontal form-label-left">
+               <div class="modal-content">
+                 <input value="tambah_permasalahan_kelembagaan" type="hidden" name="nama_tabel">
+                 <div class="modal-header">
+                   <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                   </button>
+                   <h4 class="modal-title" id="myModalLabel">Tambah</h4>
+                 </div>
+                 <div class="modal-body">
+                   <div class="form-group">
+                     <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                       <select name='id_opd' class="form-control col-md-7 col-xs-12">
+                         <?php
+                          foreach ($data['opsi_opd'] as $opd) {
+                            $sel = '';
+                            if ($pkdata['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                            echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                          }
+                          ?>
+                       </select>
+                     </div>
+                   </div>
+
+                   <div class="form-group">
+                     <label for="permasalahan_kelembagaan" class="control-label col-md-3 col-sm-3 col-xs-12">Permasalahan Kelembagaan</label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                       <input class="form-control col-md-7 col-xs-12" type="text" name="permasalahan_kelembagaan">
+                     </div>
+                   </div>
+                   <div class="form-group">
+                     <label for="usulan" class="control-label col-md-3 col-sm-3 col-xs-12">Usulan</label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                       <textarea id="editor" name="usulan"></textarea>
+                       <!-- <input type="text" name="usulan[]" class="form-control col-md-7 col-xs-12"> -->
+                     </div>
+                   </div>
+                   <div class="form-group">
+                     <label for="dasar_hukum" class="control-label col-md-3 col-sm-3 col-xs-12">Dasar Hukum</label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                       <textarea id="editor" name="dasar_hukum"></textarea>
+                       <!-- <input type="text" name="dasar_hukum[]" class="form-control col-md-7 col-xs-12" style="height:100px"> -->
+                     </div>
+                   </div>
+                   <div class="form-group">
+                     <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
+                     <div class="col-md-6 col-sm-6 col-xs-12">
+                       <textarea class="form-control col-md-7 col-xs-12" type="text" name="ket" style="height:100px"></textarea>
+                     </div>
+                   </div>
+
+                 </div>
+                 <div class="modal-footer">
+                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                   <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Tambah</button>
+                 </div>
+             </form>
+           </div>
+         </div>
 
          <script>
            var opd = "<div class='form-group'>\
