@@ -87,8 +87,9 @@ class pemantauan_tindak_lanjut extends CI_Controller
         $sheet->getStyle('A:K')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1:K7')->getFont()->setBold(true);
 
+       
         // ini atur header
-        $sheet->setCellValue('A1', 'PEMANTAUAN TINDAK LANJUT')
+        $sheet->setCellValue('A1', $this->data['fetch']['ptl']['judul_laporan'])
             ->mergeCells('A1:K1');
         $sheet->setCellValue('A2', $this->data['nama_opd'])
             ->mergeCells('A2:K2');

@@ -93,7 +93,7 @@ class rekap_tender extends CI_Controller
         $sheet->getStyle('A1:I5')->getFont()->setBold(true);
 
         // ini atur header
-        $sheet->setCellValue('A1', 'REKAPITULASI PELAKSANAAN PENGADAAN BARANG JASA YANG SUDAH DI TENDER LPSE KOTA MADIUN')
+        $sheet->setCellValue('A1', $this->data['fetch']['rt']['judul_rekap_tender'])
             ->mergeCells('A1:I1');
         $sheet->setCellValue('A2', $this->data['nama_opd'])
             ->mergeCells('A2:I2');
