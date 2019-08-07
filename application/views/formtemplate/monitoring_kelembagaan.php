@@ -63,15 +63,17 @@
                                    <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                                      <div class="form-group">
                                        <label for="opd" class="control-label col-md-3 col-sm-3 col-xs-12">Nama OPD</label>
-                                       <select class="col-md-6 col-sm-6 col-xs-12" name='id_opd[]'>
-                                         <?php
-                                          foreach ($data['opsi_opd'] as $opd) {
-                                            $sel = '';
-                                            if ($pkdata['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
-                                            echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
-                                          }
-                                          ?>
-                                       </select>
+                                       <div class="col-md-6 col-sm-6 col-xs-12">
+                                         <select name='id_opd[]' class="form-control col-md-7 col-xs-12">
+                                           <?php
+                                            foreach ($data['opsi_opd'] as $opd) {
+                                              $sel = '';
+                                              if ($pkdata['id_opd'] == $opd['id_opd']) $sel = "selected='selected'";
+                                              echo "<option value='$opd[id_opd]' $sel>$opd[nama_opd]</option>";
+                                            }
+                                            ?>
+                                         </select>
+                                       </div>
                                      </div>
 
                                      <div class="form-group">
@@ -83,19 +85,21 @@
                                      <div class="form-group">
                                        <label for="usulan" class="control-label col-md-3 col-sm-3 col-xs-12">Usulan</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <input value='<?php echo $pkdata['usulan'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="usulan[]">
+                                         <!-- <textarea id="editor_usulan" name="usulan[]"></textarea> -->
+                                         <input type="text" name="usulan[]" value="<?= $pkdata['usulan'] ?>" class="form-control col-md-7 col-xs-12">
                                        </div>
                                      </div>
                                      <div class="form-group">
                                        <label for="dasar_hukum" class="control-label col-md-3 col-sm-3 col-xs-12">Dasar Hukum</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <input value='<?php echo $pkdata['dasar_hukum'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="dasar_hukum[]">
+                                         <!-- <textarea id="editor_dasar_hukum" name="dasar_hukum[]"></textarea> -->
+                                         <input type="text" name="dasar_hukum[]" value="<?= $pkdata['dasar_hukum'] ?>" class="form-control col-md-7 col-xs-12" style="height:100px">
                                        </div>
                                      </div>
                                      <div class="form-group">
                                        <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <input value='<?php echo $pkdata['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]">
+                                         <input value='<?php echo $pkdata['ket'] ?>' class="form-control col-md-7 col-xs-12" type="text" name="ket[]" style="height:100px">
                                        </div>
                                      </div>
                                      <div class="form-group">
@@ -133,13 +137,15 @@
       <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
       <div class='form-group'>\
       <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
-      <select class='col-md-6 col-sm-6 col-xs-12' name='id_opd[]'>\
+      <div class='col-md-6 col-sm-6 col-xs-12'>\
+      <select class='form-control col-md-7 col-xs-12' name='id_opd[]'>\
     <?php
     foreach ($data['opsi_opd'] as $opd) {
       echo "<option value='$opd[id_opd]'>$opd[nama_opd]</option>";
     }
     ?>\
   </select>\
+  </div>\
   </div>\
   <div class='form-group'>\
   <label for='permasalahan_kelembagaan' class='control-label col-md-3 col-sm-3 col-xs-12'>Permasalahan Kelembagaan</label>\
@@ -183,5 +189,4 @@
              node.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode);
            }
          </script>
-
          <!-- /page content -->

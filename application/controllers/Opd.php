@@ -87,6 +87,7 @@ class Opd extends CI_Controller
             $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'lp');
             $this->lp->update_data($id_laporan, $this->input->post());
             // prevent re-post data
+            // return true;
             redirect("opd/thanks/$formname/$id_laporan", 'refresh');
         }
 
@@ -102,7 +103,7 @@ class Opd extends CI_Controller
             $this->data['opsi_opd'] = $this->opd->gets();
             unset($this->data['opsi_opd'][0]);
         }
-        if($formname == "rekap_tender"){
+        if ($formname == "rekap_tender") {
             $this->load->model('api_inaproc_rup_model', 'ina');
             $this->data['opsi_paket_kerja'] = $this->ina->get_rup();
         }
