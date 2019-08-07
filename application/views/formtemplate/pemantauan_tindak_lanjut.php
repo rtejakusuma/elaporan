@@ -139,14 +139,15 @@
                             <div class="form-group">
                             <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[]"  >
+                                <textarea id="editor" name="rekomendasi[]"><?= $htemuan['rekomendasi'] ?></textarea>
+                                <!-- <input value='<?php echo $htemuan['rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[]"  > -->
                             </div>
                             </div>
                             
                             <div class="form-group">
                             <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                            <select class="col-md-6 col-sm-6 col-xs-12" name='status_rekomendasi[]'>
+                            <select class="form-control" name='status_rekomendasi[]'>
                                 <?php
                                   $sel1 = ''; $sel2 = ''; $sel3 = '';
                                   if($htemuan['status_rekomendasi'] == "TS") $sel1 = "selected='selected'";
@@ -163,7 +164,8 @@
                             <div class="form-group">
                             <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[]"  >
+                                <textarea id="editor" name="tindak_lanjut[]"><?= $htemuan['tindak_lanjut'] ?></textarea>
+                                <!-- <input value='<?php echo $htemuan['tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[]"  > -->
                             </div>
                             </div>
                             
@@ -171,7 +173,7 @@
                             <div class="form-group">
                             <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                              <select class="col-md-6 col-sm-6 col-xs-12" name='status_tindak_lanjut[]'>
+                              <select class="form-control" name='status_tindak_lanjut[]'>
                                 <?php
                                   $sel1 = ''; $sel2 = ''; $sel3 = '';
                                   if($htemuan['status_tindak_lanjut'] == "TS") $sel1 = "selected='selected'";
@@ -188,7 +190,8 @@
                             <div class="form-group">
                             <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['catatan_bpk']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[]"  >
+                                <textarea id="editor" name="catatan_bpk[]"><?= $htemuan['catatan_bpk'] ?></textarea>
+                                <!-- <input value='<?php echo $htemuan['catatan_bpk']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[]"  > -->
                             </div>
                             </div>
                             <br/>
