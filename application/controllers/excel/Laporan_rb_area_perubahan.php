@@ -87,6 +87,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->getStyle('1')->getAlignment()->setVertical('center');
         $sheet->getStyle('A3:A5')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A3:A5')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A6:D6')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('C3:C5')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('C3:C5')->getAlignment()->setVertical('center');
         $sheet->getStyle('D3:D5')->getAlignment()->setHorizontal('center');
@@ -97,7 +98,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->getStyle('E:K')->getAlignment()->setVertical('center');
         $sheet->getStyle('A:L')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
-        $sheet->getStyle('A3:K5')->getFont()->setBold(true);
+        $sheet->getStyle('A3:K6')->getFont()->setBold(true);
   
         // ini atur header
         $sheet->setCellValue('A1', 'Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Tahun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Delapan Area Perubahan (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
@@ -124,35 +125,35 @@ class laporan_rb_area_perubahan extends CI_Controller
             ->mergeCells('K3:K5');
 
         // th numrow 6
-        $sheet->setCellValue('E3', 'TARGET')
+        $sheet->setCellValue('E4', 'TARGET')
             ->mergeCells('E4:E5');
-        $sheet->setCellValue('F3', 'REALISASI')
+        $sheet->setCellValue('F4', 'REALISASI')
             ->mergeCells('F4:F5');
-        $sheet->setCellValue('G3', 'TARGET')
+        $sheet->setCellValue('G4', 'TARGET')
             ->mergeCells('G4:G5');
-        $sheet->setCellValue('H3', 'REALISASI')
+        $sheet->setCellValue('H4', 'REALISASI')
             ->mergeCells('H4:H5');
-        $sheet->setCellValue('I3', 'TERCAPAI')
+        $sheet->setCellValue('I4', 'TERCAPAI')
             ->mergeCells('I4:I5');
-        $sheet->setCellValue('J3', 'TIDAK TERCAPAI')
+        $sheet->setCellValue('J4', 'TIDAK TERCAPAI')
             ->mergeCells('J4:J5');
 
         
-        $sheet->setCellValue('A5', '1');
-        $sheet->setCellValue('B5', '2');
-        $sheet->setCellValue('C5', '3');
-        $sheet->setCellValue('D5', '4');
-        $sheet->setCellValue('E5', '5');
-        $sheet->setCellValue('F5', '6');
-        $sheet->setCellValue('G5', '7');
-        $sheet->setCellValue('H5', '8');
-        $sheet->setCellValue('I5', '9');
-        $sheet->setCellValue('J5', '10');
-        $sheet->setCellValue('K5', '11');
+        $sheet->setCellValue('A6', '1');
+        $sheet->setCellValue('B6', '2');
+        $sheet->setCellValue('C6', '3');
+        $sheet->setCellValue('D6', '4');
+        $sheet->setCellValue('E6', '5');
+        $sheet->setCellValue('F6', '6');
+        $sheet->setCellValue('G6', '7');
+        $sheet->setCellValue('H6', '8');
+        $sheet->setCellValue('I6', '9');
+        $sheet->setCellValue('J6', '10');
+        $sheet->setCellValue('K6', '11');
 
 
         // // td numrow 7
-        $numrow = 6;
+        $numrow = 7;
 
         //for buat data
         // $counter = 0;
