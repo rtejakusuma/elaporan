@@ -52,6 +52,8 @@ class Realisasifisik_model extends CI_Model
     {
         $this->load->model('laporan_model', 'lp');
         $this->load->model('api_sipp_model', 'sipp');
+        $this->load->model('api_sikd_model', 'sikd');
+        
         $this->db->trans_start();
         $this->db->insert(
             'laporan',
@@ -75,6 +77,15 @@ class Realisasifisik_model extends CI_Model
             $this->db->insert_batch('kegiatan', $fet['kg']);
             activity_log();
         }
+
+        $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
+        if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
+            // $this->db->insert_batch('program', $fet['prog']);
+            // activity_log();
+            $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
+            activity_log();
+        }
+
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
@@ -139,6 +150,14 @@ class Realisasifisik_model extends CI_Model
                 $this->db->update_batch('program', $fet['prog'], 'kode_program');
                 activity_log();
                 $this->db->update_batch('kegiatan', $fet['kg'], 'kode_kegiatan');
+                activity_log();
+            }
+
+            $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
+            if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
+                // $this->db->insert_batch('program', $fet['prog']);
+                // activity_log();
+                $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
                 activity_log();
             }
         }
