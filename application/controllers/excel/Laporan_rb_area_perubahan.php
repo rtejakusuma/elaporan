@@ -1,0 +1,198 @@
+<?php
+defined('BASEPATH') or exit('No direct script access allowed');
+
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+class laporan_rb_area_perubahan extends CI_Controller
+{
+    public $data;
+    public $spreadsheet;
+
+    public function __construct()
+    {
+        parent::__construct();
+        $this->load->model('laporan_model', 'laporan');
+        $this->spreadsheet = new Spreadsheet();
+    }
+
+    public function index($formname, $id_laporan)
+    {
+        $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
+        $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
+        $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
+
+        $this->export($formname, $id_laporan);
+        $this->download();
+    }
+
+    public function style($stylereq)
+    {
+        switch ($stylereq) {
+            case 'foo_css':
+                $style = [];
+                break;
+            case 'allborder':
+                $style = [
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN
+                        ]
+                    ]
+                ];
+                break;
+            case 'font-red':
+                $style = [
+                    'font' => [
+                        'color' => [
+                            'argb' => \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED
+                        ]
+                    ]
+                ];
+                break;
+            default:
+                # code...
+                break;
+        }
+
+        return $style;
+    }
+
+    public function export($formname, $id_laporan)
+    {
+        // ini bikin sheetnya
+        $this->spreadsheet->setActiveSheetIndex(0)->setTitle($this->data['nama_laporan']);
+
+        // ---- INI SHEET PERTAMA ----
+        // ini atur sheet
+        $sheet = $this->spreadsheet->getActiveSheet();
+
+        // ini atur width
+        $sheet->getDefaultRowDimension()->setRowHeight(-1);
+        $sheet->getColumnDimension('A')->setAutoSize(true);
+        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('C')->setWidth(20);
+        $sheet->getColumnDimension('D')->setWidth(50);
+        $sheet->getColumnDimension('E')->setWidth(20);
+        $sheet->getColumnDimension('F')->setWidth(20);
+        $sheet->getColumnDimension('G')->setWidth(20);
+        $sheet->getColumnDimension('H')->setWidth(20);
+        $sheet->getColumnDimension('I')->setWidth(20);
+        $sheet->getColumnDimension('J')->setWidth(20);
+        $sheet->getColumnDimension('K')->setWidth(20);
+
+
+        // ini stylenya
+        $sheet->getStyle('1')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('1')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A3:A5')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A3:A5')->getAlignment()->setVertical('center');
+        $sheet->getStyle('C3:C5')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('C3:C5')->getAlignment()->setVertical('center');
+        $sheet->getStyle('D3:D5')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('D3:D5')->getAlignment()->setVertical('center');
+        $sheet->getStyle('E:K')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B3:B5')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('B3:B5')->getAlignment()->setVertical('center');
+        $sheet->getStyle('E:K')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A:L')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A1')->getFont()->setBold(true);
+        $sheet->getStyle('A3:K5')->getFont()->setBold(true);
+  
+        // ini atur header
+        $sheet->setCellValue('A1', 'Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Tahun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Delapan Area Perubahan (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
+            ->mergeCells('A1:L1');
+
+
+        // ini tablenya
+        // th numrow 5
+        $sheet->setCellValue('A3', 'NO')
+            ->mergeCells('A3:A5');
+        $sheet->setCellValue('B3', 'AREA PERUBAHAN')
+            ->mergeCells('B3:B5');
+        $sheet->setCellValue('C3', 'PROGRAM')
+            ->mergeCells('C3:C5');
+        $sheet->setCellValue('D3', 'KEGIATAN')
+            ->mergeCells('D3:D5');
+        $sheet->setCellValue('E3', 'PERIODE PELAKSANA')
+            ->mergeCells('E3:F3');
+        $sheet->setCellValue('G3', 'ANGGARAN (Rp.000.000)')
+            ->mergeCells('G3:H3');
+        $sheet->setCellValue('I3', 'STATUS CAPAIAN (V)')
+            ->mergeCells('I3:J3');
+        $sheet->setCellValue('K3', 'ALASAN TIDAK TERCAPAI')
+            ->mergeCells('K3:K5');
+
+        // th numrow 6
+        $sheet->setCellValue('E3', 'TARGET')
+            ->mergeCells('E4:E5');
+        $sheet->setCellValue('F3', 'REALISASI')
+            ->mergeCells('F4:F5');
+        $sheet->setCellValue('G3', 'TARGET')
+            ->mergeCells('G4:G5');
+        $sheet->setCellValue('H3', 'REALISASI')
+            ->mergeCells('H4:H5');
+        $sheet->setCellValue('I3', 'TERCAPAI')
+            ->mergeCells('I4:I5');
+        $sheet->setCellValue('J3', 'TIDAK TERCAPAI')
+            ->mergeCells('J4:J5');
+
+        
+        $sheet->setCellValue('A5', '1');
+        $sheet->setCellValue('B5', '2');
+        $sheet->setCellValue('C5', '3');
+        $sheet->setCellValue('D5', '4');
+        $sheet->setCellValue('E5', '5');
+        $sheet->setCellValue('F5', '6');
+        $sheet->setCellValue('G5', '7');
+        $sheet->setCellValue('H5', '8');
+        $sheet->setCellValue('I5', '9');
+        $sheet->setCellValue('J5', '10');
+        $sheet->setCellValue('K5', '11');
+
+
+        // // td numrow 7
+        $numrow = 6;
+
+        //for buat data
+        // $counter = 0;
+        // foreach ($this->data['fetch']['p'] as $prog) {
+        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
+        //     $counter += 1;
+
+        //     $sheet->setCellValue('A' . $numrow, $counter)
+        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
+        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
+        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+
+        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
+        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
+        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
+        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
+        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
+        //         $numrow++;
+        //     }
+        //     // $numrow ++;
+        // }
+        // end ambil data
+
+        // ini style tablenya
+        $sheet->getPageSetup()->setFitToWidth(1);
+        $sheet->getPageSetup()->setFitToHeight(0);
+        $sheet->setShowGridlines(true);
+        $sheet->getStyle('A3:K' . ($numrow - 1))->applyFromArray($this->style('allborder'));
+    }
+
+    public function download()
+    {
+        $file = new Xlsx($this->spreadsheet);
+
+        header('Content-Type: application/vnd.ms-excel');
+        header('Content-Disposition: attachment;filename="' . $this->data['nama_laporan'] . '.xlsx"');
+        header('Cache-Control: max-age=0');
+
+        $file->save('php://output'); // download file 
+    }
+}
+
+/* End of file pelayanan_publik.php */
