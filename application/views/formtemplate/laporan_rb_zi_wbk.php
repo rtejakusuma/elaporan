@@ -234,12 +234,15 @@
                              </div>
                            </div>
 
-                           <div class="form-group">
-                             <label for="capaian" class="control-label col-md-3 col-sm-3 col-xs-12">Capaian</label>
-                             <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input value='<?php if(isset($rbziwbkk['capaian']))echo $rbziwbkk['capaian']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="capaian[]">
-                             </div>
-                           </div>
+                           <div class='form-group'>
+                            <label for='capaian' class='control-label col-md-3 col-sm-3 col-xs-12'>Capaian</label>
+                            <div class='col-md-6 col-sm-6 col-xs-12'>
+                            <select name=capaian[]>
+                              <option value='0' <?php if(isset($rbziwbkk['capaian']) && $rbziwbkk['capaian'] == '0') echo "selected='selected'"; ?>>Tidak Tercapai</option>
+                              <option value='1' <?php if(isset($rbziwbkk['capaian']) && $rbziwbkk['capaian'] == '1') echo "selected='selected'"; ?>>Tercapai</option>
+                            </select>
+                            </div>
+                          </div>
 
                            <div class="form-group">
                              <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
@@ -406,7 +409,10 @@ function add_tab4(node) {
             <div class='form-group'>\
                 <label for='capaian' class='control-label col-md-3 col-sm-3 col-xs-12'>Capaian</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
-                <input class='form-control col-md-7 col-xs-12' type='text' name='capaian[]'>\
+                <select name=capaian[]>\
+                  <option value='0' selected='selected'>Tidak Tercapai</option>\
+                  <option value='1'>Tercapai</option>\
+                </select>\
                 </div>\
             </div>\
 \

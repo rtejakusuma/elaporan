@@ -21,9 +21,9 @@ class Ikm extends CI_Controller
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->data['fetch'] = $this->laporan->get_laporan_data_by_name_id($formname, $id_laporan);
         $this->data['nama_opd'] = $this->session->tempdata('nama_opd');
-
         $this->export($formname, $id_laporan);
         $this->download();
+        var_dump("test"); die();
     }
 
     public function style($stylereq)

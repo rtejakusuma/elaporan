@@ -4,7 +4,7 @@
     <div id='header-laporan'>
         <center>
             <h2>
-            Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Madiun <?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?> pada Prioritas yang Harus Terus Dipelihara (per ????)<br />
+                Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Daerah Madiun per (tanggal) pada Prioritas yang Terkait dengan Peningkatan Kualitas Pelayanan Fokus Pelayanan Quick Wins<br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
@@ -55,19 +55,77 @@
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
-        // $counter = 0;
-        // foreach ($data['fetch']['ikmopd'] as $ikm) {
-
-        //     $counter += 1;
-        //     echo "
-        //          <tr>
-        //              <td ><center>$counter</center></td>
-        //              <td >" . ucwords($ikm['nama_opd']) . "</center></td>
-        //              <td><center>$ikm[nilai]</center></td>
-        //              <td><center>$ikm[predikat]</center></td>
-        //          </tr>
-        //      ";
-        // }
+        $counter = 0;
+        foreach ($data['fetch']['rbp'] as $rbp) {
+            $rowspan_rincian = 0;
+            
+            foreach($data['fetch']['rbps'][$rbp['id_rb_prioritas']] as $rbps){
+                $rowspan_rincian += sizeof($data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']]);
+            }
+            $counter += 1;
+            $flag = FALSE;
+            echo "
+                 <tr>
+                     <td rowspan='$rowspan_rincian'><center>$counter</center></td>
+                     <td rowspan='$rowspan_rincian'><center>$rbp[rincian]</center></td>";
+            foreach($data['fetch']['rbps'][$rbp['id_rb_prioritas']] as $rbps){
+                $rowspan_sasaran = sizeof($data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']]);
+                if($flag){
+                    echo "<tr>
+                     <td rowspan='$rowspan_sasaran'><center>$rbps[sasaran]</center></td>
+                     <td rowspan='$rowspan_sasaran'><center>$rbps[nama_program]</center></td>";
+                } else {
+                    echo "
+                     <td rowspan='$rowspan_sasaran'><center>$rbps[sasaran]</center></td>
+                     <td rowspan='$rowspan_sasaran'><center>$rbps[nama_program]</center></td>";
+                }
+                $flag2 = FALSE;
+                     $rbpk = reset($data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']]);
+                        echo "
+                        <td><center>$rbpk[nama_kegiatan]</center></td>
+                        <td><center>$rbpk[indikator]</center></td>
+                        <td><center>$rbpk[target_output]</center></td>
+                        <td><center>$rbpk[realisasi_output]</center></td>
+                        <td><center>$rbpk[target_waktu]</center></td>
+                        <td><center>$rbpk[realisasi_waktu]</center></td>
+                        <td><center>$rbpk[target_anggaran]</center></td>
+                        <td><center>$rbpk[realisasi_anggaran]</center></td>";
+                        // var_dump($rbpk['capaian']); die();
+                        if($rbpk['capaian'] == '0'){
+                            echo "<td></td><td>V</td>";
+                        } else {
+                            echo "<td>V</td><td></td>";
+                        }
+                        
+                        echo "<td><center>$rbpk[ket]</center></td>
+                        ";
+                        echo "</tr>";
+                     foreach($data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']] as $rbpk){
+                        if($flag2){
+                            echo "<tr>
+                                    <td><center>$rbpk[nama_kegiatan]</center></td>
+                                    <td><center>$rbpk[indikator]</center></td>
+                                    <td><center>$rbpk[target_output]</center></td>
+                                    <td><center>$rbpk[realisasi_output]</center></td>
+                                    <td><center>$rbpk[target_waktu]</center></td>
+                                    <td><center>$rbpk[realisasi_waktu]</center></td>
+                                    <td><center>$rbpk[target_anggaran]</center></td>
+                                    <td><center>$rbpk[realisasi_anggaran]</center></td>";
+                                    if($rbpk['capaian'] == '0'){
+                                        echo "<td></td><td>V</td>";
+                                    } else {
+                                        echo "<td>V</td><td></td>";
+                                    }
+                                    echo "<td><center>$rbpk[ket]</center></td>
+                                </tr>";
+                        } else {
+                            $flag2 = TRUE;
+                        }
+                    }        
+                    
+            }
+            
+        }
         ?>
         <!-- End of Table Contents -->
     </table>

@@ -125,6 +125,7 @@ class Rekappokja_model extends CI_Model
                     ));
                 }
                 $iddel = array_values($data['id_pegawai']);
+                // var_dump($iddel); die();
                 $this->db->where_in('id_pegawai', $iddel)->delete('detail_rekap_pokja');
                 if($insdata != NULL){
                     $this->db->insert_batch('detail_rekap_pokja', $insdata);
@@ -132,8 +133,13 @@ class Rekappokja_model extends CI_Model
             } else {
                 $todel = $this->db->select('id_pegawai')->from('pegawai')->join('rekap_pokja', 'rekap_pokja.id_laporan = pegawai.id_laporan')
                                     ->where('pegawai.id_laporan', $id_laporan)->get()->result_array();
-                if($todel != NULL)
-                    $this->db->where_in('id_pegawai', $todel)->delete('detail_rekap_pokja');
+                                    // var_dump($todel); die();
+                $dels = array();
+                foreach($todel as $key => $values){
+                    array_push($dels, $values['id_pegawai']);
+                }
+                if($dels != NULL)
+                    $this->db->where_in('id_pegawai', $dels)->delete('detail_rekap_pokja');
             }
         
         }
