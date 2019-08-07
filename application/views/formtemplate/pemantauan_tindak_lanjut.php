@@ -115,19 +115,92 @@
 
                         </div>
                         <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
-                        <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
-                            <input value="hasil_temuan" type="hidden" name="nama_tabel">
-                            
                             <div id="container-opsi">
                             
                             <?php if($data['fetch']['temuan'] != NULL){ 
+                              $modal = 0;
                                     foreach($data['fetch']['temuan'] as $temuan){  
-                            ?>
-
+                           $modal++; ?>
+<form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
+                            <input value="hasil_temuan" type="hidden" name="nama_tabel">
                             <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                             <input disabled value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
                             <h2><?php echo $temuan['nama_temuan']; ?></h2>
-                            <button type='button' onclick='add_hasil_temuan(this)'>Tambah Hasil Temuan</button>
+                            <!-- <button type='button' onclick='add_hasil_temuan(this)'>Tambah Hasil Temuan</button> -->
+                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg<?= $modal ?>">Tambah Hasil Temuan</button>
+                            <div class="modal fade bs-example-modal-lg<?= $modal ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                               <div class="modal-dialog modal-lg">
+                                 <form action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                   <div class="modal-content">
+                                     <!-- <input value="tambah_hasil_temuan" type="hidden" name="nama_tabel"> -->
+                                     <input value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
+                                     <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                       </button>
+                                       <h4 class="modal-title" id="myModalLabel">Tambah Hasil Temuan</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                       <div class="form-group">
+                            <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="editor" name="rekomendasi[]"></textarea>
+                            </div>
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="status_rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">Status Rekomendasi</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                            <select class="form-control" name='status_rekomendasi[]'>
+                              <option value="" disabled selected>Pilih Rekom</option>
+                                <?php
+                                  echo "<option value=''>Kosong</option>";
+                                  echo "<option value='TS'>TS</option>";
+                                  echo "<option value='TB'>TB</option>";
+                                  echo "<option value='TT'>TT</option>";
+                                ?>
+                              </select>
+                            </div>
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="editor" name="tindak_lanjut[]"></textarea>
+                            </div>
+                            </div>
+                            
+                            
+                            <div class="form-group">
+                            <label for="status_tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Status Tindak Lanjut</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                              <select class="form-control" name='status_tindak_lanjut[]'>
+                                <option value="" disabled selected>Pilih Rekom</option>
+                                <?php
+                                  echo "<option value=''>Kosong</option>";
+                                  echo "<option value='TS'>TS</option>";
+                                  echo "<option value='TB'>TB</option>";
+                                  echo "<option value='TT'>TT</option>";
+                                ?>
+                              </select>
+                            </div>
+                            </div>
+                            
+                            <div class="form-group">
+                            <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <textarea id="editor" name="catatan_bpk[]"></textarea>
+                            </div>
+                            </div>
+
+                                     </div>
+                                     <div class="modal-footer">
+                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                       <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Tambah Hasil Temuan</button>
+                                     </div>
+                                     </div>
+                                 </form>
+                               </div>
+                             </div>
 
                             <?php
                                 foreach($data['fetch']['htemuan'][$temuan['id_temuan']] as $htemuan){

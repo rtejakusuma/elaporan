@@ -78,7 +78,7 @@ class Pemantauantindaklanjut_model extends CI_Model
             if ($data != NULL) {
                 // new data
                 if (isset($data['new'])) {
-                    for($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
+                    for ($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
                         array_push($insdata, array(
                             'id_laporan' => $id_laporan,
                             'nama_temuan' => $data['new']['nama_temuan'][$i]
@@ -92,7 +92,7 @@ class Pemantauantindaklanjut_model extends CI_Model
                 unset($data['new']);
                 // updated data
                 if ($data['id_temuan'] != NULL) {
-                    for ($i=0; $i < sizeof($data['id_temuan']); $i += 1) {
+                    for ($i = 0; $i < sizeof($data['id_temuan']); $i += 1) {
                         array_push($updata, array(
                             'id_temuan' => $data['id_temuan'][$i],
                             'nama_temuan' => $data['nama_temuan'][$i]
@@ -135,10 +135,10 @@ class Pemantauantindaklanjut_model extends CI_Model
                 }
             } else {
                 $todel = $this->db->select('id_temuan')->from('temuan')
-                                ->where('temuan.id_laporan', $id_laporan)->get()->result_array();
+                    ->where('temuan.id_laporan', $id_laporan)->get()->result_array();
                 activity_log();
                 $del = array();
-                foreach($todel as $key => $d){
+                foreach ($todel as $key => $d) {
                     array_push($del, $d['id_temuan']);
                 }
                 $this->db->where_in('id_temuan', $del)->delete('hasil_temuan');
