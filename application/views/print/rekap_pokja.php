@@ -33,7 +33,7 @@
         $counter = 0;
         foreach ($data['fetch']['p'] as $prog) {
             $prog_rowspan = sizeof($data['fetch']['drp'][$prog['id_pegawai']])+1;
-            var_dump($prog_rowspan);
+            // var_dump($prog_rowspan);
             $counter += 1;
             echo "
                  <tr>
