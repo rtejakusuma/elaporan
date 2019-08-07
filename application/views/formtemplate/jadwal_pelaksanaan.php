@@ -26,7 +26,7 @@
                  <div class="x_content">
                    <a href='<?php if (isset($data['id_laporan'])) echo base_url("export/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-success"><i class="fa fa-print"></i> Excel</button></a>
                    <a href='<?php if (isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-primary"><i class="fa fa-print"></i> PRINT</button></a>
-                   <button></button>
+
                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
                      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                        <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Jadwal Pelaksanaan</a>
@@ -147,11 +147,13 @@
                            <input value="auditor" type="hidden" name="nama_tabel">
 
                            <?php if ($data['fetch']['adata'] != NULL) {
-                              foreach ($data['fetch']['jpopd'] as $auditors) { ?>
+                              $modal = 0;
+                              foreach ($data['fetch']['jpopd'] as $auditors) {
+                                $modal++; ?>
                                <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
                                  <input value='<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
                                  <h2><?php echo $auditors['nama_opd']; ?></h2>
-                                 <button type='button' onclick='add_auditor(this)'>Tambah Auditor</button>
+                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg<?= $modal ?>">Tambah Auditor</button>
 
                                  <?php
                                   $nomor = 0;
@@ -160,29 +162,15 @@
                                    <div>
                                      <div>
                                        <div class="form-group">
-                                         <label for="select" class="control-label col-md-3 col-sm-3 col-xs-12">Pilih Auditor</label>
-                                         <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <select name="select_auditor" id="select_auditor" class="form-control col-md-7 col-xs-12" onchange="auditorSelect<?= $nomor ?>(event)">
-                                             <option value="">No Selected</option>
-                                             <?php foreach ($data['fetch']['auditor'] as $key => $au) {
-                                                if (isset($au['nip18']) && $au['nip18'] != "1") {
-                                                  echo '<option value="' . $au['nip18'] . '">' . $au['nama'] . ' - ' . $au['jabatan'] . '</option>';
-                                                }
-                                              } ?>
-                                           </select>
-                                         </div>
-                                       </div>
-
-                                       <div class="form-group">
                                          <label for="nama_auditor" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Auditor</label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <input value='<?php echo $auditor['nama_auditor']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]" id="nama_<?= $nomor ?>">
+                                           <input value='<?php echo $auditor['nama_auditor']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]" <?php if ($auditor['editable'] == '0') echo "readonly='readonly'" ?>>
                                          </div>
                                        </div>
                                        <div class="form-group">
                                          <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
                                          <div class="col-md-6 col-sm-6 col-xs-12">
-                                           <input value='<?php echo $auditor['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]" id="jabatan_<?= $nomor ?>">
+                                           <input value='<?php echo $auditor['jabatan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]" <?php if ($auditor['editable'] == '0') echo "readonly='readonly'" ?>>
                                          </div>
                                        </div>
 
@@ -191,6 +179,8 @@
                                            <button type='button' onclick='delete_auditor(this)'>Hapus</button>
                                          </div>
                                        </div>
+
+
 
                                      </div>
                                    </div>
@@ -210,20 +200,78 @@
                            </div>
                          </form>
 
-                       </div>
-                     </div>
-                   </div>
+                         <!-- ini modal form -->
+                         <?php if ($data['fetch']['adata'] != NULL) {
+                            $modal = 0;
+                            foreach ($data['fetch']['jpopd'] as $auditors) {
+                              $modal++; ?>
+                             <div class="modal fade bs-example-modal-lg<?= $modal ?>" tabindex="-1" role="dialog" aria-hidden="true">
+                               <div class="modal-dialog modal-lg">
+                                 <form action='#' method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                   <div class="modal-content">
+                                     <input value="tambah_auditor" type="hidden" name="nama_tabel">
+                                     <input value='<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
+                                     <div class="modal-header">
+                                       <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">×</span>
+                                       </button>
+                                       <h4 class="modal-title" id="myModalLabel">Tambah Auditor</h4>
+                                     </div>
+                                     <div class="modal-body">
+                                       <div class="form-group">
+                                         <label for="select" class="control-label col-md-3 col-sm-3 col-xs-12">Pilih Auditor</label>
+                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                           <select name="select_auditor" id="select_auditor" class="form-control col-md-7 col-xs-12" onchange="auditorSelect<?= $modal ?>(event)">
+                                             <option value="">Tambah Manual</option>
+                                             <?php foreach ($data['fetch']['auditor'] as $key => $au) {
+                                                if (isset($au['nip18']) && $au['nip18'] != "1") {
+                                                  $val = $au['nama'] . '__' . $au['jabatan'];
+                                                  echo '<option value="' . $val . '">' . $au['nama'] . ' - ' . $au['jabatan'] . '</option>';
+                                                }
+                                              } ?>
+                                           </select>
+                                         </div>
+                                       </div>
+                                       <div class="form-group">
+                                         <label for="nama_auditor" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Auditor</label>
+                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                           <input class="form-control col-md-7 col-xs-12" type="text" name="nama_auditor[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]" id="nama_<?= $modal ?>">
+                                         </div>
+                                       </div>
+                                       <div class="form-group">
+                                         <label for="jabatan" class="control-label col-md-3 col-sm-3 col-xs-12">Jabatan</label>
+                                         <div class="col-md-6 col-sm-6 col-xs-12">
+                                           <input class="form-control col-md-7 col-xs-12" type="text" name="jabatan[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>]" id="jabatan_<?= $modal ?>">
+                                         </div>
+                                       </div>
 
+                                     </div>
+                                     <div class="modal-footer">
+                                       <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                       <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Tambah Auditor</button>
+                                     </div>
+                                 </form>
+                               </div>
+                             </div>
+                           </div>
+                         <?php }
+                        } ?>
+                     </div>
+                     <!-- selesai modal form -->
+
+                   </div>
                  </div>
                </div>
+
              </div>
            </div>
          </div>
        </div>
      </div>
+   </div>
+ </div>
 
-     <script>
-       var opd = "</div>\
+ <script>
+   var opd = "</div>\
         <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
         <div class='form-group'>\
         <label for='opd' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama OPD</label>\
@@ -279,16 +327,16 @@
     </div>\
     </div></div>";
 
-       function add_field() {
-         var cont = document.getElementById('container-opsi');
-         console.log(cont);
-         cont.innerHTML = opd + cont.innerHTML;
-       }
+   function add_field() {
+     var cont = document.getElementById('container-opsi');
+     console.log(cont);
+     cont.innerHTML = opd + cont.innerHTML;
+   }
 
-       function add_auditor(node) {
-         var id = node.parentNode.childNodes[1].value;
-         console.log(node.parentNode.childNodes);
-         node.parentNode.innerHTML = node.parentNode.innerHTML + "<div><div>\
+   function add_auditor(node) {
+     var id = node.parentNode.childNodes[1].value;
+     console.log(node.parentNode.childNodes);
+     node.parentNode.innerHTML = node.parentNode.innerHTML + "<div><div>\
 <div class='form-group'>\
                                          <label for='select' class='control-label col-md-3 col-sm-3 col-xs-12'>Pilih Auditor</label>\
                                          <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -319,39 +367,48 @@
               </div>\
           </div>\
           </div></div></div>";
-       }
+   }
 
-       function delete_node(node) {
-         var cont = document.getElementById('deleted');
-         // console.log(node.parentNode.childNodes[1].nodeName);
-         var id = node.parentNode.parentNode.parentNode.childNodes[1];
-         console.log(node.parentNode.parentNode);
-         if (id.nodeName == "INPUT") {
-           id = id.value;
-           console.log(id);
-           cont.innerHTML += "<input type='hidden' value='" + id + "' name='to_del[]'>";
-         }
+   function delete_node(node) {
+     var cont = document.getElementById('deleted');
+     // console.log(node.parentNode.childNodes[1].nodeName);
+     var id = node.parentNode.parentNode.parentNode.childNodes[1];
+     console.log(node.parentNode.parentNode);
+     if (id.nodeName == "INPUT") {
+       id = id.value;
+       console.log(id);
+       cont.innerHTML += "<input type='hidden' value='" + id + "' name='to_del[]'>";
+     }
 
-         node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
-       }
+     node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+   }
 
-       function delete_auditor(node) {
-         node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
-       }
+   function delete_auditor(node) {
+     node.parentNode.parentNode.parentNode.parentNode.removeChild(node.parentNode.parentNode.parentNode);
+   }
 
-       <?php
-        for ($i = 0; $i < $nomor; $i++) {
-          echo '
+   <?php
+    for ($i = 0; $i < $nomor; $i++) {
+      echo '
           function auditorSelect' . $i . '(e) { 
-            document.getElementById("nama_' . $i . '").value = e.target.value;
-            document.getElementById("jabatan_' . $i . '").value = e.target.value;
+            var val = e.target.value;
+            var split = val.split("__");
+            if (val == "") {
+              document.getElementById("nama_' . $i . '").readOnly = false;
+              document.getElementById("jabatan_' . $i . '").readOnly = false;
+            }else{
+              document.getElementById("nama_' . $i . '").value = split[0];
+              document.getElementById("nama_' . $i . '").readOnly = true;
+              document.getElementById("jabatan_' . $i . '").value = split[1];
+              document.getElementById("jabatan_' . $i . '").readOnly = true;
+            }
           }';
-        }
-        ?>
+    }
+    ?>
 
-       //  function auditorSelect(e) {
-       //    document.getElementById("ajax").value = e.target.value;
-       //  }
-     </script>
+   //  function auditorSelect(e) {
+   //    document.getElementById("ajax").value = e.target.value;
+   //  }
+ </script>
 
-     <!-- /page content -->
+ <!-- /page content -->

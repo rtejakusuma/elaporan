@@ -61,7 +61,7 @@ class monitoring_kelembagaan extends CI_Controller
         // ini atur width
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
         $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(50);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
         $sheet->getColumnDimension('E')->setWidth(20);
@@ -74,6 +74,7 @@ class monitoring_kelembagaan extends CI_Controller
         $sheet->getStyle('C:F')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A:F')->getAlignment()->setVertical('center');
         $sheet->getStyle('A:F')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:F4')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1:F4')->getFont()->setBold(true);
 
         // ini atur header

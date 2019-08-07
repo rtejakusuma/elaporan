@@ -160,6 +160,19 @@ class Jadwalpelaksanaan_model extends CI_Model
                 if ($insdata != NULL)
                     $this->db->insert_batch('auditor', $insdata);
             }
+        } elseif ($table == 'tambah_auditor') {
+            $idx = $data['id_jadwal_pelaksanaan_opd'][0];
+            $data_insert = [
+                'id_jadwal_pelaksanaan_opd' => $idx,
+                'nama_auditor' => $data['nama_auditor'][$idx],
+                'jabatan' => $data['jabatan'][$idx],
+                'editable' => 0
+            ];
+            if ($data['select_auditor'] == '' || $data['select_auditor'] == null) {
+                $data_insert['editable'] = 1;
+            }
+            $this->db->insert('auditor', $data_insert);
+            // print_r($data_insert);
         }
         $this->db->trans_complete();
     }

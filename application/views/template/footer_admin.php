@@ -62,6 +62,9 @@
         <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.buttons.js"></script>
         <script src="<?= base_url('assets/') ?>vendors/pnotify/dist/pnotify.nonblock.js"></script>
 
+        <!-- CKeditor -->
+        <script src="https://cdn.ckeditor.com/ckeditor5/11.1.1/classic/ckeditor.js"></script>
+
         <!-- Dropzone.js -->
         <script src="<?= base_url('assets/') ?>vendors/dropzone/dist/min/dropzone.min.js"></script>
 
@@ -100,4 +103,20 @@
                         dictCancelUploadConfirmation: "Batalkan upload file?",
                         dictMaxFilesExceeded: "Tidak bisa menambahkan lagi, silahkan refresh dahulu."
                 };
+        </script>
+        <script>
+                ClassicEditor
+                        .create(document.querySelector('#editor_usulan'), {
+                                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList']
+                        })
+                        .catch(error => {
+                                console.error(error);
+                        });
+                ClassicEditor
+                        .create(document.querySelector('#editor_dasar_hukum'), {
+                                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList']
+                        })
+                        .catch(error => {
+                                console.error(error);
+                        });
         </script>
