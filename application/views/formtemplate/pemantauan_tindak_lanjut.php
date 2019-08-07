@@ -88,7 +88,7 @@
                             <div class="form-group">
                             <label for="nama_temuan" class="control-label col-md-3 col-sm-3 col-xs-12">Nama Temuan</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $temuan['nama_temuan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan[<?php echo $temuan['id_temuan']?>]"  >
+                                <input value='<?php echo $temuan['nama_temuan']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="nama_temuan[]"  >
                             </div>
                             </div>
 
@@ -124,7 +124,7 @@
                             ?>
 
                             <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                            <input value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
+                            <input disabled value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
                             <h2><?php echo $temuan['nama_temuan']; ?></h2>
                             <button type='button' onclick='add_hasil_temuan(this)'>Tambah Hasil Temuan</button>
 
@@ -133,11 +133,12 @@
                             ?>
                             <div>
                             <div>
-
+                            
+                            <input value='<?php echo $temuan['id_temuan']; ?>' type='hidden' name='id_temuan[]'>
                             <div class="form-group">
                             <label for="rekomendasi" class="control-label col-md-3 col-sm-3 col-xs-12">rekomendasi</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[<?php echo $htemuan['id_temuan']; ?>][]"  >
+                                <input value='<?php echo $htemuan['rekomendasi']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rekomendasi[]"  >
                             </div>
                             </div>
                             
@@ -161,7 +162,7 @@
                             <div class="form-group">
                             <label for="tindak_lanjut" class="control-label col-md-3 col-sm-3 col-xs-12">Tindak Lanjut</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[<?php echo $htemuan['id_temuan']; ?>][]"  >
+                                <input value='<?php echo $htemuan['tindak_lanjut']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="tindak_lanjut[]"  >
                             </div>
                             </div>
                             
@@ -186,7 +187,7 @@
                             <div class="form-group">
                             <label for="catatan_bpk" class="control-label col-md-3 col-sm-3 col-xs-12">Catatan BPK</label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input value='<?php echo $htemuan['catatan_bpk']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[<?php echo $htemuan['id_temuan']; ?>][]"  >
+                                <input value='<?php echo $htemuan['catatan_bpk']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="catatan_bpk[]"  >
                             </div>
                             </div>
                             <br/>
@@ -232,7 +233,7 @@ function add_field(){
                             <div class='form-group'>\
                             <label for='nama_temuan' class='control-label col-md-3 col-sm-3 col-xs-12'>Nama Temuan</label>\
                             <div class='col-md-6 col-sm-6 col-xs-12'>\
-                                <input class='form-control col-md-7 col-xs-12' type='text' name='new[][nama_temuan]'  >\
+                                <input class='form-control col-md-7 col-xs-12' type='text' name='new[nama_temuan][]'  >\
                             </div>\
                             </div>\
                             <div class='form-group'>\
@@ -248,17 +249,18 @@ function add_hasil_temuan(node){
   var id = node.parentNode.childNodes[1].value;
     console.log(node.parentNode.childNodes);
     node.parentNode.innerHTML = node.parentNode.innerHTML+"<div><div>\
+    <input type='hidden' name='id_temuan[] value='"+id+"'>\
     <div class='form-group'>\
       <label for='rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi["+id+"][]'  >\
+          <input class='form-control col-md-7 col-xs-12' type='text' name='rekomendasi[]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_rekomendasi' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Rekomendasi</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <select class='col-md-6 col-sm-6 col-xs-12' name='status_rekomendasi["+id+"][]'>\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='status_rekomendasi[]'>\
           <?php
             echo "<option value='TS' $sel1>TS</option>";
             echo "<option value='TB' $sel2>TB</option>";
@@ -271,14 +273,14 @@ function add_hasil_temuan(node){
       <div class='form-group'>\
       <label for='tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='tindak_lanjut["+id+"][]'  >\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='tindak_lanjut[]'  >\
       </div>\
       </div>\
       \
       <div class='form-group'>\
       <label for='status_tindak_lanjut' class='control-label col-md-3 col-sm-3 col-xs-12'>Status Tindak Lanjut</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-        <select class='col-md-6 col-sm-6 col-xs-12' name='status_tindak_lanjut["+id+"][]'>\
+        <select class='col-md-6 col-sm-6 col-xs-12' name='status_tindak_lanjut[]'>\
         <?php
           echo "<option value='TS' $sel1>TS</option>";
           echo "<option value='TB' $sel2>TB</option>";
@@ -291,7 +293,7 @@ function add_hasil_temuan(node){
       <div class='form-group'>\
       <label for='catatan_bpk' class='control-label col-md-3 col-sm-3 col-xs-12'>Catatan BPK</label>\
       <div class='col-md-6 col-sm-6 col-xs-12'>\
-          <input  class='form-control col-md-7 col-xs-12' type='text' name='catatan_bpk["+id+"][]'  >\
+          <input  class='form-control col-md-7 col-xs-12' type='text' name='catatan_bpk[]'  >\
       </div><br/><br/>\
       <div class='form-group'>\
               <div class='col-md-6 col-sm-6 col-xs-12 col-md-offset-3'>\
