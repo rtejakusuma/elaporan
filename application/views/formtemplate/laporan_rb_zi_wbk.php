@@ -24,14 +24,15 @@
              <div class="col-md-12 col-sm-12 col-xs-12">
                <div class="x_panel">
                  <div class="x_content">
+                 <a href='<?php if (isset($data['id_laporan'])) echo base_url("export/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-success"><i class="fa fa-print"></i> Excel</button></a>
                    <a href='<?php if (isset($data['id_laporan'])) echo base_url("opd/p/$data[formname]/$data[id_laporan]"); ?>' target='_blank'><button class="btn btn-primary"><i class="fa fa-print"></i> PRINT</button></a>
                    <div class="" role="tabpanel" data-example-id="togglable-tabs">
                      <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                        <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Laporan RB</a>
                        </li>
-                       <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">RB ZI WBK</a>
-                       </li>
-                       <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">RB ZI WBK Sasaran</a>
+                       <!-- <li role="presentation" class=""><a href="#tab_content2" role="tab" id="profile-tab" data-toggle="tab" aria-expanded="false">RB ZI WBK</a>
+                       </li> -->
+                       <li role="presentation" class=""><a href="#tab_content3" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">RB ZI WBK Sasaran & Program</a>
                        </li>
                        <li role="presentation" class=""><a href="#tab_content4" role="tab" id="profile-tab2" data-toggle="tab" aria-expanded="false">RB ZI WBK Kegiatan</a>
                        </li>
@@ -49,24 +50,24 @@
                          </form>
 
                        </div>
-                       <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
+                       <!-- <div role="tabpanel" class="tab-pane fade" id="tab_content2" aria-labelledby="profile-tab">
                          <form id="demo-form2" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                          <input value="rb_zi_wbk" type="hidden" name="nama_tabel">
                            <button type='button' onclick='add_tab2()'>Tambah</button>
                            <div id='container-opsi'>
 
-                           <?php if ($data['fetch']['rbziwbk'] != NULL) {
-                              foreach ($data['fetch']['rbziwbk'] as $rbziwbk) {
+                           <?php //if ($data['fetch']['rbziwbk'] != NULL) {
+                              //foreach ($data['fetch']['rbziwbk'] as $rbziwbk) {
                            ?>
                            <div>
                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                           <input value='<?php echo $rbziwbk['id_rb_zi_wbk']; ?>' type='hidden' name='id_rb_zi_wbk[]'>
+                           <input value='<?php //echo $rbziwbk['id_rb_zi_wbk']; ?>' type='hidden' name='id_rb_zi_wbk[]'>
 
 
                            <div class="form-group">
                              <label for="rincian" class="control-label col-md-3 col-sm-3 col-xs-12">Rincian</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
-                               <input value='<?php if(isset($rbziwbk['rincian']))echo $rbziwbk['rincian']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rincian[]">
+                               <input value='<?php //if(isset($rbziwbk['rincian']))echo $rbziwbk['rincian']; ?>' class="form-control col-md-7 col-xs-12" type="text" name="rincian[]">
                              </div>
                            </div>
 
@@ -78,7 +79,7 @@
 
                             </div>
                             </div>
-                                <?php }} ?>
+                                <?php //}} ?>
                             </div>
 
                            <div id='deleted2'></div>
@@ -90,32 +91,24 @@
                            </div>
                          </form>
 
-                       </div>
+                       </div> -->
                        <div role="tabpanel" class="tab-pane fade" id="tab_content3" aria-labelledby="profile-tab">
                          <form id="demo-form3" data-parsley-validate class="form-horizontal form-label-left" action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post">
                           <input value="rb_zi_wbk_sasaran" type="hidden" name="nama_tabel">
-                           
+                          <button type='button' onclick='add_tab3(this)'>Tambah Sasaran & Program</button>
                            <div id='container-opsi'>
 
                            <?php if ($data['fetch']['rbziwbks'] != NULL) {
-                              foreach ($data['fetch']['rbziwbk'] as $rbziwbk) {
+                              foreach ($data['fetch']['rbziwbks'] as $rbziwbks) {
                            ?>
                            <div>
                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
-                           <input disabled value='<?php echo $rbziwbk['id_rb_zi_wbk']; ?>' type='hidden' name='id_rb_zi_wbk[]'>
-                            <h2><?php echo $rbziwbk['rincian']; ?></h2>
-                            <button type='button' onclick='add_tab3(this)'>Tambah Sasaran & Program</button>
+                           <input disabled value='<?php echo $rbziwbks['id_rb_zi_wbk_sasaran']; ?>' type='hidden' name='id_rb_zi_wbk_sasaran[]'>
+                            
                            <!-- FOR TARUH SINI -->
-
-                           <?php
-                              foreach ($data['fetch']['rbziwbks'][$rbziwbk['id_rb_zi_wbk']] as $rbziwbks) {
-                            ?>
-
-                          <div>
-                          <div>
                           
                            <input value='<?php echo $rbziwbks['id_rb_zi_wbk_sasaran']; ?>' type='hidden' name='id_rb_zi_wbk_sasaran[]'>
-                           <input value='<?php echo $rbziwbks['id_rb_zi_wbk']; ?>' type='hidden' name='id_rb_zi_wbk[]'>
+                           
                            <div class="form-group">
                              <label for="sasaran" class="control-label col-md-3 col-sm-3 col-xs-12">Sasaran</label>
                              <div class="col-md-6 col-sm-6 col-xs-12">
@@ -139,8 +132,6 @@
                             </div>
                             </div>
 
-                            <?php }?>
-                            </div></div>
                               <?php }} ?>
                             </div>
 
@@ -160,8 +151,7 @@
                            <div id='container-opsi'>
 
                            <?php if ($data['fetch']['rbziwbks'] != NULL) {             
-                              foreach ($data['fetch']['rbziwbks'] as $rbziwbkss) {//printf("<pre>%s</pre>", json_encode($rbziwbks, JSON_PRETTY_PRINT));
-                                foreach($rbziwbkss as $rbziwbks){
+                              foreach ($data['fetch']['rbziwbks'] as $rbziwbks) {
                            ?>
                            <div>
                            <div class="col-md-12 col-sm-12 col-xs-12" style='border: 2px solid black; padding:10px;'>
@@ -260,7 +250,7 @@
                             </div></div>
                               <?php } ?>
                             </div></div>
-                              <?php }}} ?>
+                              <?php }} ?>
                             </div>
 
                            <div class="ln_solid"></div>
@@ -315,10 +305,10 @@ function add_tab2() {
 }
 
 function add_tab3(node) {
-  var id = node.parentNode.childNodes[1].value;
-  var tab3 ="<div>\
-           <div>\
-           <input value='"+id+"' type='hidden' name='new[id_rb_zi_wbk][]'>\
+  // var id = node.parentNode.childNodes[1].value;
+  var tab3 ="\
+           <div class='col-md-12 col-sm-12 col-xs-12' style='border: 2px solid black; padding:10px;'>\
+           \
            <div class='form-group'>\
             <label for='sasaran' class='control-label col-md-3 col-sm-3 col-xs-12'>Sasaran</label>\
                 <div class='col-md-6 col-sm-6 col-xs-12'>\
@@ -340,7 +330,7 @@ function add_tab3(node) {
             </div>\
 \
             </div>\
-            </div>\
+            \
         ";
   node.parentNode.innerHTML = node.parentNode.innerHTML + tab3;
 }

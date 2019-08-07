@@ -7,23 +7,15 @@ class Laporanrbziwbk_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rbdata = $this->db->get_where('laporan_rb_zi_wbk', ['id_laporan' => $id])->result_array()[0];
-        $rbziwbk = $this->db->order_by('rincian', 'ASC')->get_where('rb_zi_wbk', "id_laporan = $id")->result_array();
-        $rbziwbks = array();
-        if ($rbziwbk != NULL) {
-            foreach ($rbziwbk as $d) {
-                $rbziwbks[$d['id_rb_zi_wbk']] = $this->db->get_where('rb_zi_wbk_sasaran', "id_rb_zi_wbk = $d[id_rb_zi_wbk]")->result_array();
-            }
-        }
+        $rbziwbks = $this->db->order_by('sasaran', 'ASC')->get_where('rb_zi_wbk_sasaran', "id_laporan = $id")->result_array();
         $rbziwbkk = array();
-        if ($rbziwbks != NULL && sizeof($rbziwbks) > 0) {
+        if ($rbziwbks != NULL) {
             foreach ($rbziwbks as $d) {
-                foreach ($d as $k) {
-                    $rbziwbkk[$k['id_rb_zi_wbk_sasaran']] = $this->db->get_where('rb_zi_wbk_kegiatan', "id_rb_zi_wbk_sasaran = $k[id_rb_zi_wbk_sasaran]")->result_array();
-                }
+                $rbziwbkk[$d['id_rb_zi_wbk_sasaran']] = $this->db->get_where('rb_zi_wbk_kegiatan', "id_rb_zi_wbk_sasaran = $d[id_rb_zi_wbk_sasaran]")->result_array();
             }
         }
         // printf("<pre>%s</pre>", json_encode($rbziwbks, JSON_PRETTY_PRINT)); die();
-        return array('rb' => $rbdata, 'rbziwbk' => $rbziwbk, 'rbziwbks' => $rbziwbks, 'rbziwbkk' => $rbziwbkk);
+        return array('rb' => $rbdata, 'rbziwbks' => $rbziwbks, 'rbziwbkk' => $rbziwbkk);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
@@ -114,7 +106,7 @@ class Laporanrbziwbk_model extends CI_Model
                 if (isset($data['new'])) {
                     for ($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
                         array_push($insdata, array(
-                            'id_rb_zi_wbk' => $data['new']['id_rb_zi_wbk'][$i],
+                            'id_laporan' => $id_laporan,
                             'sasaran' => $data['new']['sasaran'][$i],
                             'nama_program' => $data['new']['nama_program'][$i]
                         ));
@@ -131,7 +123,7 @@ class Laporanrbziwbk_model extends CI_Model
                     for ($i = 0; $i < sizeof($data['id_rb_zi_wbk_sasaran']); $i += 1) {
                         array_push($updata, array(
                             'id_rb_zi_wbk_sasaran' => $data['id_rb_zi_wbk_sasaran'][$i],
-                            'id_rb_zi_wbk' => $data['id_rb_zi_wbk'][$i],
+                            // 'id_laporan' => $id_laporan,
                             'sasaran' => $data['sasaran'][$i],
                             'nama_program' => $data['nama_program'][$i]
                         ));
@@ -149,9 +141,8 @@ class Laporanrbziwbk_model extends CI_Model
             } else {
                 $del = $this->db->select('id_rb_zi_wbk_sasaran')
                     ->from('rb_zi_wbk_sasaran')
-                    ->join('rb_zi_wbk', 'rb_zi_wbk.id_rb_zi_wbk=rb_zi_wbk_sasaran.id_rb_zi_wbk')
-                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk.id_laporan")
-                    ->where('laporan_rb_zi_wbk.id_laporan', $id_laporan)->get()->result_array();
+                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk_sasaran.id_laporan")
+                    ->where('laporan_rb_zi_wbk_sasaran.id_laporan', $id_laporan)->get()->result_array();
                 $dels = array();
                 foreach ($del as $key => $values) {
                     array_push($dels, $values['id_rb_zi_wbk_sasaran']);
@@ -183,8 +174,7 @@ class Laporanrbziwbk_model extends CI_Model
 
                 $del = $this->db->select('id_rb_zi_wbk_sasaran')
                     ->from('rb_zi_wbk_sasaran')
-                    ->join('rb_zi_wbk', 'rb_zi_wbk.id_rb_zi_wbk=rb_zi_wbk_sasaran.id_rb_zi_wbk')
-                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk.id_laporan")
+                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk_sasaran.id_laporan")
                     ->where('laporan_rb_zi_wbk.id_laporan', $id_laporan)->get()->result_array();
                 $dels = array();
                 foreach ($del as $key => $values) {
@@ -202,8 +192,7 @@ class Laporanrbziwbk_model extends CI_Model
             } else {
                 $del = $this->db->select('id_rb_zi_wbk_sasaran')
                     ->from('rb_zi_wbk_sasaran')
-                    ->join('rb_zi_wbk', 'rb_zi_wbk.id_rb_zi_wbk=rb_zi_wbk_sasaran.id_rb_zi_wbk')
-                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk.id_laporan")
+                    ->join('laporan_rb_zi_wbk', "laporan_rb_zi_wbk.id_laporan = rb_zi_wbk_sasaran.id_laporan")
                     ->where('laporan_rb_zi_wbk.id_laporan', $id_laporan)->get()->result_array();
                 $dels = array();
                 foreach ($del as $key => $values) {
