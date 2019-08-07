@@ -46,7 +46,7 @@ class Api_sipp_model extends CI_Model
         }
     }
 
-    public function api_fetch_data($id_opd_param, $laporan_baru, $tahun = '2019')
+    public function api_fetch_data($id_opd_param, $laporan_baru, $tahun)
     {
         if($laporan_baru == NULL){
             return NULL;
