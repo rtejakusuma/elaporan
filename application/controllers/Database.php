@@ -73,6 +73,22 @@ class Database extends CI_Controller
 
         $this->load->view('template/index_admin', ['data' => $this->data]);
     }
+
+    public function cudlog()
+    {
+        $this->data['title'] = 'CUD Log';
+
+        if ($this->input->post()) {
+            $day = $this->input->post('day');
+            $this->data['rawdata'] = $this->dbf_model->get_log($day);
+        } else {
+            $this->data['rawdata'] = $this->dbf_model->get_log();
+        }
+
+        $this->data['contents'] = APPPATH . "views/admin/query/q_cudlog.php";
+
+        $this->load->view('template/index_admin', ['data' => $this->data]);
+    }
 }
 
 /* End of file Database.php */

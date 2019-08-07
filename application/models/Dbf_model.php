@@ -84,7 +84,22 @@ class Dbf_model extends CI_Model
         foreach ($id as $id_tipe) {
             $this->db->or_where('tipelaporan_per_opd.id_tipe !=', $id_tipe);
         }
-        return $this->db->delete('tipelaporan_per_opd');
+        $this->db->delete('tipelaporan_per_opd');
+        activity_log();
+    }
+
+    public function get_log($day = NULL)
+    {
+        // SELECT * FROM `log` WHERE created_at >= '20190708' AND created_at < '20190808'
+        $this->db->from('log');
+        $this->db->join('user', 'log.log_user_id = user.id', 'left');
+        $this->db->join('opd', 'opd.id_opd = user.id_opd', 'left');
+        $this->db->select('user.username, opd.nama_opd, log.log_act, log.created_at, log.log_query');
+        if ($day) {
+            $this->db->where('DATE(log.created_at)', $day);
+        }
+
+        return $this->db->get()->result_array();
     }
 
     // LAPORAN

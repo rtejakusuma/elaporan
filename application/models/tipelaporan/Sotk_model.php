@@ -3,23 +3,23 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Sotk_model extends CI_Model
 {
-    public function get_data($id_laporan=NULL, $id_opd=NULL)
+    public function get_data($id_laporan = NULL, $id_opd = NULL)
     {
         $this->db->from('sotk');
-        if($id_opd != NULL){
+        if ($id_opd != NULL) {
             $this->db->where('sotk.id_opd', $id_opd);
         }
-        if($id_laporan != NULL){
+        if ($id_laporan != NULL) {
             $this->db->where('sotk.id_laporan', $id_laporan);
         }
         $this->db->join('sotk_opd', 'sotk.id_laporan = sotk_opd.id_laporan')
-                    ->join('opd', 'opd.id_opd = sotk_opd.id_opd')
-                    ->order_by('sotk.id_laporan', 'ASC');
+            ->join('opd', 'opd.id_opd = sotk_opd.id_opd')
+            ->order_by('sotk.id_laporan', 'ASC');
         $res = $this->db->get()->result_array();
         $current_id = $res[0]['id_laporan'];
         $ret = [];
-        foreach($res as $row){
-            if($current_id != $row['id_laporan']){
+        foreach ($res as $row) {
+            if ($current_id != $row['id_laporan']) {
                 $current_id = $row['id_laporan'];
                 $ret['id_laporan'] = $row['id_laporan'];
                 $ret['id_opd'] = $row['id_opd'];
@@ -29,7 +29,6 @@ class Sotk_model extends CI_Model
                 $row['tahun'] = $row['tahun'];
                 $row['sotk_opd'] = [];
             }
-
         }
     }
 
@@ -37,10 +36,10 @@ class Sotk_model extends CI_Model
     {
         $sotkdata = $this->db->get_where('sotk', ['id_laporan' => $id])->result_array()[0];
         $sotkopddata = $this->db->select('sotk_opd.*, opd.nama_opd')
-                                ->from('sotk_opd')
-                                ->join('opd', 'sotk_opd.id_opd = opd.id_opd')
-                                ->order_by('nama_opd')
-                                ->where('id_laporan', $id)->get()->result_array();
+            ->from('sotk_opd')
+            ->join('opd', 'sotk_opd.id_opd = opd.id_opd')
+            ->order_by('nama_opd')
+            ->where('id_laporan', $id)->get()->result_array();
         return array('sotk' => $sotkdata, 'sotkopd' => $sotkopddata);
     }
 
@@ -48,22 +47,26 @@ class Sotk_model extends CI_Model
     {
         $this->db->trans_start();
         $this->load->model('laporan_model', 'lp');
-        $this->db->insert('laporan', 
-                    [
-                        'id_opd' => $datalaporan['id_opd'],
-                        'id_tipe' => $datalaporan['id_tipe'],
-                        'created_at' => date('Y-m-d H:i:s', time()),
-                        'updated_at' => date('Y-m-d H:i:s', time()),
-                    ]);
+        $this->db->insert(
+            'laporan',
+            [
+                'id_opd' => $datalaporan['id_opd'],
+                'id_tipe' => $datalaporan['id_tipe'],
+                'created_at' => date('Y-m-d H:i:s', time()),
+                'updated_at' => date('Y-m-d H:i:s', time()),
+            ]
+        );
+        activity_log();
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('sotk', $datalaporan);
+        activity_log();
         // insert second etc. table data here
         // no api
         // end
         $this->db->trans_complete();
-        if($this->db->trans_status() === FALSE){
+        if ($this->db->trans_status() === FALSE) {
             $this->db->trans_rollback();
             return NULL;
         }
@@ -75,23 +78,24 @@ class Sotk_model extends CI_Model
         $table = $data['nama_tabel'];
         unset($data['nama_tabel']);
         $insdata = array();
-        if($data != NULL){
-            for($i = 0; $i < sizeof(reset($data)); $i+=1){
+        if ($data != NULL) {
+            for ($i = 0; $i < sizeof(reset($data)); $i += 1) {
                 array_push($insdata, array(
-                            'id_laporan' => $id_laporan,
-                            'id_opd' => $data['id_opd'][$i],
-                            'besaran' => $data['besaran'][$i] 
+                    'id_laporan' => $id_laporan,
+                    'id_opd' => $data['id_opd'][$i],
+                    'besaran' => $data['besaran'][$i]
                 ));
             }
         }
         $this->db->trans_begin();
-        if($table == 'sotk_opd'){
+        if ($table == 'sotk_opd') {
             $this->db->delete('sotk_opd', "id_laporan = $id_laporan");
-            if($data != NULL){
+            if ($data != NULL) {
                 $this->db->insert_batch('sotk_opd', $insdata);
+                activity_log();
             }
         }
-        $this->db->trans_complete(); 
+        $this->db->trans_complete();
     }
 
     public function delete_data($id_laporan)
@@ -103,5 +107,4 @@ class Sotk_model extends CI_Model
         $this->db->delete('laporan');
         $this->db->trans_complete();
     }
-
 }

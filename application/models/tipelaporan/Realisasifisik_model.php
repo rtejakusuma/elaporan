@@ -24,7 +24,7 @@ class Realisasifisik_model extends CI_Model
     public function get_data_by_id($id)
     {
         $rfdata = $this->db->get_where('realisasi_fisik', ['id_laporan' => $id])->result_array();
-        if($rfdata != NULL) $rfdata = $rfdata[0];
+        if ($rfdata != NULL) $rfdata = $rfdata[0];
         $progdata = $this->db->from('program')->like('kode_program', $id, 'after')->get()->result_array();
         $kgdata = array();
         foreach ($progdata as $d) {
@@ -40,8 +40,11 @@ class Realisasifisik_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->insert('realisasi_fisik', $data_rf);
+        activity_log();
         $this->db->insert_batch('program', $data_prog);
+        activity_log();
         $this->db->insert_batch('kegiatan', $data_kg);
+        activity_log();
         $this->db->trans_complete();
     }
 
@@ -59,14 +62,18 @@ class Realisasifisik_model extends CI_Model
                 'updated_at' => date('Y-m-d H:i:s', time()),
             ]
         );
+        activity_log();
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('realisasi_fisik', $datalaporan);
+        activity_log();
         $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan, date('Y', strtotime($data['tgl'])));
         if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
             $this->db->insert_batch('program', $fet['prog']);
+            activity_log();
             $this->db->insert_batch('kegiatan', $fet['kg']);
+            activity_log();
         }
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -97,6 +104,7 @@ class Realisasifisik_model extends CI_Model
                     ],
                     "kode_program = '$kode[$i]'"
                 );
+                activity_log();
             }
             // $this->db->update($table, $data, "kode_program like '$id_laporan-'");
         } else if ($table == 'kegiatan') {
@@ -114,13 +122,14 @@ class Realisasifisik_model extends CI_Model
                     ],
                     "kode_kegiatan = '$kode[$i]'"
                 );
+                activity_log();
             }
             // $this->db->update($table, $data, "kode_kegiatan like '$id_laporan-'");
         } elseif ($table == 'updateapi') {
             $id_opd = $this->session->tempdata('id_opd');
 
             $datalaporan = $this->db->get_where('laporan', ['id_laporan' => $id_laporan])->result_array();
-            if($datalaporan != NULL){
+            if ($datalaporan != NULL) {
                 $datalaporan = $datalaporan[0];
             }
 
@@ -128,7 +137,9 @@ class Realisasifisik_model extends CI_Model
 
             if ($fet != NULL && sizeof($fet) > 0) {
                 $this->db->update_batch('program', $fet['prog'], 'kode_program');
+                activity_log();
                 $this->db->update_batch('kegiatan', $fet['kg'], 'kode_kegiatan');
+                activity_log();
             }
         }
         if ($this->db->trans_status() === FALSE) {
@@ -138,7 +149,6 @@ class Realisasifisik_model extends CI_Model
         } else {
             echo "SUKSES";
             $this->db->trans_commit();
-
         }
     }
 
@@ -147,13 +157,16 @@ class Realisasifisik_model extends CI_Model
         $this->db->trans_begin();
         $this->db->like('kode_kegiatan', $id_laporan . '-', 'after');
         $this->db->delete('kegiatan');
+        activity_log();
         $this->db->like('kode_program', $id_laporan . '-', 'after');
         $this->db->delete('program');
+        activity_log();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('realisasi_fisik');
+        activity_log();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
+        activity_log();
         $this->db->trans_complete();
     }
-
 }

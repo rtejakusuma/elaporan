@@ -86,10 +86,12 @@ class Laporanrb_model extends CI_Model
                 'updated_at' => date('Y-m-d H:i:s', time()),
             ]
         );
+        activity_log();
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('laporan_rb', $datalaporan);
+        activity_log();
         // insert second etc. table data here
 
         // end
@@ -126,9 +128,12 @@ class Laporanrb_model extends CI_Model
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('jenis_rb');
+        activity_log();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan_rb');
+        activity_log();
         $this->db->where('id_laporan', $id_laporan);
+        activity_log();
         $this->db->delete('laporan');
         $this->db->trans_complete();
     }

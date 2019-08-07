@@ -1,20 +1,21 @@
 <?php
-function activity_log($act = NULL, $id = NULL)
+function activity_log($act = NULL)
 {
     $CI = &get_instance();
 
-    if ($act == 'i') {
+    $data['log_query'] = $CI->db->last_query();
+    $data['log_user_id'] = $CI->session->tempdata('id');
+    $data['log_username']  = $CI->session->tempdata('username');
+
+    if ($act == 'i' || stripos($data['log_query'], 'insert') !== false) {
         $act = 'insert';
-    } elseif ($act == 'u') {
+    } elseif ($act == 'u' || stripos($data['log_query'], 'update') !== false) {
         $act = 'update';
-    } elseif ($act == 'd') {
+    } elseif ($act == 'd' || stripos($data['log_query'], 'delete') !== false) {
         $act = 'delete';
     }
 
     $data['log_act'] = $act;
-    $data['log_query'] = $CI->db->last_query();
-    $data['log_userid'] = $CI->session->tempdata('id');
-    $data['log_username']  = $CI->session->tempdata('username');
 
     $CI->load->model('activitylog_model');
 

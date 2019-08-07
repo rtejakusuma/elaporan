@@ -65,10 +65,12 @@ class Jadwalpelaksanaan_model extends CI_Model
                 'updated_at' => date('Y-m-d H:i:s', time()),
             ]
         );
+        activity_log();
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
         $this->db->insert('jadwal_pelaksanaan', $datalaporan);
+        activity_log();
         // insert second etc. table data here
         // no api
         // end
@@ -105,6 +107,7 @@ class Jadwalpelaksanaan_model extends CI_Model
                 }
                 if ($insdata != NULL) {
                     $this->db->insert_batch('jadwal_pelaksanaan_opd', $insdata);
+                    activity_log();
                 }
                 unset($data['new']);
 
@@ -124,14 +127,17 @@ class Jadwalpelaksanaan_model extends CI_Model
                         ));
                     }
                     $this->db->update_batch('jadwal_pelaksanaan_opd', $updata, 'id_jadwal_pelaksanaan_opd');
+                    activity_log();
                 }
 
                 // unused data
                 if (isset($data['to_del']))
                     $this->db->where_in('id_jadwal_pelaksanaan_opd', $data['to_del'])
                         ->delete('jadwal_pelaksanaan_opd');
+                activity_log();
             } else {
                 $this->db->delete('jadwal_pelaksanaan_opd', "id_laporan = $id_laporan");
+                activity_log();
             }
         } else if ($table == 'auditor') {
 
@@ -156,9 +162,11 @@ class Jadwalpelaksanaan_model extends CI_Model
                 // var_dump($insdata); die();
                 $this->db->where_in('id_jadwal_pelaksanaan_opd', $tmp)
                     ->delete('auditor');
+                activity_log();
                 // printf("<pre>%s</pre>", json_encode($insdata, JSON_PRETTY_PRINT)); die();
                 if ($insdata != NULL)
                     $this->db->insert_batch('auditor', $insdata);
+                activity_log();
             }
         } elseif ($table == 'tambah_auditor') {
             $idx = $data['id_jadwal_pelaksanaan_opd'][0];
@@ -172,6 +180,7 @@ class Jadwalpelaksanaan_model extends CI_Model
                 $data_insert['editable'] = 1;
             }
             $this->db->insert('auditor', $data_insert);
+            activity_log();
             // print_r($data_insert);
         }
         $this->db->trans_complete();
@@ -182,8 +191,10 @@ class Jadwalpelaksanaan_model extends CI_Model
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('jadwal_pelaksanaan');
+        activity_log();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
+        activity_log();
         $this->db->trans_complete();
     }
 }

@@ -19,7 +19,7 @@ class Admin extends CI_Controller
 
     public function index()
     {
-        redirect('admin/riwayatlaporan', 'refresh');
+        redirect('database/opdtipe', 'refresh');
     }
 
     public function f($formfilename = NULL, $id_opd = NULL)
@@ -139,8 +139,7 @@ class Admin extends CI_Controller
 
         // INI KALAU RESET PASSWORD, BUKAN GANTI PASSWORD
         if ($id) {
-            $this->session->set_flashdata('message', '<div class="alert alert-info" id="success-alert" role="alert"><strong>Reset Password Berhasil!!!</strong></div>');
-            $this->set_flash('RESET PASSWORD', 'Reset password berhasil', 'warning');
+            $this->set_flash('RESET PASSWORD', 'Reset password berhasil', 'notice');
             $this->user_model->reset_password($id, '123456');
 
             redirect('database/user', 'refresh');
