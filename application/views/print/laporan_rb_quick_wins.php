@@ -89,9 +89,15 @@
                         <td><center>$rbqwk[target_waktu]</center></td>
                         <td><center>$rbqwk[realisasi_waktu]</center></td>
                         <td><center>$rbqwk[target_anggaran]</center></td>
-                        <td><center>$rbqwk[realisasi_anggaran]</center></td>
-                        <td><center>$rbqwk[capaian]</center></td>
-                        <td><center>$rbqwk[ket]</center></td>
+                        <td><center>$rbqwk[realisasi_anggaran]</center></td>";
+                        // var_dump($rbqwk['capaian']); die();
+                        if($rbqwk['capaian'] == '0'){
+                            echo "<td></td><td>V</td>";
+                        } else {
+                            echo "<td>V</td><td></td>";
+                        }
+                        
+                        echo "<td><center>$rbqwk[ket]</center></td>
                         ";
                         echo "</tr>";
                      foreach($data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']] as $rbqwk){
@@ -104,9 +110,13 @@
                                     <td><center>$rbqwk[target_waktu]</center></td>
                                     <td><center>$rbqwk[realisasi_waktu]</center></td>
                                     <td><center>$rbqwk[target_anggaran]</center></td>
-                                    <td><center>$rbqwk[realisasi_anggaran]</center></td>
-                                    <td><center>$rbqwk[capaian]</center></td>
-                                    <td><center>$rbqwk[ket]</center></td>
+                                    <td><center>$rbqwk[realisasi_anggaran]</center></td>";
+                                    if($rbqwk['capaian'] == '0'){
+                                        echo "<td></td><td>V</td>";
+                                    } else {
+                                        echo "<td>V</td><td></td>";
+                                    }
+                                    echo "<td><center>$rbqwk[ket]</center></td>
                                 </tr>";
                         } else {
                             $flag2 = TRUE;
