@@ -4,8 +4,7 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Daerah Madiun per (tanggal) pada Prioritas yang Terkait dengan Peningkatan Kualitas Pelayanan Fokus Pelayanan Quick Wins<br />
-                <?php echo $data['nama_opd']; ?><br />
+                <?php echo 'Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Tahun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Delapan Area Perubahan (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )' ?>
             </h2>
         </center>
     </div>
