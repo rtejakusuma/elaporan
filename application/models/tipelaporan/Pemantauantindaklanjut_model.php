@@ -78,11 +78,10 @@ class Pemantauantindaklanjut_model extends CI_Model
             if ($data != NULL) {
                 // new data
                 if (isset($data['new'])) {
-                    foreach ($data['new'] as $newdata) {
-                        if ($newdata == "") continue;
+                    for($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
                         array_push($insdata, array(
                             'id_laporan' => $id_laporan,
-                            'nama_temuan' => $newdata['nama_temuan'],
+                            'nama_temuan' => $data['new']['nama_temuan'][$i]
                         ));
                     }
                 }
@@ -93,11 +92,10 @@ class Pemantauantindaklanjut_model extends CI_Model
                 unset($data['new']);
                 // updated data
                 if ($data['id_temuan'] != NULL) {
-                    foreach ($data['id_temuan'] as $idx) {
+                    for ($i=0; $i < sizeof($data['id_temuan']); $i += 1) {
                         array_push($updata, array(
-                            'id_laporan' => $id_laporan,
-                            'id_temuan' => $data['id_temuan'][$idx],
-                            'nama_temuan' => $data['nama_temuan'][$idx]
+                            'id_temuan' => $data['id_temuan'][$i],
+                            'nama_temuan' => $data['nama_temuan'][$i]
                         ));
                     }
                     $this->db->update_batch('temuan', $updata, 'id_temuan');
@@ -114,23 +112,19 @@ class Pemantauantindaklanjut_model extends CI_Model
                 activity_log();
             }
         } else if ($table == 'hasil_temuan') {
-            $tmp = $data['id_temuan'];
-            unset($data['id_temuan']);
             if ($data != NULL) {
-                foreach ($tmp as $idx) {
-                    if (isset($data['rekomendasi'][$idx])) {
-                        for ($i = 0; $i < sizeof($data['rekomendasi'][$idx]); $i += 1) {
-                            array_push($insdata, array(
-                                'id_temuan' => $idx,
-                                'rekomendasi' => $data['rekomendasi'][$idx][$i],
-                                'status_rekomendasi' => $data['status_rekomendasi'][$idx][$i],
-                                'tindak_lanjut' => $data['tindak_lanjut'][$idx][$i],
-                                'status_tindak_lanjut' => $data['status_tindak_lanjut'][$idx][$i],
-                                'catatan_bpk' => $data['catatan_bpk'][$idx][$i]
-                            ));
-                        }
-                    }
+                $tmp = $data['id_temuan'];
+                for ($i = 0; $i < sizeof($tmp); $i += 1) {
+                    array_push($insdata, array(
+                        'id_temuan' => $data['id_temuan'][$i],
+                        'rekomendasi' => $data['rekomendasi'][$i],
+                        'status_rekomendasi' => $data['status_rekomendasi'][$i],
+                        'tindak_lanjut' => $data['tindak_lanjut'][$i],
+                        'status_tindak_lanjut' => $data['status_tindak_lanjut'][$i],
+                        'catatan_bpk' => $data['catatan_bpk'][$i]
+                    ));
                 }
+                //  var_dump($data['id_temuan']); die();
                 $this->db->where_in('id_temuan', $tmp)
                     ->delete('hasil_temuan');
                 activity_log();
@@ -139,6 +133,16 @@ class Pemantauantindaklanjut_model extends CI_Model
                     $this->db->insert_batch('hasil_temuan', $insdata);
                     activity_log();
                 }
+            } else {
+                $todel = $this->db->select('id_temuan')->from('temuan')
+                                ->where('temuan.id_laporan', $id_laporan)->get()->result_array();
+                activity_log();
+                $del = array();
+                foreach($todel as $key => $d){
+                    array_push($del, $d['id_temuan']);
+                }
+                $this->db->where_in('id_temuan', $del)->delete('hasil_temuan');
+                activity_log();
             }
         }
         $this->db->trans_complete();

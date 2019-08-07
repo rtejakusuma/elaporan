@@ -4,7 +4,7 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN REKAP POKJA<br />
+                DAFTAR PENUGASAN KELOMPOK KERJA<br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>

@@ -84,7 +84,10 @@ class Rekaptender_model extends CI_Model
         $updata = array();
 
         $this->db->trans_begin();
-        if ($table == 'detail_rekap_tender') {
+        if($table == 'rekap_tender'){
+            $this->db->update('rekap_tender', $data, "id_laporan = $id_laporan");
+        }
+        elseif ($table == 'detail_rekap_tender') {
             if ($data != NULL) {
                 // new data
                 if (isset($data['new'])) {

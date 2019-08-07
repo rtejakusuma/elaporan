@@ -4,7 +4,8 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN REKAP TENDER<br />
+                
+                <?php echo $data['fetch']['rt']['judul_rekap_tender'] ?><br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
