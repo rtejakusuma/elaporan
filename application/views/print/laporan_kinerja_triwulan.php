@@ -4,8 +4,10 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN KINERJA TRIWULAN<br />
+                LAPORAN KINERJA<br />
+                TRIWULAN<br/>
                 <?php echo $data['nama_opd']; ?><br />
+                TAHUN <?php echo date('Y', strtotime($data['fetch']['lkt']['tgl'])); ?>
             </h2>
         </center>
     </div>

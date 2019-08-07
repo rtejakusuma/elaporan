@@ -73,38 +73,42 @@ class laporan_kinerja_triwulan extends CI_Controller
         $sheet->getStyle('A:H')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A:H')->getAlignment()->setVertical('center');
         $sheet->getStyle('A:H')->getAlignment()->setWrapText(true);
-        $sheet->getStyle('A1:H6')->getFont()->setBold(true);
+        $sheet->getStyle('A1:H8')->getFont()->setBold(true);
 
         // ini atur header
-        $sheet->setCellValue('A1', 'LAPORAN KINERJA TRIWULAN')
+        $sheet->setCellValue('A1', 'LAPORAN KINERJA')
             ->mergeCells('A1:H1');
-        $sheet->setCellValue('A2', $this->data['nama_opd'])
-            ->mergeCells('A2:H2');
+        $sheet->setCellValue('A2', 'TRIWULAN')
+        ->mergeCells('A2:H2');
+        $sheet->setCellValue('A3', $this->data['nama_opd'])
+            ->mergeCells('A3:H3');
+        $sheet->setCellValue('A4', 'TAHUN ' . date('Y', strtotime($this->data['fetch']['lkt']['tgl'])))
+        ->mergeCells('A4:H4');
 
         // ini tablenya
         // th numrow 4
-        $sheet->setCellValue('A4', 'No.')->mergeCells('A4:A5');
-        $sheet->setCellValue('B4', 'Sasaran Kegiatan')->mergeCells('B4:E4');
-        $sheet->setCellValue('F4', 'Program')->mergeCells('F4:F5');
-        $sheet->setCellValue('G4', 'Anggaran')->mergeCells('G4:G5');
-        $sheet->setCellValue('H4', 'Realisasi')->mergeCells('H4:H5');
+        $sheet->setCellValue('A6', 'No.')->mergeCells('A6:A7');
+        $sheet->setCellValue('B6', 'Sasaran Kegiatan')->mergeCells('B6:E6');
+        $sheet->setCellValue('F6', 'Program')->mergeCells('F6:F7');
+        $sheet->setCellValue('G6', 'Anggaran')->mergeCells('G6:G7');
+        $sheet->setCellValue('H6', 'Realisasi')->mergeCells('H6:H7');
 
-        $sheet->setCellValue('B5', 'Uraian');
-        $sheet->setCellValue('C5', 'Indikator Kinerja');
-        $sheet->setCellValue('D5', 'Target');
-        $sheet->setCellValue('E5', 'Realisasi');
+        $sheet->setCellValue('B7', 'Uraian');
+        $sheet->setCellValue('C7', 'Indikator Kinerja');
+        $sheet->setCellValue('D7', 'Target');
+        $sheet->setCellValue('E7', 'Realisasi');
 
-        $sheet->setCellValue('A6', '1');
-        $sheet->setCellValue('B6', '2');
-        $sheet->setCellValue('C6', '3');
-        $sheet->setCellValue('D6', '4');
-        $sheet->setCellValue('E6', '5');
-        $sheet->setCellValue('F6', '6');
-        $sheet->setCellValue('G6', '7');
-        $sheet->setCellValue('H6', '8');
+        $sheet->setCellValue('A8', '1');
+        $sheet->setCellValue('B8', '2');
+        $sheet->setCellValue('C8', '3');
+        $sheet->setCellValue('D8', '4');
+        $sheet->setCellValue('E8', '5');
+        $sheet->setCellValue('F8', '6');
+        $sheet->setCellValue('G8', '7');
+        $sheet->setCellValue('H8', '8');
 
         // td numrow 6
-        $numrow = 7;
+        $numrow = 9;
 
         // data
         $counter = 0;
@@ -128,7 +132,7 @@ class laporan_kinerja_triwulan extends CI_Controller
         $sheet->getPageSetup()->setFitToWidth(1);
         $sheet->getPageSetup()->setFitToHeight(0);
         $sheet->setShowGridlines(true);
-        $sheet->getStyle('A4:H' . ($numrow - 1))->applyFromArray($this->style('allborder'));
+        $sheet->getStyle('A6:H' . ($numrow - 1))->applyFromArray($this->style('allborder'));
     }
 
     public function download()
