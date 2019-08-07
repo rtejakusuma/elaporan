@@ -12,7 +12,7 @@
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
 
--- Dumping database structure for testing
+-- Dumping database structure for test-- ing
 DROP DATABASE IF EXISTS `testing`;
 CREATE DATABASE IF NOT EXISTS `testing` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `testing`;
@@ -896,8 +896,8 @@ CREATE TABLE IF NOT EXISTS `program` (
 -- Dumping data for table testing.program: ~9 rows (approximately)
 /*!40000 ALTER TABLE `program` DISABLE KEYS */;
 INSERT INTO `program` (`kode_program`, `id_laporan`, `nama_program`, `capaian_indikator`, `capaian_target_ppas_final`, `capaian_anggaran_keuangan`, `capaian_realisasi_keuangan`, `capaian_realisasi_keuangan_persen`, `capaian_realisasi_kinerja`, `capaian_realisasi_kinerja_persen`, `capaian_satuan`, `ket`) VALUES
-	('31-01', 31, 'Program Pelayanan Administrasi Perkantoran', 'Persentase terlaksananya administrasi perkantoran', 100, NULL, 0, NULL, 12, NULL, '%', NULL),
-	('31-02', 31, 'Program Pemeliharaan Barang Milik Daerah', 'Persentase Barang Milik Daerah dalam kondisi baik', 100, NULL, 0, NULL, 33, NULL, '%', NULL),
+	('31-01', 31, 'Program Pelayanan Administrasi Perkantoran', 'Persentase terlaksananya administrasi perkantoran', 100, NULL, 0, NULL, 0, NULL, '%', NULL),
+	('31-02', 31, 'Program Pemeliharaan Barang Milik Daerah', 'Persentase Barang Milik Daerah dalam kondisi baik', 100, NULL, 0, NULL, 0, NULL, '%', NULL),
 	('31-03', 31, 'Program Peningkatan Sarana dan Prasarana Aparatur', 'Persentase pemenuhan kebutuhan sarana dan prasarana aparatur', 100, NULL, 0, NULL, 0, NULL, '%', NULL),
 	('31-04', 31, 'Program Peningkatan, Pengembangan Sistem Pelaporan Capaian Kinerja dan Keuangan', 'Persentase dokumen perencanaan/laporan yang disusun tepat waktu', 100, NULL, 0, NULL, 0, NULL, '%', NULL),
 	('31-15', 31, 'Program Manajemen Pelayanan Pendidikan', 'Pengolahan database informasi pendidikan dan evaluasi pelaporan ', 100, NULL, 0, NULL, 0, NULL, '%', NULL),
