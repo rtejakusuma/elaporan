@@ -78,13 +78,13 @@ class Realisasifisik_model extends CI_Model
             activity_log();
         }
 
-        $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
-        if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
-            // $this->db->insert_batch('program', $fet['prog']);
-            // activity_log();
-            $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
-            activity_log();
-        }
+        // $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
+        // if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
+        //     // $this->db->insert_batch('program', $fet['prog']);
+        //     // activity_log();
+        //     $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
+        //     activity_log();
+        // }
 
         $this->db->trans_complete();
         if ($this->db->trans_status() === FALSE) {
@@ -153,13 +153,13 @@ class Realisasifisik_model extends CI_Model
                 activity_log();
             }
 
-            $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
-            if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
-                // $this->db->insert_batch('program', $fet['prog']);
-                // activity_log();
-                $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
-                activity_log();
-            }
+            // $fet = $this->sikd->get_api($datalaporan['id_laporan'], date('Y', strtotime($data['tgl'])), $id_opd);
+            // if ($fet != NULL && $fet != false && sizeof($fet) > 0) {
+            //     // $this->db->insert_batch('program', $fet['prog']);
+            //     // activity_log();
+            //     $this->db->update_batch('kegiatan', $fet, 'kode_kegiatan');
+            //     activity_log();
+            // }
         }
         if ($this->db->trans_status() === FALSE) {
             echo "GAGAL";
