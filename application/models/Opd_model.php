@@ -15,6 +15,7 @@ class Opd_model extends CI_Model
     public function insert($data)
     {
         $this->db->insert_batch('opd', $data);
+        activity_log();
     }
 
     public function get_namaopd($id)
@@ -28,8 +29,8 @@ class Opd_model extends CI_Model
     public function get_idopd_by_namaopd($nama_opd)
     {
         $ret = $this->db->select('id_opd')->from('opd')
-                        ->where('nama_opd', ucwords($nama_opd))->get()->result_array();
-        if($ret != NULL) return $ret[0]['id_opd'];
+            ->where('nama_opd', ucwords($nama_opd))->get()->result_array();
+        if ($ret != NULL) return $ret[0]['id_opd'];
         else return NULL;
     }
 

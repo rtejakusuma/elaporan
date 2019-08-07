@@ -305,6 +305,18 @@ class Opd extends CI_Controller
             return $this->index();
         }
     }
+
+    public function set_flash($title, $string, $type)
+    {
+        $this->session->set_flashdata('message', '<body onload="new PNotify({
+                                  title: \'' . $title . '\',
+                                  text: \'' . $string . '\',
+                                  type: \'' . $type . '\',
+                                  styling: \'bootstrap3\'
+                              });">
+    
+  </body>');
+    }
 }
 
 /* End of file Opd.php */

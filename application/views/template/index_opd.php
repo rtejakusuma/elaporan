@@ -56,9 +56,8 @@
       <!-- page content -->
       <div class="right_col" role="main">
         <div class="col-md-12 col-sm-12 col-xs-12">
-          <?= $this->session->flashdata('pesan'); ?>
+          <?= $this->session->flashdata('message'); ?>
         </div>
-
         <?php if (isset($data['contents'])) {
           require $data['contents'];
         } ?>

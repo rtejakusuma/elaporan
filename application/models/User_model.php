@@ -41,7 +41,8 @@ class User_model extends CI_Model
         $tmp = new DateTime();
         $data['created_at'] = $tmp->format('Y-m-d H:i:s');
         $data['last_login'] = $tmp->format('Y-m-d H:i:s');
-        return $this->db->insert('user', $data);
+        $this->db->insert('user', $data);
+        activity_log();
     }
 
     public function last_login($id)
@@ -51,11 +52,13 @@ class User_model extends CI_Model
 
     public function reset_password($id, $newpassword)
     {
-        return $this->db->update('user', ['password' => password_hash($newpassword, PASSWORD_BCRYPT)], ['id' => $id]);
+        $this->db->update('user', ['password' => password_hash($newpassword, PASSWORD_BCRYPT)], ['id' => $id]);
+        activity_log();
     }
 
     public function delete($id)
     {
-        return $this->db->delete('user', ['id' => $id]);
+        $this->db->delete('user', ['id' => $id]);
+        activity_log();
     }
 }

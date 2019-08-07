@@ -51,6 +51,7 @@ class Tipelaporanopd_model extends CI_Model
         $this->db->trans_start();
         // delete saved data first
         $this->db->delete('tipelaporan_per_opd', array('id_opd' => $id_opd));
+        activity_log();
         $to_insert = array();
         if ($data == NULL || sizeof($data) <= 0) {
             $this->db->trans_complete();
@@ -61,6 +62,7 @@ class Tipelaporanopd_model extends CI_Model
             array_push($to_insert, ['id_opd' => $id_opd, 'id_tipe' => $value]);
         }
         $this->db->insert_batch('tipelaporan_per_opd', $to_insert);
+        activity_log();
         $this->db->trans_complete();
     }
 }
