@@ -70,7 +70,7 @@ class rekap_tender extends CI_Controller
         // ini atur width
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
         $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(50);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
         $sheet->getColumnDimension('E')->setWidth(20);
@@ -90,7 +90,7 @@ class rekap_tender extends CI_Controller
         $sheet->getStyle('A:I')->getAlignment()->setVertical('center');
         $sheet->getStyle('A:I')->getAlignment()->setWrapText(true);
         $sheet->getStyle('G4')->getAlignment()->setWrapText(true);
-        $sheet->getStyle('A1:I4')->getFont()->setBold(true);
+        $sheet->getStyle('A1:I5')->getFont()->setBold(true);
 
         // ini atur header
         $sheet->setCellValue('A1', 'REKAPITULASI PELAKSANAAN PENGADAAN BARANG JASA YANG SUDAH DI TENDER LPSE KOTA MADIUN')

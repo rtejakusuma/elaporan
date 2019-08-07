@@ -70,7 +70,7 @@ class pelayanan_publik extends CI_Controller
         // ini atur width
         $sheet->getDefaultRowDimension()->setRowHeight(-1);
         $sheet->getColumnDimension('A')->setAutoSize(true);
-        $sheet->getColumnDimension('B')->setWidth(20);
+        $sheet->getColumnDimension('B')->setWidth(50);
         $sheet->getColumnDimension('C')->setWidth(20);
         $sheet->getColumnDimension('D')->setWidth(20);
         $sheet->getColumnDimension('E')->setWidth(20);
@@ -82,6 +82,7 @@ class pelayanan_publik extends CI_Controller
         $sheet->getStyle('C:E')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('A:E')->getAlignment()->setVertical('center');
         $sheet->getStyle('A:E')->getAlignment()->setWrapText(true);
+        $sheet->getStyle('A4:E4')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1:E4')->getFont()->setBold(true);
 
         // ini atur header
