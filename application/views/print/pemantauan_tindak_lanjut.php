@@ -4,7 +4,7 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                LAPORAN KINERJA TRIWULAN<br />
+                PEMANTAUAN TINDAK LANJUT<br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
@@ -23,14 +23,14 @@
         <tr>
             <td colspan='3'>
                 <center>
-                <?php if(isset($data['fetch']['ptl']['tgl_status_rekomendasi'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_rekomendasi'])); ?>
-                </center>    
+                    <?php if (isset($data['fetch']['ptl']['tgl_status_rekomendasi'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_rekomendasi'])); ?>
+                </center>
             </td>
-            
+
             <td colspan='3'>
                 <center>
-                <?php if(isset($data['fetch']['ptl']['tgl_status_tindak_lanjut'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_tindak_lanjut'])); ?>
-                </center>    
+                    <?php if (isset($data['fetch']['ptl']['tgl_status_tindak_lanjut'])) echo date('d-m-Y', strtotime($data['fetch']['ptl']['tgl_status_tindak_lanjut'])); ?>
+                </center>
             </td>
         </tr>
         <tr>
@@ -59,62 +59,70 @@
         <?php
         $counter = 0;
         foreach ($data['fetch']['temuan'] as $temuan) {
-
+            $rowspan = 1;
+            if ($data['fetch']['htemuan'][$temuan['id_temuan']] != NULL || $data['fetch']['htemuan'][$temuan['id_temuan']] == '') {
+                $rowspan = sizeof($data['fetch']['htemuan'][$temuan['id_temuan']]);
+            }
             $counter += 1;
             echo "
                  <tr>
-                     <td ><center>$counter</center></td>
-                     <td><center>$temuan[nama_temuan]</center></td>
+                     <td rowspan='$rowspan'><center>$counter</center></td>
+                     <td rowspan='$rowspan'><center>$temuan[nama_temuan]</center></td>
              ";
-             foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
-                echo "
-               
-                        <td><center>$kg[rekomendasi]</center></td>";
-                        if($kg['status_rekomendasi'] == 'TS') {
+            if ($data['fetch']['htemuan'][$temuan['id_temuan']] != NULL || $data['fetch']['htemuan'][$temuan['id_temuan']] == '') {
+                foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
+                    echo "<td><center>$kg[rekomendasi]</center></td>";
+                    if ($kg['status_rekomendasi'] == 'TS') {
 
-                            echo "  <td><center>TS</center></td>
-                                    <td><center></center></td>
-                                    <td><center></center></td>";
-                        }
-                        elseif($kg['status_rekomendasi'] == 'TB') {
-                            echo "  <td><center></center></td>
-                                    <td><center>TB</center></td>
-                                    <td><center></center></td>";
-                        }
-                        elseif($kg['status_rekomendasi'] == 'TT') {
-                            echo "  <td><center></center></td>
-                                    <td><center></center></td>
-                                    <td><center>TT</center></td>";
-                        } else {
-                            echo "  <td><center></center></td>
-                                    <td><center></center></td>
-                                    <td><center></center></td>";
-                        }
-                        echo "
-                        <td><center>$kg[tindak_lanjut]</center></td>";
-                        if($kg['status_tindak_lanjut'] == 'TS') {
-                            echo "  <td><center>TS</center></td>
-                                    <td><center></center></td>
-                                    <td><center></center></td>";
-                        }
-                        if($kg['status_tindak_lanjut'] == 'TB') {
-                            echo "  <td><center></center></td>
-                                    <td><center>TB</center></td>
-                                    <td><center></center></td>";
-                        }
-                        if($kg['status_tindak_lanjut'] == 'TT') {
-                            echo "  <td><center></center></td>
-                                    <td><center></center></td>
-                                    <td><center>TT</center></td>";
-                        } else {
-                            echo "  <td><center></center></td>
-                                    <td><center></center></td>
-                                    <td><center>TT</center></td>";
-                        }
-                        echo "
-                        <td><center>$kg[catatan_bpk]</center></td>
-                     ";
-                 
+                        echo "  <td><center>TS</center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                    } elseif ($kg['status_rekomendasi'] == 'TB') {
+                        echo "  <td><center></center></td>
+                                       <td><center>TB</center></td>
+                                       <td><center></center></td>";
+                    } elseif ($kg['status_rekomendasi'] == 'TT') {
+                        echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center>TT</center></td>";
+                    } else {
+                        echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                    }
+                    echo "
+                           <td><center>$kg[tindak_lanjut]</center></td>";
+                    if ($kg['status_tindak_lanjut'] == 'TS') {
+                        echo "  <td><center>TS</center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                    } elseif ($kg['status_tindak_lanjut'] == 'TB') {
+                        echo "  <td><center></center></td>
+                                       <td><center>TB</center></td>
+                                       <td><center></center></td>";
+                    } elseif ($kg['status_tindak_lanjut'] == 'TT') {
+                        echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center>TT</center></td>";
+                    } else {
+                        echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                    }
+                    echo "
+                           <td><center>$kg[catatan_bpk]</center></td>
+                        ";
+                }
+            } else {
+                echo "<td><center></center></td>";
+                echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                echo "<td><center></center></td>";
+                echo "  <td><center></center></td>
+                                       <td><center></center></td>
+                                       <td><center></center></td>";
+                echo "<td><center></center></td>";
             }
             echo "</tr>";
         }

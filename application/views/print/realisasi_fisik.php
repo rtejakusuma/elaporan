@@ -65,6 +65,7 @@
             if (isset($prog['capaian_realisasi_keuangan'])) $capaian_realisasi_keuangan = $prog['capaian_realisasi_keuangan'];
             
             if($prog['capaian_target_ppas_final'] != '0'){
+                
                 $persen_capaian = strval(round(floatval($capaian_realisasi_kinerja)/floatval($prog['capaian_target_ppas_final'])*100.0, 2));
             }
 

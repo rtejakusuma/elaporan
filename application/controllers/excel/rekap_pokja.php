@@ -102,34 +102,34 @@ class rekap_pokja extends CI_Controller
         $sheet->setCellValue('E4', 'Jabatan dalam Tim');
         $sheet->setCellValue('F4', 'Keterangan');
 
-         // th numrow 6
-         $sheet->setCellValue('A5', '1');
-         $sheet->setCellValue('B5', '2');
-         $sheet->setCellValue('C5', '3');
-         $sheet->setCellValue('D5', '4');
-         $sheet->setCellValue('E5', '5');
-         $sheet->setCellValue('F5', '6');
+        // th numrow 6
+        $sheet->setCellValue('A5', '1');
+        $sheet->setCellValue('B5', '2');
+        $sheet->setCellValue('C5', '3');
+        $sheet->setCellValue('D5', '4');
+        $sheet->setCellValue('E5', '5');
+        $sheet->setCellValue('F5', '6');
 
         // // td numrow 7
-         $numrow = 6;
+        $numrow = 6;
         $counter = 0;
         foreach ($this->data['fetch']['p'] as $prog) {
-            $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']])-1);
+            $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
             $counter += 1;
 
-            $sheet->setCellValue('A' .$numrow, $counter)
+            $sheet->setCellValue('A' . $numrow, $counter)
                 ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-            $sheet->setCellValue('B' .$numrow, ucwords($prog['nama_opd']))
+            $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
                 ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
-            
-            // foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg){
-            //     $sheet->setCellValue('C' .$numrow, ucwords($kg['nama_paket_kerja']));
-            //     $sheet->setCellValue('D' .$numrow, $kg['pagu']);
-            //     $sheet->setCellValue('E' .$numrow, ucwords($kg['jabatan']));
-            //     $sheet->setCellValue('F' .$numrow, ucwords($kg['ket']));
-            //     $numrow ++;
-            // }
-            $numrow ++;
+
+            foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
+                $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
+                $sheet->setCellValue('D' . $numrow, $kg['pagu']);
+                $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
+                $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
+                $numrow++;
+            }
+            // $numrow ++;
         }
 
         // ini style tablenya
