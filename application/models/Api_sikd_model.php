@@ -22,6 +22,7 @@ class Api_sikd_model extends CI_Model
         $ret = array();
         if($fet != NULL){
             foreach($fet as $f){
+                
                 array_push($ret, array(
                     'kode_kegiatan' => $id_laporan.'-'.$f['KODE_PROGRAM'].'-'.$f['KODE_KEGIATAN'],
                     'realisasi' => $f['REALISASI']
