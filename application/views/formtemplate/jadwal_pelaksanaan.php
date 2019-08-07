@@ -159,6 +159,7 @@
                                   $nomor = 0;
                                   foreach ($data['fetch']['adata'][$auditors['id_jadwal_pelaksanaan_opd']] as $auditor) {
                                     ?>
+                                   <input value='<?= $auditor['editable'] ?>' type="hidden" name="editable[<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>][]">
                                    <div>
                                      <div>
                                        <div class="form-group">
@@ -207,7 +208,7 @@
                               $modal++; ?>
                              <div class="modal fade bs-example-modal-lg<?= $modal ?>" tabindex="-1" role="dialog" aria-hidden="true">
                                <div class="modal-dialog modal-lg">
-                                 <form action='#' method="post" data-parsley-validate class="form-horizontal form-label-left">
+                                 <form action='<?php echo base_url("opd/e/$data[formname]/$data[id_laporan]"); ?>' method="post" data-parsley-validate class="form-horizontal form-label-left">
                                    <div class="modal-content">
                                      <input value="tambah_auditor" type="hidden" name="nama_tabel">
                                      <input value='<?php echo $auditors['id_jadwal_pelaksanaan_opd']; ?>' type='hidden' name='id_jadwal_pelaksanaan_opd[]'>
@@ -388,7 +389,7 @@
    }
 
    <?php
-    for ($i = 0; $i < $nomor; $i++) {
+    for ($i = 1; $i <= $nomor; $i++) {
       echo '
           function auditorSelect' . $i . '(e) { 
             var val = e.target.value;

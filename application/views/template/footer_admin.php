@@ -105,18 +105,14 @@
                 };
         </script>
         <script>
-                ClassicEditor
-                        .create(document.querySelector('#editor_usulan'), {
-                                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList']
-                        })
-                        .catch(error => {
-                                console.error(error);
-                        });
-                ClassicEditor
-                        .create(document.querySelector('#editor_dasar_hukum'), {
-                                toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList']
-                        })
-                        .catch(error => {
-                                console.error(error);
-                        });
+                var allEditors = document.querySelectorAll('#editor');
+                for (var i = 0; i < allEditors.length; ++i) {
+                        ClassicEditor
+                                .create(allEditors[i], {
+                                        toolbar: ['heading', '|', 'bold', 'italic', 'link', 'bulletedList', 'numberedList']
+                                })
+                                .catch(error => {
+                                        console.error(error);
+                                });
+                }
         </script>
