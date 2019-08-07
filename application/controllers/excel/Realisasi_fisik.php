@@ -98,7 +98,7 @@ class realisasi_fisik extends CI_Controller
         $sheet->getStyle('A7:L9')->getFont()->setBold(true);
   
         // ini atur header
-        $sheet->setCellValue('A1', 'LAPORAN REALISASI FISIK DAN KEUANGAN SERTA CAPAIAN KINERJA TAHUN  ')
+        $sheet->setCellValue('A1', 'LAPORAN REALISASI FISIK DAN KEUANGAN SERTA CAPAIAN KINERJA TAHUN ' . date('Y', strtotime($this->data['fetch']['rf']['tgl'])))
             ->mergeCells('A1:L1');
         $sheet->setCellValue('A3', 'UNIT ORGANISASI');
         $sheet->setCellValue('C3', ':' . $this->data['nama_opd']);

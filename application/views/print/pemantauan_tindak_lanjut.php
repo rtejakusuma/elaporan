@@ -4,7 +4,7 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                PEMANTAUAN TINDAK LANJUT<br />
+                <?php echo $data['fetch']['ptl']['judul_laporan'] ?><br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
