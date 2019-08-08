@@ -14,6 +14,10 @@ class Coba extends CI_Controller
         // die();
     }
 
+    public function re(){
+        
+    }
+
     public function testbackup($formname, $id_laporan)
     {
         $this->load->model('dbbackup_model', 'dbb');
