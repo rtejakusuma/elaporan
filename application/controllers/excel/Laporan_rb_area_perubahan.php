@@ -156,64 +156,58 @@ class laporan_rb_area_perubahan extends CI_Controller
         $numrow = 7;
 
         //for buat data
-        // $counter = 0;
-        // foreach ($this->data['fetch']['rbap'] as $rbap) {
-        //     $rowspan_rincian = 0;
+        $counter = 0;
+        foreach ($this->data['fetch']['rbap'] as $rbap) {
+            $rowspan_rincian = 0;
 
-        //     foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
-        //         $rowspan_rincian += sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
-        //     }
-        //     $rowspan_rincian -= 1;
-        //     $counter += 1;
-        //     $flag = FALSE;
+            foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+                $rowspan_rincian += sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+            }
+            $rowspan_rincian -= 1;
+            $counter += 1;
+            $flag = FALSE;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
-        //     $sheet->setCellValue('B' . $numrow, $rbap['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
-        //     foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
-        //         $rowspan_program = sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
-        //         $rowspan_program -= 1;
+            $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
+            $sheet->setCellValue('B' . $numrow, $rbap['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
+            foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+                $rowspan_program = sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]) - 1;
 
-        //         $sheet->setCellValue('D' . $numrow, $rbaps['nama_program'])->mergeCells('D' . $numrow . ':D' . ($numrow + $rowspan_program));
+                $sheet->setCellValue('C' . $numrow, $rbaps['nama_program'])->mergeCells('C' . $numrow . ':C' . ($numrow + $rowspan_program));
 
-        //         $flag2 = FALSE;
-        //         $rbapk = reset($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
-        //         echo "
-        //                 <td><center>$rbapk[nama_kegiatan]</center></td>
-        //                 <td><center>$rbapk[target_waktu]</center></td>
-        //                 <td><center>$rbapk[realisasi_waktu]</center></td>
-        //                 <td><center>$rbapk[target_anggaran]</center></td>
-        //                 <td><center>$rbapk[realisasi_anggaran]</center></td>";
-        //         // var_dump($rbapk['capaian']); die();
-        //         if ($rbapk['capaian'] == '0') {
-        //             echo "<td></td><td>V</td>";
-        //         } else {
-        //             echo "<td>V</td><td></td>";
-        //         }
+                $flag2 = FALSE;
+                $rbapk = reset($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+                $sheet->setCellValue('D' . $numrow, $rbapk['nama_kegiatan']);
+                $sheet->setCellValue('E' . $numrow, $rbapk['target_waktu']);
+                $sheet->setCellValue('F' . $numrow, $rbapk['realisasi_waktu']);
+                $sheet->setCellValue('G' . $numrow, $rbapk['target_anggaran']);
+                $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_anggaran']);
+                if ($rbapk['capaian'] == '0') {
+                    $sheet->setCellValue('J' . $numrow, 'V');
+                } else {
+                    $sheet->setCellValue('I' . $numrow, 'V');
+                }
+                $sheet->setCellValue('K' . $numrow, $rbapk['ket']);
 
-        //         echo "<td><center>$rbapk[ket]</center></td>
-        //                 ";
-        //         echo "</tr>";
-        //         foreach ($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']] as $rbapk) {
-        //             if ($flag2) {
-        //                 echo "<tr>
-        //                             <td><center>$rbapk[nama_kegiatan]</center></td>
-        //                             <td><center>$rbapk[target_waktu]</center></td>
-        //                             <td><center>$rbapk[realisasi_waktu]</center></td>
-        //                             <td><center>$rbapk[target_anggaran]</center></td>
-        //                             <td><center>$rbapk[realisasi_anggaran]</center></td>";
-        //                 if ($rbapk['capaian'] == '0') {
-        //                     echo "<td></td><td>V</td>";
-        //                 } else {
-        //                     echo "<td>V</td><td></td>";
-        //                 }
-        //                 echo "<td><center>$rbapk[ket]</center></td>
-        //                         </tr>";
-        //             } else {
-        //                 $flag2 = TRUE;
-        //             }
-        //         }
-        //     }
-        // }
+                foreach ($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']] as $rbapk) {
+                    if ($flag2) {
+                        $sheet->setCellValue('D' . $numrow, $rbapk['nama_kegiatan']);
+                        $sheet->setCellValue('E' . $numrow, $rbapk['target_waktu']);
+                        $sheet->setCellValue('F' . $numrow, $rbapk['realisasi_waktu']);
+                        $sheet->setCellValue('G' . $numrow, $rbapk['target_anggaran']);
+                        $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_anggaran']);
+                        if ($rbapk['capaian'] == '0') {
+                            $sheet->setCellValue('J' . $numrow, 'V');
+                        } else {
+                            $sheet->setCellValue('I' . $numrow, 'V');
+                        }
+                        $sheet->setCellValue('K' . $numrow, $rbapk['ket']);
+                    } else {
+                        $flag2 = TRUE;
+                    }
+                    $numrow++;
+                }
+            }
+        }
         // end ambil data
 
         // ini style tablenya
