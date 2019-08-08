@@ -64,7 +64,6 @@ class Laporan_model extends CI_Model
         }
         // $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
         $res = $this->db->get();
-        print_r($this->db->last_query());
         return $res->result_array();
     }
 
