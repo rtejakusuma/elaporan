@@ -103,7 +103,7 @@ class laporan_rb_quick_wins extends CI_Controller
         $sheet->getStyle('A:O')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
         $sheet->getStyle('A3:O6')->getFont()->setBold(true);
-  
+
         // ini atur header
         $sheet->setCellValue('A1', 'Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Madiun per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Prioritas yang Terkait dengan Peningkatan Kualitas Pelayanan Fokus Pelayanan Quick Wins')
             ->mergeCells('A1:O1');
@@ -152,7 +152,7 @@ class laporan_rb_quick_wins extends CI_Controller
         $sheet->setCellValue('N4', 'TIDAK TERCAPAI')
             ->mergeCells('N4:N5');
 
-        
+
         $sheet->setCellValue('A6', '1');
         $sheet->setCellValue('B6', '2');
         $sheet->setCellValue('C6', '3');
@@ -174,25 +174,71 @@ class laporan_rb_quick_wins extends CI_Controller
         $numrow = 7;
 
         //for buat data
-        // $counter = 0;
-        // foreach ($this->data['fetch']['p'] as $prog) {
-        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
-        //     $counter += 1;
+        $counter = 0;
+        foreach ($this->data['fetch']['rbqw'] as $rbqw) {
+            $rowspan_rincian = 0;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)
-        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
-        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+            foreach ($this->data['fetch']['rbqws'][$rbqw['id_rb_quick_wins']] as $rbqws) {
+                $rowspan_rincian += sizeof($this->data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]);
+            }
+            $rowspan_rincian -= 1;
+            if ($rowspan_rincian < 0) {
+                $rowspan_rincian = 0;
+            }
+            $counter += 1;
+            $flag = FALSE;
 
-        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
-        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
-        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
-        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
-        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
-        //         $numrow++;
-        //     }
-        //     // $numrow ++;
-        // }
+            $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
+            $sheet->setCellValue('B' . $numrow, $rbqw['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
+            foreach ($this->data['fetch']['rbqws'][$rbqw['id_rb_quick_wins']] as $rbqws) {
+                $rowspan_program = sizeof($this->data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]) - 1;
+                if ($rowspan_program < 0) {
+                    $rowspan_program = 0;
+                }
+
+                $sheet->setCellValue('C' . $numrow, $rbqws['sasaran'])->mergeCells('C' . $numrow . ':C' . ($numrow + $rowspan_program));
+                $sheet->setCellValue('D' . $numrow, $rbqws['nama_program'])->mergeCells('D' . $numrow . ':D' . ($numrow + $rowspan_program));
+
+                $flag2 = FALSE;
+                $rbqwk = reset($this->data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']]);
+                $sheet->setCellValue('E' . $numrow, $rbqwk['nama_kegiatan']);
+                $sheet->setCellValue('F' . $numrow, $rbqwk['indikator']);
+                $sheet->setCellValue('G' . $numrow, $rbqwk['target_output']);
+                $sheet->setCellValue('H' . $numrow, $rbqwk['realisasi_output']);
+                $sheet->setCellValue('I' . $numrow, $rbqwk['target_waktu']);
+                $sheet->setCellValue('J' . $numrow, $rbqwk['realisasi_waktu']);
+                $sheet->setCellValue('K' . $numrow, $rbqwk['target_anggaran']);
+                $sheet->setCellValue('L' . $numrow, $rbqwk['realisasi_anggaran']);
+                if ($rbqwk['capaian'] == '0') {
+                    $sheet->setCellValue('N' . $numrow, 'V');
+                } else {
+                    $sheet->setCellValue('M' . $numrow, 'V');
+                }
+                $sheet->setCellValue('O' . $numrow, $rbqwk['ket']);
+
+                foreach ($this->data['fetch']['rbqwk'][$rbqws['id_rb_quick_wins_sasaran']] as $rbqwk) {
+                    if ($flag2) {
+                        $sheet->setCellValue('E' . $numrow, $rbqwk['nama_kegiatan']);
+                        $sheet->setCellValue('F' . $numrow, $rbqwk['indikator']);
+                        $sheet->setCellValue('G' . $numrow, $rbqwk['target_output']);
+                        $sheet->setCellValue('H' . $numrow, $rbqwk['realisasi_output']);
+                        $sheet->setCellValue('I' . $numrow, $rbqwk['target_waktu']);
+                        $sheet->setCellValue('J' . $numrow, $rbqwk['realisasi_waktu']);
+                        $sheet->setCellValue('K' . $numrow, $rbqwk['target_anggaran']);
+                        $sheet->setCellValue('L' . $numrow, $rbqwk['realisasi_anggaran']);
+                        if ($rbqwk['capaian'] == '0') {
+                            $sheet->setCellValue('N' . $numrow, 'V');
+                        } else {
+                            $sheet->setCellValue('M' . $numrow, 'V');
+                        }
+                        $sheet->setCellValue('O' . $numrow, $rbqwk['ket']);
+                    } else {
+                        $flag2 = TRUE;
+                    }
+                    $numrow++;
+                }
+            }
+        }
         // end ambil data
 
         // ini style tablenya

@@ -103,7 +103,7 @@ class laporan_rb_zi_wbk extends CI_Controller
         $sheet->getStyle('A:N')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
         $sheet->getStyle('A3:N6')->getFont()->setBold(true);
-  
+
         // ini atur header
         $sheet->setCellValue('A1', 'Laporan Capaian Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Kota Madiun per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Prioritas Zona Integrasi Menuju Wilayah Bebas Korupsi (WBK)')
             ->mergeCells('A1:O1');
@@ -151,7 +151,7 @@ class laporan_rb_zi_wbk extends CI_Controller
         $sheet->setCellValue('M4', 'TIDAK TERCAPAI')
             ->mergeCells('M4:M5');
 
-        
+
         $sheet->setCellValue('A6', '1');
         $sheet->setCellValue('B6', '2');
         $sheet->setCellValue('C6', '3');
@@ -173,25 +173,57 @@ class laporan_rb_zi_wbk extends CI_Controller
         $numrow = 7;
 
         //for buat data
-        // $counter = 0;
-        // foreach ($this->data['fetch']['p'] as $prog) {
-        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
-        //     $counter += 1;
+        $counter = 0;
+        foreach ($this->data['fetch']['rbziwbks'] as $rbziwbks) {
+            $counter += 1;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)
-        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
-        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+            $rowspan_rincian = sizeof($this->data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']]);
+            $rowspan_rincian -= 1;
+            if ($rowspan_rincian < 0) {
+                $rowspan_rincian = 0;
+            }
 
-        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
-        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
-        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
-        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
-        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
-        //         $numrow++;
-        //     }
-        //     // $numrow ++;
-        // }
+            $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
+            $sheet->setCellValue('B' . $numrow, $rbziwbks['sasaran'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
+            $sheet->setCellValue('C' . $numrow, $rbziwbks['nama_program'])->mergeCells('C' . $numrow . ':C' . ($numrow + $rowspan_rincian));
+
+            $flag2 = FALSE;
+            foreach ($this->data['fetch']['rbziwbkk'][$rbziwbks['id_rb_zi_wbk_sasaran']] as $rbziwbkk) {
+                if ($flag2) {
+                    $sheet->setCellValue('D' . $numrow, $rbziwbkk['nama_kegiatan']);
+                    $sheet->setCellValue('E' . $numrow, $rbziwbkk['indikator']);
+                    $sheet->setCellValue('F' . $numrow, $rbziwbkk['target_output']);
+                    $sheet->setCellValue('G' . $numrow, $rbziwbkk['realisasi_output']);
+                    $sheet->setCellValue('H' . $numrow, $rbziwbkk['target_waktu']);
+                    $sheet->setCellValue('I' . $numrow, $rbziwbkk['realisasi_waktu']);
+                    $sheet->setCellValue('J' . $numrow, $rbziwbkk['target_anggaran']);
+                    $sheet->setCellValue('K' . $numrow, $rbziwbkk['realisasi_anggaran']);
+                    if ($rbziwbkk['capaian'] == '0') {
+                        $sheet->setCellValue('M' . $numrow, 'V');
+                    } else {
+                        $sheet->setCellValue('L' . $numrow, 'V');
+                    }
+                    $sheet->setCellValue('N' . $numrow, $rbziwbkk['ket']);
+                } else {
+                    $flag2 = TRUE;
+                    $sheet->setCellValue('D' . $numrow, $rbziwbkk['nama_kegiatan']);
+                    $sheet->setCellValue('E' . $numrow, $rbziwbkk['indikator']);
+                    $sheet->setCellValue('F' . $numrow, $rbziwbkk['target_output']);
+                    $sheet->setCellValue('G' . $numrow, $rbziwbkk['realisasi_output']);
+                    $sheet->setCellValue('H' . $numrow, $rbziwbkk['target_waktu']);
+                    $sheet->setCellValue('I' . $numrow, $rbziwbkk['realisasi_waktu']);
+                    $sheet->setCellValue('J' . $numrow, $rbziwbkk['target_anggaran']);
+                    $sheet->setCellValue('K' . $numrow, $rbziwbkk['realisasi_anggaran']);
+                    if ($rbziwbkk['capaian'] == '0') {
+                        $sheet->setCellValue('M' . $numrow, 'V');
+                    } else {
+                        $sheet->setCellValue('L' . $numrow, 'V');
+                    }
+                    $sheet->setCellValue('N' . $numrow, $rbziwbkk['ket']);
+                }
+                $numrow++;
+            }
+        }
         // end ambil data
 
         // ini style tablenya
