@@ -58,7 +58,6 @@ class Opd extends CI_Controller
 
     public function get_datalaporan_by_kodetipe($kode_tipe, $page_number, $from, $to)
     {
-        var_dump($from, $to);
         $this->load->model('laporan_model', 'laporan');
         return $this->laporan->get_laporan_by_kodetipe($kode_tipe, $page_number, $this->session->tempdata('id_opd'), 20, $from, $to);
     }
