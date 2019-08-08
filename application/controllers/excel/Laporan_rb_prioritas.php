@@ -200,38 +200,38 @@ class laporan_rb_prioritas extends CI_Controller
                 $sheet->setCellValue('D' . $numrow, $rbps['nama_program'])->mergeCells('D' . $numrow . ':D' . ($numrow + $rowspan_program));
 
                 $flag2 = FALSE;
-                $rbapk = reset($this->data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']]);
-                $sheet->setCellValue('E' . $numrow, $rbapk['nama_kegiatan']);
-                $sheet->setCellValue('F' . $numrow, $rbapk['indikator']);
-                $sheet->setCellValue('G' . $numrow, $rbapk['target_output']);
-                $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_output']);
-                $sheet->setCellValue('I' . $numrow, $rbapk['target_waktu']);
-                $sheet->setCellValue('J' . $numrow, $rbapk['realisasi_waktu']);
-                $sheet->setCellValue('K' . $numrow, $rbapk['target_anggaran']);
-                $sheet->setCellValue('L' . $numrow, $rbapk['realisasi_anggaran']);
-                if ($rbapk['capaian'] == '0') {
+                $rbpk = reset($this->data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']]);
+                $sheet->setCellValue('E' . $numrow, $rbpk['nama_kegiatan']);
+                $sheet->setCellValue('F' . $numrow, $rbpk['indikator']);
+                $sheet->setCellValue('G' . $numrow, $rbpk['target_output']);
+                $sheet->setCellValue('H' . $numrow, $rbpk['realisasi_output']);
+                $sheet->setCellValue('I' . $numrow, $rbpk['target_waktu']);
+                $sheet->setCellValue('J' . $numrow, $rbpk['realisasi_waktu']);
+                $sheet->setCellValue('K' . $numrow, $rbpk['target_anggaran']);
+                $sheet->setCellValue('L' . $numrow, $rbpk['realisasi_anggaran']);
+                if ($rbpk['capaian'] == '0') {
                     $sheet->setCellValue('N' . $numrow, 'V');
                 } else {
                     $sheet->setCellValue('M' . $numrow, 'V');
                 }
-                $sheet->setCellValue('O' . $numrow, $rbapk['ket']);
+                $sheet->setCellValue('O' . $numrow, $rbpk['ket']);
 
                 foreach ($this->data['fetch']['rbpk'][$rbps['id_rb_prioritas_sasaran']] as $rbpk) {
                     if ($flag2) {
-                        $sheet->setCellValue('E' . $numrow, $rbapk['nama_kegiatan']);
-                        $sheet->setCellValue('F' . $numrow, $rbapk['indikator']);
-                        $sheet->setCellValue('G' . $numrow, $rbapk['target_output']);
-                        $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_output']);
-                        $sheet->setCellValue('I' . $numrow, $rbapk['target_waktu']);
-                        $sheet->setCellValue('J' . $numrow, $rbapk['realisasi_waktu']);
-                        $sheet->setCellValue('K' . $numrow, $rbapk['target_anggaran']);
-                        $sheet->setCellValue('L' . $numrow, $rbapk['realisasi_anggaran']);
-                        if ($rbapk['capaian'] == '0') {
+                        $sheet->setCellValue('E' . $numrow, $rbpk['nama_kegiatan']);
+                        $sheet->setCellValue('F' . $numrow, $rbpk['indikator']);
+                        $sheet->setCellValue('G' . $numrow, $rbpk['target_output']);
+                        $sheet->setCellValue('H' . $numrow, $rbpk['realisasi_output']);
+                        $sheet->setCellValue('I' . $numrow, $rbpk['target_waktu']);
+                        $sheet->setCellValue('J' . $numrow, $rbpk['realisasi_waktu']);
+                        $sheet->setCellValue('K' . $numrow, $rbpk['target_anggaran']);
+                        $sheet->setCellValue('L' . $numrow, $rbpk['realisasi_anggaran']);
+                        if ($rbpk['capaian'] == '0') {
                             $sheet->setCellValue('N' . $numrow, 'V');
                         } else {
                             $sheet->setCellValue('M' . $numrow, 'V');
                         }
-                        $sheet->setCellValue('O' . $numrow, $rbapk['ket']);
+                        $sheet->setCellValue('O' . $numrow, $rbpk['ket']);
                     } else {
                         $flag2 = TRUE;
                     }
