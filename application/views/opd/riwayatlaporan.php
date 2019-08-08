@@ -12,20 +12,20 @@
     <div class="x_content">
       <?php if (isset($data['nama_laporan'])) { ?>
         <div id='search box' style='border: 1px solid; padding: 5px'>
-          <form action="<?php echo base_url('opd/riwayatlaporan'); ?>" method="get">
+          <form action="<?= base_url('opd/f/' . $data['kode_tipe']) ?>" method="post">
             <table>
               <tbody>
                 <tr>
                   <td class="col-sm-1">
                     <center>
                       <strong> Waktu Awal </strong> <br />
-                      <input type="date" name="start_date" value="<?php echo date('Y-m-d'); ?>">
+                      <input type="date" name="from" value="<?php echo date('Y-m-d'); ?>">
                     </center>
                   </td>
                   <td class="col-sm-1">
                     <center>
                       <strong> Waktu Akhir </strong> <br />
-                      <input type="date" name="end_date" value="<?php echo date('Y-m-d'); ?>">
+                      <input type="date" name="to" value="<?php echo date('Y-m-d'); ?>">
                     </center>
                   </td>
                   <td class="col-sm-1">
