@@ -99,7 +99,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->getStyle('A:L')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
         $sheet->getStyle('A3:K6')->getFont()->setBold(true);
-  
+
         // ini atur header
         $sheet->setCellValue('A1', 'Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Tahun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Delapan Area Perubahan (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
             ->mergeCells('A1:L1');
@@ -138,7 +138,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->setCellValue('J4', 'TIDAK TERCAPAI')
             ->mergeCells('J4:J5');
 
-        
+
         $sheet->setCellValue('A6', '1');
         $sheet->setCellValue('B6', '2');
         $sheet->setCellValue('C6', '3');
@@ -157,23 +157,62 @@ class laporan_rb_area_perubahan extends CI_Controller
 
         //for buat data
         // $counter = 0;
-        // foreach ($this->data['fetch']['p'] as $prog) {
-        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
-        //     $counter += 1;
+        // foreach ($this->data['fetch']['rbap'] as $rbap) {
+        //     $rowspan_rincian = 0;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)
-        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
-        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
-
-        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
-        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
-        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
-        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
-        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
-        //         $numrow++;
+        //     foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+        //         $rowspan_rincian += sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
         //     }
-        //     // $numrow ++;
+        //     $rowspan_rincian -= 1;
+        //     $counter += 1;
+        //     $flag = FALSE;
+
+        //     $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
+        //     $sheet->setCellValue('B' . $numrow, $rbap['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
+        //     foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+        //         $rowspan_program = sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+        //         $rowspan_program -= 1;
+
+        //         $sheet->setCellValue('D' . $numrow, $rbaps['nama_program'])->mergeCells('D' . $numrow . ':D' . ($numrow + $rowspan_program));
+
+        //         $flag2 = FALSE;
+        //         $rbapk = reset($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+        //         echo "
+        //                 <td><center>$rbapk[nama_kegiatan]</center></td>
+        //                 <td><center>$rbapk[target_waktu]</center></td>
+        //                 <td><center>$rbapk[realisasi_waktu]</center></td>
+        //                 <td><center>$rbapk[target_anggaran]</center></td>
+        //                 <td><center>$rbapk[realisasi_anggaran]</center></td>";
+        //         // var_dump($rbapk['capaian']); die();
+        //         if ($rbapk['capaian'] == '0') {
+        //             echo "<td></td><td>V</td>";
+        //         } else {
+        //             echo "<td>V</td><td></td>";
+        //         }
+
+        //         echo "<td><center>$rbapk[ket]</center></td>
+        //                 ";
+        //         echo "</tr>";
+        //         foreach ($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']] as $rbapk) {
+        //             if ($flag2) {
+        //                 echo "<tr>
+        //                             <td><center>$rbapk[nama_kegiatan]</center></td>
+        //                             <td><center>$rbapk[target_waktu]</center></td>
+        //                             <td><center>$rbapk[realisasi_waktu]</center></td>
+        //                             <td><center>$rbapk[target_anggaran]</center></td>
+        //                             <td><center>$rbapk[realisasi_anggaran]</center></td>";
+        //                 if ($rbapk['capaian'] == '0') {
+        //                     echo "<td></td><td>V</td>";
+        //                 } else {
+        //                     echo "<td>V</td><td></td>";
+        //                 }
+        //                 echo "<td><center>$rbapk[ket]</center></td>
+        //                         </tr>";
+        //             } else {
+        //                 $flag2 = TRUE;
+        //             }
+        //         }
+        //     }
         // }
         // end ambil data
 
