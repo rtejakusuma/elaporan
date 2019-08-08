@@ -60,7 +60,7 @@ class Laporan_model extends CI_Model
 
         if ($from && $to) {
             $this->db->where('DATE(laporan.created_at) >=', $from);
-            $this->db->where('DATE(laporan.created_at) <', $to);
+            $this->db->where('DATE(laporan.created_at) <=', $to);
         }
         // $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
         $res = $this->db->get();
