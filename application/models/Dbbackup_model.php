@@ -39,17 +39,16 @@ class Dbbackup_model extends CI_Model
 
     public function restore_laporan($formname, $id_laporan, $tm)
     {
-        $query = file_get_contents(APPPATH . "../migration/$formname/$tm");
-        $this->db->trans_start();
+        $query = file_get_contents(APPPATH . "../migration/$formname/$tm.sql");
+        // $this->db->trans_start();
         $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
         foreach(explode(';', $query) as $q){
-            // echo $q . "</br>";
-            // $q = strval($q);
-            $this->db->simple_query($q);
-            
+            if($q == '' || $q == NULL) continue;
+            // echo $q . "<br/>";
+            echo $this->db->query($q);
         }
         
-        $this->db->trans_complete();
+        // $this->db->trans_complete();
     }
 
 }
