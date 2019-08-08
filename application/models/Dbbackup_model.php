@@ -29,7 +29,7 @@ class Dbbackup_model extends CI_Model
         $towrite = "SET foreign_key_checks = 0;";
         foreach(explode(';', $backup) as $query){
             if(strpos($query,'INSERT INTO') !== false){
-                $towrite = $towrite . $query . ';';
+                $towrite = $towrite . str_replace('INSERT INTO', 'INSERT IGNORE INTO', $query) . ';';
             }
         }
         $towrite = $towrite . "SET foreign_key_checks = 1;";
@@ -39,11 +39,24 @@ class Dbbackup_model extends CI_Model
 
     public function restore_laporan($formname, $id_laporan, $tm)
     {
-        $query = file_get_contents(APPPATH . "../migration/$formname/$tm.sql");
-        $this->db->trans_begin();
+        $err;
+        $this->db->trans_start();
         $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
-        $this->db->query($query);
-        $this->db->trans_commit();
+        exec("mysql -upecel -ppecelgratis testing < ". APPPATH . "../migration/$formname/$tm.sql", $err);
+        // var_dump( $err );
+        $this->db->trans_complete();
+        // $query = file_get_contents(APPPATH . "../migration/$formname/$tm.sql");
+        // $this->db->trans_start();
+        // $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
+        // foreach(explode(';', $query) as $q){
+        //     // echo $q . "</br>";
+        //     // $q = strval($q);
+        //     $this->db->query($q);
+        //     break;
+        // }
+        // // mysqli_multi_queries($query);
+        
+        // $this->db->trans_complete();
     }
 
 }
