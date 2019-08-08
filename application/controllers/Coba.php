@@ -14,6 +14,18 @@ class Coba extends CI_Controller
         // die();
     }
 
+    public function testbackup($formname, $id_laporan)
+    {
+        $this->load->model('dbbackup_model', 'dbb');
+        $this->dbb->backup_laporan($formname, $id_laporan);
+    }
+
+    public function testrestore($formname, $id_laporan, $tm)
+    {
+        $this->load->model('dbbackup_model', 'dbb');
+        $this->dbb->restore_laporan($formname, $id_laporan, $tm);
+    }
+
     public function inaproc()
     {
         $this->load->model('api_inaproc_rup_model', 'a');
