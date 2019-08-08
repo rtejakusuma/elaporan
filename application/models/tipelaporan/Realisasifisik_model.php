@@ -144,6 +144,10 @@ class Realisasifisik_model extends CI_Model
                 $datalaporan = $datalaporan[0];
             }
 
+            // BACKUP PREVIOUS STATE
+            
+            // END
+
             $fet = $this->sipp->api_fetch_data($id_opd, $datalaporan, date('Y', strtotime($data['tgl'])));
 
             if ($fet != NULL && sizeof($fet) > 0) {
