@@ -144,6 +144,19 @@ class Pemantauantindaklanjut_model extends CI_Model
                 $this->db->where_in('id_temuan', $del)->delete('hasil_temuan');
                 activity_log();
             }
+        } elseif ($table == 'tambah_hasil_temuan') {
+            $data_insert = [
+                'id_temuan' => $data['id_temuan'],
+                'rekomendasi' => $data['rekomendasi'],
+                'status_rekomendasi' => $data['status_rekomendasi'],
+                'tindak_lanjut' => $data['tindak_lanjut'],
+                'status_tindak_lanjut' => $data['status_tindak_lanjut'],
+                'catatan_bpk' => $data['catatan_bpk']
+            ];
+            if ($data_insert != NULL) {
+                $this->db->insert('hasil_temuan', $data_insert);
+                activity_log();
+            }
         }
         $this->db->trans_complete();
     }
