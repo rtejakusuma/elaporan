@@ -30,10 +30,10 @@
                 <tr>
                     <td><center>$counter</center></td>
                     <td>" . ucwords($pk['nama_opd']) . "</td>
-                    <td><center>$pk[permasalahan_kelembagaan]</center></td>
-                    <td><center>$pk[dasar_hukum]</center></td>
-                    <td><center>$pk[usulan]</center></td>
-                    <td><center>$pk[ket]</center></td>
+                    <td>$pk[permasalahan_kelembagaan]</td>
+                    <td>$pk[dasar_hukum]</td>
+                    <td>$pk[usulan]</td>
+                    <td>$pk[ket]</td>
                 </tr>
             ";
         }
