@@ -15,7 +15,7 @@ class Apicheck extends CI_Controller
     {
         $this->load->model('api_sipp_model');
         $data = $this->api_sipp_model->get_api($key, $val);
-        $json = json_encode($arr, JSON_PRETTY_PRINT);
+        $json = json_encode($data, JSON_PRETTY_PRINT);
 
         printf('Data<pre>%s</pre>', $json);
     }
@@ -44,15 +44,16 @@ class Apicheck extends CI_Controller
         $this->load->model('api_sikd_model', 'p');
         $kode_skpd = $this->opd->get_idemov($id_opd);
         // var_dump($kode_skpd); die();
-        if($kode_skpd == NULL) return NULL;
+        if ($kode_skpd == NULL) return NULL;
         $fet = $this->p->get_lra($tahun, $kode_skpd);
-        printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT)); die();
+        printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT));
+        die();
         $ret = array();
-        if($fet != NULL){
-            foreach($fet as $f){
-                
+        if ($fet != NULL) {
+            foreach ($fet as $f) {
+
                 array_push($ret, array(
-                    'kode_kegiatan' => $id_laporan.'-'.$f['KODE_PROGRAM'].'-'.$f['KODE_KEGIATAN'],
+                    'kode_kegiatan' => $id_laporan . '-' . $f['KODE_PROGRAM'] . '-' . $f['KODE_KEGIATAN'],
                     'realisasi' => $f['REALISASI']
                 ));
             }
