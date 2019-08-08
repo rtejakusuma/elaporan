@@ -10,6 +10,23 @@ class Apicheck extends CI_Controller
         echo '<a href="' . base_url('apicheck/sikd_lra/2019/1.18.01') . '">SIKD LRA</a><br>';
         echo '<a href="' . base_url('apicheck/ekin_pegawai') . '">MASTER AUDITOR</a><br>';
         echo '<a href="' . base_url('apicheck/ekin_pegawai/16') . '">AUDITOR BY ID</a><br>';
+        echo '<a href="' . base_url('apicheck/cek_kode_opd_sipp') . '">CEK KODE EBUD OPD DARI SIPP</a><br>';
+    }
+
+    public function cek_kode_opd_sipp()
+    {
+        $key = 'tahun';
+        $val = '2019';
+        $this->load->model('api_sipp_model');
+        $data = $this->api_sipp_model->get_api($key, $val);
+        $data = $data['data'];
+
+        print_r($data);
+        // foreach ($data as $key => $row) {
+        //     print_r($row['tahun']);
+        //     print_r($row['kode_opd']);
+        //     print_r($row['nama_opd']);
+        // }
     }
     public function sipp($key = 'tahun', $val = '2020')
     {

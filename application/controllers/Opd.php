@@ -49,15 +49,18 @@ class Opd extends CI_Controller
         $this->load->model('tipelaporan_model', 'ts');
         $this->data['nama_laporan'] = ucwords(str_replace('_', ' ', $formname));
         $this->data['kode_tipe'] = $formname;
-        $this->data['list_laporan'] = $this->get_datalaporan_by_kodetipe($formname, $page_number);
+        $from = $this->input->post('from');
+        $to = $this->input->post('to');
+        $this->data['list_laporan'] = $this->get_datalaporan_by_kodetipe($formname, $page_number, $from, $to);
         $this->data['contents'] = APPPATH . "views/opd/riwayatlaporan.php";
         $this->load->view('template/index_opd', array('data' => $this->data));
     }
 
-    public function get_datalaporan_by_kodetipe($kode_tipe, $page_number)
+    public function get_datalaporan_by_kodetipe($kode_tipe, $page_number, $from, $to)
     {
+        var_dump($from, $to);
         $this->load->model('laporan_model', 'laporan');
-        return $this->laporan->get_laporan_by_kodetipe($kode_tipe, $page_number, $this->session->tempdata('id_opd'));
+        return $this->laporan->get_laporan_by_kodetipe($kode_tipe, $page_number, $this->session->tempdata('id_opd'), 20, $from, $to);
     }
 
     public function c($formname) // create new laporan by kode_tipe

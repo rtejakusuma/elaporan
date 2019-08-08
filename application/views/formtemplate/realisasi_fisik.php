@@ -31,6 +31,21 @@
                                          <input value='<?php echo $data['fetch']['rf']['tgl']; ?>' type="hidden" name="tgl">
                                          <button type="submit" class="btn btn-warning" onclick="return confirm('Update data dari SIPP?');"><i class="fa fa-refresh"></i> Refresh</button>
                                      </form>
+
+                                     <?php
+                                        $logs_root = './migration/realisasi_fisik/';
+                                        if ($handle = opendir($logs_root)) {
+
+                                            while (false !== ($entry = readdir($handle))) {
+
+                                                if ($entry != "." && $entry != ".." && $entry != "index.html") {
+                                                    $filepath = $logs_root . $entry;
+                                                    echo '<a href="#">' . $entry . '</a><br>';
+                                                }
+                                            }
+
+                                            closedir($handle);
+                                        } ?>
                                      <div class="" role="tabpanel" data-example-id="togglable-tabs">
                                          <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
                                              <li role="presentation" class="active"><a href="#tab_content1" id="home-tab" role="tab" data-toggle="tab" aria-expanded="true">Realisasi Fisik</a>
@@ -159,11 +174,12 @@
 
 
                                                                  <!-- <div class="form-group">
-                                                                     <label for="keluaran_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php //echo $data['keluaran_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan[]">
-                                                                     </div>
-                                                                 </div> -->
+                                                                                                     <label for="keluaran_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Keluaran Satuan</label>
+                                                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                         <input value="<?php //echo $data['keluaran_satuan']; 
+                                                                                                                        ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="keluaran_satuan[]">
+                                                                                                     </div>
+                                                                                                 </div> -->
 
                                                                  <div class="form-group">
                                                                      <label for="hasil_indikator" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Indikator</label>
@@ -193,11 +209,12 @@
                                                                      </div>
                                                                  </div>
                                                                  <!-- <div class="form-group">
-                                                                     <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
-                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
-                                                                         <input value="<?php //echo $data['hasil_satuan']; ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
-                                                                     </div>
-                                                                 </div> -->
+                                                                                                     <label for="hasil_satuan" class="control-label col-md-3 col-sm-3 col-xs-12">Hasil Satuan</label>
+                                                                                                     <div class="col-md-6 col-sm-6 col-xs-12">
+                                                                                                         <input value="<?php //echo $data['hasil_satuan']; 
+                                                                                                                        ?>" disabled class="form-control col-md-7 col-xs-12" type="text" name="hasil_satuan[]">
+                                                                                                     </div>
+                                                                                                 </div> -->
                                                              </div>
 
                                                              <?php echo "<br/>";

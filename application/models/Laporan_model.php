@@ -49,15 +49,22 @@ class Laporan_model extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function get_laporan_by_kodetipe($kode_tipe, $page_number = 10, $id_opd, $limit = 20)
+    public function get_laporan_by_kodetipe($kode_tipe, $page_number = 10, $id_opd, $limit = 20, $from = NULL, $to = NULL)
     {
+
         $this->db->select("laporan.id_laporan,$kode_tipe.*")
             ->from('laporan')
             ->join($kode_tipe, "laporan.id_laporan = $kode_tipe.id_laporan")
             ->where("laporan.id_opd", $id_opd)
             ->limit($limit);
+
+        if ($from && $to) {
+            $this->db->where('DATE(laporan.created_at) >=', $from);
+            $this->db->where('DATE(laporan.created_at) <', $to);
+        }
         // $res = $this->db->get_where($kode_tipe, ['id_opd' => $id_opd], $limit, ($page_number-1) * $limit);
         $res = $this->db->get();
+        print_r($this->db->last_query());
         return $res->result_array();
     }
 
