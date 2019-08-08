@@ -8,12 +8,14 @@ class monitoring_kelembagaan extends CI_Controller
 {
     public $data;
     public $spreadsheet;
+    public $wizard;
 
     public function __construct()
     {
         parent::__construct();
         $this->load->model('laporan_model', 'laporan');
         $this->spreadsheet = new Spreadsheet();
+        $this->wizard = new PhpOffice\PhpSpreadsheet\Helper\Html;
     }
 
     public function index($formname, $id_laporan)
@@ -101,8 +103,10 @@ class monitoring_kelembagaan extends CI_Controller
             $sheet->setCellValue('A' . $numrow, $counter);
             $sheet->setCellValue('B' . $numrow, ucwords($pk['nama_opd']));
             $sheet->setCellValue('C' . $numrow, $pk['permasalahan_kelembagaan']);
-            $sheet->setCellValue('D' . $numrow, $pk['dasar_hukum']);
-            $sheet->setCellValue('E' . $numrow, $pk['usulan']);
+            $dasar_hukum = $this->wizard->toRichTextObject($pk['dasar_hukum']);
+            $sheet->setCellValue('D' . $numrow, $dasar_hukum);
+            $usulan = $this->wizard->toRichTextObject($pk['usulan']);
+            $sheet->setCellValue('E' . $numrow, $usulan);
             $sheet->setCellValue('F' . $numrow, $pk['ket']);
 
             $numrow++;

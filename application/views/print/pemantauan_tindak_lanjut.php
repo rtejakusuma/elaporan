@@ -64,49 +64,49 @@
             $flag = FALSE;
             echo "
                  <tr>
-                     <td rowspan='$rowspan'><center>$counter</center></td>
-                     <td rowspan='$rowspan'><center>$temuan[nama_temuan]</center></td>
+                     <td rowspan='$rowspan' style='vertical-align: top;'><center>$counter</center></td>
+                     <td rowspan='$rowspan' style='vertical-align: top;text-align: left;'>$temuan[nama_temuan]</td>
              ";
             foreach ($data['fetch']['htemuan'][$temuan['id_temuan']] as $kg) {
-                if($flag) echo "<tr>";
-                echo "<td><center>$kg[rekomendasi]</center></td>";
+                if ($flag) echo "<tr>";
+                echo "<td style='vertical-align: top;text-align: left;'>$kg[rekomendasi]</td>";
                 if ($kg['status_rekomendasi'] == 'TS') {
-                    echo "  <td><center>TS</center></td>
+                    echo "  <td style='vertical-align: top;'><center>TS</center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                 } elseif ($kg['status_rekomendasi'] == 'TB') {
                     echo "  <td><center></center></td>
-                                    <td><center>TB</center></td>
+                                    <td style='vertical-align: top;'><center>TB</center></td>
                                     <td><center></center></td>";
                 } elseif ($kg['status_rekomendasi'] == 'TT') {
                     echo "  <td><center></center></td>
                                     <td><center></center></td>
-                                    <td><center>TT</center></td>";
+                                    <td style='vertical-align: top;'><center>TT</center></td>";
                 } else {
                     echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                 }
-                echo "<td><center>$kg[tindak_lanjut]</center></td>";
+                echo "<td style='vertical-align: top;text-align: left;'>$kg[tindak_lanjut]</td>";
                 if ($kg['status_tindak_lanjut'] == 'TS') {
-                    echo "  <td><center>TS</center></td>
+                    echo "  <td><center style='vertical-align: top;'>TS</center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                 } elseif ($kg['status_tindak_lanjut'] == 'TB') {
                     echo "  <td><center></center></td>
-                                    <td><center>TB</center></td>
+                                    <td><center style='vertical-align: top;'>TB</center></td>
                                     <td><center></center></td>";
                 } elseif ($kg['status_tindak_lanjut'] == 'TT') {
                     echo "  <td><center></center></td>
                                     <td><center></center></td>
-                                    <td><center>TT</center></td>";
+                                    <td><center style='vertical-align: top;'>TT</center></td>";
                 } else {
                     echo "  <td><center></center></td>
                                     <td><center></center></td>
                                     <td><center></center></td>";
                 }
                 echo "
-                        <td><center>$kg[catatan_bpk]</center></td>
+                        <td style='vertical-align: top;text-align: left;'>$kg[catatan_bpk]</td>
                     </tr>";
                 $flag = TRUE;
             }

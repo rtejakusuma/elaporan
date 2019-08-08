@@ -85,27 +85,23 @@ class realisasi_fisik extends CI_Controller
         // ini stylenya
         $sheet->getStyle('1')->getAlignment()->setHorizontal('center');
         $sheet->getStyle('1')->getAlignment()->setVertical('center');
-        $sheet->getStyle('A7:A9')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('A7:A9')->getAlignment()->setVertical('center');
-        $sheet->getStyle('C7:C9')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('C7:C9')->getAlignment()->setVertical('center');
-        $sheet->getStyle('D:L')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('B7:B9')->getAlignment()->setHorizontal('center');
-        $sheet->getStyle('B7:B9')->getAlignment()->setVertical('center');
-        $sheet->getStyle('D:L')->getAlignment()->setVertical('center');
+        $sheet->getStyle('E:L')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A:L')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A7:L9')->getAlignment()->setHorizontal('center');
+        $sheet->getStyle('A7:L9')->getAlignment()->setVertical('center');
+        $sheet->getStyle('A7:L9')->getFont()->setBold(true);
         $sheet->getStyle('A:L')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
-        $sheet->getStyle('A7:L9')->getFont()->setBold(true);
-  
+
         // ini atur header
         $sheet->setCellValue('A1', 'LAPORAN REALISASI FISIK DAN KEUANGAN SERTA CAPAIAN KINERJA TAHUN ' . date('Y', strtotime($this->data['fetch']['rf']['tgl'])))
             ->mergeCells('A1:L1');
-        $sheet->setCellValue('A3', 'UNIT ORGANISASI');
-        $sheet->setCellValue('C3', ':' . $this->data['nama_opd']);
-        $sheet->setCellValue('A4', 'BULAN');
-        $sheet->setCellValue('C4', ':' . date('M', strtotime($this->data['fetch']['rf']['tgl'])));
-        $sheet->setCellValue('A5', 'TAHUN ANGGARAN');
-        $sheet->setCellValue('C5', ':'  . date('Y', strtotime($this->data['fetch']['rf']['tgl'])));
+        $sheet->setCellValue('A3', 'UNIT ORGANISASI')->mergeCells('A3:B3');
+        $sheet->setCellValue('C3', ': ' . $this->data['nama_opd']);
+        $sheet->setCellValue('A4', 'BULAN')->mergeCells('A4:B4');
+        $sheet->setCellValue('C4', ': ' . date('M', strtotime($this->data['fetch']['rf']['tgl'])));
+        $sheet->setCellValue('A5', 'TAHUN ANGGARAN')->mergeCells('A5:B5');
+        $sheet->setCellValue('C5', ': '  . date('Y', strtotime($this->data['fetch']['rf']['tgl'])));
 
 
         // ini tablenya
@@ -135,7 +131,7 @@ class realisasi_fisik extends CI_Controller
         $sheet->setCellValue('I8', 'ANGGARAN');
         $sheet->setCellValue('J8', 'REALISASI');
         $sheet->setCellValue('K8', '%');
-        
+
         $sheet->setCellValue('A9', '1');
         $sheet->setCellValue('B9', '2');
         $sheet->setCellValue('C9', '3');
@@ -152,27 +148,100 @@ class realisasi_fisik extends CI_Controller
         // // td numrow 7
         $numrow = 10;
 
-        //for buat data
-        // $counter = 0;
-        // foreach ($this->data['fetch']['p'] as $prog) {
-        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
-        //     $counter += 1;
+        $counter = 0;
+        foreach ($this->data['fetch']['prog'] as $prog) {
+            $prog_rowspan = (2 * sizeof($this->data['fetch']['kg'][$prog['kode_program']]));
+            $counter += 1;
+            $capaian_realisasi_kinerja = "";
+            $capaian_realisasi_keuangan = 0;
+            $persen_capaian = 0;
+            $capaian_realisasi_kinerja = 0;
+            $capaian_anggaran_keuangan = 0;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)
-        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
-        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+            $t_kinerja = 0;
+            $r_kinerja = 0;
+            $r_keuangan = 0;
+            foreach ($this->data['fetch']['kg'][$prog['kode_program']] as $sum) {
+                $t_kinerja += (floatval($sum['hasil_target_ppas_final']) + floatval($sum['keluaran_target_ppas_final']));
+                $r_kinerja += (floatval($sum['hasil_realisasi_kinerja']) + floatval($sum['keluaran_realisasi_kinerja']));
+                $r_keuangan += intval($sum['realisasi_keuangan']);
+                $capaian_anggaran_keuangan += intval($sum['pagu_ppas_final']);
+            }
+            $capaian_realisasi_kinerja = floatval($r_kinerja / $t_kinerja) * 100.0;
+            $capaian_realisasi_keuangan = $r_keuangan;
 
-        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
-        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
-        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
-        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
-        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
-        //         $numrow++;
-        //     }
-        //     // $numrow ++;
-        // }
-        // end ambil data
+            if ($prog['capaian_target_ppas_final'] != '0') {
+                $persen_capaian = round(floatval($capaian_realisasi_kinerja) / floatval($prog['capaian_target_ppas_final']) * 100.0, 2);
+            }
+
+            $persen_capaian_keuangan = 0;
+            if ($capaian_anggaran_keuangan != 0) {
+                $persen_capaian_keuangan = floatval($capaian_realisasi_keuangan) / floatval($capaian_anggaran_keuangan) * 100.0;
+            }
+            $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
+            $sheet->setCellValue('B' . $numrow, ucwords($prog['nama_program']))->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+            $sheet->setCellValue('C' . $numrow, '');
+            $sheet->setCellValue('D' . $numrow, $prog['capaian_indikator']);
+            $sheet->setCellValue('E' . $numrow, $prog['capaian_satuan']);
+            $sheet->setCellValue('F' . $numrow, $prog['capaian_target_ppas_final']);
+            $sheet->setCellValue('G' . $numrow, round($capaian_realisasi_kinerja, 2));
+            $sheet->setCellValue('H' . $numrow, round($persen_capaian, 2));
+            $sheet->setCellValue('I' . $numrow, $capaian_anggaran_keuangan);
+            $sheet->setCellValue('J' . $numrow, $capaian_realisasi_keuangan);
+            $sheet->setCellValue('K' . $numrow, round($persen_capaian_keuangan, 2));
+            $sheet->setCellValue('L' . $numrow, '')->mergeCells('L' . $numrow . ':L' . ($numrow + $prog_rowspan));
+
+            $numrow++;
+            $persen_keluaran = "0";
+            $persen_hasil = "0";
+            foreach ($this->data['fetch']['kg'][$prog['kode_program']] as $kg) {
+                $keluaran_realisasi_kinerja = "0";
+                $realisasi_keuangan = "0";
+                $hasil_realisasi_kinerja = "0";
+                $persen_keluaran = "0";
+                $persen_hasil = "0";
+
+                // $hasil_realisasi_keuangan = "";
+                if (isset($kg['keluaran_realisasi_kinerja'])) $keluaran_realisasi_kinerja = $kg['keluaran_realisasi_kinerja'];
+                if (isset($kg['realisasi_keuangan'])) $realisasi_keuangan = $kg['realisasi_keuangan'];
+                if (isset($kg['hasil_realisasi_kinerja'])) $hasil_realisasi_kinerja = $kg['hasil_realisasi_kinerja'];
+                // if(isset($kg['hasil_realisasi_keuangan'])) $hasil_realisasi_keuangan = $kg['hasil_realisasi_keuangan'];
+                if ($kg['keluaran_target_ppas_final'] != '0') {
+                    $persen_keluaran = round(floatval($keluaran_realisasi_kinerja) / floatval($kg['keluaran_target_ppas_final']) * 100.0, 2);
+                }
+                if ($kg['hasil_target_ppas_final'] != '0') {
+                    $persen_hasil = round(floatval($hasil_realisasi_kinerja) / floatval($kg['hasil_target_ppas_final']) * 100.0, 2);
+                }
+                $persen_keuangan = 0;
+                if (floatval($kg['pagu_ppas_final']) != 0) {
+                    $persen_keuangan = floatval($realisasi_keuangan) / floatval($kg['pagu_ppas_final']) * 100.0;
+                }
+
+                $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_kegiatan']))->mergeCells('C' . $numrow . ':C' . ($numrow + 1));
+
+                $wizard = new PhpOffice\PhpSpreadsheet\Helper\Html;
+
+                $richText = $wizard->toRichTextObject('<strong><u>Output:</u></strong>' . ucwords($kg['keluaran_indikator']));
+                $sheet->setCellValue('D' . $numrow, $richText);
+                $richText = $wizard->toRichTextObject('<strong><u>Output:</u></strong>' . ucwords($kg['hasil_indikator']));
+                $sheet->setCellValue('D' . ($numrow + 1),  $richText);
+                $sheet->setCellValue('E' . $numrow, $kg['keluaran_satuan']);
+                $sheet->setCellValue('F' . $numrow, $kg['keluaran_target_ppas_final']);
+                $sheet->setCellValue('G' . $numrow, $keluaran_realisasi_kinerja);
+                $sheet->setCellValue('H' . $numrow, round($persen_keluaran));
+                $sheet->setCellValue('I' . $numrow, $kg['pagu_ppas_final'])->mergeCells('I' . $numrow . ':I' . ($numrow + 1));
+                $sheet->setCellValue('J' . $numrow, $realisasi_keuangan)->mergeCells('J' . $numrow . ':J' . ($numrow + 1));
+                $sheet->setCellValue('K' . $numrow, round($persen_keuangan))->mergeCells('K' . $numrow . ':K' . ($numrow + 1));
+
+                $numrow++;
+
+                $sheet->setCellValue('E' . $numrow, $kg['hasil_satuan']);
+                $sheet->setCellValue('F' . $numrow, $kg['hasil_target_ppas_final']);
+                $sheet->setCellValue('G' . $numrow, $kg['hasil_realisasi_kinerja']);
+                $sheet->setCellValue('H' . $numrow, round($persen_hasil, 2));
+                $numrow++;
+            }
+        }
 
         // ini style tablenya
         $sheet->getPageSetup()->setFitToWidth(1);

@@ -48,7 +48,7 @@ class Api_sipp_model extends CI_Model
 
     public function api_fetch_data($id_opd_param, $laporan_baru, $tahun)
     {
-        if($laporan_baru == NULL){
+        if ($laporan_baru == NULL) {
             return NULL;
         }
         $this->load->model('opd_model', 'opd');

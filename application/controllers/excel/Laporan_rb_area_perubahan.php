@@ -99,7 +99,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->getStyle('A:L')->getAlignment()->setWrapText(true);
         $sheet->getStyle('A1')->getFont()->setBold(true);
         $sheet->getStyle('A3:K6')->getFont()->setBold(true);
-  
+
         // ini atur header
         $sheet->setCellValue('A1', 'Laporan Rencana Aksi Reformasi Birokrasi Pemerintah Daerah Tahun ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' pada Delapan Area Perubahan (per 30 Desember ' . date('Y', strtotime($this->data['fetch']['rb']['tgl'])) . ' )')
             ->mergeCells('A1:L1');
@@ -138,7 +138,7 @@ class laporan_rb_area_perubahan extends CI_Controller
         $sheet->setCellValue('J4', 'TIDAK TERCAPAI')
             ->mergeCells('J4:J5');
 
-        
+
         $sheet->setCellValue('A6', '1');
         $sheet->setCellValue('B6', '2');
         $sheet->setCellValue('C6', '3');
@@ -156,25 +156,58 @@ class laporan_rb_area_perubahan extends CI_Controller
         $numrow = 7;
 
         //for buat data
-        // $counter = 0;
-        // foreach ($this->data['fetch']['p'] as $prog) {
-        //     $prog_rowspan = (sizeof($this->data['fetch']['drp'][$prog['id_pegawai']]) - 1);
-        //     $counter += 1;
+        $counter = 0;
+        foreach ($this->data['fetch']['rbap'] as $rbap) {
+            $rowspan_rincian = 0;
 
-        //     $sheet->setCellValue('A' . $numrow, $counter)
-        //         ->mergeCells('A' . $numrow . ':A' . ($numrow + $prog_rowspan));
-        //     $sheet->setCellValue('B' . $numrow, ucwords($prog['nama']))
-        //         ->mergeCells('B' . $numrow . ':B' . ($numrow + $prog_rowspan));
+            foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+                $rowspan_rincian += sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+            }
+            $rowspan_rincian -= 1;
+            $counter += 1;
+            $flag = FALSE;
 
-        //     foreach ($this->data['fetch']['drp'][$prog['id_pegawai']] as $kg) {
-        //         $sheet->setCellValue('C' . $numrow, ucwords($kg['nama_paket_kerja']));
-        //         $sheet->setCellValue('D' . $numrow, $kg['pagu']);
-        //         $sheet->setCellValue('E' . $numrow, ucwords($kg['jabatan']));
-        //         $sheet->setCellValue('F' . $numrow, ucwords($kg['ket']));
-        //         $numrow++;
-        //     }
-        //     // $numrow ++;
-        // }
+            $sheet->setCellValue('A' . $numrow, $counter)->mergeCells('A' . $numrow . ':A' . ($numrow + $rowspan_rincian));
+            $sheet->setCellValue('B' . $numrow, $rbap['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
+            foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
+                $rowspan_program = sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]) - 1;
+
+                $sheet->setCellValue('C' . $numrow, $rbaps['nama_program'])->mergeCells('C' . $numrow . ':C' . ($numrow + $rowspan_program));
+
+                $flag2 = FALSE;
+                $rbapk = reset($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
+                $sheet->setCellValue('D' . $numrow, $rbapk['nama_kegiatan']);
+                $sheet->setCellValue('E' . $numrow, $rbapk['target_waktu']);
+                $sheet->setCellValue('F' . $numrow, $rbapk['realisasi_waktu']);
+                $sheet->setCellValue('G' . $numrow, $rbapk['target_anggaran']);
+                $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_anggaran']);
+                if ($rbapk['capaian'] == '0') {
+                    $sheet->setCellValue('J' . $numrow, 'V');
+                } else {
+                    $sheet->setCellValue('I' . $numrow, 'V');
+                }
+                $sheet->setCellValue('K' . $numrow, $rbapk['ket']);
+
+                foreach ($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']] as $rbapk) {
+                    if ($flag2) {
+                        $sheet->setCellValue('D' . $numrow, $rbapk['nama_kegiatan']);
+                        $sheet->setCellValue('E' . $numrow, $rbapk['target_waktu']);
+                        $sheet->setCellValue('F' . $numrow, $rbapk['realisasi_waktu']);
+                        $sheet->setCellValue('G' . $numrow, $rbapk['target_anggaran']);
+                        $sheet->setCellValue('H' . $numrow, $rbapk['realisasi_anggaran']);
+                        if ($rbapk['capaian'] == '0') {
+                            $sheet->setCellValue('J' . $numrow, 'V');
+                        } else {
+                            $sheet->setCellValue('I' . $numrow, 'V');
+                        }
+                        $sheet->setCellValue('K' . $numrow, $rbapk['ket']);
+                    } else {
+                        $flag2 = TRUE;
+                    }
+                    $numrow++;
+                }
+            }
+        }
         // end ambil data
 
         // ini style tablenya

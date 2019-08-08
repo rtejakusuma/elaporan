@@ -78,6 +78,7 @@ class Opd extends CI_Controller
         if ($newid == NULL) {
             redirect("opd/e/$formname", 'refresh');
         }
+        $this->set_flash('Tambah', 'Berhasil menambah ' . ucwords(str_replace('_', ' ', $formname)), 'success');
         redirect("opd/e/$formname/$newid", "refresh");
     }
 
@@ -123,12 +124,14 @@ class Opd extends CI_Controller
     {
         $this->load->model("tipelaporan/" . str_replace('_', '', $formname) . "_model", 'd');
         $this->d->delete_data($id_laporan);
+        $this->set_flash('Hapus', 'Berhasil menghapus ' . ucwords(str_replace('_', ' ', $formname)) . ' dengan id ' . $id_laporan, 'warning');
         redirect("opd/f/$formname", 'refresh');
     }
 
     public function thanks($formname, $id_laporan)
     {
 
+        $this->set_flash('Update', 'Berhasil mengubah ' . ucwords(str_replace('_', ' ', $formname)) . ' dengan id ' . $id_laporan, 'info');
         redirect("opd/e/$formname/$id_laporan", 'refresh');
     }
 

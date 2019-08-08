@@ -101,7 +101,7 @@
                                      <div class="form-group">
                                        <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                                        <div class="col-md-6 col-sm-6 col-xs-12">
-                                         <textarea class="form-control col-md-7 col-xs-12" type="text" name="ket[]" style="height:100px"><?= $pkdata['ket'] ?></textarea>
+                                         <textarea id="editor" class="form-control col-md-7 col-xs-12" type="text" name="ket[]" style="height:100px"><?= $pkdata['ket'] ?></textarea>
                                        </div>
                                      </div>
                                      <div class="form-group">
@@ -182,7 +182,7 @@
                    <div class="form-group">
                      <label for="ket" class="control-label col-md-3 col-sm-3 col-xs-12">Keterangan</label>
                      <div class="col-md-6 col-sm-6 col-xs-12">
-                       <textarea class="form-control col-md-7 col-xs-12" type="text" name="ket" style="height:100px"></textarea>
+                       <textarea id="editor" class="form-control col-md-7 col-xs-12" type="text" name="ket" style="height:100px"></textarea>
                      </div>
                    </div>
 
