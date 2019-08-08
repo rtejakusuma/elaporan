@@ -52,7 +52,7 @@ class Dbbackup_model extends CI_Model
             // echo $q . "</br>";
             // $q = strval($q);
             $this->db->query($q);
-            break;
+            
         }
         // mysqli_multi_queries($query);
         
