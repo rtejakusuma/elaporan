@@ -18,7 +18,6 @@ class Api_sipp_model extends CI_Model
         $key = 'b64149c3ea867959207e933bb686c9ab41d3370b';
         $url = "http://eplanning.madiunkota.go.id/api/ws/ppas/final?$key=$value";
 
-        print_r($url);
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -49,7 +48,7 @@ class Api_sipp_model extends CI_Model
 
     public function api_fetch_data($id_opd_param, $laporan_baru, $tahun)
     {
-        if($laporan_baru == NULL){
+        if ($laporan_baru == NULL) {
             return NULL;
         }
         $this->load->model('opd_model', 'opd');

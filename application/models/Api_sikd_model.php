@@ -16,15 +16,16 @@ class Api_sikd_model extends CI_Model
         $this->load->model('opd_model', 'opd');
         $kode_skpd = $this->opd->get_idemov($id_opd);
         // var_dump($kode_skpd); die();
-        if($kode_skpd == NULL) return NULL;
+        if ($kode_skpd == NULL) return NULL;
         $fet = $this->get_lra($tahun, $kode_skpd);
-        printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT)); die();
+        printf("<pre>%s</pre>", json_encode($fet, JSON_PRETTY_PRINT));
+        die();
         $ret = array();
-        if($fet != NULL){
-            foreach($fet as $f){
-                
+        if ($fet != NULL) {
+            foreach ($fet as $f) {
+
                 array_push($ret, array(
-                    'kode_kegiatan' => $id_laporan.'-'.$f['KODE_PROGRAM'].'-'.$f['KODE_KEGIATAN'],
+                    'kode_kegiatan' => $id_laporan . '-' . $f['KODE_PROGRAM'] . '-' . $f['KODE_KEGIATAN'],
                     'realisasi' => $f['REALISASI']
                 ));
             }
@@ -35,7 +36,6 @@ class Api_sikd_model extends CI_Model
     public function get_serapan($tahun = '2019', $tw = '1')
     {
         $url = 'sikd.madiunkota.net/serapan/serapan' . $tahun . '/api/' . $tw;
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [
@@ -64,7 +64,6 @@ class Api_sikd_model extends CI_Model
     public function get_lra($tahun, $kode_skpd)
     {
         $url = 'sikd.madiunkota.net/lra' . $tahun . '/lra/api/' . $kode_skpd;
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [

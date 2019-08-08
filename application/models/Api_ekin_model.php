@@ -6,7 +6,6 @@ class Api_ekin_model extends CI_Model
     public function get_api()
     {
         $url = "https://ekinerja.madiunkota.go.id/sync/sync_pegawai.php?user=sync_ekin&pass=sync_ekin_hamdiramadhan";
-
         $curl = curl_init();
 
         curl_setopt_array($curl, [

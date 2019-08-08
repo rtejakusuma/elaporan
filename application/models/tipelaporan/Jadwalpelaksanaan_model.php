@@ -93,17 +93,19 @@ class Jadwalpelaksanaan_model extends CI_Model
         if ($table == 'jadwal_pelaksanaan_opd') {
             if ($data != NULL) {
                 // new data
-                for ($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
-                    array_push($insdata, array(
-                        'id_laporan' => $id_laporan,
-                        'id_opd' => $data['new']['id_opd'][$i],
-                        'jenis_pengawasan' => $data['new']['jenis_pengawasan'][$i],
-                        'rmp' => $data['new']['rmp'][$i],
-                        'rpl' => $data['new']['rpl'][$i],
-                        'output_lhp' => $data['new']['output_lhp'][$i],
-                        'hari_pengawasan' => $data['new']['hari_pengawasan'][$i],
-                        'keterangan' => $data['new']['keterangan'][$i]
-                    ));
+                if (isset($data['new'])) {
+                    for ($i = 0; $i < sizeof(reset($data['new'])); $i += 1) {
+                        array_push($insdata, array(
+                            'id_laporan' => $id_laporan,
+                            'id_opd' => $data['new']['id_opd'][$i],
+                            'jenis_pengawasan' => $data['new']['jenis_pengawasan'][$i],
+                            'rmp' => $data['new']['rmp'][$i],
+                            'rpl' => $data['new']['rpl'][$i],
+                            'output_lhp' => $data['new']['output_lhp'][$i],
+                            'hari_pengawasan' => $data['new']['hari_pengawasan'][$i],
+                            'keterangan' => $data['new']['keterangan'][$i]
+                        ));
+                    }
                 }
                 if ($insdata != NULL) {
                     $this->db->insert_batch('jadwal_pelaksanaan_opd', $insdata);
