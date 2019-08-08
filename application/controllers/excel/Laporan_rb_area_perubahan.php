@@ -164,6 +164,9 @@ class laporan_rb_area_perubahan extends CI_Controller
                 $rowspan_rincian += sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]);
             }
             $rowspan_rincian -= 1;
+            if ($rowspan_rincian < 0) {
+                $rowspan_rincian = 0;
+            }
             $counter += 1;
             $flag = FALSE;
 
@@ -171,7 +174,9 @@ class laporan_rb_area_perubahan extends CI_Controller
             $sheet->setCellValue('B' . $numrow, $rbap['rincian'])->mergeCells('B' . $numrow . ':B' . ($numrow + $rowspan_rincian));
             foreach ($this->data['fetch']['rbaps'][$rbap['id_rb_area_perubahan']] as $rbaps) {
                 $rowspan_program = sizeof($this->data['fetch']['rbapk'][$rbaps['id_rb_area_perubahan_program']]) - 1;
-
+                if ($rowspan_program < 0) {
+                    $rowspan_program = 0;
+                }
                 $sheet->setCellValue('C' . $numrow, $rbaps['nama_program'])->mergeCells('C' . $numrow . ':C' . ($numrow + $rowspan_program));
 
                 $flag2 = FALSE;
