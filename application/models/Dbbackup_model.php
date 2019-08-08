@@ -39,24 +39,24 @@ class Dbbackup_model extends CI_Model
 
     public function restore_laporan($formname, $id_laporan, $tm)
     {
-        $err;
-        $this->db->trans_start();
-        $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
-        exec("mysql -upecel -ppecelgratis testing < ". APPPATH . "../migration/$formname/$tm.sql", $err);
-        // var_dump( $err );
-        $this->db->trans_complete();
-        // $query = file_get_contents(APPPATH . "../migration/$formname/$tm.sql");
+        // $err;
         // $this->db->trans_start();
         // $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
-        // foreach(explode(';', $query) as $q){
-        //     // echo $q . "</br>";
-        //     // $q = strval($q);
-        //     $this->db->query($q);
-        //     break;
-        // }
-        // // mysqli_multi_queries($query);
-        
+        // exec("mysql -upecel -ppecelgratis testing < ". APPPATH . "../migration/$formname/$tm.sql", $err);
+        // // var_dump( $err );
         // $this->db->trans_complete();
+        $query = file_get_contents(APPPATH . "../migration/$formname/$tm.sql");
+        $this->db->trans_start();
+        $this->db->delete('realisasi_fisik', "id_laporan = $id_laporan");
+        foreach(explode(';', $query) as $q){
+            // echo $q . "</br>";
+            // $q = strval($q);
+            $this->db->query($q);
+            break;
+        }
+        // mysqli_multi_queries($query);
+        
+        $this->db->trans_complete();
     }
 
 }
