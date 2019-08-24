@@ -1,2 +1,2 @@
 <?php
-echo "Pilih Menu di kiri untuk mulai";
+echo "Klik Menu di kiri untuk mulai";
