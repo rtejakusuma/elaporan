@@ -1,34 +1,35 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Ikm_model extends CI_Model
+class Laporankenaikanpangkat_model extends CI_Model
 {
     public function get_data($id_laporan = NULL, $id_opd = NULL)
     {
         $ret = NULL;
         $temp = NULL;
-        $this->db->select('ikm.*, opd.id_opd, opd.nama_opd')->from('ikm');
+        $this->db->select('laporan_kenaikan_pangkat.*, laporan_kenaikan_pangkat.id_opd,
+         opd.nama_opd')->from('laporan_kenaikan_pangkat');
         if ($id_opd != NULL) { // per opd
-            $this->db->where('ikm.id_opd', $id_opd);
+            $this->db->where('laporan_kenaikan_pangkat.id_opd', $id_opd);
         }
         if ($id_laporan != NULL) { // laporan spesifik
-            $this->db->where('ikm.id_laporan', $id_laporan);
+            $this->db->where('laporan_kenaikan_pangkat.id_laporan', $id_laporan);
         }
-        $this->db->join('ikm_opd', 'ikm.id_laporan = ikm_opd.id_laporan')
-            ->join('opd', 'opd.id_opd = ikm_opd.id_opd');
+        $this->db->join('laporan_kenaikan_pangkat_opd', 'laporan_kenaikan_pangkat.id_laporan = laporan_kenaikan_pangkat_opd.id_laporan')
+            ->join('opd', 'opd.id_opd = laporan_kenaikan_pangkat_opd.id_opd');
         return $this->db->get()->result_array();
     }
 
     public function get_data_by_id($id)
     {
-        $ikmdata = $this->db->get_where('ikm', ['id_laporan' => $id])->result_array()[0];
-        $ikmopddata = $this->db->select('ikm_opd.*, opd.nama_opd')
-            ->from('ikm_opd')
-            ->join('opd', 'opd.id_opd = ikm_opd.id_opd')
-            ->where('ikm_opd.id_laporan', $id)
+        $lkpdata = $this->db->get_where('laporan_kenaikan_pangkat', ['id_laporan' => $id])->result_array()[0];
+        $lkpopddata = $this->db->select('laporan_kenaikan_pangkat_opd.*, opd.nama_opd')
+            ->from('laporan_kenaikan_pangkat_opd')
+            ->join('opd', 'opd.id_opd = laporan_kenaikan_pangkat_opd.id_opd')
+            ->where('laporan_kenaikan_pangkat_opd.id_laporan', $id)
             ->order_by('nama_opd')
             ->get()->result_array();
-        return array('ikm' => $ikmdata, 'ikmopd' => $ikmopddata);
+        return array('laporankenaikanpangkat' => $lkpdata, 'lkpopd' => $lkpopddata);
     }
 
     public function init_insert($id_opd, $datalaporan, $data)
@@ -48,7 +49,7 @@ class Ikm_model extends CI_Model
         $this->db->order_by('updated_at', 'DESC');
         $datalaporan = $this->db->get_where('laporan', ['id_opd' => $datalaporan['id_opd'], 'id_tipe' => $datalaporan['id_tipe'],])->result_array()[0];
         $datalaporan['tgl'] = $data['tgl'];
-        $this->db->insert('ikm', $datalaporan);
+        $this->db->insert('laporan_kenaikan_pangkat', $datalaporan);
         activity_log();
         // insert second etc. table data here
         // no api
@@ -71,18 +72,20 @@ class Ikm_model extends CI_Model
                 array_push($insdata, array(
                     'id_laporan' => $id_laporan,
                     'id_opd' => $data['id_opd'][$i],
-                    'predikat' => $data['predikat'][$i],
-                    'nilai' => $data['nilai'][$i]
+                    'nomor' => $data['no'][$i],
+                    'nama' => $data['nama'][$i]
+                    'NIP' => $data['nip'][$i]
+                    'Jabatan' => $data['jabatan'][$i]
                 ));
             }
         }
         $this->db->trans_begin();
-        if ($table == 'ikm_opd') {
-            $this->db->delete('ikm_opd', "id_laporan = $id_laporan");
+        if ($table == 'laporan_kenaikan_pangkat_opd') {
+            $this->db->delete('laporan_kenaikan_pangkat_opd', "id_laporan = $id_laporan");
             activity_log();
 
             if ($data != NULL) {
-                $this->db->insert_batch('ikm_opd', $insdata);
+                $this->db->insert_batch('laporan_kenaikan_pangkat_opd', $insdata);
                 activity_log();
             }
         }
@@ -93,7 +96,7 @@ class Ikm_model extends CI_Model
     {
         $this->db->trans_begin();
         $this->db->where('id_laporan', $id_laporan);
-        $this->db->delete('ikm');
+        $this->db->delete('laporan_kenaikan_pangkat');
         activity_log();
         $this->db->where('id_laporan', $id_laporan);
         $this->db->delete('laporan');
