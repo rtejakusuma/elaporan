@@ -157,16 +157,30 @@
 </div>\
 \
 <div class='form-group'>\
-<label for='predikat' class='control-label col-md-3 col-sm-3 col-xs-12'>Predikat</label>\
+<label for='no' class='control-label col-md-3 col-sm-3 col-xs-12'>no</label>\
 <div class='col-md-6 col-sm-6 col-xs-12'>\
-  <input class='form-control col-md-7 col-xs-12' type='text' name='predikat[]' >\
+  <input class='form-control col-md-7 col-xs-12' type='text' name='no[]' >\
 </div>\
 </div>\
 \
 <div class='form-group'>\
-<label for='nilai' class='control-label col-md-3 col-sm-3 col-xs-12'>Nilai</label>\
+<label for='nama' class='control-label col-md-3 col-sm-3 col-xs-12'>nama</label>\
 <div class='col-md-6 col-sm-6 col-xs-12'>\
-  <input class='form-control col-md-7 col-xs-12' type='text' name='nilai[]' >\
+  <input class='form-control col-md-7 col-xs-12' type='text' name='nama[]' >\
+</div>\
+</div>\
+\
+<div class='form-group'>\
+<label for='NIP' class='control-label col-md-3 col-sm-3 col-xs-12'>NIP</label>\
+<div class='col-md-6 col-sm-6 col-xs-12'>\
+  <input class='form-control col-md-7 col-xs-12' type='text' name='NIP[]' >\
+</div>\
+</div>\
+\
+<div class='form-group'>\
+<label for='Jabatan' class='control-label col-md-3 col-sm-3 col-xs-12'>Jabatan</label>\
+<div class='col-md-6 col-sm-6 col-xs-12'>\
+  <input class='form-control col-md-7 col-xs-12' type='text' name='Jabatan[]' >\
 </div>\
 </div>\
 \

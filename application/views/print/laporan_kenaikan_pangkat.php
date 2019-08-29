@@ -4,8 +4,8 @@
     <div id='header-laporan'>
         <center>
             <h2>
-                NILAI INDEKS KEPUASAAN MASYARAKAT (IKM)<br />
-                TAHUN <?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?> DI LINGKUNGAN PEMERINTAH KOTA MADIUN<br />
+                LAPORAN KENAIKAN PANGKAT<br />
+                TAHUN <?php echo date('Y', strtotime($data['fetch']['laporan_kenaikan_pangkat']['tgl'])); ?> DI LINGKUNGAN PEMERINTAH KOTA MADIUN<br />
                 <?php echo $data['nama_opd']; ?><br />
             </h2>
         </center>
@@ -14,23 +14,27 @@
         <!-- Table header -->
         <tr>
             <th>No.</th>
-            <th>PERANGKAT DAERAH</th>
+            <th>Nama</th>
+            <th>NIP</th>
+            <th>Jabatan</th>
+            <th>Instansi</th>
             <th>NILAI TAHUN <?php echo date('Y', strtotime($data['fetch']['ikm']['tgl'])); ?> </th>
-            <th>PREDIKAT</th>
         </tr>
         <!-- End of Table Header -->
         <!-- Table Contents -->
         <?php
         $counter = 0;
-        foreach ($data['fetch']['ikmopd'] as $ikm) {
+        foreach ($data['fetch']['lkpopd'] as $lkp) {
 
             $counter += 1;
             echo "
                  <tr>
                      <td ><center>$counter</center></td>
-                     <td >" . ucwords($ikm['nama_opd']) . "</center></td>
-                     <td><center>$ikm[nilai]</center></td>
-                     <td><center>$ikm[predikat]</center></td>
+                     <td >" . ucwords($lkp['nama_opd']) . "</center></td>
+                     <td><center>$laporan_kenaikan_pangkat[nama]</center></td>
+                     <td><center>$laporan_kenaikan_pangkat[NIP]</center></td>
+                     <td><center>$laporan_kenaikan_pangkat[Jabatan]</center></td>
+                     <td><center>$laporan_kenaikan_pangkat[Instansi]</center></td>
                  </tr>
              ";
         }
