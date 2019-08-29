@@ -101,7 +101,7 @@ class Opd extends CI_Controller
             $formname == "ikm" || $formname == "sotk" || $formname == 'tatalaksana' ||
             $formname == "pelayanan_publik" || $formname == "monitoring_kelembagaan" ||
             $formname == "rekap_tender" || $formname == "jadwal_pelaksanaan" || 
-            $formname == "kenaikan_pangkat" || $formname == "laporankegiatan" 
+            $formname == "laporan_kenaikan_pangkat" || $formname == "laporankegiatan" 
         ) {
             $this->load->model('opd_model', 'opd');
             $this->data['opsi_opd'] = $this->opd->gets();
