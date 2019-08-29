@@ -76,6 +76,7 @@ class Laporankenaikanpangkat_model extends CI_Model
                     'nama' => $data['nama'][$i]
                     'NIP' => $data['nip'][$i]
                     'Jabatan' => $data['jabatan'][$i]
+                    'Instansi' => $data['Instansi'][$i]
                 ));
             }
         }
